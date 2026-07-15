@@ -1,0 +1,273 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:codexcraft:schemas:asset-provenance-registry:v1",
+  "title": "CodexCraft distributed asset provenance registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "registryVersion", "scope", "rules"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "minLength": 1
+    },
+    "registryVersion": {
+      "const": 1
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pathList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "uniqueItems": true
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["roots", "files", "nonAssetExclusions", "embeddedAssets"],
+      "properties": {
+        "roots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "include"],
+            "properties": {
+              "path": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "include": {
+                "$ref": "#/$defs/pathList"
+              }
+            }
+          }
+        },
+        "files": {
+          "$ref": "#/$defs/pathList"
+        },
+        "nonAssetExclusions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "paths",
+              "justification",
+              "expectedPathCount",
+              "pathInventorySha256"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "paths": {
+                "$ref": "#/$defs/pathList"
+              },
+              "justification": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "expectedPathCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "pathInventorySha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        },
+        "embeddedAssets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "container", "description", "containerSha256"],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "container": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "description": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "containerSha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "category",
+        "coverage",
+        "sourceOrAuthor",
+        "provenanceUrl",
+        "declaredLicense",
+        "evidence",
+        "knownRightsHolder",
+        "attribution",
+        "redistribution",
+        "commercialUse",
+        "transformationStatus",
+        "status",
+        "justification",
+        "notes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "category": {
+          "enum": ["art", "audio", "document", "font", "model", "texture", "trademark", "video"]
+        },
+        "coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["paths", "embeddedAssetIds", "expectedPathCount", "pathInventorySha256"],
+          "properties": {
+            "paths": {
+              "$ref": "#/$defs/pathList"
+            },
+            "excludePaths": {
+              "$ref": "#/$defs/pathList"
+            },
+            "embeddedAssetIds": {
+              "$ref": "#/$defs/pathList"
+            },
+            "expectedPathCount": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "pathInventorySha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "sourceOrAuthor": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "provenanceUrl": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "declaredLicense": {
+          "enum": [
+            "CC0-1.0",
+            "CC-BY-3.0",
+            "CC-BY-4.0",
+            "MIT",
+            "OFL-1.1",
+            "LicenseRef-CraftPix-Premium",
+            "NOASSERTION"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "reference", "description"],
+            "properties": {
+              "type": {
+                "enum": [
+                  "repository-file",
+                  "source-url",
+                  "embedded-metadata",
+                  "source-comment",
+                  "manual-review"
+                ]
+              },
+              "reference": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "description": {
+                "$ref": "#/$defs/nonEmptyString"
+              }
+            }
+          }
+        },
+        "knownRightsHolder": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "attribution": {
+          "enum": ["not-required", "required", "notice-required", "trademark-guidelines", "unknown"]
+        },
+        "redistribution": {
+          "$ref": "#/$defs/rightsDecision"
+        },
+        "commercialUse": {
+          "$ref": "#/$defs/rightsDecision"
+        },
+        "transformationStatus": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "unmodified",
+              "converted",
+              "optimized",
+              "generated",
+              "commissioned",
+              "procedural",
+              "composite",
+              "unknown"
+            ]
+          }
+        },
+        "status": {
+          "enum": [
+            "reusable",
+            "attribution-required",
+            "replace-before-release",
+            "blocked-pending-proof",
+            "project-owned-proof-required",
+            "purchased-license-non-transferable",
+            "unknown",
+            "third-party-trademark"
+          ]
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      }
+    },
+    "rightsDecision": {
+      "enum": ["allowed", "prohibited", "licensee-only", "unknown"]
+    }
+  }
+}

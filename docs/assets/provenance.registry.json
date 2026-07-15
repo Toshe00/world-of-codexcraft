@@ -1,0 +1,1171 @@
+{
+  "$schema": "./provenance.schema.json",
+  "registryVersion": 1,
+  "scope": {
+    "roots": [
+      {
+        "path": "public",
+        "include": ["**/*"]
+      },
+      {
+        "path": "build",
+        "include": ["**/*"]
+      },
+      {
+        "path": "android/app/src/main/res",
+        "include": ["**/*"]
+      },
+      {
+        "path": "ios/App/App/Assets.xcassets",
+        "include": ["**/*"]
+      }
+    ],
+    "files": ["woc_community.png", "worldofclaude.png"],
+    "nonAssetExclusions": [
+      {
+        "id": "public-documentation",
+        "paths": ["public/**/*.md", "public/**/*.txt"],
+        "justification": "Repository documentation and crawler text are distributed as text, not as artistic assets.",
+        "expectedPathCount": 16,
+        "pathInventorySha256": "82f9ad9ce1dddd8881da3f787cffd81c3e3de067ed31bfff3319b047d3da9000"
+      },
+      {
+        "id": "public-pages",
+        "paths": ["public/**/*.html"],
+        "justification": "Static HTML pages are application source documents. Embedded third-party marks are inventoried separately below.",
+        "expectedPathCount": 9,
+        "pathInventorySha256": "7a8a00d551e3a8e2521b34ea6220efd80e50d832fac5459debbf1b71257da0b8"
+      },
+      {
+        "id": "public-generated-metadata",
+        "paths": ["public/**/*.json", "public/**/*.xml", "public/**/*.webmanifest"],
+        "justification": "Generated manifests, mappings, sitemap data, and web app metadata are evidence or packaging metadata rather than artistic assets.",
+        "expectedPathCount": 13,
+        "pathInventorySha256": "bc888f5ba6aca55a346619614c94ec4fe2a66f6075164181cf8294285510c203"
+      },
+      {
+        "id": "electron-packaging-metadata",
+        "paths": ["build/*.plist"],
+        "justification": "Electron entitlement property lists are packaging policy, not artistic assets.",
+        "expectedPathCount": 2,
+        "pathInventorySha256": "f48573808d53e98712141f587c16b6ef8360a6b0e689892f992c394226ab8b98"
+      },
+      {
+        "id": "android-packaging-metadata",
+        "paths": [
+          "android/app/src/main/res/layout/*.xml",
+          "android/app/src/main/res/mipmap-anydpi-v26/*.xml",
+          "android/app/src/main/res/values/*.xml",
+          "android/app/src/main/res/xml/*.xml"
+        ],
+        "justification": "Layouts, adaptive icon descriptors, values, and file-provider declarations are Android packaging metadata. The two drawable vector artworks remain in scope.",
+        "expectedPathCount": 7,
+        "pathInventorySha256": "f1ec1c81757a13fb8b1c3fdcc91ba21879f5355f7bae8c176d084825bb683f19"
+      },
+      {
+        "id": "ios-asset-catalog-metadata",
+        "paths": ["ios/App/App/Assets.xcassets/**/Contents.json"],
+        "justification": "Asset catalog Contents.json files describe packaging slots and are not independent artistic assets.",
+        "expectedPathCount": 3,
+        "pathInventorySha256": "879617c8461fbde7358409b2fa1b91f73a5915b344c834e3f53fbf066b4171ae"
+      }
+    ],
+    "embeddedAssets": [
+      {
+        "id": "ui-icons-game-icons",
+        "container": "src/ui/ui_icons.ts",
+        "description": "The game-icons.net SVG path set embedded in the UI icon registry.",
+        "containerSha256": "f0c17935feb85fff873ec6ae8bc4c5722d2ffc1f539ffa48f14c965216ae9ef7"
+      },
+      {
+        "id": "ui-icons-platform-marks",
+        "container": "src/ui/ui_icons.ts",
+        "description": "Discord, Twitch, X, Kick, and YouTube marks embedded in the UI icon registry.",
+        "containerSha256": "f0c17935feb85fff873ec6ae8bc4c5722d2ffc1f539ffa48f14c965216ae9ef7"
+      },
+      {
+        "id": "links-page-platform-marks",
+        "container": "public/links.html",
+        "description": "Third-party social platform marks embedded in the public links page.",
+        "containerSha256": "2e965a8ac9efb70a78fe8ff85493ed211ba498ad58e37ad23edc6c3858eebf85"
+      },
+      {
+        "id": "support-page-discord-mark",
+        "container": "public/support.html",
+        "description": "The Discord mark embedded in the public support page.",
+        "containerSha256": "905bb92268e1e730dacf6f138387ff3580a581f8d0e06f188f285a3b6cf57717"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "id": "render-third-party-cc0-packs",
+      "category": "art",
+      "coverage": {
+        "paths": [
+          "public/models/**/*",
+          "public/textures/terrain/*.jpg",
+          "public/env/*.hdr",
+          "public/vfx/*.png"
+        ],
+        "excludePaths": [
+          "public/models/props/cracked_grave.glb",
+          "public/models/props/destructible_wall.glb",
+          "public/models/props/dungeon_door_arch.glb",
+          "public/models/props/fallback_crate.glb",
+          "public/models/props/mailbox_pillar.glb",
+          "public/models/props/marsh_bell_gallows.glb",
+          "public/models/props/marsh_corpse_candle.glb",
+          "public/models/props/marsh_dead_tree.glb",
+          "public/models/props/marsh_plank_bridge.glb",
+          "public/models/props/marsh_reed_cluster.glb",
+          "public/models/props/marsh_shrine_fragment.glb",
+          "public/models/props/marsh_sluice_post.glb",
+          "public/models/props/yumi_brazier_stand.glb",
+          "public/models/props/yumi_torch_handle.glb",
+          "public/models/resources/gather_herb_cluster.glb",
+          "public/models/resources/gather_ore_vein.glb",
+          "public/models/resources/gather_wood_pile.glb",
+          "public/models/quest/*.glb",
+          "public/models/creatures/chicken_cow.glb",
+          "public/models/creatures/greyjaw.glb",
+          "public/models/creatures/leaping_fish.glb",
+          "public/models/creatures/rabbit_critter.glb",
+          "public/models/creatures/songbird_critter.glb",
+          "public/models/creatures/spider_egg_sac.glb",
+          "public/models/creatures/squirrel_critter.glb",
+          "public/models/creatures/stone_cantor.glb",
+          "public/models/creatures/tolling_bell.glb",
+          "public/models/creatures/wild_boar.glb",
+          "public/models/creatures/wolf_basic.glb",
+          "public/models/creatures/yumi_cat.glb",
+          "public/models/chars/players/barbarian.glb",
+          "public/models/chars/players/druid.glb",
+          "public/models/chars/players/knight.glb",
+          "public/models/chars/players/mage.glb",
+          "public/models/chars/players/paladin.glb",
+          "public/models/chars/players/ranger.glb",
+          "public/models/chars/players/rogue.glb",
+          "public/models/chars/players/rogue_hooded.glb",
+          "public/models/chars/players/Mech/**/*",
+          "public/models/weapons/adv_*.glb",
+          "public/models/weapons/ashspark_shiv.glb",
+          "public/models/weapons/astravyr_fang_of_the_fallen_star.glb",
+          "public/models/weapons/brasscap_hatchet.glb",
+          "public/models/weapons/brasscrown_walking_staff.glb",
+          "public/models/weapons/cinderbrand.glb",
+          "public/models/weapons/cinderlatch.glb",
+          "public/models/weapons/cosmarch_spire_of_the_endless_void.glb",
+          "public/models/weapons/emberbite.glb",
+          "public/models/weapons/emberwish_mote_of_the_dying_sun.glb",
+          "public/models/weapons/emberwrought_wand.glb",
+          "public/models/weapons/encore_the_second_falling_star.glb",
+          "public/models/weapons/fletcher_s_guild_bow.glb",
+          "public/models/weapons/forgeheart_stave.glb",
+          "public/models/weapons/frostbite.glb",
+          "public/models/weapons/glaciersplit.glb",
+          "public/models/weapons/guildmark_arming_sword.glb",
+          "public/models/weapons/guildmark_dirk.glb",
+          "public/models/weapons/hoarfrost_vigil.glb",
+          "public/models/weapons/ice_fang.glb",
+          "public/models/weapons/iron_field_hammer.glb",
+          "public/models/weapons/knotted_oak_stave.glb",
+          "public/models/weapons/lacquered_rod.glb",
+          "public/models/weapons/meteorlatch_the_sky_s_last_judgment.glb",
+          "public/models/weapons/notched_woodaxe.glb",
+          "public/models/weapons/peeled_birch_wand.glb",
+          "public/models/weapons/rimecrusher.glb",
+          "public/models/weapons/rude_awakening_sword.glb",
+          "public/models/weapons/shard_of_everwinter.glb",
+          "public/models/weapons/simple_farmhand_crossbow.glb",
+          "public/models/weapons/skyrender_the_firmament_s_wound.glb",
+          "public/models/weapons/smoulderfall.glb",
+          "public/models/weapons/solheim_last_light_of_the_dawn.glb",
+          "public/models/weapons/starfall_judgment_of_the_heavens.glb",
+          "public/models/weapons/tempered_flanged_mace.glb",
+          "public/models/weapons/whittler_s_knife.glb",
+          "public/models/weapons/winterbite.glb",
+          "public/models/weapons/wrought_iron_longsword.glb",
+          "public/models/weapons/emberfang_sword.glb",
+          "public/models/weapons/purple_*.glb",
+          "public/models/weapons/redskull_*.glb",
+          "public/models/dungeon/delve_entrance_2.glb",
+          "public/models/dungeon/delve_entrance_2_base_color.png"
+        ],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 898,
+        "pathInventorySha256": "5d234d72a7ef14fd3d68fdd81c01e9f5f20ece5f3b2d60ec2171325e8638aa77"
+      },
+      "sourceOrAuthor": "Kay Lousberg, Quaternius, Kenney, loafbrr, ambientCG, and Poly Haven",
+      "provenanceUrl": null,
+      "declaredLicense": "CC0-1.0",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "The asset credit table identifies the included source packs and their CC0 declarations."
+        },
+        {
+          "type": "repository-file",
+          "reference": "License.txt",
+          "description": "The bundled Complete KayKit Collection v5 notice declares CC0 for the covered KayKit collection."
+        },
+        {
+          "type": "repository-file",
+          "reference": "scripts/assets/specs/biome_packs.json",
+          "description": "Build outputs connect the distributed biome files to named source packs."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "not-required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["converted", "optimized"],
+      "status": "reusable",
+      "justification": "Repository credits and build specs explicitly connect these outputs to packs declared CC0.",
+      "notes": [
+        "Keep upstream pack notices and source archives with release records even where attribution is not required."
+      ]
+    },
+    {
+      "id": "threejs-water-normal-maps",
+      "category": "texture",
+      "coverage": {
+        "paths": ["public/textures/water/*.jpg"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 3,
+        "pathInventorySha256": "f380533871588c10229391063f938fc711413141f863fdd78f9b6160b0f9d4f3"
+      },
+      "sourceOrAuthor": "three.js authors",
+      "provenanceUrl": "https://github.com/mrdoob/three.js/tree/r165/examples/textures",
+      "declaredLicense": "MIT",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "Credits identify all three water normal maps as three.js r165 example textures under MIT."
+        },
+        {
+          "type": "source-url",
+          "reference": "https://github.com/mrdoob/three.js/blob/r165/LICENSE",
+          "description": "The pinned upstream release contains the MIT license notice."
+        }
+      ],
+      "knownRightsHolder": "three.js authors",
+      "attribution": "notice-required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["unmodified"],
+      "status": "attribution-required",
+      "justification": "The files have a pinned upstream version and an explicit MIT notice.",
+      "notes": ["Preserve the upstream MIT copyright and license notice in redistributions."]
+    },
+    {
+      "id": "eso-space-galaxy-panorama",
+      "category": "texture",
+      "coverage": {
+        "paths": ["public/env/space_galaxy.jpg"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 1,
+        "pathInventorySha256": "98ec4d1801ba85b791d1453938586bb8f218df80ea816075168a0ad1c111e2b8"
+      },
+      "sourceOrAuthor": "ESO and S. Brunier",
+      "provenanceUrl": "https://www.eso.org/public/images/eso0932a/",
+      "declaredLicense": "CC-BY-4.0",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "Credits identify the exact path, author, source page, and CC BY 4.0 requirement."
+        },
+        {
+          "type": "source-url",
+          "reference": "https://www.eso.org/public/images/eso0932a/",
+          "description": "The upstream image page is the declared source reference."
+        }
+      ],
+      "knownRightsHolder": "ESO and S. Brunier",
+      "attribution": "required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["unmodified"],
+      "status": "attribution-required",
+      "justification": "The repository identifies the panorama under CC BY 4.0 with a precise source and author.",
+      "notes": ["Release notices must retain the author, source, and CC BY 4.0 reference."]
+    },
+    {
+      "id": "render-ai-and-disputed-paid-sources",
+      "category": "art",
+      "coverage": {
+        "paths": [
+          "public/models/props/cracked_grave.glb",
+          "public/models/props/destructible_wall.glb",
+          "public/models/props/dungeon_door_arch.glb",
+          "public/models/props/fallback_crate.glb",
+          "public/models/props/mailbox_pillar.glb",
+          "public/models/props/marsh_bell_gallows.glb",
+          "public/models/props/marsh_corpse_candle.glb",
+          "public/models/props/marsh_dead_tree.glb",
+          "public/models/props/marsh_plank_bridge.glb",
+          "public/models/props/marsh_reed_cluster.glb",
+          "public/models/props/marsh_shrine_fragment.glb",
+          "public/models/props/marsh_sluice_post.glb",
+          "public/models/props/yumi_brazier_stand.glb",
+          "public/models/props/yumi_torch_handle.glb",
+          "public/models/resources/gather_herb_cluster.glb",
+          "public/models/resources/gather_ore_vein.glb",
+          "public/models/resources/gather_wood_pile.glb",
+          "public/models/quest/*.glb",
+          "public/models/creatures/greyjaw.glb",
+          "public/models/creatures/leaping_fish.glb",
+          "public/models/creatures/rabbit_critter.glb",
+          "public/models/creatures/songbird_critter.glb",
+          "public/models/creatures/spider_egg_sac.glb",
+          "public/models/creatures/squirrel_critter.glb",
+          "public/models/creatures/stone_cantor.glb",
+          "public/models/creatures/tolling_bell.glb",
+          "public/models/creatures/wolf_basic.glb",
+          "public/models/creatures/yumi_cat.glb",
+          "public/models/chars/players/barbarian.glb",
+          "public/models/chars/players/druid.glb",
+          "public/models/chars/players/knight.glb",
+          "public/models/chars/players/mage.glb",
+          "public/models/chars/players/paladin.glb",
+          "public/models/chars/players/ranger.glb",
+          "public/models/chars/players/rogue.glb",
+          "public/models/chars/players/rogue_hooded.glb",
+          "public/models/weapons/adv_*.glb",
+          "public/models/weapons/ashspark_shiv.glb",
+          "public/models/weapons/astravyr_fang_of_the_fallen_star.glb",
+          "public/models/weapons/brasscap_hatchet.glb",
+          "public/models/weapons/brasscrown_walking_staff.glb",
+          "public/models/weapons/cinderbrand.glb",
+          "public/models/weapons/cinderlatch.glb",
+          "public/models/weapons/cosmarch_spire_of_the_endless_void.glb",
+          "public/models/weapons/emberbite.glb",
+          "public/models/weapons/emberwish_mote_of_the_dying_sun.glb",
+          "public/models/weapons/emberwrought_wand.glb",
+          "public/models/weapons/encore_the_second_falling_star.glb",
+          "public/models/weapons/fletcher_s_guild_bow.glb",
+          "public/models/weapons/forgeheart_stave.glb",
+          "public/models/weapons/frostbite.glb",
+          "public/models/weapons/glaciersplit.glb",
+          "public/models/weapons/guildmark_arming_sword.glb",
+          "public/models/weapons/guildmark_dirk.glb",
+          "public/models/weapons/hoarfrost_vigil.glb",
+          "public/models/weapons/ice_fang.glb",
+          "public/models/weapons/iron_field_hammer.glb",
+          "public/models/weapons/knotted_oak_stave.glb",
+          "public/models/weapons/lacquered_rod.glb",
+          "public/models/weapons/meteorlatch_the_sky_s_last_judgment.glb",
+          "public/models/weapons/notched_woodaxe.glb",
+          "public/models/weapons/peeled_birch_wand.glb",
+          "public/models/weapons/rimecrusher.glb",
+          "public/models/weapons/rude_awakening_sword.glb",
+          "public/models/weapons/shard_of_everwinter.glb",
+          "public/models/weapons/simple_farmhand_crossbow.glb",
+          "public/models/weapons/skyrender_the_firmament_s_wound.glb",
+          "public/models/weapons/smoulderfall.glb",
+          "public/models/weapons/solheim_last_light_of_the_dawn.glb",
+          "public/models/weapons/starfall_judgment_of_the_heavens.glb",
+          "public/models/weapons/tempered_flanged_mace.glb",
+          "public/models/weapons/whittler_s_knife.glb",
+          "public/models/weapons/winterbite.glb",
+          "public/models/weapons/wrought_iron_longsword.glb",
+          "public/textures/skins/barbarian/*.png",
+          "public/textures/skins/druid/*.png",
+          "public/textures/skins/knight/*.png",
+          "public/textures/skins/mage/*.png",
+          "public/textures/skins/paladin/*.png",
+          "public/textures/skins/ranger/*.png",
+          "public/textures/skins/rogue/*.png"
+        ],
+        "excludePaths": ["public/textures/skins/rogue/fernando.png"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 117,
+        "pathInventorySha256": "b64f027cfac3bf374c2619f08d55443557bcf4890044f5a955be6dcf2a39e03f"
+      },
+      "sourceOrAuthor": "Tripo, Meshy, Mixamo, and disputed KayKit paid-pack sources",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "Credits declare several Meshy and Tripo sources but do not include account, plan, task, or transfer proof."
+        },
+        {
+          "type": "repository-file",
+          "reference": "scripts/assets/specs/characters_v2.json",
+          "description": "The character spec describes Adventurers 2.0 and Character Animations 1.1 as paid sources."
+        },
+        {
+          "type": "repository-file",
+          "reference": "src/render/quest_objects.ts",
+          "description": "Source comments identify the quest objects as Meshy-generated."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["generated", "converted", "optimized", "unknown"],
+      "status": "blocked-pending-proof",
+      "justification": "The distributed files lack the account, plan, task, base-model, or exact paid-pack evidence needed to establish reusable rights for this fork.",
+      "notes": [
+        "KayKit 2.0 evidence conflicts with CREDITS.md and License.txt, so no license is asserted until each file is tied to a specific covered archive."
+      ]
+    },
+    {
+      "id": "render-project-assets-without-transfer-proof",
+      "category": "art",
+      "coverage": {
+        "paths": [
+          "public/models/creatures/chicken_cow.glb",
+          "public/models/chars/players/Mech/**/*",
+          "public/models/weapons/emberfang_sword.glb",
+          "public/models/weapons/purple_*.glb",
+          "public/models/weapons/redskull_*.glb",
+          "public/textures/skins/rogue/fernando.png",
+          "public/env/*_backdrop.webp",
+          "public/env/*_backdrop_4k.webp"
+        ],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 40,
+        "pathInventorySha256": "d856c0ed5c00b702ee60831d961454f50d12523d0d0b5612020c4b0b9957d79c"
+      },
+      "sourceOrAuthor": "World of ClaudeCraft project contributors",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "Credits identify project-generated legacy weapons and procedural backdrops."
+        },
+        {
+          "type": "repository-file",
+          "reference": "scripts/gen_chicken_cow.mjs",
+          "description": "The generator documents the procedural construction of chicken_cow.glb."
+        },
+        {
+          "type": "manual-review",
+          "reference": "repository-history",
+          "description": "History connects CombatMech, its chromas, and Fernando artwork to project commits without a reusable transfer document."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["generated", "procedural", "converted", "optimized"],
+      "status": "project-owned-proof-required",
+      "justification": "Project authorship is stated or technically evidenced, but no contract or fork-reuse grant is present.",
+      "notes": [
+        "The Fernando likeness also requires documented consent and ownership of the source artwork."
+      ]
+    },
+    {
+      "id": "render-assets-with-unknown-provenance",
+      "category": "art",
+      "coverage": {
+        "paths": [
+          "public/models/creatures/wild_boar.glb",
+          "public/models/dungeon/delve_entrance_2.glb",
+          "public/models/dungeon/delve_entrance_2_base_color.png"
+        ],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 3,
+        "pathInventorySha256": "a77a3086feb330868342f49b2a1e36fe2b3ea1d5d96b24fee7c3230fe7cd2bd2"
+      },
+      "sourceOrAuthor": "Unknown",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "repository-history",
+          "description": "Commit history and repository credits contain no reliable source or license for these paths."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["unknown"],
+      "status": "unknown",
+      "justification": "No author, source pack, service, or license can be established from repository evidence.",
+      "notes": ["Do not infer a source from visual similarity or neighboring files."]
+    },
+    {
+      "id": "craftpix-purchased-icons",
+      "category": "art",
+      "coverage": {
+        "paths": ["public/ui/skills/*/*.webp", "public/ui/items/*.webp"],
+        "excludePaths": [
+          "public/ui/items/backpack.webp",
+          "public/ui/items/linen_pouch.webp",
+          "public/ui/items/travelers_knapsack.webp",
+          "public/ui/items/wolfhide_satchel.webp",
+          "public/ui/items/gravewoven_bag.webp",
+          "public/ui/items/mistcallers_duffel.webp"
+        ],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 407,
+        "pathInventorySha256": "f55cb76e9024b6ea6eec434f78dcefc8d73296f20a2e0f8e796f01712628e2dd"
+      },
+      "sourceOrAuthor": "CraftPix",
+      "provenanceUrl": "https://craftpix.net/file-licenses/",
+      "declaredLicense": "LicenseRef-CraftPix-Premium",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "Credits state that Levy Street purchased the premium icon packs through its own account."
+        },
+        {
+          "type": "repository-file",
+          "reference": "public/ui/items/mapping.json",
+          "description": "The item mapping identifies the CraftPix default and the six project-art exceptions."
+        },
+        {
+          "type": "source-url",
+          "reference": "https://craftpix.net/file-licenses/",
+          "description": "CraftPix publishes the applicable premium license terms."
+        }
+      ],
+      "knownRightsHolder": "CraftPix",
+      "attribution": "not-required",
+      "redistribution": "licensee-only",
+      "commercialUse": "licensee-only",
+      "transformationStatus": ["converted", "optimized"],
+      "status": "purchased-license-non-transferable",
+      "justification": "The license was purchased by Levy Street and the repository contains no separate transferable grant to this fork.",
+      "notes": [
+        "Replace before an independent CodexCraft release unless transferable rights are documented."
+      ]
+    },
+    {
+      "id": "kaykit-weapon-bit-ui-images",
+      "category": "art",
+      "coverage": {
+        "paths": [
+          "public/ui/weapons/axe_?.jpg",
+          "public/ui/weapons/dagger_?.jpg",
+          "public/ui/weapons/halberd.jpg",
+          "public/ui/weapons/hammer_?.jpg",
+          "public/ui/weapons/scythe.jpg",
+          "public/ui/weapons/spear_a.jpg",
+          "public/ui/weapons/staff_?.jpg",
+          "public/ui/weapons/sword_?.jpg",
+          "public/ui/weapons/wand_?.jpg"
+        ],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 27,
+        "pathInventorySha256": "8a80e2ba47f92c64b14371a82f910b0d0bf44bcc2a4c892b4974a273b9e71e84"
+      },
+      "sourceOrAuthor": "Kay Lousberg",
+      "provenanceUrl": null,
+      "declaredLicense": "CC0-1.0",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "License.txt",
+          "description": "The Complete KayKit Collection v5 notice declares CC0."
+        },
+        {
+          "type": "repository-file",
+          "reference": "scripts/convert_weapons.mjs",
+          "description": "The converter connects the weapon bit source pack to the distributed weapon images and models."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "not-required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["converted", "optimized"],
+      "status": "reusable",
+      "justification": "The converter and bundled pack notice connect these weapon images to a CC0 KayKit source.",
+      "notes": ["Archive the exact source pack with release evidence."]
+    },
+    {
+      "id": "ui-project-art-without-transfer-proof",
+      "category": "art",
+      "coverage": {
+        "paths": [
+          "public/ui/items/backpack.webp",
+          "public/ui/items/linen_pouch.webp",
+          "public/ui/items/travelers_knapsack.webp",
+          "public/ui/items/wolfhide_satchel.webp",
+          "public/ui/items/gravewoven_bag.webp",
+          "public/ui/items/mistcallers_duffel.webp",
+          "public/ui/deeds/*.webp",
+          "public/ui/weapons/emberfang_sword.jpg",
+          "public/ui/weapons/purple_*.jpg",
+          "public/ui/weapons/redskull_*.jpg"
+        ],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 209,
+        "pathInventorySha256": "feb2199b3403124cb15dc513593cb372073d6d9b34df7b0f869e2290690f30b2"
+      },
+      "sourceOrAuthor": "World of ClaudeCraft project contributors and commissioned artists",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "Credits identify the bag art, commissioned deed art, and legacy weapon art as project assets."
+        },
+        {
+          "type": "repository-file",
+          "reference": "public/ui/items/mapping.json",
+          "description": "The item mapping explicitly overrides six bags as World of ClaudeCraft original art."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["commissioned", "converted", "optimized"],
+      "status": "project-owned-proof-required",
+      "justification": "The repository states project authorship or commission, but does not contain the contracts or fork-reuse grant.",
+      "notes": [
+        "Obtain assignment, commission, or contributor records before reuse in an independent release."
+      ]
+    },
+    {
+      "id": "ui-ai-derived-art",
+      "category": "art",
+      "coverage": {
+        "paths": [
+          "public/ui/store/**/*.webp",
+          "public/ui/weapons/adv_*.jpg",
+          "public/ui/weapons/guildmark_arming_sword.jpg",
+          "public/ui/weapons/brasscap_hatchet.jpg",
+          "public/ui/weapons/tempered_flanged_mace.jpg",
+          "public/ui/weapons/guildmark_dirk.jpg",
+          "public/ui/weapons/brasscrown_walking_staff.jpg",
+          "public/ui/weapons/lacquered_rod.jpg",
+          "public/ui/weapons/fletcher_s_guild_bow.jpg",
+          "public/ui/weapons/cinderbrand.jpg",
+          "public/ui/weapons/emberbite.jpg",
+          "public/ui/weapons/smoulderfall.jpg",
+          "public/ui/weapons/ashspark_shiv.jpg",
+          "public/ui/weapons/forgeheart_stave.jpg",
+          "public/ui/weapons/emberwrought_wand.jpg",
+          "public/ui/weapons/cinderlatch.jpg",
+          "public/ui/weapons/ice_fang.jpg",
+          "public/ui/weapons/glaciersplit.jpg",
+          "public/ui/weapons/rimecrusher.jpg",
+          "public/ui/weapons/frostbite.jpg",
+          "public/ui/weapons/hoarfrost_vigil.jpg",
+          "public/ui/weapons/shard_of_everwinter.jpg",
+          "public/ui/weapons/winterbite.jpg",
+          "public/ui/weapons/solheim_last_light_of_the_dawn.jpg",
+          "public/ui/weapons/skyrender_the_firmament_s_wound.jpg",
+          "public/ui/weapons/starfall_judgment_of_the_heavens.jpg",
+          "public/ui/weapons/astravyr_fang_of_the_fallen_star.jpg",
+          "public/ui/weapons/cosmarch_spire_of_the_endless_void.jpg",
+          "public/ui/weapons/emberwish_mote_of_the_dying_sun.jpg",
+          "public/ui/weapons/encore_the_second_falling_star.jpg",
+          "public/ui/weapons/meteorlatch_the_sky_s_last_judgment.jpg"
+        ],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 68,
+        "pathInventorySha256": "a7ee9031f84dbc3173f85217351a82ff0e8e8285e8eaf185342a3f265ea0f166"
+      },
+      "sourceOrAuthor": "Tripo and OpenAI outputs produced for World of ClaudeCraft, plus disputed KayKit Adventurers 2.0 images",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "Credits connect the Armory renders to Tripo and the promo background to OpenAI image editing."
+        },
+        {
+          "type": "repository-file",
+          "reference": "scripts/assets/specs/characters_v2.json",
+          "description": "The character spec identifies the Adventurers 2.0 source as paid while other evidence is contradictory."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["generated", "composite", "optimized"],
+      "status": "blocked-pending-proof",
+      "justification": "Account, plan, task, and source-pack proof is insufficient to establish reusable rights for these derived images.",
+      "notes": ["Replace or archive the complete generation and paid-pack evidence before release."]
+    },
+    {
+      "id": "dungeon-portraits-mixed-derivatives",
+      "category": "art",
+      "coverage": {
+        "paths": ["public/ui/dungeons/*.webp"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 14,
+        "pathInventorySha256": "697dca98369b6b1949dfcd3a5a6b6de8c0eb45192c05cdb833842a4f39adb7a9"
+      },
+      "sourceOrAuthor": "World of ClaudeCraft renders of mixed-source models",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "scripts/render_finder_portraits.mjs",
+          "description": "The renderer ties the portraits to model assets whose provenance is not uniform."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["generated", "composite"],
+      "status": "blocked-pending-proof",
+      "justification": "A portrait can be cleared only after its underlying model and render ownership are both resolved.",
+      "notes": ["Do not inherit a global model license for these rendered derivatives."]
+    },
+    {
+      "id": "ui-assets-with-unknown-provenance",
+      "category": "art",
+      "coverage": {
+        "paths": [
+          "public/ui/cursors/*.png",
+          "public/ui/daily-rewards/*.webp",
+          "public/ui/emotes/*.png",
+          "public/ui/weapons/iron_field_hammer.jpg",
+          "public/ui/weapons/knotted_oak_stave.jpg",
+          "public/ui/weapons/notched_woodaxe.jpg",
+          "public/ui/weapons/peeled_birch_wand.jpg",
+          "public/ui/weapons/rude_awakening_sword.jpg",
+          "public/ui/weapons/simple_farmhand_crossbow.jpg",
+          "public/ui/weapons/whittler_s_knife.jpg",
+          "public/ui/weapons/wrought_iron_longsword.jpg"
+        ],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 28,
+        "pathInventorySha256": "d4b8d9f73cdf140aeb1df4edc28fb921bd861aaf3307c75d6786aaae7e94da43"
+      },
+      "sourceOrAuthor": "Unknown",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "repository-credits-and-history",
+          "description": "Credits, mappings, source comments, and commit history do not establish a reliable source or license."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["unknown"],
+      "status": "unknown",
+      "justification": "No precise license or provenance evidence exists for these distributed UI files.",
+      "notes": ["Treat each path as replaceable until a source record is attached."]
+    },
+    {
+      "id": "audio-jamiecypher-cc0",
+      "category": "audio",
+      "coverage": {
+        "paths": ["public/audio/sfx/quest_*.mp3", "public/audio/sfx/lockpick_*.mp3"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 17,
+        "pathInventorySha256": "b59d5bb85e869443f82b559ce62830aa3ea67a469c3e70172d11e7fe4693b9f2"
+      },
+      "sourceOrAuthor": "@jamiecypher",
+      "provenanceUrl": null,
+      "declaredLicense": "CC0-1.0",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "The audio table identifies the quest and lockpick clips as CC0 original or CC0-derived work."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "not-required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["composite", "optimized"],
+      "status": "reusable",
+      "justification": "The repository explicitly declares these named audio families under CC0.",
+      "notes": [
+        "Retain the source credit as useful provenance even though CC0 does not require attribution."
+      ]
+    },
+    {
+      "id": "audio-project-ui-synthesis",
+      "category": "audio",
+      "coverage": {
+        "paths": ["public/audio/sfx/ui_*.mp3"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 26,
+        "pathInventorySha256": "83530db63dd5f7485de43956e3d16d3b4f355e5ce17fdd19ece3aea09428a397"
+      },
+      "sourceOrAuthor": "World of ClaudeCraft project contributors",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "scripts/gen_ui_sfx.mjs",
+          "description": "The deterministic FFmpeg generator proves the local synthesis method for this family."
+        },
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "Credits identify the ui_ clips as project-generated assets."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["procedural", "optimized"],
+      "status": "project-owned-proof-required",
+      "justification": "Generation is reproducible, but the repository has no explicit license or contributor grant for fork reuse.",
+      "notes": [
+        "Archive authorship and contributor terms or regenerate an independently owned replacement set."
+      ]
+    },
+    {
+      "id": "audio-elevenlabs-generated",
+      "category": "audio",
+      "coverage": {
+        "paths": ["public/audio/sfx/*.mp3", "public/audio/voice/**/*.mp3"],
+        "excludePaths": [
+          "public/audio/sfx/quest_*.mp3",
+          "public/audio/sfx/lockpick_*.mp3",
+          "public/audio/sfx/ui_*.mp3",
+          "public/audio/sfx/cast_chain_heal.mp3",
+          "public/audio/sfx/cast_lightning_bolt.mp3"
+        ],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 308,
+        "pathInventorySha256": "782dc8a0d945726ee3baef23c36fa060beada643fc00c0b8b499717469176b7b"
+      },
+      "sourceOrAuthor": "ElevenLabs outputs produced for World of ClaudeCraft",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "scripts/gen_sfx.mjs",
+          "description": "The SFX generator uses ElevenLabs for the covered catalog."
+        },
+        {
+          "type": "repository-file",
+          "reference": "scripts/gen_npc_lines.mjs",
+          "description": "The voice generator documents ElevenLabs production of NPC lines."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["generated", "optimized"],
+      "status": "blocked-pending-proof",
+      "justification": "No account, plan, voice consent, generation ledger, or transferable output-rights proof is stored with the files.",
+      "notes": [
+        "Voices require both service-plan evidence and any necessary performer or voice consent records."
+      ]
+    },
+    {
+      "id": "audio-with-unknown-provenance",
+      "category": "audio",
+      "coverage": {
+        "paths": [
+          "public/audio/sfx/cast_chain_heal.mp3",
+          "public/audio/sfx/cast_lightning_bolt.mp3",
+          "public/audio/main-theme.mp3",
+          "public/audio/dungeon-boss-fight.mp3",
+          "public/audio/sowfield-match.mp3",
+          "public/audio/sowfield-waiting.mp3"
+        ],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 6,
+        "pathInventorySha256": "a57a7e3213d504c3c67e7c8ab183b19460ceb19a0c4c23d9ba41dd9ef73fa044"
+      },
+      "sourceOrAuthor": "Unknown",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "scripts/sfx/sfx_prompts.mjs",
+          "description": "Two cast clips are marked custom without a source or license record."
+        },
+        {
+          "type": "manual-review",
+          "reference": "repository-audio-history",
+          "description": "The procedural music code does not prove that the four distributed MP3 files were produced by that chain."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["unknown"],
+      "status": "unknown",
+      "justification": "The exact sources and licenses of these audio files cannot be established from repository evidence.",
+      "notes": ["Do not infer provenance from filenames, adjacent generators, or runtime use."]
+    },
+    {
+      "id": "guide-fonts-ofl",
+      "category": "font",
+      "coverage": {
+        "paths": ["public/fonts/*.woff2"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 22,
+        "pathInventorySha256": "2cdccfa0eebdf90493897fc92acb04437b689daa39bb454d19a68d58b42f19e0"
+      },
+      "sourceOrAuthor": "Natanael Gama, Juan Pablo del Peral, and Huerta Tipografica",
+      "provenanceUrl": "https://fonts.google.com/",
+      "declaredLicense": "OFL-1.1",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "Credits identify the font families, authors, Google Fonts sources, and SIL OFL 1.1."
+        }
+      ],
+      "knownRightsHolder": "The named font authors",
+      "attribution": "notice-required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["converted"],
+      "status": "attribution-required",
+      "justification": "All distributed WOFF2 files are tied to named OFL font families in CREDITS.md.",
+      "notes": [
+        "Add and preserve the dedicated OFL notice files for the exact font versions and subsets."
+      ]
+    },
+    {
+      "id": "claudium-higgsfield-recraft-assets",
+      "category": "art",
+      "coverage": {
+        "paths": ["public/claudium/**/*.webp", "public/claudium/**/*.png"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 39,
+        "pathInventorySha256": "070485fd28cc2e2a2a289432614840ebc880664d75e5466887af62cfc8a92010"
+      },
+      "sourceOrAuthor": "Higgsfield and Recraft outputs produced for World of ClaudeCraft",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "public/claudium/ASSETS.md",
+          "description": "The asset set documents Higgsfield MCP and Recraft V4.1 generation plus local compositing."
+        },
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "Credits state paid-plan generation without account or transfer evidence."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["generated", "composite", "optimized"],
+      "status": "blocked-pending-proof",
+      "justification": "The repository lacks paid-account, plan, prompt, job, and transferable output-rights proof.",
+      "notes": [
+        "These World of ClaudeCraft currency visuals must also be replaced during rebranding."
+      ]
+    },
+    {
+      "id": "guide-stills-mixed-derivatives",
+      "category": "art",
+      "coverage": {
+        "paths": ["public/guide-stills/*.webp"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 46,
+        "pathInventorySha256": "338e7e41ca2acdcd24e2339c8428b1546d278148ad4bbdc5a161860d73191ce9"
+      },
+      "sourceOrAuthor": "World of ClaudeCraft renders of mixed-source models",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "scripts/wiki/render_model_stills.mjs",
+          "description": "The renderer produces these stills from runtime model assets with mixed provenance statuses."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["generated", "composite"],
+      "status": "blocked-pending-proof",
+      "justification": "Each still inherits unresolved questions from its model and from the ownership of the render itself.",
+      "notes": ["Regenerate only after the corresponding replacement model is cleared."]
+    },
+    {
+      "id": "world-of-claudecraft-brand-assets",
+      "category": "trademark",
+      "coverage": {
+        "paths": [
+          "public/apple-touch-icon.png",
+          "public/favicon-16x16.png",
+          "public/favicon-32x32.png",
+          "public/favicon.ico",
+          "public/icon-192.png",
+          "public/icon-512.png",
+          "public/woc_logo_square.webp",
+          "public/woc-logo-guide.webp",
+          "public/woc-logo-hero.webp",
+          "public/worldofclaudecraft-logo.png",
+          "public/World-of-ClaudeCraft-Whitepaper-v1.0.pdf",
+          "build/icon.png",
+          "build/icon.ico",
+          "build/icon.icns",
+          "android/app/src/main/res/**/*.png",
+          "android/app/src/main/res/drawable/ic_launcher_background.xml",
+          "android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml",
+          "ios/App/App/Assets.xcassets/**/*.png",
+          "woc_community.png",
+          "worldofclaude.png"
+        ],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 50,
+        "pathInventorySha256": "211796b7729f52202e17745f8e94195c8dd8e5b07387c50b66d8fca4612c920f"
+      },
+      "sourceOrAuthor": "World of ClaudeCraft and Levy Street",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "The repository distinguishes World of ClaudeCraft brand assets from third-party art."
+        },
+        {
+          "type": "repository-file",
+          "reference": "package.json",
+          "description": "Desktop packaging declares the three build icons as product icons."
+        },
+        {
+          "type": "manual-review",
+          "reference": "readme-and-native-packaging-references",
+          "description": "README and native packaging references identify the two root images and native resources as current brand visuals."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["composite", "converted", "unknown"],
+      "status": "replace-before-release",
+      "justification": "These files display or package the original World of ClaudeCraft identity and are outside the future CodexCraft brand set.",
+      "notes": [
+        "Replacement is mandatory regardless of whether a future ownership document is found."
+      ]
+    },
+    {
+      "id": "public-background-media-with-unknown-provenance",
+      "category": "art",
+      "coverage": {
+        "paths": ["public/home-bg.mp4", "public/home-bg.png", "public/loading-screen.jpg"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 3,
+        "pathInventorySha256": "0de902a82d357d8f76ac1f7969a920ac35ad128361085968ad2dd62224c03245"
+      },
+      "sourceOrAuthor": "Unknown",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "repository-credits-and-history",
+          "description": "No precise source or license entry was found for these three public media files."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "unknown",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["unknown"],
+      "status": "unknown",
+      "justification": "Repository evidence does not support a provenance or license claim for these backgrounds.",
+      "notes": [
+        "They are visually tied to the current site but remain unknown rather than receiving an assumed project license."
+      ]
+    },
+    {
+      "id": "game-icons-inline-svg",
+      "category": "art",
+      "coverage": {
+        "paths": [],
+        "embeddedAssetIds": ["ui-icons-game-icons"],
+        "expectedPathCount": 1,
+        "pathInventorySha256": "4c3ea85dbe7db4a12b9473415cc8b24bd0ed2ccb3e40db7009dbb16a982821bf"
+      },
+      "sourceOrAuthor": "Lorc and Delapouite via game-icons.net",
+      "provenanceUrl": "https://game-icons.net/",
+      "declaredLicense": "CC-BY-3.0",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "src/ui/ui_icons.ts",
+          "description": "The source comment names game-icons.net, Lorc, Delapouite, and CC BY 3.0."
+        }
+      ],
+      "knownRightsHolder": "Lorc and Delapouite",
+      "attribution": "required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["converted"],
+      "status": "attribution-required",
+      "justification": "The embedded vector paths carry an explicit CC BY 3.0 attribution requirement in source.",
+      "notes": [
+        "Keep author, site, and license attribution with releases containing the inline paths."
+      ]
+    },
+    {
+      "id": "third-party-platform-marks",
+      "category": "trademark",
+      "coverage": {
+        "paths": [],
+        "embeddedAssetIds": [
+          "ui-icons-platform-marks",
+          "links-page-platform-marks",
+          "support-page-discord-mark"
+        ],
+        "expectedPathCount": 3,
+        "pathInventorySha256": "87486387af0d4c4ca57ba2a705ae5c1b2b10f7cfd30b9339e24fe819d957d188"
+      },
+      "sourceOrAuthor": "Discord, Twitch, X, Kick, YouTube, Instagram, TikTok, Reddit, and GitHub",
+      "provenanceUrl": null,
+      "declaredLicense": "NOASSERTION",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "The brand marks section separates platform trademarks from project art."
+        },
+        {
+          "type": "repository-file",
+          "reference": "src/ui/ui_icons.ts",
+          "description": "The UI icon registry labels the embedded platform marks as brand marks."
+        }
+      ],
+      "knownRightsHolder": "The named platform trademark owners",
+      "attribution": "trademark-guidelines",
+      "redistribution": "unknown",
+      "commercialUse": "unknown",
+      "transformationStatus": ["unmodified", "converted"],
+      "status": "third-party-trademark",
+      "justification": "These are third-party identifiers, not project-owned artistic assets or code covered automatically by MIT.",
+      "notes": [
+        "Review each platform's current brand guidelines before release and replace any mark that is no longer necessary."
+      ]
+    }
+  ]
+}

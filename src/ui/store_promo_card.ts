@@ -1,3 +1,5 @@
+import { resolveRuntimeAssetUrl } from '../assets';
+
 export interface StorePromoCardLabels {
   open: string;
   close: string;
@@ -56,7 +58,7 @@ export function mountStorePromoCard(
   open.className = 'store-promo-card-open';
 
   const image = doc.createElement('img');
-  image.src = '/ui/store/season-01-armory-promo.webp';
+  image.src = resolveRuntimeAssetUrl('/ui/store/season-01-armory-promo.webp');
   image.alt = '';
   image.draggable = false;
   image.decoding = 'async';

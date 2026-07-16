@@ -8,6 +8,7 @@
 // from the ability school / item kind + name keywords, so everything always
 // has a proper icon. Results are cached as data URLs.
 
+import { resolveRuntimeAssetUrl } from '../assets';
 import { ABILITIES, ITEMS } from '../sim/data';
 import { DEED_IMAGE_IDS } from './deed_image_ids';
 import { ITEM_WEAPON_VARIANTS } from './weapon_variants';
@@ -3183,7 +3184,7 @@ const ITEM_ICON_IMAGES = ITEM_WEAPON_VARIANTS;
 /** Static URL of a weapon's rendered thumbnail, or null if it uses a recipe. */
 function weaponIconUrl(id: string): string | null {
   const model = ITEM_ICON_IMAGES[id];
-  return model ? `${WEAPON_ICON_DIR}/${model}.jpg` : null;
+  return model ? resolveRuntimeAssetUrl(`${WEAPON_ICON_DIR}/${model}.jpg`) : null;
 }
 
 // Hand-picked image icons for class abilities, committed as 128px WebP under
@@ -3379,7 +3380,7 @@ export const ABILITY_IMAGE_IDS = new Set<string>([
 export function abilityImageUrl(id: string): string | null {
   if (!ABILITY_IMAGE_IDS.has(id)) return null;
   const cls = ABILITIES[id]?.class;
-  return cls ? `${SKILL_ICON_DIR}/${cls}/${id}.webp` : null;
+  return cls ? resolveRuntimeAssetUrl(`${SKILL_ICON_DIR}/${cls}/${id}.webp`) : null;
 }
 
 // Item ids with committed painted art under /ui/items/<id>.webp (curated from the CraftPix
@@ -3684,7 +3685,9 @@ export const UI_ITEM_IMAGE_IDS = new Set<string>(['backpack']);
 
 /** Static URL of an item's (or a UI pseudo-item's) image icon, or null if it uses a recipe. */
 export function itemImageUrl(id: string): string | null {
-  return ITEM_IMAGE_IDS.has(id) || UI_ITEM_IMAGE_IDS.has(id) ? `${ITEM_ICON_DIR}/${id}.webp` : null;
+  return ITEM_IMAGE_IDS.has(id) || UI_ITEM_IMAGE_IDS.has(id)
+    ? resolveRuntimeAssetUrl(`${ITEM_ICON_DIR}/${id}.webp`)
+    : null;
 }
 
 // Book of Deeds crest ids are shaped `deed_<deedId>` (deeds_view.ts deedCrestId). Those whose
@@ -3699,7 +3702,9 @@ const DEED_CREST_PREFIX = 'deed_';
 export function deedImageUrl(crestId: string): string | null {
   if (!crestId.startsWith(DEED_CREST_PREFIX)) return null;
   const deedId = crestId.slice(DEED_CREST_PREFIX.length);
-  return DEED_IMAGE_IDS.has(deedId) ? `${DEED_ICON_DIR}/${deedId}.webp` : null;
+  return DEED_IMAGE_IDS.has(deedId)
+    ? resolveRuntimeAssetUrl(`${DEED_ICON_DIR}/${deedId}.webp`)
+    : null;
 }
 
 /** True when `id` has a real crest recipe, as opposed to falling through to the

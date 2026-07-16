@@ -17,6 +17,7 @@
 // Boss portraits are prerendered WebP files with fixed dimensions and lazy
 // decoding; no live Three.js scene ever renders here.
 
+import { resolveRuntimeAssetUrl } from '../assets';
 import { audio } from '../game/audio';
 import type { FinderListingTag } from '../sim/content/dungeon_finder';
 import type { Role } from '../sim/content/talents';
@@ -404,7 +405,7 @@ export class DungeonFinderWindow {
     const blocked = r.blocked ? `<span class="df-blocked">${esc(this.blockedLabel(r))}</span>` : '';
     return (
       `<button type="button" class="df-row${r.selected ? ' active' : ''}${r.eligible ? '' : ' ineligible'}" data-row="${esc(r.id)}" aria-pressed="${r.selected ? 'true' : 'false'}">` +
-      `<img class="df-row-icon" src="${esc(r.portraitUrl)}" width="30" height="30" loading="lazy" decoding="async" alt="">` +
+      `<img class="df-row-icon" src="${esc(resolveRuntimeAssetUrl(r.portraitUrl))}" width="30" height="30" loading="lazy" decoding="async" alt="">` +
       `<span class="df-row-text"><span class="df-row-name">${esc(name)} ${badge}</span>` +
       `<span class="df-row-meta">${esc(this.levelsLabel(r.minLevel, r.maxLevel))} · ${esc(
         tPlural('hudChrome.plurals.finderPartySize', r.size, { count: num(r.size) }),
@@ -417,7 +418,7 @@ export class DungeonFinderWindow {
     const back = `<button type="button" class="btn df-back" data-back>${esc(t('hudChrome.finder.back'))}</button>`;
     const finalEnc = d.encounters.find((e) => e.final) ?? d.encounters[d.encounters.length - 1];
     const headIcon = finalEnc
-      ? `<img class="df-detail-icon" src="${esc(finalEnc.portraitUrl)}" width="40" height="40" loading="lazy" decoding="async" alt="">`
+      ? `<img class="df-detail-icon" src="${esc(resolveRuntimeAssetUrl(finalEnc.portraitUrl))}" width="40" height="40" loading="lazy" decoding="async" alt="">`
       : '';
     const head =
       `<div class="df-detail-head">${back}${headIcon}<span class="df-detail-name">${esc(name)}</span>` +
@@ -507,7 +508,7 @@ export class DungeonFinderWindow {
       e.copper > 0 ? `<div class="df-loot-money">${this.deps.moneyHtml(e.copper)}</div>` : '';
     return (
       `<div class="df-encounter">` +
-      `<img class="df-portrait" src="${esc(e.portraitUrl)}" width="64" height="64" loading="lazy" decoding="async" alt="">` +
+      `<img class="df-portrait" src="${esc(resolveRuntimeAssetUrl(e.portraitUrl))}" width="64" height="64" loading="lazy" decoding="async" alt="">` +
       `<div class="df-encounter-body"><div class="df-encounter-name">${esc(name)}${flags}</div>` +
       mechanics +
       `<div class="df-loot">${lootSections}${money}</div></div></div>`

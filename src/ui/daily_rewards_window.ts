@@ -1,3 +1,4 @@
+import { resolveRuntimeAssetUrl } from '../assets';
 import type { PlayerClass, WeaponSkinType } from '../sim/types';
 import type { DailyRewardHistory, DailyRewardStatus, IWorld } from '../world_api';
 import { ArmoryInspect } from './armory_inspect';
@@ -399,7 +400,7 @@ export class DailyRewardsWindow {
     return (
       `<article class="armory-card rarity-${esc(row.skin.rarity)}${row.owned ? ' owned' : ''}${row.applied ? ' applied' : ''}">` +
       `<button type="button" data-armory-skin="${esc(row.skin.id)}" aria-label="${esc(t('hudChrome.wocStore.inspectAria', { item: copy.name }))}">` +
-      `<span class="armory-card-art"><img src="${esc(row.art)}" alt="" loading="lazy">${badge}${this.armoryClassChipsHtml(row)}</span>` +
+      `<span class="armory-card-art"><img src="${esc(resolveRuntimeAssetUrl(row.art))}" alt="" loading="lazy">${badge}${this.armoryClassChipsHtml(row)}</span>` +
       `<span class="armory-card-copy"><span class="armory-card-type">${esc(weaponTypeLabel(row.skin.weaponType))}</span>` +
       `<h4>${esc(copy.name)}</h4>${state}</span>` +
       `</button></article>`

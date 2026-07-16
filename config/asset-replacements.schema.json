@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "asset-replacements.schema.json",
+  "title": "World of CodexCraft asset replacement registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "registryVersion", "policy", "replacements"],
+  "properties": {
+    "$schema": { "type": "string", "minLength": 1 },
+    "registryVersion": { "const": 1 },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["productionActivationAllowed", "laboratoryActivationEnv"],
+      "properties": {
+        "productionActivationAllowed": { "type": "boolean" },
+        "laboratoryActivationEnv": { "const": "VITE_ASSET_REPLACEMENT_LAB" }
+      }
+    },
+    "replacements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "historicalPath",
+          "replacementPath",
+          "type",
+          "status",
+          "reason",
+          "provenanceRuleId",
+          "enabled",
+          "platforms",
+          "plannedFor",
+          "notes",
+          "rollbackStrategy"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "historicalPath": { "type": "string", "minLength": 1 },
+          "replacementPath": { "type": "string", "minLength": 1 },
+          "type": {
+            "enum": [
+              "model-glb",
+              "texture",
+              "ui-image",
+              "audio",
+              "font",
+              "environment",
+              "other-static"
+            ]
+          },
+          "status": {
+            "enum": ["inactive", "laboratory", "approved", "blocked", "retired"]
+          },
+          "reason": { "type": "string", "minLength": 1 },
+          "provenanceRuleId": { "type": "string", "minLength": 1 },
+          "enabled": { "type": "boolean" },
+          "platforms": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "enum": ["web", "desktop", "android", "ios"] }
+          },
+          "plannedFor": { "type": "string", "minLength": 1 },
+          "notes": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "rollbackStrategy": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

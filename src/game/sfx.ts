@@ -9,6 +9,7 @@
 // lazy context loads, a hard concurrency cap, a per-key cooldown, and a tiny
 // pool of persistent looping sources for ambience and sustained spell casts.
 
+import { resolveRuntimeAssetUrl } from '../assets';
 import { apiUrl } from '../client_origin';
 import type { BiomeId } from '../sim/types';
 import {
@@ -224,7 +225,7 @@ class Sfx {
           this.failedLoads.add(cacheKey);
           return null;
         }
-        const res = await fetch(variant.url);
+        const res = await fetch(resolveRuntimeAssetUrl(variant.url));
         if (!res.ok) {
           this.failedLoads.add(cacheKey);
           return null;

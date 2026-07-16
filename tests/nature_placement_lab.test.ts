@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import * as THREE from 'three';
 import { describe, expect, it, vi } from 'vitest';
@@ -77,13 +77,17 @@ describe('nature placement laboratory controller', () => {
       dispose: vi.fn(),
       pickPlacement: vi.fn(() => 'lab-placement-001'),
       sync: vi.fn(),
+      syncGrid: vi.fn(),
       updateGhost: vi.fn(),
     };
     const controller = new NaturePlacementController({
       canvas: canvas as unknown as HTMLCanvasElement,
       eventWindow: eventWindow as unknown as Window,
+      initialWorkCenter: { x: 0, y: 0, z: 0 },
+      preferenceStorage: null,
       projectTerrain: () => ({ x: 3, y: 4, z: 5 }),
       render,
+      sampleGroundY: () => 4,
       createUi: () => ({ dispose: vi.fn(), update: vi.fn() }),
     });
     controller.selectAsset('BirchTree_1');
@@ -114,8 +118,7 @@ describe('nature placement laboratory controller', () => {
       'keydown',
       labEvent('keydown', { code: 'Escape', target: { closest: () => ({}) } }),
     );
-    expect(controller.state.placementActive).toBe(false);
-    controller.startPlacement();
+    expect(controller.state.placementActive).toBe(true);
 
     canvas.fire('mousedown', labEvent('mousedown', { button: 0, clientX: 10, clientY: 20 }));
     canvas.fire('contextmenu', labEvent('contextmenu'));
@@ -138,6 +141,20 @@ describe('nature placement laboratory controller', () => {
 
     eventWindow.fire('keydown', labEvent('keydown', { code: 'Delete' }));
     expect(controller.state.placements).toEqual([]);
+    eventWindow.fire('keydown', labEvent('keydown', { code: 'KeyZ', ctrlKey: true, key: 'z' }));
+    expect(controller.state.placements).toHaveLength(1);
+    eventWindow.fire('keydown', labEvent('keydown', { code: 'KeyD', ctrlKey: true, key: 'd' }));
+    expect(controller.state.placements).toHaveLength(2);
+    eventWindow.fire('keydown', labEvent('keydown', { code: 'KeyZ', ctrlKey: true, key: 'z' }));
+    expect(controller.state.placements).toHaveLength(1);
+    eventWindow.fire('keydown', labEvent('keydown', { code: 'KeyY', ctrlKey: true, key: 'y' }));
+    expect(controller.state.placements).toHaveLength(2);
+    eventWindow.fire('keydown', labEvent('keydown', { code: 'KeyZ', ctrlKey: true, key: 'z' }));
+    eventWindow.fire(
+      'keydown',
+      labEvent('keydown', { code: 'KeyZ', ctrlKey: true, key: 'z', shiftKey: true }),
+    );
+    expect(controller.state.placements).toHaveLength(2);
     controller.dispose();
   });
 
@@ -145,14 +162,18 @@ describe('nature placement laboratory controller', () => {
     const controller = new NaturePlacementController({
       canvas: new ListenerTarget() as unknown as HTMLCanvasElement,
       eventWindow: new ListenerTarget() as unknown as Window,
+      initialWorkCenter: { x: 0, y: 0, z: 0 },
+      preferenceStorage: null,
       projectTerrain: () => null,
       render: {
         clearGhost: vi.fn(),
         dispose: vi.fn(),
         pickPlacement: vi.fn(() => null),
         sync: vi.fn(),
+        syncGrid: vi.fn(),
         updateGhost: vi.fn(),
       },
+      sampleGroundY: () => 0,
       createUi: () => ({ dispose: vi.fn(), update: vi.fn() }),
     });
     controller.selectAsset('Grass_Large');
@@ -171,18 +192,22 @@ describe('nature placement laboratory controller', () => {
       dispose: vi.fn(),
       pickPlacement: vi.fn(() => 'lab-placement-001'),
       sync: vi.fn(),
+      syncGrid: vi.fn(),
       updateGhost: vi.fn(),
     };
     const ui = { dispose: vi.fn(), update: vi.fn() };
     const controller = new NaturePlacementController({
       canvas: canvas as unknown as HTMLCanvasElement,
       eventWindow: eventWindow as unknown as Window,
+      initialWorkCenter: { x: 0, y: 0, z: 0 },
+      preferenceStorage: null,
       projectTerrain: vi
         .fn()
         .mockReturnValueOnce({ x: 1, y: 2, z: 3 })
         .mockReturnValueOnce({ x: 2, y: 3, z: 4 })
         .mockReturnValue({ x: 8, y: 4, z: 9 }),
       render,
+      sampleGroundY: () => 0,
       createUi: () => ui,
     });
     controller.selectAsset('BirchTree_1');
@@ -208,14 +233,18 @@ describe('nature placement laboratory controller', () => {
       dispose: vi.fn(),
       pickPlacement: vi.fn(() => null),
       sync: vi.fn(),
+      syncGrid: vi.fn(),
       updateGhost: vi.fn(),
     };
     const ui = { dispose: vi.fn(), update: vi.fn() };
     const controller = new NaturePlacementController({
       canvas: canvas as unknown as HTMLCanvasElement,
       eventWindow: eventWindow as unknown as Window,
+      initialWorkCenter: { x: 0, y: 0, z: 0 },
+      preferenceStorage: null,
       projectTerrain: () => null,
       render,
+      sampleGroundY: () => 0,
       createUi: () => ui,
     });
 
@@ -235,6 +264,40 @@ describe('nature placement laboratory controller', () => {
 });
 
 describe('nature placement laboratory render ownership', () => {
+  it('keeps the grid while updating a ghost and disposes it with the render layer', async () => {
+    const scene = new THREE.Scene();
+    const source = new THREE.Group();
+    source.add(new THREE.Mesh(new THREE.BoxGeometry(1, 2, 1), new THREE.MeshStandardMaterial()));
+    const render = new NaturePlacementRender(
+      scene,
+      vi.fn(async () => ({ scene: source })),
+    );
+
+    render.syncGrid(true, 1, { x: 0, y: 0, z: 0 });
+    const grid = render.group.children.find((child) => child instanceof THREE.GridHelper) as
+      | THREE.GridHelper
+      | undefined;
+    expect(grid).toBeDefined();
+    if (!grid) throw new Error('Expected the development grid to be rendered');
+    const geometryDispose = vi.spyOn(grid.geometry, 'dispose');
+    const materialDispose = vi.spyOn(grid.material as THREE.Material, 'dispose');
+
+    render.updateGhost(
+      'BirchTree_1',
+      { x: 4, y: 3, z: 2 },
+      { assetId: 'BirchTree_1', rotationY: 0, scale: 1, groundOffsetY: 0 },
+    );
+    await render.settled();
+
+    expect(render.group.children).toContain(grid);
+    expect(geometryDispose).not.toHaveBeenCalled();
+    expect(materialDispose).not.toHaveBeenCalled();
+
+    render.dispose();
+    expect(geometryDispose).toHaveBeenCalledOnce();
+    expect(materialDispose).toHaveBeenCalledOnce();
+  });
+
   it('renders and cleans a translucent ghost without mutating cached GLB materials', async () => {
     const scene = new THREE.Scene();
     const sourceMaterial = new THREE.MeshStandardMaterial({ opacity: 1, transparent: false });
@@ -369,23 +432,24 @@ describe('nature placement laboratory terrain projection', () => {
 });
 
 describe('nature placement laboratory boundaries', () => {
-  it('creates no gameplay, collision, persistence, or network surface', () => {
-    const source = [
-      'src/render/nature_placement_lab/placement_core.ts',
-      'src/render/nature_placement_lab/placement_controller.ts',
-      'src/render/nature_placement_lab/placement_render.ts',
-      'src/render/nature_placement_lab/placement_json.ts',
-      'src/render/nature_placement_lab/placement_ui.ts',
-      'src/render/nature_placement_lab/index.ts',
-    ]
-      .map((file) => readFileSync(path.join(repoRoot, file), 'utf8'))
-      .join('\n');
+  it('creates no gameplay, collision, placement persistence, or network surface', () => {
+    const directory = path.join(repoRoot, 'src/render/nature_placement_lab');
+    const files = readdirSync(directory).filter((file) => file.endsWith('.ts'));
+    const sources = new Map(
+      files.map((file) => [file, readFileSync(path.join(directory, file), 'utf8')]),
+    );
+    const source = [...sources.values()].join('\n');
 
     expect(source).not.toMatch(/from ['"][^'"]*(?:sim|net|server)[/']/);
-    expect(source).not.toMatch(/\b(?:Collider|Hitbox|WebSocket|localStorage|sessionStorage)\b/);
+    expect(source).not.toMatch(/\b(?:Collider|Hitbox|WebSocket|sessionStorage)\b/);
     expect(source).not.toMatch(/(?:\.send\s*\(|fetch\s*\()/);
     expect(source).not.toContain('clickTargets.push');
     expect(source).toContain("import { loadGltf } from '../assets/loader';");
+    for (const [file, fileSource] of sources) {
+      if (file === 'index.ts') continue;
+      expect(fileSource).not.toMatch(/\blocalStorage\b/);
+    }
+    expect(sources.get('placement_preferences.ts')).not.toMatch(/\bplacements\b|\bhistory\b/);
   });
 
   it('wires strict terrain projection and cleanup into Renderer', () => {

@@ -86,6 +86,11 @@ export interface NaturePlacementTransform {
   groundOffsetY: number;
 }
 
+export interface NaturePlacementEditSnapshot {
+  placements: NaturePlacement[];
+  selectedPlacementId: string | null;
+}
+
 export function naturePlacementLabEnabled(environment: NaturePlacementLabEnvironment): boolean {
   return environment.DEV && environment.VITE_NATURE_PLACEMENT_LAB === '1';
 }
@@ -139,6 +144,41 @@ export function cloneNaturePlacement(placement: NaturePlacement): NaturePlacemen
   return { ...placement, position: clonePoint(placement.position) };
 }
 
+export function cloneNaturePlacementEditSnapshot(
+  snapshot: NaturePlacementEditSnapshot,
+): NaturePlacementEditSnapshot {
+  return {
+    placements: snapshot.placements.map(cloneNaturePlacement),
+    selectedPlacementId: snapshot.selectedPlacementId,
+  };
+}
+
+export function equalNaturePlacementEditSnapshots(
+  left: NaturePlacementEditSnapshot,
+  right: NaturePlacementEditSnapshot,
+): boolean {
+  if (
+    left.selectedPlacementId !== right.selectedPlacementId ||
+    left.placements.length !== right.placements.length
+  ) {
+    return false;
+  }
+  return left.placements.every((placement, index) => {
+    const other = right.placements[index];
+    return (
+      other !== undefined &&
+      placement.id === other.id &&
+      placement.assetId === other.assetId &&
+      placement.position.x === other.position.x &&
+      placement.position.y === other.position.y &&
+      placement.position.z === other.position.z &&
+      placement.rotationY === other.rotationY &&
+      placement.scale === other.scale &&
+      placement.groundOffsetY === other.groundOffsetY
+    );
+  });
+}
+
 export class NaturePlacementState {
   private readonly records = new Map<string, NaturePlacement>();
   private selectedAsset: NaturePlacementAssetId | null = null;
@@ -166,6 +206,13 @@ export class NaturePlacementState {
 
   get placementActive(): boolean {
     return this.placing;
+  }
+
+  get editSnapshot(): NaturePlacementEditSnapshot {
+    return {
+      placements: this.placements,
+      selectedPlacementId: this.selected,
+    };
   }
 
   get activeTransform(): NaturePlacementTransform | null {
@@ -239,6 +286,86 @@ export class NaturePlacementState {
     return true;
   }
 
+  updateSelectedTransform(transform: {
+    position: NaturePlacementPoint;
+    rotationY: number;
+    scale: number;
+    groundOffsetY: number;
+  }): boolean {
+    if (this.selected === null || !validNaturePlacementPoint(transform.position)) return false;
+    if (
+      !Number.isFinite(transform.rotationY) ||
+      !Number.isFinite(transform.scale) ||
+      !Number.isFinite(transform.groundOffsetY) ||
+      transform.scale < NATURE_PLACEMENT_LIMITS.scaleMin ||
+      transform.scale > NATURE_PLACEMENT_LIMITS.scaleMax ||
+      transform.groundOffsetY < NATURE_PLACEMENT_LIMITS.groundOffsetMin ||
+      transform.groundOffsetY > NATURE_PLACEMENT_LIMITS.groundOffsetMax
+    ) {
+      return false;
+    }
+    const placement = this.records.get(this.selected);
+    if (!placement) return false;
+    placement.position = clonePoint(transform.position);
+    placement.rotationY = normalizePlacementRotation(transform.rotationY);
+    placement.scale = roundTransform(transform.scale);
+    placement.groundOffsetY = roundTransform(transform.groundOffsetY);
+    return true;
+  }
+
+  setActiveTransform(transform: NaturePlacementTransform): boolean {
+    if (
+      !Number.isFinite(transform.rotationY) ||
+      !Number.isFinite(transform.scale) ||
+      !Number.isFinite(transform.groundOffsetY) ||
+      transform.scale < NATURE_PLACEMENT_LIMITS.scaleMin ||
+      transform.scale > NATURE_PLACEMENT_LIMITS.scaleMax ||
+      transform.groundOffsetY < NATURE_PLACEMENT_LIMITS.groundOffsetMin ||
+      transform.groundOffsetY > NATURE_PLACEMENT_LIMITS.groundOffsetMax
+    ) {
+      return false;
+    }
+    return this.updateActive((active) => {
+      active.rotationY = normalizePlacementRotation(transform.rotationY);
+      active.scale = roundTransform(transform.scale);
+      active.groundOffsetY = roundTransform(transform.groundOffsetY);
+    });
+  }
+
+  duplicateSelected(offset: NaturePlacementPoint): NaturePlacement | null {
+    if (this.selected === null || this.records.size >= NATURE_PLACEMENT_LIMITS.maxPlacements) {
+      return null;
+    }
+    const source = this.records.get(this.selected);
+    if (!source) return null;
+    const position = {
+      x: source.position.x + offset.x,
+      y: source.position.y + offset.y,
+      z: source.position.z + offset.z,
+    };
+    if (!validNaturePlacementPoint(position)) return null;
+    const duplicate: NaturePlacement = {
+      ...cloneNaturePlacement(source),
+      id: this.allocateId(),
+      position,
+    };
+    this.records.set(duplicate.id, duplicate);
+    this.selected = duplicate.id;
+    this.placing = false;
+    return cloneNaturePlacement(duplicate);
+  }
+
+  resetSelectedTransform(): boolean {
+    if (this.selected === null) return false;
+    const placement = this.records.get(this.selected);
+    if (!placement) return false;
+    const asset = naturePlacementAsset(placement.assetId);
+    placement.rotationY = asset.defaultRotationY;
+    placement.scale = 1;
+    placement.groundOffsetY = asset.defaultGroundOffsetY;
+    return true;
+  }
+
   deleteSelected(): boolean {
     if (this.selected === null) return false;
     const removed = this.records.delete(this.selected);
@@ -299,6 +426,13 @@ export class NaturePlacementState {
     this.placing = false;
     this.nextId = 1;
     while (this.records.has(this.formatId(this.nextId))) this.nextId++;
+  }
+
+  restoreEditSnapshot(snapshot: NaturePlacementEditSnapshot): void {
+    this.replacePlacements(snapshot.placements);
+    if (snapshot.selectedPlacementId && this.records.has(snapshot.selectedPlacementId)) {
+      this.selected = snapshot.selectedPlacementId;
+    }
   }
 
   private updateActive(update: (transform: NaturePlacementTransform) => void): boolean {

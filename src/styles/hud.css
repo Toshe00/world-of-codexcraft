@@ -4683,7 +4683,7 @@
     top: 12px;
     right: 12px;
     z-index: 70;
-    width: min(360px, calc(100% - 24px));
+    width: min(440px, calc(100% - 24px));
     max-height: calc(100vh - 24px);
     padding: 8px;
     pointer-events: auto;
@@ -4723,6 +4723,9 @@
     gap: 5px;
     margin-top: 6px;
   }
+  .nature-placement-lab-actions-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
   .nature-placement-lab-inspector,
   .nature-placement-lab-controls {
     display: grid;
@@ -4738,7 +4741,10 @@
     font-size: 10px;
   }
   .nature-placement-lab-inspector input,
-  .nature-placement-lab-controls select {
+  .nature-placement-lab-controls select,
+  .nature-placement-lab-controls input,
+  .nature-placement-lab-wide-select,
+  .nature-placement-lab-inline select {
     box-sizing: border-box;
     width: 100%;
     min-width: 0;
@@ -4749,6 +4755,32 @@
     background: var(--color-bg-input);
     color: var(--color-text-light);
     font: 11px var(--body-font);
+  }
+  .nature-placement-lab-wide-select {
+    width: 100%;
+    margin-top: 4px;
+  }
+  .nature-placement-lab-inline {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 5px;
+    margin-top: 6px;
+  }
+  .nature-placement-lab-list {
+    display: grid;
+    gap: 6px;
+  }
+  .nature-placement-lab-list-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 5px;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid var(--color-border-default);
+  }
+  .nature-placement-lab-list-row > .nature-placement-lab-actions {
+    grid-column: 1 / -1;
+    width: 100%;
   }
   .nature-placement-lab-inspector input[readonly] {
     color: var(--color-text-muted);
@@ -4788,6 +4820,12 @@
     font-size: 11px;
     line-height: 1.35;
   }
+  .nature-placement-lab-statistics p {
+    margin: 3px 0;
+    color: var(--color-text-muted);
+    font-size: 11px;
+    line-height: 1.35;
+  }
   .nature-placement-lab-help,
   .nature-placement-lab-count,
   .nature-placement-lab-history-state {
@@ -4804,6 +4842,9 @@
     #nature-placement-lab .btn,
     .nature-placement-lab-inspector input,
     .nature-placement-lab-controls select,
+    .nature-placement-lab-controls input,
+    .nature-placement-lab-wide-select,
+    .nature-placement-lab-inline select,
     .nature-placement-lab-check {
       min-height: 40px;
     }

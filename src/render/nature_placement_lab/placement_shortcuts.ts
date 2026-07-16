@@ -2,6 +2,7 @@ export type NaturePlacementShortcut =
   | 'undo'
   | 'redo'
   | 'duplicate'
+  | 'selectAll'
   | 'toggleGrid'
   | 'toggleSnapPosition'
   | 'placeOnGround'
@@ -47,6 +48,7 @@ export function resolveNaturePlacementShortcut(
     if (key === 'z') return event.shiftKey ? 'redo' : 'undo';
     if (key === 'y' && !event.shiftKey) return 'redo';
     if (key === 'd' && !event.shiftKey && context.selectedPlacement) return 'duplicate';
+    if (key === 'a' && !event.shiftKey) return 'selectAll';
     return null;
   }
   if (event.shiftKey && event.code !== 'Escape') {

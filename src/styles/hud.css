@@ -4683,7 +4683,8 @@
     top: 12px;
     right: 12px;
     z-index: 70;
-    width: min(300px, calc(100% - 24px));
+    width: min(360px, calc(100% - 24px));
+    max-height: calc(100vh - 24px);
     padding: 8px;
     pointer-events: auto;
     color: var(--color-text-light);
@@ -4694,14 +4695,26 @@
     color: var(--color-gold);
     font-family: var(--title-font);
   }
+  .nature-placement-lab-body {
+    max-height: calc(100vh - 76px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 3px;
+  }
   #nature-placement-lab .btn {
     margin: 0;
   }
-  .nature-placement-lab-body h2 {
-    margin: 8px 0;
+  .nature-placement-lab-section {
+    margin-top: 7px;
+    padding-top: 6px;
+    border-top: 1px solid var(--color-border-default);
+  }
+  .nature-placement-lab-section h3 {
+    margin: 0 0 5px;
     color: var(--color-gold);
-    font: 700 14px var(--title-font);
-    text-align: center;
+    font: 700 12px var(--title-font);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
   .nature-placement-lab-assets,
   .nature-placement-lab-actions {
@@ -4709,6 +4722,51 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 5px;
     margin-top: 6px;
+  }
+  .nature-placement-lab-inspector,
+  .nature-placement-lab-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+  }
+  .nature-placement-lab-inspector > label,
+  .nature-placement-lab-controls > label {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+    color: var(--color-text-muted);
+    font-size: 10px;
+  }
+  .nature-placement-lab-inspector input,
+  .nature-placement-lab-controls select {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 27px;
+    padding: 3px 5px;
+    border: 1px solid var(--color-border-default);
+    border-radius: 2px;
+    background: var(--color-bg-input);
+    color: var(--color-text-light);
+    font: 11px var(--body-font);
+  }
+  .nature-placement-lab-inspector input[readonly] {
+    color: var(--color-text-muted);
+  }
+  .nature-placement-lab-check {
+    display: flex !important;
+    grid-template-columns: none !important;
+    align-items: center;
+    gap: 5px !important;
+    min-height: 27px;
+  }
+  .nature-placement-lab-check input {
+    flex: 0 0 auto;
+    width: auto;
+  }
+  .nature-placement-lab-inspector-actions {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .nature-placement-lab-asset {
     min-width: 0;
@@ -4724,13 +4782,15 @@
   .nature-placement-lab-selection,
   .nature-placement-lab-count,
   .nature-placement-lab-help,
+  .nature-placement-lab-history-state,
   .nature-placement-lab-status {
     margin: 7px 0 0;
     font-size: 11px;
     line-height: 1.35;
   }
   .nature-placement-lab-help,
-  .nature-placement-lab-count {
+  .nature-placement-lab-count,
+  .nature-placement-lab-history-state {
     color: var(--color-text-muted);
   }
   .nature-placement-lab-status {
@@ -4741,7 +4801,10 @@
     color: var(--color-text-error);
   }
   @media (pointer: coarse) {
-    #nature-placement-lab .btn {
+    #nature-placement-lab .btn,
+    .nature-placement-lab-inspector input,
+    .nature-placement-lab-controls select,
+    .nature-placement-lab-check {
       min-height: 40px;
     }
   }

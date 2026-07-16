@@ -19,6 +19,33 @@ function placement(overrides: Partial<NaturePlacement> = {}): NaturePlacement {
 }
 
 describe('nature placement laboratory JSON', () => {
+  it('accepts an unchanged phase 4D version 1 document', () => {
+    const phase4d = `{
+  "version": 1,
+  "placements": [
+    {
+      "id": "lab-placement-004",
+      "assetId": "DeadTree_2",
+      "position": { "x": 12.5, "y": 3.25, "z": -8.75 },
+      "rotationY": 1.5,
+      "scale": 0.8,
+      "groundOffsetY": -0.1
+    }
+  ]
+}`;
+
+    expect(parseNaturePlacementJson(phase4d)).toEqual([
+      {
+        id: 'lab-placement-004',
+        assetId: 'DeadTree_2',
+        position: { x: 12.5, y: 3.25, z: -8.75 },
+        rotationY: 1.5,
+        scale: 0.8,
+        groundOffsetY: -0.1,
+      },
+    ]);
+  });
+
   it('exports deterministic readable JSON sorted by id and never exports a ghost', () => {
     const result = serializeNaturePlacements([
       placement(),

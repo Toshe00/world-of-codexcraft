@@ -8,6 +8,8 @@ import {
   type NaturePlacementTransform,
   naturePlacementAsset,
 } from './placement_core';
+import { NaturePlacementGrid } from './placement_grid';
+import type { NaturePlacementGridSize } from './placement_snapping';
 
 const ROOT_NAME = 'Nature Placement Lab';
 const SELECTION_COLOR = 0xd4af37;
@@ -48,6 +50,7 @@ export class NaturePlacementRender {
   private selectionHelper: THREE.BoxHelper | null = null;
   private selectedId: string | null = null;
   private disposed = false;
+  private readonly grid: NaturePlacementGrid;
 
   constructor(
     private readonly scene: THREE.Scene,
@@ -57,6 +60,15 @@ export class NaturePlacementRender {
   ) {
     this.group.name = ROOT_NAME;
     this.scene.add(this.group);
+    this.grid = new NaturePlacementGrid(this.group);
+  }
+
+  syncGrid(
+    visible: boolean,
+    cellSize: NaturePlacementGridSize,
+    center: NaturePlacementPoint,
+  ): void {
+    this.grid.update(visible, cellSize, center);
   }
 
   sync(placements: readonly NaturePlacement[], selectedId: string | null): void {
@@ -169,6 +181,7 @@ export class NaturePlacementRender {
     if (this.disposed) return;
     this.disposed = true;
     this.clearGhost();
+    this.grid.dispose();
     this.dropSelection();
     for (const id of [...this.entries.keys()]) this.removeEntry(id);
     this.scene.remove(this.group);

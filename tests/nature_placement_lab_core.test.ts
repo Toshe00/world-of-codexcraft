@@ -124,4 +124,29 @@ describe('nature placement laboratory state', () => {
     expect(state.placements).toEqual([]);
     expect(state.selectedPlacement).toBeNull();
   });
+
+  it('duplicates with a new local id while preserving the complete transform', () => {
+    const state = new NaturePlacementState();
+    state.selectAsset('BirchTree_1');
+    state.startPlacement();
+    const original = state.place({ x: 10, y: 3, z: 20 });
+    expect(original).not.toBeNull();
+    expect(state.selectPlacement(original?.id ?? null)).toBe(true);
+    state.rotateActive(1);
+    state.adjustScale(1, false);
+    state.adjustGroundOffset(1, true);
+    const transformed = state.selectedPlacement;
+
+    const duplicate = state.duplicateSelected({ x: 0.5, y: 0, z: 0.5 });
+
+    expect(duplicate).toMatchObject({
+      assetId: 'BirchTree_1',
+      position: { x: 10.5, y: 3, z: 20.5 },
+      rotationY: transformed?.rotationY,
+      scale: transformed?.scale,
+      groundOffsetY: transformed?.groundOffsetY,
+    });
+    expect(duplicate?.id).not.toBe(original?.id);
+    expect(state.selectedPlacementId).toBe(duplicate?.id);
+  });
 });

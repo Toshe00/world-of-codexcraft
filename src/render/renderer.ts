@@ -1322,10 +1322,16 @@ export class Renderer {
     this.naturePlacementLab = createNaturePlacementLab({
       camera: this.camera,
       canvas: this.webgl.domElement,
+      initialWorkCenter: {
+        x: this.sim.player.pos.x,
+        y: this.sim.player.pos.y,
+        z: this.sim.player.pos.z,
+      },
       projectTerrain: (clientX, clientY) => {
         const rect = this.webgl.domElement.getBoundingClientRect();
         return this.terrainSurfacePoint(clientX - rect.left, clientY - rect.top);
       },
+      sampleGroundY: this.groundSample,
       scene: this.scene,
     });
 
@@ -4277,6 +4283,7 @@ export class Renderer {
     sharedUniforms.uTime.value = this.time;
     const sim = this.sim;
     const p = sim.player;
+    this.naturePlacementLab?.updateWorkCenter({ x: p.pos.x, y: p.pos.y, z: p.pos.z });
     if (this.lastSelfId !== p.id) {
       this.lastSelfId = p.id;
       this.selfRenderPositionReady = false;

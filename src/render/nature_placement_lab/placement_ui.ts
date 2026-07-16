@@ -5,6 +5,12 @@ import type {
   NaturePlacementUiView,
 } from './placement_controller';
 import type { NaturePlacementAssetId } from './placement_core';
+import { NaturePlacementInspector } from './placement_inspector';
+import {
+  NATURE_PLACEMENT_GRID_SIZES,
+  NATURE_PLACEMENT_ROTATION_STEPS,
+  NATURE_PLACEMENT_SCALE_STEPS,
+} from './placement_snapping';
 
 function button(documentRef: Document, label: string, className = 'btn'): HTMLButtonElement {
   const element = documentRef.createElement('button');
@@ -12,6 +18,51 @@ function button(documentRef: Document, label: string, className = 'btn'): HTMLBu
   element.className = className;
   element.textContent = label;
   return element;
+}
+
+function section(documentRef: Document, titleText: string): HTMLElement {
+  const root = documentRef.createElement('section');
+  root.className = 'nature-placement-lab-section';
+  const title = documentRef.createElement('h3');
+  title.textContent = titleText;
+  root.appendChild(title);
+  return root;
+}
+
+function checkbox(
+  documentRef: Document,
+  labelText: string,
+  onChange: (checked: boolean) => void,
+  signal: AbortSignal,
+): { input: HTMLInputElement; label: HTMLLabelElement } {
+  const label = documentRef.createElement('label');
+  label.className = 'nature-placement-lab-check';
+  const input = documentRef.createElement('input');
+  input.type = 'checkbox';
+  label.append(input, documentRef.createTextNode(labelText));
+  input.addEventListener('change', () => onChange(input.checked), { signal });
+  return { input, label };
+}
+
+function selectNumber<T extends number>(
+  documentRef: Document,
+  labelText: string,
+  values: readonly T[],
+  onChange: (value: T) => void,
+  signal: AbortSignal,
+): { select: HTMLSelectElement; label: HTMLLabelElement } {
+  const label = documentRef.createElement('label');
+  label.textContent = labelText;
+  const select = documentRef.createElement('select');
+  for (const value of values) {
+    const option = documentRef.createElement('option');
+    option.value = String(value);
+    option.textContent = formatNumber(value, { maximumFractionDigits: 2 });
+    select.appendChild(option);
+  }
+  select.addEventListener('change', () => onChange(Number(select.value) as T), { signal });
+  label.appendChild(select);
+  return { select, label };
 }
 
 function downloadJson(documentRef: Document, source: string): void {
@@ -31,13 +82,25 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
   private readonly root: HTMLElement;
   private readonly body: HTMLElement;
   private readonly toggle: HTMLButtonElement;
+  private readonly assets: HTMLElement;
   private readonly assetButtons = new Map<NaturePlacementAssetId, HTMLButtonElement>();
   private readonly selection: HTMLElement;
   private readonly placeButton: HTMLButtonElement;
-  private readonly deleteButton: HTMLButtonElement;
   private readonly count: HTMLElement;
   private readonly status: HTMLElement;
   private readonly fileInput: HTMLInputElement;
+  private readonly inspector: NaturePlacementInspector;
+  private readonly gridButton: HTMLButtonElement;
+  private readonly gridSize: HTMLSelectElement;
+  private readonly snapPosition: HTMLInputElement;
+  private readonly snapRotation: HTMLInputElement;
+  private readonly snapScale: HTMLInputElement;
+  private readonly snapToGround: HTMLInputElement;
+  private readonly rotationStep: HTMLSelectElement;
+  private readonly scaleStep: HTMLSelectElement;
+  private readonly undoButton: HTMLButtonElement;
+  private readonly redoButton: HTMLButtonElement;
+  private readonly historyState: HTMLElement;
   private open = true;
   private view: NaturePlacementUiView | null = null;
   private disposed = false;
@@ -63,47 +126,144 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
 
     this.body = documentRef.createElement('div');
     this.body.className = 'nature-placement-lab-body';
-    const title = documentRef.createElement('h2');
-    title.textContent = t('hudChrome.naturePlacementLab.title');
-    this.body.appendChild(title);
 
-    const assets = documentRef.createElement('div');
-    assets.className = 'nature-placement-lab-assets';
-    assets.setAttribute('aria-label', t('hudChrome.naturePlacementLab.assetsAria'));
-    this.body.appendChild(assets);
+    const assetsSection = section(documentRef, t('hudChrome.naturePlacementLab.assetsSection'));
+    this.assets = documentRef.createElement('div');
+    this.assets.className = 'nature-placement-lab-assets';
+    this.assets.setAttribute('aria-label', t('hudChrome.naturePlacementLab.assetsAria'));
+    assetsSection.appendChild(this.assets);
+    this.body.appendChild(assetsSection);
 
+    const selectionSection = section(
+      documentRef,
+      t('hudChrome.naturePlacementLab.selectionSection'),
+    );
     this.selection = documentRef.createElement('p');
     this.selection.className = 'nature-placement-lab-selection';
-    this.body.appendChild(this.selection);
-
-    const primaryActions = documentRef.createElement('div');
-    primaryActions.className = 'nature-placement-lab-actions';
+    const selectionActions = documentRef.createElement('div');
+    selectionActions.className = 'nature-placement-lab-actions';
     this.placeButton = button(documentRef, t('hudChrome.naturePlacementLab.placeSelected'));
-    this.deleteButton = button(documentRef, t('hudChrome.naturePlacementLab.deleteSelected'));
-    primaryActions.append(this.placeButton, this.deleteButton);
-    this.body.appendChild(primaryActions);
+    const duplicateButton = button(documentRef, t('hudChrome.naturePlacementLab.duplicate'));
+    selectionActions.append(this.placeButton, duplicateButton);
+    selectionSection.append(this.selection, selectionActions);
+    this.body.appendChild(selectionSection);
 
+    const transformSection = section(
+      documentRef,
+      t('hudChrome.naturePlacementLab.transformSection'),
+    );
+    this.inspector = new NaturePlacementInspector(
+      documentRef,
+      {
+        apply: (input) => this.callbacks.applyTransform(input),
+        delete: () => this.callbacks.deleteSelected(),
+        duplicate: () => this.callbacks.duplicateSelected(),
+        placeOnGround: () => this.callbacks.placeOnGround(),
+        reset: () => this.callbacks.resetTransform(),
+      },
+      transformSection,
+      signal,
+    );
+    this.body.appendChild(transformSection);
+
+    const snappingSection = section(documentRef, t('hudChrome.naturePlacementLab.snappingSection'));
+    this.gridButton = button(documentRef, t('hudChrome.naturePlacementLab.hideGrid'));
+    const gridSize = selectNumber(
+      documentRef,
+      t('hudChrome.naturePlacementLab.gridSize'),
+      NATURE_PLACEMENT_GRID_SIZES,
+      (value) => this.callbacks.setPreferences({ gridSize: value }),
+      signal,
+    );
+    this.gridSize = gridSize.select;
+    const snapPosition = checkbox(
+      documentRef,
+      t('hudChrome.naturePlacementLab.snapPosition'),
+      (value) => this.callbacks.setPreferences({ snapPosition: value }),
+      signal,
+    );
+    this.snapPosition = snapPosition.input;
+    const snapRotation = checkbox(
+      documentRef,
+      t('hudChrome.naturePlacementLab.snapRotation'),
+      (value) => this.callbacks.setPreferences({ snapRotation: value }),
+      signal,
+    );
+    this.snapRotation = snapRotation.input;
+    const rotationStep = selectNumber(
+      documentRef,
+      t('hudChrome.naturePlacementLab.rotationStep'),
+      NATURE_PLACEMENT_ROTATION_STEPS,
+      (value) => this.callbacks.setPreferences({ rotationStep: value }),
+      signal,
+    );
+    this.rotationStep = rotationStep.select;
+    const snapScale = checkbox(
+      documentRef,
+      t('hudChrome.naturePlacementLab.snapScale'),
+      (value) => this.callbacks.setPreferences({ snapScale: value }),
+      signal,
+    );
+    this.snapScale = snapScale.input;
+    const scaleStep = selectNumber(
+      documentRef,
+      t('hudChrome.naturePlacementLab.scaleStep'),
+      NATURE_PLACEMENT_SCALE_STEPS,
+      (value) => this.callbacks.setPreferences({ scaleStep: value }),
+      signal,
+    );
+    this.scaleStep = scaleStep.select;
+    const snapToGround = checkbox(
+      documentRef,
+      t('hudChrome.naturePlacementLab.snapToGround'),
+      (value) => this.callbacks.setPreferences({ snapToGround: value }),
+      signal,
+    );
+    this.snapToGround = snapToGround.input;
+    const snapControls = documentRef.createElement('div');
+    snapControls.className = 'nature-placement-lab-controls';
+    snapControls.append(
+      gridSize.label,
+      snapPosition.label,
+      snapRotation.label,
+      rotationStep.label,
+      snapScale.label,
+      scaleStep.label,
+      snapToGround.label,
+    );
+    snappingSection.append(this.gridButton, snapControls);
+    this.body.appendChild(snappingSection);
+
+    const historySection = section(documentRef, t('hudChrome.naturePlacementLab.historySection'));
+    const historyActions = documentRef.createElement('div');
+    historyActions.className = 'nature-placement-lab-actions';
+    this.undoButton = button(documentRef, t('hudChrome.naturePlacementLab.undo'));
+    this.redoButton = button(documentRef, t('hudChrome.naturePlacementLab.redo'));
+    historyActions.append(this.undoButton, this.redoButton);
+    this.historyState = documentRef.createElement('p');
+    this.historyState.className = 'nature-placement-lab-history-state';
+    historySection.append(historyActions, this.historyState);
+    this.body.appendChild(historySection);
+
+    const ioSection = section(documentRef, t('hudChrome.naturePlacementLab.importExportSection'));
     const documentActions = documentRef.createElement('div');
     documentActions.className = 'nature-placement-lab-actions';
     const clearButton = button(documentRef, t('hudChrome.naturePlacementLab.clearAll'));
     const exportButton = button(documentRef, t('hudChrome.naturePlacementLab.exportJson'));
     const importButton = button(documentRef, t('hudChrome.naturePlacementLab.importJson'));
     documentActions.append(clearButton, exportButton, importButton);
-    this.body.appendChild(documentActions);
+    ioSection.appendChild(documentActions);
+    this.body.appendChild(ioSection);
 
     this.count = documentRef.createElement('p');
     this.count.className = 'nature-placement-lab-count';
-    this.body.appendChild(this.count);
-
-    const help = documentRef.createElement('p');
-    help.className = 'nature-placement-lab-help';
-    help.textContent = t('hudChrome.naturePlacementLab.help');
-    this.body.appendChild(help);
-
     this.status = documentRef.createElement('p');
     this.status.className = 'nature-placement-lab-status';
     this.status.setAttribute('aria-live', 'polite');
-    this.body.appendChild(this.status);
+    const help = documentRef.createElement('p');
+    help.className = 'nature-placement-lab-help';
+    help.textContent = t('hudChrome.naturePlacementLab.help');
+    this.body.append(this.count, help, this.status);
 
     this.fileInput = documentRef.createElement('input');
     this.fileInput.type = 'file';
@@ -115,39 +275,26 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     this.toggle.addEventListener('click', () => this.setOpen(!this.open), { signal });
     this.placeButton.addEventListener(
       'click',
-      () => {
-        if (this.view?.placing) this.callbacks.cancelPlacement();
-        else this.callbacks.startPlacement();
-      },
+      () =>
+        this.view?.placing ? this.callbacks.cancelPlacement() : this.callbacks.startPlacement(),
       { signal },
     );
-    this.deleteButton.addEventListener('click', () => this.callbacks.deleteSelected(), { signal });
+    duplicateButton.addEventListener('click', () => this.callbacks.duplicateSelected(), { signal });
+    this.gridButton.addEventListener(
+      'click',
+      () => this.callbacks.setPreferences({ gridVisible: !this.view?.preferences.gridVisible }),
+      { signal },
+    );
+    this.undoButton.addEventListener('click', () => this.callbacks.undo(), { signal });
+    this.redoButton.addEventListener('click', () => this.callbacks.redo(), { signal });
     clearButton.addEventListener('click', () => this.callbacks.clear(), { signal });
     exportButton.addEventListener(
       'click',
       () => downloadJson(this.documentRef, this.callbacks.exportJson()),
-      {
-        signal,
-      },
-    );
-    importButton.addEventListener('click', () => this.fileInput.click(), { signal });
-    this.fileInput.addEventListener(
-      'change',
-      () => {
-        const file = this.fileInput.files?.[0];
-        this.fileInput.value = '';
-        if (!file) return;
-        void file
-          .text()
-          .then((source) => {
-            if (!this.disposed) this.callbacks.importJson(source);
-          })
-          .catch(() => {
-            if (!this.disposed) this.callbacks.importJson('');
-          });
-      },
       { signal },
     );
+    importButton.addEventListener('click', () => this.fileInput.click(), { signal });
+    this.fileInput.addEventListener('change', () => this.importSelectedFile(), { signal });
     for (const eventName of ['mousedown', 'mouseup', 'contextmenu', 'keydown'] as const) {
       this.root.addEventListener(eventName, (event) => event.stopPropagation(), { signal });
     }
@@ -163,14 +310,14 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
           signal: this.abort.signal,
         });
         this.assetButtons.set(assetId, assetButton);
-        this.body.querySelector('.nature-placement-lab-assets')?.appendChild(assetButton);
+        this.assets.appendChild(assetButton);
       }
       const selected = view.selectedAssetId === assetId;
       assetButton.classList.toggle('selected', selected);
       assetButton.setAttribute('aria-pressed', String(selected));
     }
-    this.selection.textContent = view.selectedPlacementId
-      ? t('hudChrome.naturePlacementLab.selectedObject', { id: view.selectedPlacementId })
+    this.selection.textContent = view.selectedPlacement
+      ? t('hudChrome.naturePlacementLab.selectedObject', { id: view.selectedPlacement.id })
       : view.selectedAssetId
         ? t('hudChrome.naturePlacementLab.selectedAsset', { assetId: view.selectedAssetId })
         : t('hudChrome.naturePlacementLab.noAssetSelected');
@@ -178,7 +325,29 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
       ? t('hudChrome.naturePlacementLab.cancelPlacement')
       : t('hudChrome.naturePlacementLab.placeSelected');
     this.placeButton.disabled = view.selectedAssetId === null;
-    this.deleteButton.disabled = view.selectedPlacementId === null;
+    this.inspector.update(view.selectedPlacement, this.documentRef.activeElement);
+
+    this.gridButton.textContent = view.preferences.gridVisible
+      ? t('hudChrome.naturePlacementLab.hideGrid')
+      : t('hudChrome.naturePlacementLab.showGrid');
+    this.gridSize.value = String(view.preferences.gridSize);
+    this.snapPosition.checked = view.preferences.snapPosition;
+    this.snapRotation.checked = view.preferences.snapRotation;
+    this.snapScale.checked = view.preferences.snapScale;
+    this.snapToGround.checked = view.preferences.snapToGround;
+    this.rotationStep.value = String(view.preferences.rotationStep);
+    this.scaleStep.value = String(view.preferences.scaleStep);
+
+    this.undoButton.disabled = !view.canUndo;
+    this.redoButton.disabled = !view.canRedo;
+    this.historyState.textContent = t('hudChrome.naturePlacementLab.historyState', {
+      redo: view.canRedo
+        ? t('hudChrome.naturePlacementLab.available')
+        : t('hudChrome.naturePlacementLab.unavailable'),
+      undo: view.canUndo
+        ? t('hudChrome.naturePlacementLab.available')
+        : t('hudChrome.naturePlacementLab.unavailable'),
+    });
     this.count.textContent = t('hudChrome.naturePlacementLab.placementsCount', {
       count: formatNumber(view.count),
     });
@@ -190,6 +359,20 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     this.disposed = true;
     this.abort.abort();
     this.root.remove();
+  }
+
+  private importSelectedFile(): void {
+    const file = this.fileInput.files?.[0];
+    this.fileInput.value = '';
+    if (!file) return;
+    void file
+      .text()
+      .then((source) => {
+        if (!this.disposed) this.callbacks.importJson(source);
+      })
+      .catch(() => {
+        if (!this.disposed) this.callbacks.importJson('');
+      });
   }
 
   private setOpen(open: boolean): void {

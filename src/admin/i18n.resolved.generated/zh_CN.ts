@@ -12,7 +12,7 @@
 import type { AdminTranslations } from '../i18n.en';
 
 export const zh_CN: AdminTranslations = {
-  "app.title": "World of ClaudeCraft - 管理后台",
+  "app.title": "World of CodexCraft - 管理后台",
   "app.shortTitle": "沃克管理员",
   "auth.username": "用户名",
   "auth.password": "密码",

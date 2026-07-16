@@ -18,6 +18,11 @@ import { DICT as ADMIN_DICT } from "../src/admin/i18n";
 
 const PLACEHOLDER = /\{[^}]*\}/g;
 const ASCII_LETTER = /[A-Za-z]/;
+const VERBATIM_BRANDS = ['World of CodexCraft', 'CodexCraft'] as const;
+
+function stripVerbatimBrands(value: string): string {
+  return VERBATIM_BRANDS.reduce((result, brand) => result.replaceAll(brand, ''), value);
+}
 
 // Walk two structurally-identical trees in parallel, collecting [path, enLeaf, xaLeaf].
 function collectLeaves(
@@ -80,10 +85,19 @@ describe("en_XA generator output (game)", () => {
     for (const [path, enLeaf, xaLeaf] of leaves) {
       // Only leaves whose literal text (placeholders stripped) had ASCII letters can
       // be checked: a leaf of pure symbols/digits stays as-is inside the brackets.
-      const enText = enLeaf.replace(PLACEHOLDER, "");
+      const enText = stripVerbatimBrands(enLeaf.replace(PLACEHOLDER, ""));
       if (!ASCII_LETTER.test(enText)) continue;
-      const xaText = (xaLeaf as string).slice(1, -1).replace(PLACEHOLDER, "");
+      const xaText = stripVerbatimBrands((xaLeaf as string).slice(1, -1).replace(PLACEHOLDER, ""));
       expect(ASCII_LETTER.test(xaText), `un-accented ASCII letters at ${path}: ${xaLeaf}`).toBe(false);
+    }
+  });
+
+  it('preserves approved product names byte-for-byte', () => {
+    for (const [path, enLeaf, xaLeaf] of leaves) {
+      for (const brand of VERBATIM_BRANDS) {
+        if (!enLeaf.includes(brand)) continue;
+        expect(xaLeaf, `${brand} changed at ${path}`).toContain(brand);
+      }
     }
   });
 
@@ -109,6 +123,15 @@ describe("en_XA generator output (admin)", () => {
       expect(typeof s, `admin en_XA missing leaf at ${path}`).toBe("string");
       expect(s.startsWith("[") && s.endsWith("]"), `admin en_XA leaf not bracketed at ${path}`).toBe(true);
       expect((s.match(PLACEHOLDER) ?? []), `admin placeholders changed at ${path}`).toEqual(enLeaf.match(PLACEHOLDER) ?? []);
+    }
+  });
+
+  it('preserves approved product names byte-for-byte', () => {
+    for (const [path, enLeaf, xaLeaf] of leaves) {
+      for (const brand of VERBATIM_BRANDS) {
+        if (!enLeaf.includes(brand)) continue;
+        expect(xaLeaf, `${brand} changed at ${path}`).toContain(brand);
+      }
     }
   });
 });

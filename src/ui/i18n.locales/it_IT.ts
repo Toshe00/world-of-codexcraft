@@ -699,7 +699,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'editor.confirm.discardBody': 'Hai modifiche non salvate su "{name}". Scartarle?',
   'editor.confirm.discardTitle': 'Scartare le modifiche?',
   'editor.confirm.ok': 'OK',
-  'editor.docTitle': 'Editor di Mappe - World of ClaudeCraft',
+  'editor.docTitle': 'Editor di Mappe - World of CodexCraft',
   'editor.eraseTool.blockerHint': 'Un clic vicino a un muro invisibile rimuove invece quel muro.',
   'editor.eraseTool.hint':
     "Clicca un asset posizionato per rimuoverlo, oppure clicca il terreno scolpito per rimuovere l'impronta più recente sotto il cursore.",
@@ -1367,7 +1367,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.unitFrame.playerLabel': 'Il tuo personaggio',
   'hudChrome.unitFrame.targetAnnounce': 'Bersaglio: {name}',
   'hudChrome.unitFrame.targetLabel': 'Il tuo bersaglio',
-  'seo.officialLabel': 'Sito ufficiale di World of ClaudeCraft',
+  'seo.officialLabel': 'Sito ufficiale di World of CodexCraft',
   'seo.officialBody':
     "worldofclaudecraft.com è l'MMO gratuito ufficiale da browser del mondo Claudemoon. Gioca online con un personaggio persistente, esplora offline in solitaria, leggi il wiki e segui i link della community verificati da questo sito.",
   'hudChrome.questShare.notShareable': 'Questa missione non può essere condivisa.',
@@ -1723,7 +1723,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'stats.accountsCreated': 'Giocatori',
   'stats.playersOnline': 'Giocatori online',
   'stats.realmName': 'Nome del mondo',
-  'footer.copyright': '2026 World of ClaudeCraft',
+  'footer.copyright': '2026 World of CodexCraft',
   'footer.githubLink': 'https://github.com/levy-street/world-of-claudecraft',
   'footer.githubLabel': 'Progetto open source',
   'footer.whitepaper': 'Libro bianco',
@@ -1905,8 +1905,8 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'playerCard.levelClass': 'Livello {level} - {className}',
   'playerCard.topPercent': 'TOP {percent}%',
   'playerCard.realmSubtitle': 'Mondo {realm}',
-  'playerCard.defaultRealm': 'Mondo di ClaudeCraft',
-  'playerCard.brandWordmark': 'WORLD OF CLAUDECRAFT',
+  'playerCard.defaultRealm': 'Mondo di CodexCraft',
+  'playerCard.brandWordmark': 'World of CodexCraft',
   'playerCard.recruited': '{count} reclutati',
   'playerCard.footerHandle': '@{handle}',
   'playerCard.footerHandleWithRecruits': '@{handle} - {recruited}',
@@ -1914,8 +1914,8 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'playerCard.arenaStat': 'Arena',
   'playerCard.shareTierBit': ', titolare $WOC di rango {tier}',
   'playerCard.shareText':
-    'Sto forgiando la mia leggenda in World of ClaudeCraft: livello {level} {className}{tierBit}. Unisciti al mio mondo:',
-  'playerCard.nativeShareTitle': 'Mondo di ClaudeCraft',
+    'Sto forgiando la mia leggenda in World of CodexCraft: livello {level} {className}{tierBit}. Unisciti al mio mondo:',
+  'playerCard.nativeShareTitle': 'Mondo di CodexCraft',
   'playerCard.fileNameFallback': 'giocatore',
   'playerCard.actionShareX': 'Condividi su X',
   'playerCard.actionCopyReferral': 'Copia link di invito',
@@ -1977,9 +1977,9 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'controls.emoteWheel': 'Tieni premuta la ruota emote',
   'controls.friends': 'Amici e gilda',
   'controls.chat': 'Apri chat',
-  'seo.title': 'World of ClaudeCraft: MMO web in stile classico',
+  'seo.title': 'World of CodexCraft: MMO web in stile classico',
   'seo.description':
-    "Parti per un'avventura epica in World of ClaudeCraft, un micro-MMO in stile classico giocabile direttamente dal browser. Entra in un mondo condiviso persistente, fai crescere le classi e sconfiggi i nemici!",
+    "Parti per un'avventura epica in World of CodexCraft, un micro-MMO in stile classico giocabile direttamente dal browser. Entra in un mondo condiviso persistente, fai crescere le classi e sconfiggi i nemici!",
   'seo.genre': 'MMORPG',
   'seo.playMode': 'Multigiocatore',
   'seo.applicationCategory': 'Gioco',
@@ -1989,9 +1989,9 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'a11y.mainNavigation': 'Navigazione principale',
   'a11y.languageSelection': 'Selezione lingua',
   'a11y.characterActions': 'Azioni personaggio',
-  'a11y.githubProject': 'Apri il progetto World of ClaudeCraft su GitHub',
-  'a11y.discordCommunity': 'Entra nella community Discord di World of ClaudeCraft',
-  'a11y.donateProject': 'Fai una donazione per sostenere World of ClaudeCraft',
+  'a11y.githubProject': 'Apri il progetto World of CodexCraft su GitHub',
+  'a11y.discordCommunity': 'Entra nella community Discord di World of CodexCraft',
+  'a11y.donateProject': 'Fai una donazione per sostenere World of CodexCraft',
   'loading.world': 'Caricamento del mondo...',
   'loading.worldProgress': 'Caricamento del mondo... {done}/{total}',
   'loading.enteringWorld': 'Ingresso nel mondo...',
@@ -2132,19 +2132,19 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
     'Per il vero schermo intero su iPhone o iPad, installa prima questa pagina nella schermata Home.',
   'mobilePreflight.iosShareStep': 'In Safari, tocca Condividi e poi Aggiungi alla schermata Home.',
   'mobilePreflight.iosOpenStep':
-    'Apri World of ClaudeCraft dalla nuova icona nella schermata Home.',
+    'Apri World of CodexCraft dalla nuova icona nella schermata Home.',
   'mobilePreflight.androidStandaloneDetail':
     'Sei in modalità app a schermo intero. Mantieni il dispositivo in orizzontale.',
   'mobilePreflight.androidInstallDetail':
     'Per lo schermo intero su Android, installa questa pagina o aggiungila alla schermata Home.',
   'mobilePreflight.androidInstallStep':
     'In Chrome, tocca il menu e poi Installa app o Aggiungi alla schermata Home.',
-  'mobilePreflight.androidOpenStep': 'Apri World of ClaudeCraft dalla nuova icona.',
+  'mobilePreflight.androidOpenStep': 'Apri World of CodexCraft dalla nuova icona.',
   'mobilePreflight.otherStandaloneDetail': 'Mantieni il dispositivo in schermo intero orizzontale.',
   'mobilePreflight.otherInstallDetail':
     'Installa o aggiungi questa pagina alla schermata Home per la migliore esperienza mobile a schermo intero.',
-  'serverUnavailable.title': 'World of ClaudeCraft - Mondo non disponibile',
-  'serverUnavailable.logoAlt': 'World of ClaudeCraft',
+  'serverUnavailable.title': 'World of CodexCraft - Mondo non disponibile',
+  'serverUnavailable.logoAlt': 'World of CodexCraft',
   'serverUnavailable.eyebrow': 'Manutenzione del mondo',
   'serverUnavailable.heading': 'Il mondo è temporaneamente non disponibile.',
   'serverUnavailable.body':
@@ -4437,7 +4437,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'mode.caNote':
     "WOC è il token della nostra community. Non serve per giocare. Entra nel Discord per discutere dell'utilità e del flywheel di WOC.",
   'mode.play': 'Gioca',
-  'mode.playAria': 'Gioca a World of ClaudeCraft',
+  'mode.playAria': 'Gioca a World of CodexCraft',
   'mode.serverAria': 'Seleziona il mondo: Online o Offline',
   'mode.serverLabel': 'Scegli il tuo mondo',
   'mode.serverOffline': 'Offline',
@@ -4934,8 +4934,8 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'guide.bestiary.levels': 'Livelli da {min} a {max}',
   'guide.bestiary.levelsSame': 'Livello {min}',
   'guide.bestiary.rare': 'Raro',
-  'guide.brand': 'World of ClaudeCraft',
-  'guide.brandShort': 'ClaudeCraft',
+  'guide.brand': 'World of CodexCraft',
+  'guide.brandShort': 'CodexCraft',
   'guide.classHook.druid':
     'Un mutaforma che fa da tank come orso, dilania i nemici come felino o cura nel pieno della mischia.',
   'guide.classHook.hunter':
@@ -5121,7 +5121,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'guide.footer.discord': 'Unisciti al Discord',
   'guide.footer.github': 'Sorgente su GitHub',
   'guide.footer.playNow': 'Gioca Ora',
-  'guide.footer.rights': 'World of ClaudeCraft',
+  'guide.footer.rights': 'World of CodexCraft',
   'guide.glossary.aggroDef':
     "L'attenzione di un nemico. Il giocatore che genera più minaccia mantiene l'aggro e viene attaccato.",
   'guide.glossary.aggroTerm': 'Aggro',
@@ -5197,7 +5197,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
     'Il mondo è affrontabile in solitaria, ma il bottino migliore attende dietro un buon gruppo.',
   'guide.home.subtitle':
     'Affronta missioni, raggruppati ed esplora un mondo costruito a mano, gratis nel tuo browser.',
-  'guide.home.title': 'World of ClaudeCraft',
+  'guide.home.title': 'World of CodexCraft',
   'guide.home.what.heading': 'Un MMO classico, fatto per essere preso al volo',
   'guide.home.what.pillarClassesBody':
     'Fai da tank, cura o infliggi danni. Ogni classe gioca come il suo archetipo dovrebbe, con i talenti per renderla tua.',
@@ -5322,7 +5322,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'guide.worldPage.heading': 'Il mondo',
   'guide.worldPage.hub': 'Base operativa',
   'guide.worldPage.intro':
-    "World of ClaudeCraft è una terra continua che attraversi a piedi, tre zone disposte da sud a nord. Non c'è viaggio rapido, perciò il viaggio è parte dell'avventura.",
+    "World of CodexCraft è una terra continua che attraversi a piedi, tre zone disposte da sud a nord. Non c'è viaggio rapido, perciò il viaggio è parte dell'avventura.",
   'guide.worldPage.marshBlurb':
     "Una terra annegata di nebbia e rovine. I mudfin brulicano nelle secche e qualcosa di più antico si agita sotto l'acqua, sorvegliato dalla città-ponte di Fenbridge.",
   'guide.worldPage.peaksBlurb':
@@ -6392,7 +6392,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.leaderboard.guildXp': 'XP totali',
   'hudChrome.leaderboard.guildEmpty': 'Ancora nessuna gilda classificata.',
   'hudChrome.discord.title': 'Discord',
-  'hudChrome.discord.panelTitle': 'World of ClaudeCraft',
+  'hudChrome.discord.panelTitle': 'World of CodexCraft',
   'hudChrome.discord.open': 'Discord',
   'hudChrome.discord.close': 'Chiudi',
   'hudChrome.discord.keybind': 'Pannello Discord',
@@ -6514,10 +6514,10 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
     'Il codice di accesso desktop non è valido o è scaduto. Riprova.',
   'desktop.crash.body': 'La vista di gioco ha smesso di funzionare. Ricaricarla?',
   'desktop.crash.fatalBody':
-    'World of ClaudeCraft ha riscontrato un errore imprevisto e deve chiudersi.',
+    'World of CodexCraft ha riscontrato un errore imprevisto e deve chiudersi.',
   'desktop.crash.quit': 'Esci',
   'desktop.crash.reload': 'Ricarica',
-  'desktop.crash.title': 'World of ClaudeCraft',
+  'desktop.crash.title': 'World of CodexCraft',
   'desktop.update.downloading': "Download dell'aggiornamento {version} in corso...",
   'desktop.update.later': 'Più tardi',
   'desktop.update.ready':
@@ -6570,9 +6570,9 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
     'Il prezzo di WOC non è disponibile al momento. Ricontrolla a breve.',
   'hudChrome.dailyRewards.walletValue': 'Valore del portafoglio (WOC)',
   'hudChrome.nativeUpdate.body':
-    'È disponibile una nuova versione di World of ClaudeCraft. Aggiorna ora per le ultime correzioni e migliorie.',
+    'È disponibile una nuova versione di World of CodexCraft. Aggiorna ora per le ultime correzioni e migliorie.',
   'hudChrome.nativeUpdate.bodyWithVersion':
-    'La versione {version} di World of ClaudeCraft è disponibile. Aggiorna ora per le ultime correzioni e migliorie.',
+    'La versione {version} di World of CodexCraft è disponibile. Aggiorna ora per le ultime correzioni e migliorie.',
   'hudChrome.nativeUpdate.notNow': 'Non ora',
   'hudChrome.nativeUpdate.title': 'Aggiornamento disponibile',
   'hudChrome.nativeUpdate.update': 'Aggiorna',

@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **Jalankan quest, bentuk grup, dan serbu dunia buatan tangan, gratis di browser Anda. Open source, web3, dan online sekarang juga.**
 
@@ -22,13 +22,12 @@
 
 [Main sekarang](https://worldofclaudecraft.com/) · [Hosting dunia Anda sendiri](#host-your-own-world-one-command) · [Latih sebuah agen](#train-an-agent-headless-rl) · [Web3](#web3) · [Berkontribusi](CONTRIBUTING.id_ID.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![Layar judul World of ClaudeCraft](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## Apa ini
 
-World of ClaudeCraft adalah MMO era klasik yang lengkap dan bisa Anda mainkan sekarang juga di browser, Anda hosting sendiri dengan satu perintah, dan bahkan bisa melatih agen AI untuk memainkannya. Ini gratis, open source, dan live di [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+World of CodexCraft adalah MMO era klasik yang lengkap dan bisa Anda mainkan sekarang juga di browser, Anda hosting sendiri dengan satu perintah, dan bahkan bisa melatih agen AI untuk memainkannya. Ini gratis, open source, dan live di [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 Satu dunia bersama berjalan di tiga tempat, semuanya dari inti game yang sama:
 
@@ -154,7 +153,7 @@ Protokol dan binding didokumentasikan di `headless/CLAUDE.md` dan `python/CLAUDE
 
 ## Web3
 
-World of ClaudeCraft adalah web3-native di sekitar **$WOC**, token komunitas kami di Solana. Hubungkan dompet Solana, tautkan ke akun Anda dengan satu tanda tangan (non-custodial, tanpa transaksi untuk disetujui), dan saldo $WOC read-only Anda muncul di HUD bersama lencana tier holder kosmetik.
+World of CodexCraft adalah web3-native di sekitar **$WOC**, token komunitas kami di Solana. Hubungkan dompet Solana, tautkan ke akun Anda dengan satu tanda tangan (non-custodial, tanpa transaksi untuk disetujui), dan saldo $WOC read-only Anda muncul di HUD bersama lencana tier holder kosmetik.
 
 Ini hanya kosmetik dan tidak diperlukan untuk bermain. Tidak ada yang dihabiskan atau didapat di dalam game, tidak ada pay-to-win, dan seluruh game berjalan baik tanpa pernah menghubungkan dompet.
 
@@ -305,13 +304,6 @@ Setiap string yang terlihat pemain diselesaikan melalui `t()`, dan game ini diki
 
 Kontribusi dalam segala bentuk disambut: kode, terjemahan, laporan bug, dan dokumentasi. Mulai dengan [CONTRIBUTING.id_ID.md](CONTRIBUTING.id_ID.md) untuk penyiapan, baca [Kode Etik](../../CODE_OF_CONDUCT.md), dan periksa [SECURITY.md](../../SECURITY.md) sebelum melaporkan kerentanan. Baru di sini? Cari issue berlabel [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), buka sebuah [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose), atau sapa kami di [Discord](https://discord.com/invite/worldofclaudecraft).
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![Komunitas World of ClaudeCraft](../../woc_community.png)
-
-</div>
 
 ## Lisensi
 

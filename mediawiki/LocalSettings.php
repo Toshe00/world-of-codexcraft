@@ -3,18 +3,13 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	exit;
 }
 
-$wgSitename = 'World of Claudecraft Wiki';
+$wgSitename = 'World of CodexCraft Wiki';
 $wgMetaNamespace = 'World_of_Claudecraft';
 $wgScriptPath = '/wiki';
 $wgServer = getenv( 'MEDIAWIKI_SERVER' ) ?: 'http://localhost:8080';
 $wgArticlePath = "$wgScriptPath/index.php/$1";
 $wgUsePathInfo = true;
 $wgResourceBasePath = $wgScriptPath;
-
-$wgLogos = [
-	'1x' => "$wgScriptPath/resources/assets/woc-logo-square.webp",
-	'icon' => "$wgScriptPath/resources/assets/woc-logo-square.webp",
-];
 
 $wgEnableEmail = false;
 $wgEnableUserEmail = false;

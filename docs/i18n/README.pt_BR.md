@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **Faça missões, forme grupos e enfrente raides em um mundo feito a mão, gratuito no seu navegador. Open source, web3 e online agora mesmo.**
 
@@ -22,13 +22,12 @@
 
 [Jogar agora](https://worldofclaudecraft.com/) · [Hospede seu próprio mundo](#host-your-own-world-one-command) · [Treine um agente](#train-an-agent-headless-rl) · [Web3](#web3) · [Contribuindo](CONTRIBUTING.pt_BR.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![Tela de título do World of ClaudeCraft](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## O que é isto
 
-World of ClaudeCraft é um MMO completo da era clássica que você pode jogar agora mesmo no seu navegador, hospedar sozinho com um único comando e até usar para treinar agentes de IA para jogar. É gratuito, open source e está no ar em [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+World of CodexCraft é um MMO completo da era clássica que você pode jogar agora mesmo no seu navegador, hospedar sozinho com um único comando e até usar para treinar agentes de IA para jogar. É gratuito, open source e está no ar em [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 Um único mundo compartilhado roda em três lugares, todos a partir do mesmo núcleo de jogo:
 
@@ -154,7 +153,7 @@ O protocolo e os bindings estão documentados em `headless/CLAUDE.md` e `python/
 
 ## Web3
 
-World of ClaudeCraft é nativo de web3 em torno do **$WOC**, nosso token de comunidade na Solana. Conecte uma carteira Solana, vincule-a à sua conta com uma única assinatura (não custodial, sem transação para aprovar), e seu saldo de $WOC somente leitura aparece no HUD ao lado de um selo cosmético de tier de holder.
+World of CodexCraft é nativo de web3 em torno do **$WOC**, nosso token de comunidade na Solana. Conecte uma carteira Solana, vincule-a à sua conta com uma única assinatura (não custodial, sem transação para aprovar), e seu saldo de $WOC somente leitura aparece no HUD ao lado de um selo cosmético de tier de holder.
 
 É apenas cosmético e não é necessário para jogar. Nada é gasto ou ganho dentro do jogo, não há pay-to-win, e o jogo inteiro funciona bem sem nunca conectar uma carteira.
 
@@ -305,13 +304,6 @@ Toda string visível ao jogador é resolvida através de `t()`, e o jogo é dist
 
 Contribuições de todo tipo são bem-vindas: código, traduções, relatórios de bug e documentação. Comece pelo [CONTRIBUTING.md](CONTRIBUTING.pt_BR.md) para a configuração, leia o [Código de Conduta](../../CODE_OF_CONDUCT.md) e confira o [SECURITY.md](../../SECURITY.md) antes de relatar uma vulnerabilidade. Novo por aqui? Procure issues marcadas com [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), abra uma [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose) ou diga olá no [Discord](https://discord.com/invite/worldofclaudecraft).
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![Comunidade do World of ClaudeCraft](../../woc_community.png)
-
-</div>
 
 ## Licença
 

@@ -612,8 +612,8 @@ export const ru_RU: EnTranslations = {
     },
     "nativeUpdate": {
       "title": "Доступно обновление",
-      "body": "Доступна новая версия World of ClaudeCraft. Обновите сейчас, чтобы получить последние исправления и улучшения.",
-      "bodyWithVersion": "Доступна версия {version} World of ClaudeCraft. Обновите сейчас, чтобы получить последние исправления и улучшения.",
+      "body": "Доступна новая версия World of CodexCraft. Обновите сейчас, чтобы получить последние исправления и улучшения.",
+      "bodyWithVersion": "Доступна версия {version} World of CodexCraft. Обновите сейчас, чтобы получить последние исправления и улучшения.",
       "notNow": "Не сейчас",
       "update": "Обновить"
     },
@@ -1461,7 +1461,7 @@ export const ru_RU: EnTranslations = {
     },
     "discord": {
       "title": "Discord",
-      "panelTitle": "World of ClaudeCraft",
+      "panelTitle": "World of CodexCraft",
       "open": "Discord",
       "close": "Закрыть",
       "keybind": "Панель Discord",
@@ -2115,8 +2115,8 @@ export const ru_RU: EnTranslations = {
     }
   },
   "guide": {
-    "brand": "World of ClaudeCraft",
-    "brandShort": "ClaudeCraft",
+    "brand": "World of CodexCraft",
+    "brandShort": "CodexCraft",
     "tagline": "Классическая MMO, в которую можно играть бесплатно прямо в браузере.",
     "skipToContent": "Перейти к основному содержимому",
     "loading": "Загрузка...",
@@ -2181,7 +2181,7 @@ export const ru_RU: EnTranslations = {
       "github": "Исходный код на GitHub",
       "discord": "Присоединиться к Discord",
       "communityWiki": "Вики сообщества",
-      "rights": "World of ClaudeCraft",
+      "rights": "World of CodexCraft",
       "linksLabel": "Ссылки на игру и сообщество"
     },
     "language": {
@@ -2204,7 +2204,7 @@ export const ru_RU: EnTranslations = {
     },
     "home": {
       "eyebrow": "Классическая браузерная MMO",
-      "title": "World of ClaudeCraft",
+      "title": "World of CodexCraft",
       "subtitle": "Выполняйте задания, объединяйтесь в группы и исследуйте созданный вручную мир бесплатно прямо в браузере.",
       "ctaPlay": "Играть",
       "ctaLearn": "Как играть",
@@ -2696,7 +2696,7 @@ export const ru_RU: EnTranslations = {
     },
     "worldPage": {
       "heading": "Мир",
-      "intro": "World of ClaudeCraft - это единый цельный край, который вы пересекаете пешком, три зоны, протянувшиеся с юга на север. Здесь нет быстрых перемещений, так что дорога - это часть приключения.",
+      "intro": "World of CodexCraft - это единый цельный край, который вы пересекаете пешком, три зоны, протянувшиеся с юга на север. Здесь нет быстрых перемещений, так что дорога - это часть приключения.",
       "hub": "Опорная база",
       "mapHeading": "Дорога на север",
       "mapSub": "Три зоны, с юга на север, каждая на ступень выше по уровню. Следуйте за цепочкой заданий, и сама земля проведет вас от долины к вершинам.",
@@ -3203,7 +3203,7 @@ export const ru_RU: EnTranslations = {
   },
   "editor": {
     "appTitle": "Редактор карт",
-    "docTitle": "Редактор карт - World of ClaudeCraft",
+    "docTitle": "Редактор карт - World of CodexCraft",
     "untitledMap": "Карта без названия",
     "playtestPlayerName": "Картограф",
     "topbar": {
@@ -3678,7 +3678,7 @@ export const ru_RU: EnTranslations = {
     "realmName": "Название игрового мира"
   },
   "footer": {
-    "copyright": "2026 World of ClaudeCraft",
+    "copyright": "2026 World of CodexCraft",
     "githubLink": "https://github.com/levy-street/world-of-claudecraft",
     "githubLabel": "Проект с открытым исходным кодом",
     "whitepaper": "Белая книга",
@@ -3734,7 +3734,7 @@ export const ru_RU: EnTranslations = {
     "serverOnline": "В сети",
     "serverOffline": "Не в сети",
     "play": "Играть",
-    "playAria": "Играть в World of ClaudeCraft",
+    "playAria": "Играть в World of CodexCraft",
     "serverLabel": "Выберите свой мир",
     "serverAria": "Выберите мир: В сети или Не в сети",
     "serverOfflineSub": "Мгновенный локальный мир",
@@ -3940,16 +3940,16 @@ export const ru_RU: EnTranslations = {
     "levelClass": "Уровень {level} - {className}",
     "topPercent": "ТОП {percent}%",
     "realmSubtitle": "Мир {realm}",
-    "defaultRealm": "Мир ClaudeCraft",
-    "brandWordmark": "WORLD OF CLAUDECRAFT",
+    "defaultRealm": "Мир CodexCraft",
+    "brandWordmark": "World of CodexCraft",
     "recruited": "приглашено: {count}",
     "footerHandle": "@{handle}",
     "footerHandleWithRecruits": "@{handle} - {recruited}",
     "footerCta": "Создайте свою легенду: {siteUrl}",
     "arenaStat": "Арена",
     "shareTierBit": ", держатель $WOC ранга {tier}",
-    "shareText": "Я создаю свою легенду в World of ClaudeCraft: уровень {level}, {className}{tierBit}. Присоединяйтесь к моему миру:",
-    "nativeShareTitle": "Мир ClaudeCraft",
+    "shareText": "Я создаю свою легенду в World of CodexCraft: уровень {level}, {className}{tierBit}. Присоединяйтесь к моему миру:",
+    "nativeShareTitle": "Мир CodexCraft",
     "fileNameFallback": "игрок",
     "actionShareX": "Поделиться в X",
     "actionCopyReferral": "Копировать реферальную ссылку",
@@ -4571,13 +4571,13 @@ export const ru_RU: EnTranslations = {
     }
   },
   "seo": {
-    "title": "World of ClaudeCraft: веб-MMO в классическом стиле",
-    "description": "Отправьтесь в эпическое приключение в World of ClaudeCraft, микро-MMO в классическом стиле прямо в браузере. Присоединяйтесь к постоянному общему миру, развивайте классы и побеждайте врагов.",
+    "title": "World of CodexCraft: веб-MMO в классическом стиле",
+    "description": "Отправьтесь в эпическое приключение в World of CodexCraft, микро-MMO в классическом стиле прямо в браузере. Присоединяйтесь к постоянному общему миру, развивайте классы и побеждайте врагов.",
     "genre": "MMORPG",
     "playMode": "Многопользовательская игра",
     "applicationCategory": "Игра",
     "operatingSystem": "Веб-браузер",
-    "officialLabel": "Официальный сайт World of ClaudeCraft",
+    "officialLabel": "Официальный сайт World of CodexCraft",
     "officialBody": "worldofclaudecraft.com - официальная бесплатная браузерная MMO для мира Claudemoon. Играйте онлайн с постоянным персонажем, исследуйте мир в одиночку офлайн, читайте wiki и переходите по проверенным ссылкам сообщества с этого сайта."
   },
   "a11y": {
@@ -4586,9 +4586,9 @@ export const ru_RU: EnTranslations = {
     "mainNavigation": "Основная навигация",
     "languageSelection": "Выбор языка",
     "characterActions": "Действия персонажа",
-    "githubProject": "Открыть проект World of ClaudeCraft на GitHub",
-    "discordCommunity": "Присоединиться к Discord-сообществу World of ClaudeCraft",
-    "donateProject": "Пожертвовать на поддержку World of ClaudeCraft"
+    "githubProject": "Открыть проект World of CodexCraft на GitHub",
+    "discordCommunity": "Присоединиться к Discord-сообществу World of CodexCraft",
+    "donateProject": "Пожертвовать на поддержку World of CodexCraft"
   },
   "loading": {
     "world": "Загрузка мира...",
@@ -4660,11 +4660,11 @@ export const ru_RU: EnTranslations = {
       "later": "Позже"
     },
     "crash": {
-      "title": "World of ClaudeCraft",
+      "title": "World of CodexCraft",
       "body": "Игровой экран перестал отвечать. Перезагрузить его?",
       "reload": "Перезагрузить",
       "quit": "Выйти",
-      "fatalBody": "World of ClaudeCraft столкнулась с непредвиденной ошибкой и будет закрыта."
+      "fatalBody": "World of CodexCraft столкнулась с непредвиденной ошибкой и будет закрыта."
     }
   },
   "realm": {
@@ -4792,17 +4792,17 @@ export const ru_RU: EnTranslations = {
     "iosStandaloneDetail": "Вы в полноэкранном режиме с домашнего экрана. Держите устройство горизонтально.",
     "iosInstallDetail": "Для настоящего полноэкранного режима на iPhone или iPad сначала добавьте эту страницу на домашний экран.",
     "iosShareStep": "В Safari нажмите Поделиться, затем На экран Домой.",
-    "iosOpenStep": "Откройте World of ClaudeCraft через новый значок на домашнем экране.",
+    "iosOpenStep": "Откройте World of CodexCraft через новый значок на домашнем экране.",
     "androidStandaloneDetail": "Вы в полноэкранном режиме приложения. Держите устройство горизонтально.",
     "androidInstallDetail": "Для полноэкранного режима на Android установите эту страницу или добавьте ее на главный экран.",
     "androidInstallStep": "В Chrome откройте меню, затем выберите Установить приложение или Добавить на главный экран.",
-    "androidOpenStep": "Откройте World of ClaudeCraft через новый значок.",
+    "androidOpenStep": "Откройте World of CodexCraft через новый значок.",
     "otherStandaloneDetail": "Держите устройство в полноэкранном альбомном режиме.",
     "otherInstallDetail": "Установите эту страницу или добавьте ее на главный экран для лучшего мобильного полноэкранного опыта."
   },
   "serverUnavailable": {
-    "title": "World of ClaudeCraft - мир недоступен",
-    "logoAlt": "World of ClaudeCraft",
+    "title": "World of CodexCraft - мир недоступен",
+    "logoAlt": "World of CodexCraft",
     "eyebrow": "Технические работы",
     "heading": "Мир временно недоступен.",
     "body": "Мы перезапускаем игровой сервис и ожидаем, что Claudemoon скоро вернется. Эта страница продолжит проверку автоматически.",

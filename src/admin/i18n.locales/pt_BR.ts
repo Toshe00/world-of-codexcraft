@@ -82,7 +82,7 @@ export const pt_BR: Record<string, string> = {
   'usage.metric.githubLinkFailure': 'Falhas de vínculo do GitHub',
   'usage.metric.githubLinkRateLimited': 'Requisições de vínculo do GitHub limitadas',
   'usage.metric.githubLinkRequest': 'Requisições de vínculo do GitHub',
-  'app.title': 'World of ClaudeCraft - Admin',
+  'app.title': 'World of CodexCraft - Admin',
   'app.shortTitle': 'Administrador do WoC',
   'auth.username': 'Usuário',
   'auth.password': 'Senha',

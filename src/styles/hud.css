@@ -4656,8 +4656,8 @@
     font: 700 11px var(--title-font);
     letter-spacing: 0.4px;
   }
-  /* ---------- intro logo overlay ---------- */
-  /* Wordmark shown fading in/hold/out over the opening of the first-spawn intro
+  /* ---------- intro wordmark overlay ---------- */
+  /* Text wordmark shown fading in/hold/out over the opening of the first-spawn intro
      cinematic (spawn_cinematic.ts): intro_logo_overlay.ts drives opacity/display
      from the pure logo_fade.ts curve each frame, so this rule only sets the
      static look and the base hidden state. Centered over the canvas, above the
@@ -4669,7 +4669,7 @@
     transform: translate(-50%, -50%);
     width: min(46vw, 420px);
     max-width: 90vw;
-    height: auto;
+    font-size: clamp(1.8rem, 4vw, 3.4rem);
     z-index: 40;
     display: none;
     opacity: 0;

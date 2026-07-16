@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **Wykonuj questy, twórz drużyny i raiduj ręcznie zbudowany świat, za darmo w przeglądarce. Open source, web3 i online już teraz.**
 
@@ -22,13 +22,12 @@
 
 [Zagraj teraz](https://worldofclaudecraft.com/) · [Postaw własny świat](#host-your-own-world-one-command) · [Wytrenuj agenta](#train-an-agent-headless-rl) · [Web3](#web3) · [Współtworzenie](CONTRIBUTING.pl_PL.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![Ekran tytułowy World of ClaudeCraft](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## Czym to jest
 
-World of ClaudeCraft to kompletne MMO w stylu klasycznej ery, w które możesz zagrać już teraz w przeglądarce, postawić je samodzielnie jedną komendą, a nawet wytrenować agentów AI, by w nie grali. Jest darmowe, open source i dostępne na żywo pod adresem [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+World of CodexCraft to kompletne MMO w stylu klasycznej ery, w które możesz zagrać już teraz w przeglądarce, postawić je samodzielnie jedną komendą, a nawet wytrenować agentów AI, by w nie grali. Jest darmowe, open source i dostępne na żywo pod adresem [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 Jeden wspólny świat działa w trzech miejscach, wszystkie z tego samego rdzenia gry:
 
@@ -154,7 +153,7 @@ Protokół i powiązania są udokumentowane w `headless/CLAUDE.md` i `python/CLA
 
 ## Web3
 
-World of ClaudeCraft jest natywnie web3 wokół **$WOC**, naszego społecznościowego tokena na Solana. Połącz portfel Solana, powiąż go z kontem jednym podpisem (niepowiernicze, brak transakcji do zatwierdzenia), a twoje tylko do odczytu saldo $WOC pojawi się w HUD obok kosmetycznej odznaki poziomu posiadacza.
+World of CodexCraft jest natywnie web3 wokół **$WOC**, naszego społecznościowego tokena na Solana. Połącz portfel Solana, powiąż go z kontem jednym podpisem (niepowiernicze, brak transakcji do zatwierdzenia), a twoje tylko do odczytu saldo $WOC pojawi się w HUD obok kosmetycznej odznaki poziomu posiadacza.
 
 Jest tylko kosmetyczne i niepotrzebne do gry. Nic nie jest wydawane ani zarabiane w grze, nie ma pay-to-win, a cała gra działa świetnie bez ani jednego połączenia portfela.
 
@@ -305,13 +304,6 @@ Każdy widoczny dla gracza ciąg jest rozstrzygany przez `t()`, a gra jest dosta
 
 Mile widziane są wszelkiego rodzaju wkłady: kod, tłumaczenia, zgłoszenia błędów i dokumentacja. Zacznij od [CONTRIBUTING.pl_PL.md](CONTRIBUTING.pl_PL.md) po konfigurację, przeczytaj [Kodeks postępowania](../../CODE_OF_CONDUCT.md) i sprawdź [SECURITY.md](../../SECURITY.md) przed zgłoszeniem podatności. Nowy tutaj? Poszukaj zgłoszeń oznaczonych [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), otwórz [zgłoszenie](https://github.com/levy-street/world-of-claudecraft/issues/new/choose) lub przywitaj się na [Discordzie](https://discord.com/invite/worldofclaudecraft).
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![Społeczność World of ClaudeCraft](../../woc_community.png)
-
-</div>
 
 ## Licencja
 

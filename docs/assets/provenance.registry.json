@@ -87,13 +87,13 @@
         "id": "links-page-platform-marks",
         "container": "public/links.html",
         "description": "Third-party social platform marks embedded in the public links page.",
-        "containerSha256": "2e965a8ac9efb70a78fe8ff85493ed211ba498ad58e37ad23edc6c3858eebf85"
+        "containerSha256": "bcde9f0ae2245a5c7918852b6139da0b3c1ff08946438026583eadd32a42a629"
       },
       {
         "id": "support-page-discord-mark",
         "container": "public/support.html",
         "description": "The Discord mark embedded in the public support page.",
-        "containerSha256": "905bb92268e1e730dacf6f138387ff3580a581f8d0e06f188f285a3b6cf57717"
+        "containerSha256": "7c5db65e1df611ad67c49def07afa2c37aa0241387a5e805f993310a4aa3d702"
       }
     ]
   },

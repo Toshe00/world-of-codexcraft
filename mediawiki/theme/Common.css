@@ -1,5 +1,5 @@
 /* =========================================================================
-   World of Claudecraft Wiki — "Aged Grimoire" theme for Vector 2022.
+   World of CodexCraft Wiki - "Aged Grimoire" theme for Vector 2022.
    Warm parchment reading surface, deep oak chrome, gold + wax-seal-red
    accents, elegant serif display headings.
    ========================================================================= */
@@ -21,7 +21,7 @@
   --woc-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
 }
 
-/* ---- Page backdrop: photo pushed back behind a dark "table" overlay ---- */
+/* ---- Neutral page backdrop behind a dark "table" overlay ---- */
 html {
   background: #0d0906;
 }
@@ -30,7 +30,6 @@ body {
   background:
     radial-gradient(ellipse at 50% -10%, rgba(231, 181, 74, 0.10), rgba(13, 9, 6, 0) 55%),
     linear-gradient(rgba(15, 10, 7, 0.80), rgba(11, 7, 5, 0.93)),
-    url('/wiki/resources/assets/woc-loading-screen.jpg') center top / cover fixed,
     var(--woc-oak-2);
   color: var(--woc-ink);
 }
@@ -302,13 +301,12 @@ body {
   width: min(220px, 100%);
   aspect-ratio: 1;
   padding: 14px;
-  background:
-    linear-gradient(rgba(24, 15, 10, 0), rgba(24, 15, 10, 0.85)),
-    url('/wiki/resources/assets/worldofclaudecraft-logo.png') center / contain no-repeat;
+  background: linear-gradient(rgba(67, 44, 22, 0.28), rgba(24, 15, 10, 0.92));
+  border: 1px solid var(--woc-rule-strong);
   color: var(--woc-gold-soft);
   font-family: var(--woc-display);
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }

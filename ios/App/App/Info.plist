@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-        <string>World of ClaudeCraft</string>
+        <string>World of CodexCraft</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

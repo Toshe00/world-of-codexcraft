@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **Haz misiones, forma grupo e incursiona en un mundo hecho a mano, gratis en tu navegador. De código abierto, web3 y en línea ahora mismo.**
 
@@ -22,13 +22,12 @@
 
 [Jugar ahora](https://worldofclaudecraft.com/) · [Aloja tu propio mundo](#host-your-own-world-one-command) · [Entrena un agente](#train-an-agent-headless-rl) · [Web3](#web3) · [Contribuir](CONTRIBUTING.es.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![Pantalla de título de World of ClaudeCraft](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## ¿Qué es esto?
 
-World of ClaudeCraft es un MMO completo de la era clásica que puedes jugar ahora mismo en tu navegador, alojar tú mismo con un solo comando e incluso usar para entrenar agentes de IA que aprendan a jugar. Es gratis, de código abierto y está en línea en [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+World of CodexCraft es un MMO completo de la era clásica que puedes jugar ahora mismo en tu navegador, alojar tú mismo con un solo comando e incluso usar para entrenar agentes de IA que aprendan a jugar. Es gratis, de código abierto y está en línea en [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 Un mismo mundo compartido corre en tres lugares, todos desde el mismo núcleo de juego:
 
@@ -154,7 +153,7 @@ El protocolo y los enlaces están documentados en `headless/CLAUDE.md` y `python
 
 ## Web3
 
-World of ClaudeCraft es nativo de web3 en torno a **$WOC**, nuestro token comunitario en Solana. Conecta una cartera de Solana, vincúlala a tu cuenta con una sola firma (no custodial, sin transacción que aprobar), y tu saldo de $WOC de solo lectura aparece en el HUD junto a una insignia cosmética de nivel de poseedor.
+World of CodexCraft es nativo de web3 en torno a **$WOC**, nuestro token comunitario en Solana. Conecta una cartera de Solana, vincúlala a tu cuenta con una sola firma (no custodial, sin transacción que aprobar), y tu saldo de $WOC de solo lectura aparece en el HUD junto a una insignia cosmética de nivel de poseedor.
 
 Es solo cosmética y no hace falta para jugar. Nada se gasta ni se gana dentro del juego, no hay pago para ganar, y todo el juego funciona perfectamente sin conectar jamás una cartera.
 
@@ -305,13 +304,6 @@ Cada cadena visible para el jugador se resuelve a través de `t()`, y el juego s
 
 Las contribuciones de todo tipo son bienvenidas: código, traducciones, reportes de errores y documentación. Empieza con [CONTRIBUTING.md](CONTRIBUTING.es.md) para la configuración, lee el [Código de Conducta](../../CODE_OF_CONDUCT.md) y revisa [SECURITY.md](../../SECURITY.md) antes de reportar una vulnerabilidad. ¿Nuevo por aquí? Busca issues etiquetados como [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), abre un [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose) o saluda en [Discord](https://discord.com/invite/worldofclaudecraft).
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![Comunidad de World of ClaudeCraft](../../woc_community.png)
-
-</div>
 
 ## Licencia
 

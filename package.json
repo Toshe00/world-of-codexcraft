@@ -9,7 +9,7 @@
   },
   "type": "module",
   "main": "electron/main.cjs",
-  "description": "World of Claudecraft: a classic-style micro-MMO + headless RL training environment",
+  "description": "World of CodexCraft: a classic-style micro-MMO + headless RL training environment",
   "scripts": {
     "dev": "vite",
     "release:check": "node scripts/release_version.mjs check",
@@ -149,7 +149,7 @@
   },
   "build": {
     "appId": "com.worldofclaudecraft.desktop",
-    "productName": "World of ClaudeCraft",
+    "productName": "World of CodexCraft",
     "icon": "build/icon.png",
     "files": [
       "dist/**",
@@ -175,7 +175,7 @@
     },
     "protocols": [
       {
-        "name": "World of ClaudeCraft Login",
+        "name": "World of CodexCraft Login",
         "schemes": [
           "worldofclaudecraft"
         ]

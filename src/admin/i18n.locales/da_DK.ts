@@ -78,7 +78,7 @@ export const da_DK: Record<string, string> = {
   'usage.metric.githubLinkFailure': 'Mislykkede GitHub-tilknytninger',
   'usage.metric.githubLinkRateLimited': 'Begrænsede GitHub-tilknytningsanmodninger',
   'usage.metric.githubLinkRequest': 'GitHub-tilknytningsanmodninger',
-  'app.title': 'World of ClaudeCraft - Admin',
+  'app.title': 'World of CodexCraft - Admin',
   'app.shortTitle': 'WoC-administration',
   'auth.username': 'Brugernavn',
   'auth.password': 'Adgangskode',

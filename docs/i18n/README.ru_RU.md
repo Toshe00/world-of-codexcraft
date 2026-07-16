@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **Выполняйте задания, собирайтесь в группы и штурмуйте вручную созданный мир, бесплатно прямо в браузере. Открытый исходный код, web3 и онлайн прямо сейчас.**
 
@@ -22,13 +22,12 @@
 
 [Играть сейчас](https://worldofclaudecraft.com/) · [Разверните свой мир](#host-your-own-world-one-command) · [Обучите агента](#train-an-agent-headless-rl) · [Web3](#web3) · [Участие в разработке](CONTRIBUTING.ru_RU.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![Титульный экран World of ClaudeCraft](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## Что это такое
 
-World of ClaudeCraft — это полноценная MMO классической эпохи, в которую можно играть прямо сейчас в браузере, развернуть самостоятельно одной командой и даже обучать ИИ-агентов игре. Она бесплатна, имеет открытый исходный код и работает по адресу [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+World of CodexCraft — это полноценная MMO классической эпохи, в которую можно играть прямо сейчас в браузере, развернуть самостоятельно одной командой и даже обучать ИИ-агентов игре. Она бесплатна, имеет открытый исходный код и работает по адресу [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 Один общий мир работает в трёх местах, и всё из одного игрового ядра:
 
@@ -154,7 +153,7 @@ env.close()
 
 ## Web3
 
-World of ClaudeCraft является web3-native вокруг **$WOC**, нашего общественного токена на Solana. Подключите кошелёк Solana, привяжите его к своему аккаунту одной подписью (без передачи на хранение, без транзакции для подтверждения), и ваш баланс $WOC только для чтения появится в HUD рядом с косметическим значком уровня держателя.
+World of CodexCraft является web3-native вокруг **$WOC**, нашего общественного токена на Solana. Подключите кошелёк Solana, привяжите его к своему аккаунту одной подписью (без передачи на хранение, без транзакции для подтверждения), и ваш баланс $WOC только для чтения появится в HUD рядом с косметическим значком уровня держателя.
 
 Это исключительно косметика и не требуется для игры. Ничего не тратится и не зарабатывается в игре, нет pay-to-win, и вся игра прекрасно проходится без единого подключения кошелька.
 
@@ -305,13 +304,6 @@ node scripts/crypt_raid.mjs     # five bots clear the Hollow Crypt (ALLOW_DEV_CO
 
 Приветствуется вклад любого рода: код, переводы, баг-репорты и документация. Начните с [CONTRIBUTING.ru_RU.md](CONTRIBUTING.ru_RU.md) для настройки, прочитайте [Кодекс поведения](../../CODE_OF_CONDUCT.md) и проверьте [SECURITY.md](../../SECURITY.md) перед сообщением об уязвимости. Впервые здесь? Ищите issue с меткой [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), откройте [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose) или поздоровайтесь в [Discord](https://discord.com/invite/worldofclaudecraft).
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![Сообщество World of ClaudeCraft](../../woc_community.png)
-
-</div>
 
 ## Лицензия
 

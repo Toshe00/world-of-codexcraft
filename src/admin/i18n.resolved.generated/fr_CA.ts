@@ -12,7 +12,7 @@
 import type { AdminTranslations } from '../i18n.en';
 
 export const fr_CA: AdminTranslations = {
-  "app.title": "World of ClaudeCraft - Administration",
+  "app.title": "World of CodexCraft - Administration",
   "app.shortTitle": "Administrateur WoC",
   "auth.username": "Nom d'utilisateur",
   "auth.password": "Mot de passe",

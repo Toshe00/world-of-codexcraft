@@ -114,7 +114,7 @@ export const cs_CZ: Record<string, string> = {
   'antibot.valueOff': 'vypnuto',
   'antibot.valueOn': 'zapnuto',
   'app.shortTitle': 'WoC administrace',
-  'app.title': 'World of ClaudeCraft - Admin',
+  'app.title': 'World of CodexCraft - Admin',
   'auth.loadingSession': 'Načítá se tvoje relace...',
   'auth.loginFailed': 'přihlášení selhalo, běží server?',
   'auth.noAccess':

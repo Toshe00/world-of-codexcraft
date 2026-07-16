@@ -1,4 +1,4 @@
-// World of ClaudeCraft Discord bot.
+// World of CodexCraft Discord bot.
 //
 // Two-way bridge between the game and the official Discord server:
 //  - IN DISCORD: /whoami shows your link status, /link the connect instructions;
@@ -256,7 +256,7 @@ async function main(): Promise<void> {
             announced = true;
             void discord
               .createMessage(cfg.testChannelId, {
-                content: `:satellite: World of ClaudeCraft bot online and connected. Two-way sync active. Try \`/whoami\` or \`/link\`. Play at ${cfg.gameUrl}`,
+                content: `:satellite: World of CodexCraft bot online and connected. Two-way sync active. Try \`/whoami\` or \`/link\`. Play at ${cfg.gameUrl}`,
               })
               .catch((e) => console.error('[bot] startup announce failed', e));
           }
@@ -433,7 +433,7 @@ async function main(): Promise<void> {
       .then(() => pushAllMemberMeta())
       .catch((e) => console.error(e));
   }, ROLE_SYNC_INTERVAL_MS).unref();
-  console.log('[bot] World of ClaudeCraft Discord bot started');
+  console.log('[bot] World of CodexCraft Discord bot started');
 }
 
 // ── small helpers ──────────────────────────────────────────────────────────────

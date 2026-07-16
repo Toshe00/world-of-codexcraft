@@ -77,7 +77,7 @@ async function main() {
     ok(errs.length === 0, `[${t.name}] no console/page errors`);
 
     // Core structural assertions (run on every device).
-    ok((await page.title()) === 'World of ClaudeCraft - Official Links', `[${t.name}] localized title`);
+    ok((await page.title()) === 'World of CodexCraft - Official Links', `[${t.name}] localized title`);
     ok((await page.locator('h1').count()) === 1, `[${t.name}] exactly one h1`);
     ok((await page.locator('h2').count()) === 1, `[${t.name}] exactly one h2`);
     ok((await page.locator('a.btn').count()) === 7, `[${t.name}] 7 link buttons`);

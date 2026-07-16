@@ -612,8 +612,8 @@ export const tr_TR: EnTranslations = {
     },
     "nativeUpdate": {
       "title": "Güncelleme Mevcut",
-      "body": "World of ClaudeCraft'ın yeni bir sürümü mevcut. En son düzeltmeler ve iyileştirmeler için şimdi güncelle.",
-      "bodyWithVersion": "World of ClaudeCraft'ın {version} sürümü mevcut. En son düzeltmeler ve iyileştirmeler için şimdi güncelle.",
+      "body": "World of CodexCraft'ın yeni bir sürümü mevcut. En son düzeltmeler ve iyileştirmeler için şimdi güncelle.",
+      "bodyWithVersion": "World of CodexCraft'ın {version} sürümü mevcut. En son düzeltmeler ve iyileştirmeler için şimdi güncelle.",
       "notNow": "Şimdi Değil",
       "update": "Güncelle"
     },
@@ -1461,7 +1461,7 @@ export const tr_TR: EnTranslations = {
     },
     "discord": {
       "title": "Discord",
-      "panelTitle": "World of ClaudeCraft",
+      "panelTitle": "World of CodexCraft",
       "open": "Discord",
       "close": "Kapat",
       "keybind": "Discord Paneli",
@@ -2115,8 +2115,8 @@ export const tr_TR: EnTranslations = {
     }
   },
   "guide": {
-    "brand": "World of ClaudeCraft",
-    "brandShort": "ClaudeCraft",
+    "brand": "World of CodexCraft",
+    "brandShort": "CodexCraft",
     "tagline": "Tarayıcınızda ücretsiz oynayabileceğiniz klasik tarzda bir MMO.",
     "skipToContent": "Ana içeriğe geç",
     "loading": "Yükleniyor...",
@@ -2181,7 +2181,7 @@ export const tr_TR: EnTranslations = {
       "github": "GitHub'daki Kaynak",
       "discord": "Discord'a Katıl",
       "communityWiki": "Topluluk Wiki'si",
-      "rights": "World of ClaudeCraft",
+      "rights": "World of CodexCraft",
       "linksLabel": "Oyun ve topluluk bağlantıları"
     },
     "language": {
@@ -2204,7 +2204,7 @@ export const tr_TR: EnTranslations = {
     },
     "home": {
       "eyebrow": "Klasik tarz tarayıcı MMO'su",
-      "title": "World of ClaudeCraft",
+      "title": "World of CodexCraft",
       "subtitle": "Görev yap, grup kur ve elle kurulmuş bir dünyayı keşfet; tarayıcında ücretsiz.",
       "ctaPlay": "Şimdi Oyna",
       "ctaLearn": "Nasıl Oynanır",
@@ -2696,7 +2696,7 @@ export const tr_TR: EnTranslations = {
     },
     "worldPage": {
       "heading": "Dünya",
-      "intro": "World of ClaudeCraft, yürüyerek aştığınız tek ve kesintisiz bir diyardır; güneyden kuzeye dizilmiş üç bölge. Hızlı seyahat yoktur, bu yüzden yolculuğun kendisi maceranın bir parçasıdır.",
+      "intro": "World of CodexCraft, yürüyerek aştığınız tek ve kesintisiz bir diyardır; güneyden kuzeye dizilmiş üç bölge. Hızlı seyahat yoktur, bu yüzden yolculuğun kendisi maceranın bir parçasıdır.",
       "hub": "Ana üs",
       "mapHeading": "Kuzeye giden yol",
       "mapSub": "Güneyden kuzeye üç bölge, her biri seviye olarak bir basamak daha yüksek. Görev izini takip edin, diyar sizi vadiden zirvelere taşır.",
@@ -3203,7 +3203,7 @@ export const tr_TR: EnTranslations = {
   },
   "editor": {
     "appTitle": "Harita Editörü",
-    "docTitle": "Harita Editörü - World of ClaudeCraft",
+    "docTitle": "Harita Editörü - World of CodexCraft",
     "untitledMap": "Adsız Harita",
     "playtestPlayerName": "Haritacı",
     "topbar": {
@@ -3678,7 +3678,7 @@ export const tr_TR: EnTranslations = {
     "realmName": "Dünya Adı"
   },
   "footer": {
-    "copyright": "2026 World of ClaudeCraft",
+    "copyright": "2026 World of CodexCraft",
     "githubLink": "https://github.com/levy-street/world-of-claudecraft",
     "githubLabel": "Açık Kaynak Proje",
     "whitepaper": "Teknik Doküman",
@@ -3734,7 +3734,7 @@ export const tr_TR: EnTranslations = {
     "serverOnline": "Çevrimiçi",
     "serverOffline": "Çevrimdışı",
     "play": "Oyna",
-    "playAria": "World of ClaudeCraft oyna",
+    "playAria": "World of CodexCraft oyna",
     "serverLabel": "Dünyanı seç",
     "serverAria": "Dünya seç: Çevrimiçi veya Çevrimdışı",
     "serverOfflineSub": "Anında yerel dünya",
@@ -3940,16 +3940,16 @@ export const tr_TR: EnTranslations = {
     "levelClass": "Seviye {level} - {className}",
     "topPercent": "İLK %{percent}",
     "realmSubtitle": "{realm} Dünyası",
-    "defaultRealm": "World of ClaudeCraft",
-    "brandWordmark": "WORLD OF CLAUDECRAFT",
+    "defaultRealm": "World of CodexCraft",
+    "brandWordmark": "World of CodexCraft",
     "recruited": "{count} davet edildi",
     "footerHandle": "@{handle}",
     "footerHandleWithRecruits": "@{handle} - {recruited}",
     "footerCta": "Efsaneni yarat: {siteUrl}",
     "arenaStat": "Arena",
     "shareTierBit": ", {tier}-derece $WOC sahibi",
-    "shareText": "World of ClaudeCraft'ta efsanemi yaratıyorum: Seviye {level} {className}{tierBit}. Dünyama katıl:",
-    "nativeShareTitle": "World of ClaudeCraft",
+    "shareText": "World of CodexCraft'ta efsanemi yaratıyorum: Seviye {level} {className}{tierBit}. Dünyama katıl:",
+    "nativeShareTitle": "World of CodexCraft",
     "fileNameFallback": "oyuncu",
     "actionShareX": "X'te Paylaş",
     "actionCopyReferral": "Davet Bağlantısını Kopyala",
@@ -4571,13 +4571,13 @@ export const tr_TR: EnTranslations = {
     }
   },
   "seo": {
-    "title": "World of ClaudeCraft: Klasik Tarzı Web MMO'su",
-    "description": "Doğrudan tarayıcında oynanabilen klasik tarzı bir mikro MMO olan World of ClaudeCraft'ta destansı bir maceraya atıl. Kalıcı bir ortak dünyaya katıl, sınıfları geliştir ve düşmanları alt et!",
+    "title": "World of CodexCraft: Klasik Tarzı Web MMO'su",
+    "description": "Doğrudan tarayıcında oynanabilen klasik tarzı bir mikro MMO olan World of CodexCraft'ta destansı bir maceraya atıl. Kalıcı bir ortak dünyaya katıl, sınıfları geliştir ve düşmanları alt et!",
     "genre": "MMORPG",
     "playMode": "Çok Oyunculu",
     "applicationCategory": "Oyun",
     "operatingSystem": "Web tarayıcısı",
-    "officialLabel": "Resmi World of ClaudeCraft web sitesi",
+    "officialLabel": "Resmi World of CodexCraft web sitesi",
     "officialBody": "worldofclaudecraft.com, Claudemoon dünyasının resmi ücretsiz tarayıcı MMO'sudur. Kalıcı bir karakterle çevrimiçi oyna, çevrimdışı tek başına keşfet, wiki'yi oku ve bu siteden doğrulanmış topluluk bağlantılarını takip et."
   },
   "a11y": {
@@ -4586,9 +4586,9 @@ export const tr_TR: EnTranslations = {
     "mainNavigation": "Ana gezinme",
     "languageSelection": "Dil seçimi",
     "characterActions": "Karakter eylemleri",
-    "githubProject": "World of ClaudeCraft GitHub projesini aç",
-    "discordCommunity": "World of ClaudeCraft Discord topluluğuna katıl",
-    "donateProject": "World of ClaudeCraft'a destek olmak için bağış yap"
+    "githubProject": "World of CodexCraft GitHub projesini aç",
+    "discordCommunity": "World of CodexCraft Discord topluluğuna katıl",
+    "donateProject": "World of CodexCraft'a destek olmak için bağış yap"
   },
   "loading": {
     "world": "Dünya yükleniyor...",
@@ -4660,11 +4660,11 @@ export const tr_TR: EnTranslations = {
       "later": "Daha Sonra"
     },
     "crash": {
-      "title": "World of ClaudeCraft",
+      "title": "World of CodexCraft",
       "body": "Oyun görünümü çalışmayı durdurdu. Yeniden yüklensin mi?",
       "reload": "Yeniden Yükle",
       "quit": "Çık",
-      "fatalBody": "World of ClaudeCraft beklenmeyen bir hatayla karşılaştı ve kapatılması gerekiyor."
+      "fatalBody": "World of CodexCraft beklenmeyen bir hatayla karşılaştı ve kapatılması gerekiyor."
     }
   },
   "realm": {
@@ -4792,17 +4792,17 @@ export const tr_TR: EnTranslations = {
     "iosStandaloneDetail": "Ana ekran tam ekran modundasınız. Cihazı yatay konumda tutun.",
     "iosInstallDetail": "iPhone veya iPad'de gerçek tam ekran için önce bu sayfayı Ana Ekranınıza yükleyin.",
     "iosShareStep": "Safari'de Paylaş'a, ardından Ana Ekrana Ekle'ye dokunun.",
-    "iosOpenStep": "World of ClaudeCraft'ı yeni Ana Ekran simgesinden açın.",
+    "iosOpenStep": "World of CodexCraft'ı yeni Ana Ekran simgesinden açın.",
     "androidStandaloneDetail": "Tam ekran uygulama modundasınız. Cihazı yatay konumda tutun.",
     "androidInstallDetail": "Android'de tam ekran için önce bu sayfayı yükleyin veya Ana ekranınıza ekleyin.",
     "androidInstallStep": "Chrome'da menüye dokunun, ardından Uygulamayı yükle veya Ana ekrana ekle seçeneğini seçin.",
-    "androidOpenStep": "World of ClaudeCraft'ı yeni simgeden açın.",
+    "androidOpenStep": "World of CodexCraft'ı yeni simgeden açın.",
     "otherStandaloneDetail": "Cihazınızı yatay tam ekran konumunda tutun.",
     "otherInstallDetail": "En iyi tam ekran mobil deneyim için bu sayfayı yükleyin veya Ana ekranınıza ekleyin."
   },
   "serverUnavailable": {
-    "title": "World of ClaudeCraft - Dünya Kullanılamıyor",
-    "logoAlt": "World of ClaudeCraft",
+    "title": "World of CodexCraft - Dünya Kullanılamıyor",
+    "logoAlt": "World of CodexCraft",
     "eyebrow": "Dünya bakımı",
     "heading": "Dünya geçici olarak kullanılamıyor.",
     "body": "Oyun hizmetini yeniden başlatıyoruz ve Claudemoon'un kısa süre içinde geri döneceğini umuyoruz. Bu sayfa otomatik olarak denetlemeye devam edecek.",

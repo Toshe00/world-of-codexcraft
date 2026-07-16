@@ -612,8 +612,8 @@ export const fr_FR: EnTranslations = {
     },
     "nativeUpdate": {
       "title": "Mise à jour disponible",
-      "body": "Une nouvelle version de World of ClaudeCraft est disponible. Mettez à jour maintenant pour les derniers correctifs et améliorations.",
-      "bodyWithVersion": "La version {version} de World of ClaudeCraft est disponible. Mettez à jour maintenant pour les derniers correctifs et améliorations.",
+      "body": "Une nouvelle version de World of CodexCraft est disponible. Mettez à jour maintenant pour les derniers correctifs et améliorations.",
+      "bodyWithVersion": "La version {version} de World of CodexCraft est disponible. Mettez à jour maintenant pour les derniers correctifs et améliorations.",
       "notNow": "Pas maintenant",
       "update": "Mettre à jour"
     },
@@ -1461,7 +1461,7 @@ export const fr_FR: EnTranslations = {
     },
     "discord": {
       "title": "Discord",
-      "panelTitle": "World of ClaudeCraft",
+      "panelTitle": "World of CodexCraft",
       "open": "Discord",
       "close": "Fermer",
       "keybind": "Panneau Discord",
@@ -2115,8 +2115,8 @@ export const fr_FR: EnTranslations = {
     }
   },
   "guide": {
-    "brand": "World of ClaudeCraft",
-    "brandShort": "ClaudeCraft",
+    "brand": "World of CodexCraft",
+    "brandShort": "CodexCraft",
     "tagline": "Un MMO de style classique auquel vous jouez gratuitement dans votre navigateur.",
     "skipToContent": "Aller au contenu principal",
     "loading": "Chargement...",
@@ -2181,7 +2181,7 @@ export const fr_FR: EnTranslations = {
       "github": "Code source sur GitHub",
       "discord": "Rejoindre le Discord",
       "communityWiki": "Wiki communautaire",
-      "rights": "World of ClaudeCraft",
+      "rights": "World of CodexCraft",
       "linksLabel": "Liens de jeu et de communauté"
     },
     "language": {
@@ -2204,7 +2204,7 @@ export const fr_FR: EnTranslations = {
     },
     "home": {
       "eyebrow": "MMO de style classique sur navigateur",
-      "title": "World of ClaudeCraft",
+      "title": "World of CodexCraft",
       "subtitle": "Partez en quête, formez un groupe et explorez un monde façonné à la main, gratuitement dans votre navigateur.",
       "ctaPlay": "Jouer maintenant",
       "ctaLearn": "Comment jouer",
@@ -2696,7 +2696,7 @@ export const fr_FR: EnTranslations = {
     },
     "worldPage": {
       "heading": "Le monde",
-      "intro": "World of ClaudeCraft est une seule terre continue que l'on traverse à pied, trois zones disposées du sud au nord. Il n'y a pas de voyage rapide, alors le trajet fait partie de l'aventure.",
+      "intro": "World of CodexCraft est une seule terre continue que l'on traverse à pied, trois zones disposées du sud au nord. Il n'y a pas de voyage rapide, alors le trajet fait partie de l'aventure.",
       "hub": "Camp de base",
       "mapHeading": "La route vers le nord",
       "mapSub": "Trois zones, du sud au nord, chacune un cran plus haut en niveau. Suivez le fil des quêtes et la contrée vous porte de la vallée jusqu'aux sommets.",
@@ -3203,7 +3203,7 @@ export const fr_FR: EnTranslations = {
   },
   "editor": {
     "appTitle": "Éditeur de cartes",
-    "docTitle": "Éditeur de cartes - World of ClaudeCraft",
+    "docTitle": "Éditeur de cartes - World of CodexCraft",
     "untitledMap": "Carte sans titre",
     "playtestPlayerName": "Cartographe",
     "topbar": {
@@ -3678,7 +3678,7 @@ export const fr_FR: EnTranslations = {
     "realmName": "Nom du monde"
   },
   "footer": {
-    "copyright": "2026 World of ClaudeCraft",
+    "copyright": "2026 World of CodexCraft",
     "githubLink": "https://github.com/levy-street/world-of-claudecraft",
     "githubLabel": "Projet open source",
     "whitepaper": "Livre blanc",
@@ -3734,7 +3734,7 @@ export const fr_FR: EnTranslations = {
     "serverOnline": "En ligne",
     "serverOffline": "Hors ligne",
     "play": "Jouer",
-    "playAria": "Jouer à World of ClaudeCraft",
+    "playAria": "Jouer à World of CodexCraft",
     "serverLabel": "Choisissez votre monde",
     "serverAria": "Choisir le monde : En ligne ou Hors ligne",
     "serverOfflineSub": "Monde local instantané",
@@ -3940,16 +3940,16 @@ export const fr_FR: EnTranslations = {
     "levelClass": "Niveau {level} - {className}",
     "topPercent": "TOP {percent} %",
     "realmSubtitle": "Monde {realm}",
-    "defaultRealm": "Monde de ClaudeCraft",
-    "brandWordmark": "WORLD OF CLAUDECRAFT",
+    "defaultRealm": "Monde de CodexCraft",
+    "brandWordmark": "World of CodexCraft",
     "recruited": "{count} recrutés",
     "footerHandle": "@{handle}",
     "footerHandleWithRecruits": "@{handle} - {recruited}",
     "footerCta": "Forgez votre légende: {siteUrl}",
     "arenaStat": "Arène",
     "shareTierBit": ", détenteur $WOC de rang {tier}",
-    "shareText": "Je forge ma légende dans World of ClaudeCraft : niveau {level} {className}{tierBit}. Rejoignez mon monde :",
-    "nativeShareTitle": "Monde de ClaudeCraft",
+    "shareText": "Je forge ma légende dans World of CodexCraft : niveau {level} {className}{tierBit}. Rejoignez mon monde :",
+    "nativeShareTitle": "Monde de CodexCraft",
     "fileNameFallback": "joueur",
     "actionShareX": "Partager sur X",
     "actionCopyReferral": "Copier le lien d'invitation",
@@ -4571,13 +4571,13 @@ export const fr_FR: EnTranslations = {
     }
   },
   "seo": {
-    "title": "World of ClaudeCraft: MMO web de style classique",
-    "description": "Partez pour une aventure épique dans World of ClaudeCraft, un micro-MMO au style classique jouable directement dans votre navigateur. Rejoignez un monde persistant, progressez en classe et terrassez vos ennemis.",
+    "title": "World of CodexCraft: MMO web de style classique",
+    "description": "Partez pour une aventure épique dans World of CodexCraft, un micro-MMO au style classique jouable directement dans votre navigateur. Rejoignez un monde persistant, progressez en classe et terrassez vos ennemis.",
     "genre": "MMORPG",
     "playMode": "Multijoueur",
     "applicationCategory": "Jeu",
     "operatingSystem": "Navigateur web",
-    "officialLabel": "Site officiel de World of ClaudeCraft",
+    "officialLabel": "Site officiel de World of CodexCraft",
     "officialBody": "worldofclaudecraft.com est le MMO gratuit officiel sur navigateur du monde Claudemoon. Jouez en ligne avec un personnage persistant, explorez en solo hors ligne, lisez le wiki et suivez les liens communautaires vérifiés depuis ce site."
   },
   "a11y": {
@@ -4586,9 +4586,9 @@ export const fr_FR: EnTranslations = {
     "mainNavigation": "Navigation principale",
     "languageSelection": "Sélection de la langue",
     "characterActions": "Actions de personnage",
-    "githubProject": "Ouvrir le projet World of ClaudeCraft sur GitHub",
-    "discordCommunity": "Rejoindre la communauté World of ClaudeCraft sur Discord",
-    "donateProject": "Faire un don pour soutenir World of ClaudeCraft"
+    "githubProject": "Ouvrir le projet World of CodexCraft sur GitHub",
+    "discordCommunity": "Rejoindre la communauté World of CodexCraft sur Discord",
+    "donateProject": "Faire un don pour soutenir World of CodexCraft"
   },
   "loading": {
     "world": "Chargement du monde...",
@@ -4660,11 +4660,11 @@ export const fr_FR: EnTranslations = {
       "later": "Plus tard"
     },
     "crash": {
-      "title": "World of ClaudeCraft",
+      "title": "World of CodexCraft",
       "body": "L'affichage du jeu a cessé de fonctionner. Le recharger ?",
       "reload": "Recharger",
       "quit": "Quitter",
-      "fatalBody": "World of ClaudeCraft a rencontré une erreur inattendue et doit se fermer."
+      "fatalBody": "World of CodexCraft a rencontré une erreur inattendue et doit se fermer."
     }
   },
   "realm": {
@@ -4792,17 +4792,17 @@ export const fr_FR: EnTranslations = {
     "iosStandaloneDetail": "Vous êtes en mode plein écran depuis l'écran d'accueil. Gardez l'appareil en paysage.",
     "iosInstallDetail": "Pour un vrai plein écran sur iPhone ou iPad, ajoutez d'abord cette page à l'écran d'accueil.",
     "iosShareStep": "Dans Safari, touchez Partager, puis Ajouter à l'écran d'accueil.",
-    "iosOpenStep": "Ouvrez World of ClaudeCraft depuis la nouvelle icône de l'écran d'accueil.",
+    "iosOpenStep": "Ouvrez World of CodexCraft depuis la nouvelle icône de l'écran d'accueil.",
     "androidStandaloneDetail": "Vous êtes en mode application plein écran. Gardez l'appareil en paysage.",
     "androidInstallDetail": "Pour le plein écran sur Android, installez cette page ou ajoutez-la à l'écran d'accueil.",
     "androidInstallStep": "Dans Chrome, ouvrez le menu, puis Installer l'application ou Ajouter à l'écran d'accueil.",
-    "androidOpenStep": "Ouvrez World of ClaudeCraft depuis la nouvelle icône.",
+    "androidOpenStep": "Ouvrez World of CodexCraft depuis la nouvelle icône.",
     "otherStandaloneDetail": "Gardez votre appareil en plein écran paysage.",
     "otherInstallDetail": "Installez ou ajoutez cette page à votre écran d'accueil pour la meilleure expérience mobile plein écran."
   },
   "serverUnavailable": {
-    "title": "World of ClaudeCraft - Monde indisponible",
-    "logoAlt": "World of ClaudeCraft",
+    "title": "World of CodexCraft - Monde indisponible",
+    "logoAlt": "World of CodexCraft",
     "eyebrow": "Maintenance du monde",
     "heading": "Le monde est temporairement indisponible.",
     "body": "Nous redémarrons le service de jeu et Claudemoon devrait revenir bientôt. Cette page continuera de vérifier automatiquement.",

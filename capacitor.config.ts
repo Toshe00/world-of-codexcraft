@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.worldofclaudecraft',
-  appName: 'World of ClaudeCraft',
+  appName: 'World of CodexCraft',
   webDir: 'dist',
   server: {
     androidScheme: 'http',

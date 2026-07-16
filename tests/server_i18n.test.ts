@@ -108,6 +108,19 @@ describe('server-sent message localization', () => {
     setLanguage('en');
   });
 
+  it('keeps the legacy server phrase as input but renders the new visible brand', async () => {
+    const input = 'Mira has entered World of ClaudeCraft.';
+    for (const lang of supportedLanguages) {
+      await ensureLocaleLoaded(lang);
+      setLanguage(lang);
+      const output = localizeServerText(input);
+      expect(output, `${lang}: legacy server phrase should be recognized`).not.toBeNull();
+      expect(output, `${lang}: visible brand should be current`).toContain('World of CodexCraft');
+      expect(output, `${lang}: legacy brand must not reach the UI`).not.toContain('World of ClaudeCraft');
+    }
+    setLanguage('en');
+  });
+
   it('preserves player names, guild names and counts verbatim', () => {
     for (const lang of supportedLanguages) {
       setLanguage(lang);

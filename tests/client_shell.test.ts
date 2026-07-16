@@ -689,10 +689,10 @@ describe('client HTML shell', () => {
       '<meta name="robots" content="index, follow, max-image-preview:large" />',
     );
     expect(html).toContain('<link rel="canonical" href="https://worldofclaudecraft.com/" />');
-    expect(html).toContain('<meta property="og:site_name" content="World of ClaudeCraft" />');
-    expect(html).toContain('"alternateName": "World of Claudecraft"');
+    expect(html).toContain('<meta property="og:site_name" content="World of CodexCraft" />');
+    expect(html).toContain('"alternateName": "CodexCraft"');
     expect(html).toContain('"https://github.com/levy-street/world-of-claudecraft"');
-    expect(mainTs).toContain("alternateName: 'World of Claudecraft'");
+    expect(mainTs).toContain("alternateName: 'CodexCraft'");
     expect(mainTs).toContain("'https://github.com/levy-street/world-of-claudecraft'");
     expect(robotsTxt.trim()).toBe(
       'User-agent: *\nAllow: /\n\nSitemap: https://worldofclaudecraft.com/sitemap.xml\nSitemap: https://worldofclaudecraft.com/sitemap-characters.xml',
@@ -741,12 +741,7 @@ describe('client HTML shell', () => {
     expect(supportHtml).toContain('href="https://discord.com/invite/worldofclaudecraft"');
     expect(supportHtml).toContain('href="/data-deletion">Data Deletion page</a>');
     expect(supportHtml).toContain('"@type": "ContactPage"');
-    expect(html).toContain(
-      'href="/World-of-ClaudeCraft-Whitepaper-v1.0.pdf" class="footer-link" data-i18n="footer.whitepaper"',
-    );
-    expect(html.indexOf('data-i18n="footer.whitepaper"')).toBeLessThan(
-      html.indexOf('data-i18n="footer.terms"'),
-    );
+    expect(html).not.toContain('data-i18n="footer.whitepaper"');
     expect(existsSync(whitepaperUrl)).toBe(true);
     expect(statSync(whitepaperUrl).size).toBeGreaterThan(0);
     expect(html).toContain('href="/terms" class="footer-link" data-i18n="footer.terms"');

@@ -80,7 +80,7 @@ export const de_DE: Record<string, string> = {
   'usage.metric.githubLinkFailure': 'GitHub-Verknüpfungsfehler',
   'usage.metric.githubLinkRateLimited': 'GitHub-Verknüpfung: gedrosselte Anfragen',
   'usage.metric.githubLinkRequest': 'GitHub-Verknüpfungsanfragen',
-  'app.title': 'World of ClaudeCraft - Admin',
+  'app.title': 'World of CodexCraft - Admin',
   'app.shortTitle': 'WoC-Administrator',
   'auth.username': 'Benutzername',
   'auth.password': 'Passwort',

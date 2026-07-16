@@ -33,7 +33,7 @@ const expectedAlternates = [
 ];
 
 function audit() {
-  console.log('--- World of ClaudeCraft: Local SEO & A11y Audit ---');
+  console.log('--- World of CodexCraft: Local SEO & A11y Audit ---');
   if (!fs.existsSync(indexPath)) {
     console.error(`Error: index.html not found at ${indexPath}`);
     process.exit(1);
@@ -251,15 +251,16 @@ function audit() {
   const ogDesc = html.includes('property="og:description"');
   const ogType = html.includes('property="og:type"');
   const ogUrl = html.includes('property="og:url"');
-  const ogImage = html.includes('property="og:image"') && html.includes('woc_logo_square.webp');
-  const hasAllOg = ogTitle && ogDesc && ogType && ogUrl && ogImage;
+  const ogSiteName = html.includes('property="og:site_name"');
+  const hasLegacyOgImage = html.includes('woc_logo_square.webp');
+  const hasAllOg = ogTitle && ogDesc && ogType && ogUrl && ogSiteName && !hasLegacyOgImage;
   checks.push({
     category: 'SEO',
     name: 'Open Graph metadata is complete',
     passed: hasAllOg,
     score: hasAllOg ? 10 : 0,
     maxScore: 10,
-    details: `OG matches - title: ${ogTitle}, desc: ${ogDesc}, type: ${ogType}, url: ${ogUrl}, image: ${ogImage}.`,
+    details: `OG matches - title: ${ogTitle}, desc: ${ogDesc}, type: ${ogType}, url: ${ogUrl}, site: ${ogSiteName}, legacy image: ${hasLegacyOgImage}.`,
   });
 
   // 11. Twitter Card Check
@@ -267,14 +268,14 @@ function audit() {
   const twTitle = html.includes('name="twitter:title"');
   const twDesc = html.includes('name="twitter:description"');
   const twImage = html.includes('name="twitter:image"');
-  const hasAllTwitter = twCard && twTitle && twDesc && twImage;
+  const hasAllTwitter = twCard && twTitle && twDesc && !twImage;
   checks.push({
     category: 'SEO',
     name: 'Twitter/X Card metadata is complete',
     passed: hasAllTwitter,
     score: hasAllTwitter ? 10 : 0,
     maxScore: 10,
-    details: `Twitter matches - card: ${twCard}, title: ${twTitle}, desc: ${twDesc}, image: ${twImage}.`,
+    details: `Twitter matches - card: ${twCard}, title: ${twTitle}, desc: ${twDesc}, legacy image: ${twImage}.`,
   });
 
   // 12. Structured Data JSON-LD Check

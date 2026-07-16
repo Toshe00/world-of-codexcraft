@@ -325,8 +325,10 @@ describe('real asset replacement registry', () => {
     readFileSync(path.join(repoRoot, 'config/asset-replacements.registry.json'), 'utf8'),
   ) as AssetReplacementRegistry;
 
-  it('contains no enabled replacement and preserves representative historical paths', () => {
-    expect(realRegistry.replacements.filter((entry) => entry.enabled)).toHaveLength(0);
+  it('contains no production-active replacement and preserves representative historical paths', () => {
+    expect(
+      realRegistry.replacements.filter((entry) => entry.enabled && entry.status === 'approved'),
+    ).toHaveLength(0);
     for (const historicalPath of [
       'models/chars/players/knight.glb',
       'textures/water/Water_1_M_Normal.jpg',

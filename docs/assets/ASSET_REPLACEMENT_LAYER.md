@@ -6,9 +6,11 @@ The asset replacement layer translates a historical public asset path to an appr
 replacement path without changing gameplay identifiers, simulation data, saved data, or
 the historical file. It is a visual and media routing layer only.
 
-The checked-in registry is deliberately empty. Production activation is also forbidden
-by policy. Therefore the runtime returns every historical path unchanged and the current
-game appearance, preload inventory, and media-manifest inputs remain identical.
+The checked-in registry contains only laboratory evaluation rules. Production activation
+is forbidden by policy, and laboratory rules require an explicit local development flag.
+Therefore the normal runtime returns every historical path unchanged and the current game
+appearance and preload behavior remain identical. Laboratory targets may still be included
+in the media manifest so they can be distributed to the isolated development viewer.
 
 The canonical files are:
 
@@ -60,30 +62,33 @@ Every future rule must contain:
 - `rollbackStrategy`: normally disabling the rule while retaining both files.
 
 The platform list is validated metadata in this phase. Runtime platform selection is not
-yet applied because no replacement is active. A future activation that differs by
-platform must first add an explicit trusted runtime platform input and targeted tests.
+yet applied because no production replacement is active. A future activation that differs
+by platform must first add an explicit trusted runtime platform input and targeted tests.
 
-## Adding a future asset
+## Adding an asset
 
-Do not add assets from an external pack as part of this phase. For a future authorized
-asset:
+For an authorized laboratory or production-candidate asset:
 
 1. add the new file under `public/` without modifying, moving, renaming, or deleting the
    historical file;
 2. add precise provenance coverage and evidence to
    `docs/assets/provenance.registry.json`;
 3. run `node scripts/verify_asset_provenance.mjs`;
-4. add an inactive replacement rule with the exact provenance rule id;
+4. add a replacement rule with the exact provenance rule id: laboratory rules use
+   `status: "laboratory"` and `enabled: true` but remain runtime-inactive without the
+   explicit development flag; other future rules follow their authorized status;
 5. run `node scripts/verify_asset_replacements.mjs` and the focused replacement tests;
 6. review visual parity, loading behavior, cache behavior, attribution, and every target
    platform before changing status.
 
-The replacement verifier accepts a validated CC0 asset and provenance with approved
-redistribution and commercial-use rights. It refuses `blocked-pending-proof`,
-`purchased-license-non-transferable`, unknown rights, and every target without evidence.
-A `replace-before-release` provenance rule is accepted only when its declared license,
-redistribution rights, commercial-use rights, and evidence independently permit the new
-asset to be used.
+The replacement verifier accepts a validated CC0 asset and provenance with declared
+redistribution and commercial-use rights plus recorded evidence. It refuses
+`blocked-pending-proof`, `purchased-license-non-transferable`, unknown rights, and every
+target without evidence. A laboratory-only rule may record operator-declared metadata and
+an explicit missing-proof warning when that exception is authorized; the proof must be
+verified before any public release. A `replace-before-release` provenance rule is accepted
+only when its declared license, redistribution rights, commercial-use rights, and evidence
+independently permit the new asset to be used.
 
 Never change a provenance classification merely to make validation pass. Resolve the
 rights evidence or choose a different asset.
@@ -99,8 +104,8 @@ VITE_ASSET_REPLACEMENT_LAB=1
 
 The runtime additionally requires `import.meta.env.DEV`. A save file, gameplay setting,
 server payload, or remote player cannot activate this mode. Do not put the flag in a
-production environment and do not create a laboratory rule using a current historical
-asset as a fake replacement. Tests use artificial in-memory fixtures instead.
+production environment. A laboratory rule must retain a non-critical historical fallback;
+tests cover both artificial fixtures and checked-in laboratory rules.
 
 Production rules cannot be enabled while the registry policy contains
 `productionActivationAllowed: false`. The verifier and runtime validation fail closed if
@@ -110,7 +115,8 @@ such a rule is checked in.
 
 Approval requires provenance approval, repository verification, focused loading and
 rendering tests, visual review, cache and preload review, and explicit authorization to
-permit production activation. Phase 3 does not grant that authorization.
+permit production activation. The current laboratory rule does not grant that
+authorization.
 
 Rollback does not rename an identifier or delete a file. Set `enabled` to `false`, run the
 verifiers and tests, and deploy. The historical path remains the caller input and the

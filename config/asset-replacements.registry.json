@@ -5,5 +5,24 @@
     "productionActivationAllowed": false,
     "laboratoryActivationEnv": "VITE_ASSET_REPLACEMENT_LAB"
   },
-  "replacements": []
+  "replacements": [
+    {
+      "id": "lab-birch-tree-1",
+      "historicalPath": "models/foliage/pine_3.glb",
+      "replacementPath": "models/environment/laboratory/birch_tree_1.glb",
+      "type": "model-glb",
+      "status": "laboratory",
+      "reason": "Preview the Quaternius birch through the local development laboratory without changing a production asset path.",
+      "provenanceRuleId": "quaternius-ultimate-stylized-nature-birch-tree-1",
+      "enabled": true,
+      "platforms": ["web", "desktop", "android", "ios"],
+      "plannedFor": "laboratory evaluation only",
+      "notes": [
+        "Inactive unless Vite runs in development with VITE_ASSET_REPLACEMENT_LAB=1.",
+        "The historical pine_3 model is shipped but unused by normal foliage preload and placement lists.",
+        "Save data, gameplay state, and network messages cannot activate this rule."
+      ],
+      "rollbackStrategy": "Disable the rule or stop the local laboratory environment and retain models/foliage/pine_3.glb as the fallback."
+    }
+  ]
 }

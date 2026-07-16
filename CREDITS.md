@@ -16,6 +16,7 @@ provided as a courtesy.
 | Extra character animation library (Rig_Medium) | Kay Lousberg (KayKit) | https://kaylousberg.itch.io/kaykit-character-animations | CC0 1.0 |
 | Animated creatures (wolf, bull, fox, stag, alpaca, spider, frog, goblin, orc, yeti, giant, demon, ghost, goleling, glub, tribal, velociraptor, dragon) | Quaternius | https://poly.pizza/u/Quaternius · https://quaternius.com | CC0 1.0 |
 | Stylized Nature MegaKit (trees, rocks, bushes, mushrooms, grass) | Quaternius | https://quaternius.itch.io/stylized-nature-megakit | CC0 1.0 |
+| Ultimate Stylized Nature Pack (`public/models/environment/laboratory/birch_tree_1.glb`; laboratory only) | Quaternius (declared) | Ultimate Stylized Nature Pack (operator-declared local source; proof unverified) | CC0 1.0 (declared; verify before public release) |
 | Medieval Village Pack (houses, inn, blacksmith, well, market, cart) | Quaternius | https://quaternius.com/packs/medievalvillage.html | CC0 1.0 |
 | Fantasy Props MegaKit (barrels, crates, lanterns, furniture, smithy) | Quaternius | https://quaternius.itch.io/fantasy-props-megakit | CC0 1.0 |
 | Nature Kit (modular cliffs), Graveyard Kit, Pirate Kit (docks/boats), Fantasy Town Kit, Castle Kit, Particle Pack (VFX sprites) | Kenney | https://kenney.nl | CC0 1.0 |

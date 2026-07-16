@@ -1,0 +1,46 @@
+{
+  "fixtureSchemaVersion": 1,
+  "synthetic": true,
+  "scenario": "legacy-missing-optional-fields",
+  "sourceFormatVersion": "synthetic-pre-optional-fields",
+  "character": {
+    "id": 910007,
+    "accountId": 920007,
+    "name": "FixtureLegacy",
+    "class": "paladin",
+    "realm": "FixtureRealm",
+    "state": {
+      "level": 4,
+      "xp": 90,
+      "copper": 125,
+      "hp": 75,
+      "resource": 60,
+      "pos": { "x": -8, "z": 12 },
+      "facing": 0.2,
+      "equipment": { "mainhand": "training_mace", "chest": "recruit_tunic" },
+      "inventory": [{ "itemId": "baked_bread", "count": 1 }],
+      "questLog": [],
+      "questsDone": [],
+      "fixture-extension:legacy": {
+        "schema": "synthetic-addon-v1",
+        "flags": ["alpha"]
+      }
+    }
+  },
+  "expectedZoneIndex": 0,
+  "protectedStateFields": [
+    "level",
+    "xp",
+    "copper",
+    "hp",
+    "resource",
+    "pos",
+    "facing",
+    "equipment",
+    "inventory",
+    "questLog",
+    "questsDone",
+    "fixture-extension:legacy"
+  ],
+  "preserveUnknownStateFields": ["fixture-extension:legacy"]
+}

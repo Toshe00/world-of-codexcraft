@@ -1,0 +1,51 @@
+{
+  "fixtureSchemaVersion": 1,
+  "synthetic": true,
+  "scenario": "advanced-inventory-and-quests",
+  "sourceFormatVersion": null,
+  "character": {
+    "id": 910002,
+    "accountId": 920002,
+    "name": "FixtureArcanist",
+    "class": "mage",
+    "realm": "FixtureRealm",
+    "state": {
+      "level": 12,
+      "xp": 345,
+      "copper": 9876,
+      "hp": 120,
+      "resource": 180,
+      "pos": { "x": -20, "z": 250 },
+      "facing": 0.75,
+      "equipment": {
+        "mainhand": "apprentice_staff",
+        "chest": "woven_robe",
+        "feet": "oiled_boots"
+      },
+      "inventory": [
+        { "itemId": "wolf_fang", "count": 5 },
+        { "itemId": "baked_bread", "count": 2 },
+        { "itemId": "minor_healing_potion", "count": 3 }
+      ],
+      "questLog": [
+        { "questId": "q_wolves", "counts": [5], "state": "active" },
+        { "questId": "q_ogre_totems", "counts": [6], "state": "ready" }
+      ],
+      "questsDone": ["q_prof_intro"]
+    }
+  },
+  "expectedZoneIndex": 1,
+  "protectedStateFields": [
+    "level",
+    "xp",
+    "copper",
+    "hp",
+    "resource",
+    "pos",
+    "facing",
+    "equipment",
+    "inventory",
+    "questLog",
+    "questsDone"
+  ]
+}

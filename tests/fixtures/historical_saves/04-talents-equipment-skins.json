@@ -1,0 +1,80 @@
+{
+  "fixtureSchemaVersion": 1,
+  "synthetic": true,
+  "scenario": "talents-equipment-and-skins",
+  "sourceFormatVersion": null,
+  "character": {
+    "id": 910004,
+    "accountId": 920004,
+    "name": "FixtureVanguard",
+    "class": "warrior",
+    "realm": "FixtureRealm",
+    "state": {
+      "level": 20,
+      "xp": 0,
+      "copper": 75000,
+      "hp": 300,
+      "resource": 0,
+      "pos": { "x": 0, "z": 650 },
+      "facing": 1.5,
+      "equipment": {
+        "mainhand": "redbrook_blade",
+        "helmet": "cryptbone_helm",
+        "shoulder": "cryptbone_pauldrons",
+        "chest": "militia_vest",
+        "waist": "mistveil_cord",
+        "legs": "quilted_trousers",
+        "gloves": "mistveil_grips",
+        "feet": "oiled_boots"
+      },
+      "equipmentInstance": {
+        "mainhand": {
+          "signer": "FixtureSmith",
+          "rolled": { "quality": "rare", "stats": { "str": 2 } }
+        }
+      },
+      "inventory": [{ "itemId": "baked_bread", "count": 5 }],
+      "questLog": [],
+      "questsDone": ["q_wolves", "q_prof_intro"],
+      "talents": {
+        "spec": "arms",
+        "ranks": { "war_cruelty": 2, "arms_imp_overpower": 2 },
+        "choices": {}
+      },
+      "loadouts": [
+        {
+          "name": "Fixture Arms",
+          "alloc": {
+            "spec": "arms",
+            "ranks": { "war_cruelty": 2, "arms_imp_overpower": 2 },
+            "choices": {}
+          },
+          "bar": ["mortal_strike", "overpower", null]
+        }
+      ],
+      "activeLoadout": 0,
+      "skin": 3,
+      "skinCatalog": "class"
+    }
+  },
+  "expectedZoneIndex": 2,
+  "protectedStateFields": [
+    "level",
+    "xp",
+    "copper",
+    "hp",
+    "resource",
+    "pos",
+    "facing",
+    "equipment",
+    "equipmentInstance",
+    "inventory",
+    "questLog",
+    "questsDone",
+    "talents",
+    "loadouts",
+    "activeLoadout",
+    "skin",
+    "skinCatalog"
+  ]
+}

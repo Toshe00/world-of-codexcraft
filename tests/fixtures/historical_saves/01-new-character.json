@@ -1,0 +1,40 @@
+{
+  "fixtureSchemaVersion": 1,
+  "synthetic": true,
+  "scenario": "new-character-simple",
+  "sourceFormatVersion": null,
+  "character": {
+    "id": 910001,
+    "accountId": 920001,
+    "name": "FixtureNovice",
+    "class": "warrior",
+    "realm": "FixtureRealm",
+    "state": {
+      "level": 1,
+      "xp": 0,
+      "copper": 0,
+      "hp": 50,
+      "resource": 0,
+      "pos": { "x": 2, "z": -2 },
+      "facing": 0,
+      "equipment": { "mainhand": "worn_sword", "chest": "recruit_tunic" },
+      "inventory": [],
+      "questLog": [],
+      "questsDone": []
+    }
+  },
+  "expectedZoneIndex": 0,
+  "protectedStateFields": [
+    "level",
+    "xp",
+    "copper",
+    "hp",
+    "resource",
+    "pos",
+    "facing",
+    "equipment",
+    "inventory",
+    "questLog",
+    "questsDone"
+  ]
+}

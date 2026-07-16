@@ -196,7 +196,7 @@ function createMainWindow() {
     height: 900,
     minWidth: 1024,
     minHeight: 720,
-    title: 'World of ClaudeCraft',
+    title: 'World of CodexCraft',
     backgroundColor: '#05070a',
     icon: path.join(__dirname, '..', 'build', 'icon.png'),
     webPreferences: {

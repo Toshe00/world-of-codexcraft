@@ -612,8 +612,8 @@ export const en_XA: EnTranslations = {
     },
     "nativeUpdate": {
       "title": "[Úþðáţé Áʋáíļáƀļé]",
-      "body": "[Á ñéŵ ʋéŕšíóñ óƒ Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ íš áʋáíļáƀļé. Úþðáţé ñóŵ ƒóŕ ţĥé ļáţéšţ ƒíẋéš áñð íɱþŕóʋéɱéñţš.]",
-      "bodyWithVersion": "[Ʋéŕšíóñ {version} óƒ Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ íš áʋáíļáƀļé. Úþðáţé ñóŵ ƒóŕ ţĥé ļáţéšţ ƒíẋéš áñð íɱþŕóʋéɱéñţš.]",
+      "body": "[Á ñéŵ ʋéŕšíóñ óƒ World of CodexCraft íš áʋáíļáƀļé. Úþðáţé ñóŵ ƒóŕ ţĥé ļáţéšţ ƒíẋéš áñð íɱþŕóʋéɱéñţš.]",
+      "bodyWithVersion": "[Ʋéŕšíóñ {version} óƒ World of CodexCraft íš áʋáíļáƀļé. Úþðáţé ñóŵ ƒóŕ ţĥé ļáţéšţ ƒíẋéš áñð íɱþŕóʋéɱéñţš.]",
       "notNow": "[Ñóţ ñóŵ]",
       "update": "[Úþðáţé]"
     },
@@ -1461,7 +1461,7 @@ export const en_XA: EnTranslations = {
     },
     "discord": {
       "title": "[Ðíšçóŕð]",
-      "panelTitle": "[Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ]",
+      "panelTitle": "[World of CodexCraft]",
       "open": "[Ðíšçóŕð]",
       "close": "[Çļóšé]",
       "keybind": "[Ðíšçóŕð Þáñéļ]",
@@ -2115,8 +2115,8 @@ export const en_XA: EnTranslations = {
     }
   },
   "guide": {
-    "brand": "[Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ]",
-    "brandShort": "[ÇļáúðéÇŕáƒţ]",
+    "brand": "[World of CodexCraft]",
+    "brandShort": "[CodexCraft]",
     "tagline": "[Á çļáššíç-šţýļé ⱮⱮÓ ýóú þļáý ƒŕéé íñ ýóúŕ ƀŕóŵšéŕ.]",
     "skipToContent": "[Šķíþ ţó ɱáíñ çóñţéñţ]",
     "loading": "[Ļóáðíñĝ...]",
@@ -2181,7 +2181,7 @@ export const en_XA: EnTranslations = {
       "github": "[Šóúŕçé óñ ĜíţĤúƀ]",
       "discord": "[Ĵóíñ ţĥé Ðíšçóŕð]",
       "communityWiki": "[Çóɱɱúñíţý Ŵíķí]",
-      "rights": "[Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ]",
+      "rights": "[World of CodexCraft]",
       "linksLabel": "[Þļáý áñð çóɱɱúñíţý ļíñķš]"
     },
     "language": {
@@ -2204,7 +2204,7 @@ export const en_XA: EnTranslations = {
     },
     "home": {
       "eyebrow": "[Çļáššíç-šţýļé ƀŕóŵšéŕ ⱮⱮÓ]",
-      "title": "[Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ]",
+      "title": "[World of CodexCraft]",
       "subtitle": "[Ɋúéšţ, ĝŕóúþ úþ, áñð éẋþļóŕé á ĥáñð-ƀúíļţ ŵóŕļð, ƒŕéé íñ ýóúŕ ƀŕóŵšéŕ.]",
       "ctaPlay": "[Þļáý Ñóŵ]",
       "ctaLearn": "[Ĥóŵ ţó Þļáý]",
@@ -2696,7 +2696,7 @@ export const en_XA: EnTranslations = {
     },
     "worldPage": {
       "heading": "[Ţĥé ŵóŕļð]",
-      "intro": "[Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ íš óñé çóñţíñúóúš ļáñð ýóú çŕóšš óñ ƒóóţ, ţĥŕéé žóñéš ļáíð šóúţĥ ţó ñóŕţĥ. Ţĥéŕé íš ñó ƒášţ ţŕáʋéļ, šó ţĥé ĵóúŕñéý íš þáŕţ óƒ ţĥé áðʋéñţúŕé.]",
+      "intro": "[World of CodexCraft íš óñé çóñţíñúóúš ļáñð ýóú çŕóšš óñ ƒóóţ, ţĥŕéé žóñéš ļáíð šóúţĥ ţó ñóŕţĥ. Ţĥéŕé íš ñó ƒášţ ţŕáʋéļ, šó ţĥé ĵóúŕñéý íš þáŕţ óƒ ţĥé áðʋéñţúŕé.]",
       "hub": "[Ĥóɱé ƀášé]",
       "mapHeading": "[Ţĥé ŕóáð ñóŕţĥ]",
       "mapSub": "[Ţĥŕéé žóñéš, šóúţĥ ţó ñóŕţĥ, éáçĥ á šţéþ ĥíĝĥéŕ íñ ļéʋéļ. Ƒóļļóŵ ţĥé ɋúéšţ ţŕáíļ áñð ţĥé ļáñð çáŕŕíéš ýóú ƒŕóɱ ţĥé ʋáļļéý ţó ţĥé þéáķš.]",
@@ -3203,7 +3203,7 @@ export const en_XA: EnTranslations = {
   },
   "editor": {
     "appTitle": "[Ɱáþ Éðíţóŕ]",
-    "docTitle": "[Ɱáþ Éðíţóŕ - Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ]",
+    "docTitle": "[Ɱáþ Éðíţóŕ - World of CodexCraft]",
     "untitledMap": "[Úñţíţļéð Ɱáþ]",
     "playtestPlayerName": "[Ɱáþɱáķéŕ]",
     "topbar": {
@@ -3678,7 +3678,7 @@ export const en_XA: EnTranslations = {
     "realmName": "[Ŵóŕļð Ñáɱé]"
   },
   "footer": {
-    "copyright": "[2026 Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ]",
+    "copyright": "[2026 World of CodexCraft]",
     "githubLink": "[ĥţţþš://ĝíţĥúƀ.çóɱ/ļéʋý-šţŕééţ/ŵóŕļð-óƒ-çļáúðéçŕáƒţ]",
     "githubLabel": "[Óþéñ Šóúŕçé Þŕóĵéçţ]",
     "whitepaper": "[Ŵĥíţéþáþéŕ]",
@@ -3734,7 +3734,7 @@ export const en_XA: EnTranslations = {
     "serverOnline": "[Óñļíñé]",
     "serverOffline": "[Óƒƒļíñé]",
     "play": "[Þļáý]",
-    "playAria": "[Þļáý Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ]",
+    "playAria": "[Þļáý World of CodexCraft]",
     "serverLabel": "[Çĥóóšé ýóúŕ ŵóŕļð]",
     "serverAria": "[Šéļéçţ ŵóŕļð: Óñļíñé óŕ Óƒƒļíñé]",
     "serverOfflineSub": "[Íñšţáñţ ļóçáļ ŵóŕļð]",
@@ -3940,16 +3940,16 @@ export const en_XA: EnTranslations = {
     "levelClass": "[Ļéʋéļ {level} - {className}]",
     "topPercent": "[ŢÓÞ {percent}%]",
     "realmSubtitle": "[{realm} Ŵóŕļð]",
-    "defaultRealm": "[Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ]",
-    "brandWordmark": "[ŴÓŔĻÐ ÓƑ ÇĻÁÚÐÉÇŔÁƑŢ]",
+    "defaultRealm": "[World of CodexCraft]",
+    "brandWordmark": "[World of CodexCraft]",
     "recruited": "[{count} ŕéçŕúíţéð]",
     "footerHandle": "[@{handle}]",
     "footerHandleWithRecruits": "[@{handle} - {recruited}]",
     "footerCta": "[Ƒóŕĝé ýóúŕ ļéĝéñð: {siteUrl}]",
     "arenaStat": "[Áŕéñá]",
     "shareTierBit": "[, {tier}-ŕáñķ $ŴÓÇ ĥóļðéŕ]",
-    "shareText": "[Í'ɱ ƒóŕĝíñĝ ɱý ļéĝéñð íñ Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ: Ļéʋéļ {level} {className}{tierBit}. Ĵóíñ ɱý ŵóŕļð:]",
-    "nativeShareTitle": "[Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ]",
+    "shareText": "[Í'ɱ ƒóŕĝíñĝ ɱý ļéĝéñð íñ World of CodexCraft: Ļéʋéļ {level} {className}{tierBit}. Ĵóíñ ɱý ŵóŕļð:]",
+    "nativeShareTitle": "[World of CodexCraft]",
     "fileNameFallback": "[þļáýéŕ]",
     "actionShareX": "[Šĥáŕé ţó Ẋ]",
     "actionCopyReferral": "[Çóþý Ŕéƒéŕŕáļ Ļíñķ]",
@@ -4571,13 +4571,13 @@ export const en_XA: EnTranslations = {
     }
   },
   "seo": {
-    "title": "[Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ: Çļáššíç-Šţýļé Ŵéƀ ⱮⱮÓ]",
-    "description": "[Éɱƀáŕķ óñ áñ éþíç áðʋéñţúŕé íñ Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ, á çļáššíç-šţýļé ɱíçŕó-ⱮⱮÓ þļáýáƀļé ðíŕéçţļý íñ ýóúŕ ƀŕóŵšéŕ. Ĵóíñ á þéŕšíšţéñţ šĥáŕéð ŵóŕļð, ļéʋéļ úþ çļáššéš, áñð ðéƒéáţ éñéɱíéš!]",
+    "title": "[World of CodexCraft: Çļáššíç-Šţýļé Ŵéƀ ⱮⱮÓ]",
+    "description": "[Éɱƀáŕķ óñ áñ éþíç áðʋéñţúŕé íñ World of CodexCraft, á çļáššíç-šţýļé ɱíçŕó-ⱮⱮÓ þļáýáƀļé ðíŕéçţļý íñ ýóúŕ ƀŕóŵšéŕ. Ĵóíñ á þéŕšíšţéñţ šĥáŕéð ŵóŕļð, ļéʋéļ úþ çļáššéš, áñð ðéƒéáţ éñéɱíéš!]",
     "genre": "[ⱮⱮÓŔÞĜ]",
     "playMode": "[Ɱúļţíþļáýéŕ]",
     "applicationCategory": "[Ĝáɱé]",
     "operatingSystem": "[Ŵéƀ ƀŕóŵšéŕ]",
-    "officialLabel": "[Óƒƒíçíáļ Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ ŵéƀšíţé]",
+    "officialLabel": "[Óƒƒíçíáļ World of CodexCraft ŵéƀšíţé]",
     "officialBody": "[ŵóŕļðóƒçļáúðéçŕáƒţ.çóɱ íš ţĥé óƒƒíçíáļ ƒŕéé ƀŕóŵšéŕ ⱮⱮÓ ƒóŕ ţĥé Çļáúðéɱóóñ ŵóŕļð. Þļáý óñļíñé ŵíţĥ á þéŕšíšţéñţ çĥáŕáçţéŕ, éẋþļóŕé šóļó óƒƒļíñé, ŕéáð ţĥé ŵíķí, áñð ƒóļļóŵ ʋéŕíƒíéð çóɱɱúñíţý ļíñķš ƒŕóɱ ţĥíš šíţé.]"
   },
   "a11y": {
@@ -4586,9 +4586,9 @@ export const en_XA: EnTranslations = {
     "mainNavigation": "[Ɱáíñ ñáʋíĝáţíóñ]",
     "languageSelection": "[Ļáñĝúáĝé šéļéçţíóñ]",
     "characterActions": "[Çĥáŕáçţéŕ áçţíóñš]",
-    "githubProject": "[Óþéñ ţĥé Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ ĜíţĤúƀ þŕóĵéçţ]",
-    "discordCommunity": "[Ĵóíñ ţĥé Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ Ðíšçóŕð çóɱɱúñíţý]",
-    "donateProject": "[Ðóñáţé ţó šúþþóŕţ Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ]"
+    "githubProject": "[Óþéñ ţĥé World of CodexCraft ĜíţĤúƀ þŕóĵéçţ]",
+    "discordCommunity": "[Ĵóíñ ţĥé World of CodexCraft Ðíšçóŕð çóɱɱúñíţý]",
+    "donateProject": "[Ðóñáţé ţó šúþþóŕţ World of CodexCraft]"
   },
   "loading": {
     "world": "[Ļóáðíñĝ ŵóŕļð...]",
@@ -4660,11 +4660,11 @@ export const en_XA: EnTranslations = {
       "later": "[Ļáţéŕ]"
     },
     "crash": {
-      "title": "[Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ]",
+      "title": "[World of CodexCraft]",
       "body": "[Ţĥé ĝáɱé ʋíéŵ šţóþþéð ŵóŕķíñĝ. Ŕéļóáð íţ?]",
       "reload": "[Ŕéļóáð]",
       "quit": "[Ɋúíţ]",
-      "fatalBody": "[Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ ĥíţ áñ úñéẋþéçţéð éŕŕóŕ áñð ñééðš ţó çļóšé.]"
+      "fatalBody": "[World of CodexCraft ĥíţ áñ úñéẋþéçţéð éŕŕóŕ áñð ñééðš ţó çļóšé.]"
     }
   },
   "realm": {
@@ -4792,17 +4792,17 @@ export const en_XA: EnTranslations = {
     "iosStandaloneDetail": "[Ýóú áŕé íñ ĥóɱé-šçŕééñ ƒúļļšçŕééñ ɱóðé. Ķééþ ţĥé ðéʋíçé íñ ļáñðšçáþé.]",
     "iosInstallDetail": "[Ƒóŕ ţŕúé ƒúļļšçŕééñ óñ íÞĥóñé óŕ íÞáð, íñšţáļļ ţĥíš þáĝé ţó ýóúŕ Ĥóɱé Šçŕééñ ƒíŕšţ.]",
     "iosShareStep": "[Íñ Šáƒáŕí, ţáþ Šĥáŕé, ţĥéñ Áðð ţó Ĥóɱé Šçŕééñ.]",
-    "iosOpenStep": "[Óþéñ Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ ƒŕóɱ ţĥé ñéŵ Ĥóɱé Šçŕééñ íçóñ.]",
+    "iosOpenStep": "[Óþéñ World of CodexCraft ƒŕóɱ ţĥé ñéŵ Ĥóɱé Šçŕééñ íçóñ.]",
     "androidStandaloneDetail": "[Ýóú áŕé íñ ƒúļļšçŕééñ áþþ ɱóðé. Ķééþ ţĥé ðéʋíçé íñ ļáñðšçáþé.]",
     "androidInstallDetail": "[Ƒóŕ ƒúļļšçŕééñ óñ Áñðŕóíð, íñšţáļļ ţĥíš þáĝé óŕ áðð íţ ţó ýóúŕ Ĥóɱé šçŕééñ ƒíŕšţ.]",
     "androidInstallStep": "[Íñ Çĥŕóɱé, ţáþ ţĥé ɱéñú, ţĥéñ Íñšţáļļ áþþ óŕ Áðð ţó Ĥóɱé šçŕééñ.]",
-    "androidOpenStep": "[Óþéñ Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ ƒŕóɱ ţĥé ñéŵ íçóñ.]",
+    "androidOpenStep": "[Óþéñ World of CodexCraft ƒŕóɱ ţĥé ñéŵ íçóñ.]",
     "otherStandaloneDetail": "[Ķééþ ýóúŕ ðéʋíçé íñ ļáñðšçáþé ƒúļļšçŕééñ.]",
     "otherInstallDetail": "[Íñšţáļļ óŕ áðð ţĥíš þáĝé ţó ýóúŕ Ĥóɱé šçŕééñ ƒóŕ ţĥé ƀéšţ ƒúļļšçŕééñ ɱóƀíļé éẋþéŕíéñçé.]"
   },
   "serverUnavailable": {
-    "title": "[Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ - Ŵóŕļð Úñáʋáíļáƀļé]",
-    "logoAlt": "[Ŵóŕļð óƒ ÇļáúðéÇŕáƒţ]",
+    "title": "[World of CodexCraft - Ŵóŕļð Úñáʋáíļáƀļé]",
+    "logoAlt": "[World of CodexCraft]",
     "eyebrow": "[Ŵóŕļð ɱáíñţéñáñçé]",
     "heading": "[Ţĥé ŵóŕļð íš ţéɱþóŕáŕíļý úñáʋáíļáƀļé.]",
     "body": "[Ŵé áŕé ŕéšţáŕţíñĝ ţĥé ĝáɱé šéŕʋíçé áñð éẋþéçţ Çļáúðéɱóóñ ţó ŕéţúŕñ šĥóŕţļý. Ţĥíš þáĝé ŵíļļ ķééþ çĥéçķíñĝ áúţóɱáţíçáļļý.]",

@@ -1,4 +1,4 @@
-# World of ClaudeCraft
+# World of CodexCraft
 
 > A classic-style micro-MMO you play free in your browser. Quest, group up, and explore a
 > hand-built world across nine classes and three zones, with dungeons, a raid, an arena,

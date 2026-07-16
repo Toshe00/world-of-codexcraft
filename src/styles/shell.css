@@ -89,17 +89,31 @@
   }
 
   .header-logo {
-    height: 40px;
-    width: 40px;
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
     margin: 0;
-    border-radius: var(--radius-sm);
-    filter: drop-shadow(0 0 10px rgba(199, 148, 26, 0.3)) drop-shadow(1px 1px 2px #000);
+    color: var(--color-gold-primary);
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 10px rgba(199, 148, 26, 0.3), 1px 1px 2px #000;
+  }
+
+  .brand-wordmark {
+    color: var(--color-gold-primary);
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1.08;
+    text-align: center;
+    text-shadow: 0 0 20px rgba(199, 148, 26, 0.25), 2px 2px 4px #000;
   }
 
   #title-logo {
     width: min(216px, 50vw);
-    height: auto;
-    filter: drop-shadow(0 0 20px rgba(199, 148, 26, 0.25)) drop-shadow(2px 2px 4px #000);
+    font-size: clamp(1.55rem, 3vw, 2.4rem);
     animation: logo-pulse 2.5s ease-in-out infinite alternate;
     margin-bottom: var(--spacing-sm);
   }
@@ -1899,8 +1913,7 @@
   }
   #loading-screen .ls-logo {
     width: min(380px, 64vw);
-    height: auto;
-    filter: drop-shadow(0 0 24px #000c) drop-shadow(2px 2px 5px #000);
+    font-size: clamp(1.8rem, 5vw, 3.6rem);
   }
   .ls-progress {
     display: flex;

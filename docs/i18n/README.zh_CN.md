@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **在浏览器里免费畅玩一个纯手工打造的世界：做任务、组队、打团。开源、web3，现在就能在线游玩。**
 
@@ -22,13 +22,12 @@
 
 [立即游玩](https://worldofclaudecraft.com/) · [搭建你自己的世界](#host-your-own-world-one-command) · [训练智能体](#train-an-agent-headless-rl) · [Web3](#web3) · [参与贡献](CONTRIBUTING.zh_CN.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![World of ClaudeCraft 标题画面](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## 这是什么
 
-World of ClaudeCraft 是一款完整的经典时代 MMO：你现在就能在浏览器里直接游玩，用一条命令自行搭建，甚至还能训练 AI 智能体来玩它。它免费、开源，并已在 [worldofclaudecraft.com](https://worldofclaudecraft.com/) 上线运行。
+World of CodexCraft 是一款完整的经典时代 MMO：你现在就能在浏览器里直接游玩，用一条命令自行搭建，甚至还能训练 AI 智能体来玩它。它免费、开源，并已在 [worldofclaudecraft.com](https://worldofclaudecraft.com/) 上线运行。
 
 同一个共享世界在三个地方运行，全部出自同一份游戏核心：
 
@@ -154,7 +153,7 @@ env.close()
 
 ## Web3
 
-World of ClaudeCraft 以 **$WOC**（我们在 Solana 上的社区代币）为核心，是 web3 原生的。连接一个 Solana 钱包，用一次签名把它链接到你的账号（非托管，无需批准任何交易），你只读的 $WOC 余额便会显示在 HUD 中，旁边还有一枚装饰性的持有者层级徽章。
+World of CodexCraft 以 **$WOC**（我们在 Solana 上的社区代币）为核心，是 web3 原生的。连接一个 Solana 钱包，用一次签名把它链接到你的账号（非托管，无需批准任何交易），你只读的 $WOC 余额便会显示在 HUD 中，旁边还有一枚装饰性的持有者层级徽章。
 
 它纯属装饰，游玩时并不需要。游戏内不消耗也不赚取任何东西，没有付费变强，整个游戏即便从不连接钱包也能正常游玩。
 
@@ -305,13 +304,6 @@ node scripts/crypt_raid.mjs     # five bots clear the Hollow Crypt (ALLOW_DEV_CO
 
 我们欢迎各种形式的贡献：代码、翻译、错误报告和文档。先从 [CONTRIBUTING.zh_CN.md](CONTRIBUTING.zh_CN.md) 了解环境搭建，阅读[行为准则](../../CODE_OF_CONDUCT.md)，并在报告漏洞前查看 [SECURITY.md](../../SECURITY.md)。新来的？可以找带 [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue) 标签的议题，开一个[议题](https://github.com/levy-street/world-of-claudecraft/issues/new/choose)，或者来 [Discord](https://discord.com/invite/worldofclaudecraft) 打个招呼。
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![World of ClaudeCraft 社区](../../woc_community.png)
-
-</div>
 
 ## 许可
 

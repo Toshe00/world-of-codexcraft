@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **Begib dich auf Quests, schließe dich Gruppen an und raide eine handgebaute Welt, kostenlos in deinem Browser. Open Source, web3 und ab sofort online.**
 
@@ -22,13 +22,12 @@
 
 [Jetzt spielen](https://worldofclaudecraft.com/) · [Hoste deine eigene Welt](#host-your-own-world-one-command) · [Trainiere einen Agenten](#train-an-agent-headless-rl) · [Web3](#web3) · [Mitwirken](CONTRIBUTING.de_DE.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![Titelbildschirm von World of ClaudeCraft](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## Was das ist
 
-World of ClaudeCraft ist ein komplettes MMO im Stil der klassischen Ära, das du sofort in deinem Browser spielen, mit einem einzigen Befehl selbst hosten und sogar KI-Agenten zum Spielen trainieren kannst. Es ist kostenlos, Open Source und live unter [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+World of CodexCraft ist ein komplettes MMO im Stil der klassischen Ära, das du sofort in deinem Browser spielen, mit einem einzigen Befehl selbst hosten und sogar KI-Agenten zum Spielen trainieren kannst. Es ist kostenlos, Open Source und live unter [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 Eine geteilte Welt läuft an drei Orten, alle aus demselben Spielkern:
 
@@ -154,7 +153,7 @@ Das Protokoll und die Bindings sind in `headless/CLAUDE.md` und `python/CLAUDE.m
 
 ## Web3
 
-World of ClaudeCraft ist web3-nativ rund um **$WOC**, unseren Community-Token auf Solana. Verbinde eine Solana-Wallet, verknüpfe sie mit einer einzigen Signatur mit deinem Konto (nicht verwahrend, keine zu bestätigende Transaktion), und dein schreibgeschützter $WOC-Kontostand erscheint im HUD neben einem kosmetischen Holder-Tier-Abzeichen.
+World of CodexCraft ist web3-nativ rund um **$WOC**, unseren Community-Token auf Solana. Verbinde eine Solana-Wallet, verknüpfe sie mit einer einzigen Signatur mit deinem Konto (nicht verwahrend, keine zu bestätigende Transaktion), und dein schreibgeschützter $WOC-Kontostand erscheint im HUD neben einem kosmetischen Holder-Tier-Abzeichen.
 
 Es ist rein kosmetisch und zum Spielen nicht erforderlich. Im Spiel wird nichts ausgegeben oder verdient, es gibt kein Pay-to-Win, und das gesamte Spiel läuft einwandfrei, ohne jemals eine Wallet zu verbinden.
 
@@ -305,13 +304,6 @@ Jede für Spieler sichtbare Zeichenkette wird über `t()` aufgelöst, und das Sp
 
 Beiträge jeder Art sind willkommen: Code, Übersetzungen, Fehlerberichte und Dokumentation. Beginne mit [CONTRIBUTING.de_DE.md](CONTRIBUTING.de_DE.md) für die Einrichtung, lies den [Verhaltenskodex](../../CODE_OF_CONDUCT.md) und prüfe [SECURITY.md](../../SECURITY.md), bevor du eine Schwachstelle meldest. Neu hier? Halte Ausschau nach Issues mit dem Label [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), öffne ein [Issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose) oder sag Hallo auf [Discord](https://discord.com/invite/worldofclaudecraft).
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![World of ClaudeCraft Community](../../woc_community.png)
-
-</div>
 
 ## Lizenz
 

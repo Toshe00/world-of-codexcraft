@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **Tag på quests, dan grupper, og raid en håndbygget verden, gratis i din browser. Open source, web3, og online lige nu.**
 
@@ -22,13 +22,12 @@
 
 [Spil nu](https://worldofclaudecraft.com/) · [Hav din egen verden](#host-your-own-world-one-command) · [Træn en agent](#train-an-agent-headless-rl) · [Web3](#web3) · [Bidrag](CONTRIBUTING.da_DK.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![World of ClaudeCraft titelskærm](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## Hvad er dette
 
-World of ClaudeCraft er en komplet MMO i klassisk stil, som du kan spille lige nu i din browser, selv hoste med en enkelt kommando, og endda træne AI-agenter til at spille. Den er gratis, open source, og live på [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+World of CodexCraft er en komplet MMO i klassisk stil, som du kan spille lige nu i din browser, selv hoste med en enkelt kommando, og endda træne AI-agenter til at spille. Den er gratis, open source, og live på [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 Én fælles verden kører tre steder, alt sammen fra den samme spilkerne:
 
@@ -154,7 +153,7 @@ Protokollen og bindingsene er dokumenteret i `headless/CLAUDE.md` og `python/CLA
 
 ## Web3
 
-World of ClaudeCraft er web3-native omkring **$WOC**, vores community-token på Solana. Forbind en Solana-wallet, link den til din konto med en enkelt signatur (non-custodial, ingen transaktion at godkende), og din skrivebeskyttede $WOC-balance dukker op i HUD'en ved siden af et kosmetisk holder-tier-badge.
+World of CodexCraft er web3-native omkring **$WOC**, vores community-token på Solana. Forbind en Solana-wallet, link den til din konto med en enkelt signatur (non-custodial, ingen transaktion at godkende), og din skrivebeskyttede $WOC-balance dukker op i HUD'en ved siden af et kosmetisk holder-tier-badge.
 
 Det er kun kosmetisk og ikke nødvendigt for at spille. Intet bliver brugt eller tjent i spillet, der er ingen pay-to-win, og hele spillet spiller fint uden nogensinde at forbinde en wallet.
 
@@ -305,13 +304,6 @@ Hver spiller-synlig streng resolver gennem `t()`, og spillet leveres på **21 sp
 
 Bidrag af enhver art er velkomne: kode, oversættelser, fejlrapporter, og dokumentation. Start med [CONTRIBUTING.md](CONTRIBUTING.da_DK.md) for opsætning, læs [Code of Conduct](../../CODE_OF_CONDUCT.md), og tjek [SECURITY.md](../../SECURITY.md) før du rapporterer en sårbarhed. Ny her? Kig efter issues mærket [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), åbn et [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose), eller sig hej på [Discord](https://discord.com/invite/worldofclaudecraft).
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![World of ClaudeCraft community](../../woc_community.png)
-
-</div>
 
 ## Licens
 

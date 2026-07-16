@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mediawiki xmlns="http://www.mediawiki.org/xml/export-0.11/" version="0.11" xml:lang="en">
   <siteinfo>
-    <sitename>World of Claudecraft Wiki</sitename>
+    <sitename>World of CodexCraft Wiki</sitename>
     <dbname>mediawiki</dbname>
     <base>http://localhost:8080/wiki/index.php/Main_Page</base>
     <generator>MediaWiki seed</generator>
@@ -24,8 +24,8 @@
       <comment>Seed World of Claudecraft wiki content</comment>
       <model>wikitext</model>
       <format>text/x-wiki</format>
-      <text xml:space="preserve" bytes="10448">/* =========================================================================
-   World of Claudecraft Wiki — &quot;Aged Grimoire&quot; theme for Vector 2022.
+      <text xml:space="preserve" bytes="10306">/* =========================================================================
+   World of CodexCraft Wiki — &quot;Aged Grimoire&quot; theme for Vector 2022.
    Warm parchment reading surface, deep oak chrome, gold + wax-seal-red
    accents, elegant serif display headings.
    ========================================================================= */
@@ -47,7 +47,7 @@
   --woc-display: &apos;Iowan Old Style&apos;, &apos;Palatino Linotype&apos;, Palatino, &apos;Book Antiqua&apos;, Georgia, serif;
 }
 
-/* ---- Page backdrop: photo pushed back behind a dark &quot;table&quot; overlay ---- */
+/* ---- Neutral page backdrop behind a dark &quot;table&quot; overlay ---- */
 html {
   background: #0d0906;
 }
@@ -56,7 +56,6 @@ body {
   background:
     radial-gradient(ellipse at 50% -10%, rgba(231, 181, 74, 0.10), rgba(13, 9, 6, 0) 55%),
     linear-gradient(rgba(15, 10, 7, 0.80), rgba(11, 7, 5, 0.93)),
-    url(&apos;/wiki/resources/assets/woc-loading-screen.jpg&apos;) center top / cover fixed,
     var(--woc-oak-2);
   color: var(--woc-ink);
 }
@@ -328,13 +327,12 @@ body {
   width: min(220px, 100%);
   aspect-ratio: 1;
   padding: 14px;
-  background:
-    linear-gradient(rgba(24, 15, 10, 0), rgba(24, 15, 10, 0.85)),
-    url(&apos;/wiki/resources/assets/worldofclaudecraft-logo.png&apos;) center / contain no-repeat;
+  background: linear-gradient(rgba(67, 44, 22, 0.28), rgba(24, 15, 10, 0.92));
+  border: 1px solid var(--woc-rule-strong);
   color: var(--woc-gold-soft);
   font-family: var(--woc-display);
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
@@ -460,16 +458,16 @@ body {
       <comment>Seed World of Claudecraft wiki content</comment>
       <model>wikitext</model>
       <format>text/x-wiki</format>
-      <text xml:space="preserve" bytes="1103">&lt;div class=&quot;woc-main&quot;&gt;
+      <text xml:space="preserve" bytes="1100">&lt;div class=&quot;woc-main&quot;&gt;
 &lt;div class=&quot;woc-hero&quot;&gt;
 &lt;div&gt;
 &lt;p class=&quot;woc-kicker&quot;&gt;Community player encyclopedia&lt;/p&gt;
-&lt;h1&gt;World of Claudecraft Wiki&lt;/h1&gt;
-World of Claudecraft is a browser-playable, WoW-Classic-flavored micro-MMO with online persistence, offline play, deterministic simulation logic, and a launch-week community that quickly turned jokes, dungeon clears, level races, bug reports, and feature requests into game history.
+&lt;h1&gt;World of CodexCraft Wiki&lt;/h1&gt;
+World of CodexCraft is a browser-playable, WoW-Classic-flavored micro-MMO with online persistence, offline play, deterministic simulation logic, and a launch-week community that quickly turned jokes, dungeon clears, level races, bug reports, and feature requests into game history.
 
 &apos;&apos;&apos;Start here:&apos;&apos;&apos; [[Quick Start]] · [[All Pages]] · [[Zones]] · [[Classes]] · [[Gameplay Systems]] · [[Community Lore]] · [[Development Timeline]]
 &lt;/div&gt;
-&lt;div class=&quot;woc-card&quot;&gt;&lt;div class=&quot;woc-crest&quot;&gt;World of Claudecraft&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;woc-card&quot;&gt;&lt;div class=&quot;woc-crest&quot;&gt;World of CodexCraft&lt;/div&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 == Featured portals ==
@@ -24615,4 +24613,3 @@ Enter a berserker rage, generating 20 rage. (Warrior talent)
     </revision>
   </page>
 </mediawiki>
-

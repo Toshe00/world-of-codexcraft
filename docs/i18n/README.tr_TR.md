@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **Elle örülmüş bir dünyada görev yap, grup kur ve raid yap, üstelik tarayıcında ücretsiz. Açık kaynak, web3 ve şu anda çevrimiçi.**
 
@@ -22,13 +22,12 @@
 
 [Hemen oyna](https://worldofclaudecraft.com/) · [Kendi dünyanı barındır](#host-your-own-world-one-command) · [Bir ajan eğit](#train-an-agent-headless-rl) · [Web3](#web3) · [Katkıda bulun](CONTRIBUTING.tr_TR.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![World of ClaudeCraft başlık ekranı](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## Bu nedir
 
-World of ClaudeCraft, şu anda tarayıcında oynayabileceğin, tek bir komutla kendin barındırabileceğin ve hatta oynaması için yapay zeka ajanları eğitebileceğin eksiksiz, klasik dönem tarzı bir MMO oyunudur. Ücretsiz, açık kaynaklı ve [worldofclaudecraft.com](https://worldofclaudecraft.com/) adresinde canlı.
+World of CodexCraft, şu anda tarayıcında oynayabileceğin, tek bir komutla kendin barındırabileceğin ve hatta oynaması için yapay zeka ajanları eğitebileceğin eksiksiz, klasik dönem tarzı bir MMO oyunudur. Ücretsiz, açık kaynaklı ve [worldofclaudecraft.com](https://worldofclaudecraft.com/) adresinde canlı.
 
 Tek bir paylaşılan dünya, hepsi aynı oyun çekirdeğinden gelen üç farklı yerde çalışır:
 
@@ -154,7 +153,7 @@ Protokol ve bağlamalar `headless/CLAUDE.md` ve `python/CLAUDE.md` içinde belge
 
 ## Web3
 
-World of ClaudeCraft, Solana üzerindeki topluluk jetonumuz **$WOC** etrafında web3 yerlisidir. Bir Solana cüzdanı bağla, tek bir imzayla hesabına ilişkilendir (emanetsiz, onaylanacak işlem yok) ve salt okunur $WOC bakiyen, kozmetik bir sahip kademesi rozetinin yanında HUD'da görünür.
+World of CodexCraft, Solana üzerindeki topluluk jetonumuz **$WOC** etrafında web3 yerlisidir. Bir Solana cüzdanı bağla, tek bir imzayla hesabına ilişkilendir (emanetsiz, onaylanacak işlem yok) ve salt okunur $WOC bakiyen, kozmetik bir sahip kademesi rozetinin yanında HUD'da görünür.
 
 Yalnızca kozmetiktir ve oynamak için gerekli değildir. Oyun içinde hiçbir şey harcanmaz veya kazanılmaz, kazan-için-öde yoktur ve tüm oyun bir cüzdan bağlamadan da gayet iyi oynanır.
 
@@ -305,13 +304,6 @@ Her oyuncuya görünür dize `t()` üzerinden çözülür ve oyun **21 yerel aya
 
 Her türlü katkı memnuniyetle karşılanır: kod, çeviriler, hata raporları ve belgeler. Kurulum için [CONTRIBUTING.tr_TR.md](CONTRIBUTING.tr_TR.md) ile başla, [Davranış Kuralları](../../CODE_OF_CONDUCT.md)'nı oku ve bir güvenlik açığı bildirmeden önce [SECURITY.md](../../SECURITY.md)'yi kontrol et. Burada yeni misin? [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue) etiketli sorunlara bak, bir [sorun](https://github.com/levy-street/world-of-claudecraft/issues/new/choose) aç veya [Discord](https://discord.com/invite/worldofclaudecraft)'da merhaba de.
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![World of ClaudeCraft topluluğu](../../woc_community.png)
-
-</div>
 
 ## Lisans
 

@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **手作りの世界でクエストを進め、パーティを組み、レイドに挑もう。ブラウザで無料、オープンソース、web3対応、そして今すぐオンラインでプレイできます。**
 
@@ -22,13 +22,12 @@
 
 [今すぐプレイ](https://worldofclaudecraft.com/) · [自分の世界をホストする](#host-your-own-world-one-command) · [エージェントを訓練する](#train-an-agent-headless-rl) · [Web3](#web3) · [コントリビュート](CONTRIBUTING.ja_JP.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![World of ClaudeCraft タイトル画面](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## これは何か
 
-World of ClaudeCraft は、今すぐブラウザでプレイでき、コマンド一つで自分でホストでき、さらにはAIエージェントにプレイを学習させることもできる、完全なクラシック時代のMMOです。無料でオープンソース、[worldofclaudecraft.com](https://worldofclaudecraft.com/) で稼働中です。
+World of CodexCraft は、今すぐブラウザでプレイでき、コマンド一つで自分でホストでき、さらにはAIエージェントにプレイを学習させることもできる、完全なクラシック時代のMMOです。無料でオープンソース、[worldofclaudecraft.com](https://worldofclaudecraft.com/) で稼働中です。
 
 一つの共有された世界が、同じゲームコアから三つの場所で動きます。
 
@@ -154,7 +153,7 @@ env.close()
 
 ## Web3
 
-World of ClaudeCraft は、Solana 上のコミュニティトークン **$WOC** を中心とした web3 ネイティブです。Solana ウォレットを接続し、署名一つでアカウントにリンクすると（ノンカストディアル、承認すべきトランザクションなし）、読み取り専用の $WOC 残高がコスメティックなホルダーティアバッジとともにHUDに表示されます。
+World of CodexCraft は、Solana 上のコミュニティトークン **$WOC** を中心とした web3 ネイティブです。Solana ウォレットを接続し、署名一つでアカウントにリンクすると（ノンカストディアル、承認すべきトランザクションなし）、読み取り専用の $WOC 残高がコスメティックなホルダーティアバッジとともにHUDに表示されます。
 
 これはコスメティックのみで、プレイに必要ではありません。ゲーム内で消費したり獲得したりするものは何もなく、pay-to-win はなく、ウォレットを一度も接続しなくてもゲームは問題なく遊べます。
 
@@ -305,13 +304,6 @@ node scripts/crypt_raid.mjs     # five bots clear the Hollow Crypt (ALLOW_DEV_CO
 
 あらゆる種類の貢献を歓迎します。コード、翻訳、バグ報告、ドキュメント。まずはセットアップについて [CONTRIBUTING.ja_JP.md](CONTRIBUTING.ja_JP.md) から始め、[行動規範](../../CODE_OF_CONDUCT.md) を読み、脆弱性を報告する前に [SECURITY.md](../../SECURITY.md) を確認してください。初めてですか? [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue) のラベルが付いた issue を探すか、[issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose) を立てるか、[Discord](https://discord.com/invite/worldofclaudecraft) で挨拶してください。
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![World of ClaudeCraft community](../../woc_community.png)
-
-</div>
 
 ## ライセンス
 

@@ -188,12 +188,6 @@ const BODY_FONT = '"Alegreya Sans", "Segoe UI", system-ui, sans-serif';
 const HEADER_X = 478;
 const HEADER_RIGHT_EDGE = 1018;
 
-// The full brand lockup (C-shield emblem + "WORLD OF CLAUDECRAFT" wordmark),
-// served from /public. Same-origin, so drawing it does not taint the canvas.
-// Loaded best-effort: if it's missing the footer falls back to a text wordmark
-// rather than failing the whole card.
-const LOGO_URL = '/woc-logo-hero.webp';
-
 /** Where the title line sits on the header, or null when nothing may draw.
  *  Pure (no canvas): the caller passes the measured realm-line width so the
  *  title starts past it on the same y=158 baseline, clamped left of the
@@ -241,10 +235,9 @@ export async function renderPlayerCardCanvas(data: PlayerCardData): Promise<HTML
   const tier = holderTierForBalance(data.balance);
   const pctTier = percentileTierForPercent(data.topPercent);
   const devTier = devTierByIndex(data.devTier ?? 0);
-  const [charImg, badgeImg, logoImg, pctBadgeImg, devBadgeImg] = await Promise.all([
+  const [charImg, badgeImg, pctBadgeImg, devBadgeImg] = await Promise.all([
     loadImage(data.characterImage),
     tier ? loadImage(holderTierBadgeDataUrl(tier, 256)) : Promise.resolve(null),
-    loadImage(LOGO_URL).catch(() => null), // best-effort brand mark
     pctTier
       ? loadImage(percentileTierBadgeDataUrl(pctTier, 128)).catch(() => null)
       : Promise.resolve(null), // best-effort; drawHeader falls back to the plain chip
@@ -267,7 +260,7 @@ export async function renderPlayerCardCanvas(data: PlayerCardData): Promise<HTML
   if (tier && badgeImg) drawBadge(ctx, tier, badgeImg, data.balance);
   drawStats(ctx, data);
   drawGear(ctx, data);
-  drawFooter(ctx, data, logoImg);
+  drawFooter(ctx, data);
   drawFrame(ctx, data.classColor);
 
   return canvas;
@@ -557,23 +550,14 @@ function drawGear(ctx: CanvasRenderingContext2D, data: PlayerCardData): void {
 function drawFooter(
   ctx: CanvasRenderingContext2D,
   data: PlayerCardData,
-  logo: HTMLImageElement | null,
 ): void {
   const y = CARD_H - 26;
-  // Brand mark: the full logo lockup, else a plain text wordmark, top-right now
-  // (swapped with the holder badge, which moved to the bottom-left). Right-aligned
-  // against the card's right margin, above the stats panel.
-  if (logo && logo.width > 0) {
-    const h = 104;
-    const w = (logo.width / logo.height) * h;
-    ctx.drawImage(logo, 1156 - w, 38, w, h);
-  } else {
-    ctx.textAlign = 'right';
-    ctx.fillStyle = COL.gold;
-    ctx.font = `700 34px ${TITLE_FONT}`;
-    ctx.fillText(t('playerCard.brandWordmark'), 1156, 100);
-    ctx.textAlign = 'left';
-  }
+  // Temporary text-only brand mark, right-aligned above the stats panel.
+  ctx.textAlign = 'right';
+  ctx.fillStyle = COL.gold;
+  ctx.font = `700 34px ${TITLE_FONT}`;
+  ctx.fillText(t('playerCard.brandWordmark'), 1156, 100);
+  ctx.textAlign = 'left';
 
   // Referral line stays bottom-right; URL clamp trimmed so it clears the badge
   // block now occupying the bottom-left.

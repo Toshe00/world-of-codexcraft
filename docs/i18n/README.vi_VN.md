@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **Nhận nhiệm vụ, lập nhóm và raid một thế giới được dựng thủ công, miễn phí ngay trên trình duyệt. Mã nguồn mở, web3 và trực tuyến ngay bây giờ.**
 
@@ -22,13 +22,12 @@
 
 [Chơi ngay](https://worldofclaudecraft.com/) · [Tự dựng thế giới của bạn](#host-your-own-world-one-command) · [Huấn luyện một agent](#train-an-agent-headless-rl) · [Web3](#web3) · [Đóng góp](CONTRIBUTING.vi_VN.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![Màn hình tiêu đề World of ClaudeCraft](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## Đây là gì
 
-World of ClaudeCraft là một tựa MMO kinh điển hoàn chỉnh mà bạn có thể chơi ngay bây giờ trên trình duyệt, tự dựng với một lệnh duy nhất, và thậm chí còn huấn luyện được các agent AI để chơi. Trò chơi miễn phí, mã nguồn mở, và đang chạy trực tiếp tại [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+World of CodexCraft là một tựa MMO kinh điển hoàn chỉnh mà bạn có thể chơi ngay bây giờ trên trình duyệt, tự dựng với một lệnh duy nhất, và thậm chí còn huấn luyện được các agent AI để chơi. Trò chơi miễn phí, mã nguồn mở, và đang chạy trực tiếp tại [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 Một thế giới chung chạy ở ba nơi, tất cả đều từ cùng một lõi game:
 
@@ -154,7 +153,7 @@ Giao thức và các ràng buộc được tài liệu hóa trong `headless/CLAU
 
 ## Web3
 
-World of ClaudeCraft mang bản chất web3 xoay quanh **$WOC**, token cộng đồng của chúng tôi trên Solana. Kết nối một ví Solana, liên kết nó với tài khoản của bạn bằng một chữ ký (không giữ tài sản hộ, không có giao dịch nào cần duyệt), và số dư $WOC chỉ đọc của bạn sẽ hiện lên trong HUD cùng với một huy hiệu bậc người nắm giữ mang tính trang trí.
+World of CodexCraft mang bản chất web3 xoay quanh **$WOC**, token cộng đồng của chúng tôi trên Solana. Kết nối một ví Solana, liên kết nó với tài khoản của bạn bằng một chữ ký (không giữ tài sản hộ, không có giao dịch nào cần duyệt), và số dư $WOC chỉ đọc của bạn sẽ hiện lên trong HUD cùng với một huy hiệu bậc người nắm giữ mang tính trang trí.
 
 Nó chỉ mang tính trang trí và không cần thiết để chơi. Không có gì bị tiêu hay kiếm được trong game, không có pay-to-win, và toàn bộ trò chơi vẫn chơi tốt mà không cần kết nối ví bao giờ.
 
@@ -305,13 +304,6 @@ Mọi chuỗi hiển thị với người chơi đều phân giải qua `t()`, v
 
 Mọi kiểu đóng góp đều được hoan nghênh: mã, bản dịch, báo cáo lỗi, và tài liệu. Hãy bắt đầu với [CONTRIBUTING.md](CONTRIBUTING.vi_VN.md) để thiết lập, đọc [Quy tắc ứng xử](../../CODE_OF_CONDUCT.md), và xem [SECURITY.md](../../SECURITY.md) trước khi báo cáo một lỗ hổng. Mới ở đây? Hãy tìm các issue được gắn nhãn [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), mở một [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose), hoặc chào một tiếng trên [Discord](https://discord.com/invite/worldofclaudecraft).
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![Cộng đồng World of ClaudeCraft](../../woc_community.png)
-
-</div>
 
 ## Giấy phép
 

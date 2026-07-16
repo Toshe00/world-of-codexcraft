@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **Lös uppdrag, slå dig samman och raida en handbyggd värld, gratis i din webbläsare. Öppen källkod, web3 och online just nu.**
 
@@ -22,13 +22,12 @@
 
 [Spela nu](https://worldofclaudecraft.com/) · [Hosta din egen värld](#host-your-own-world-one-command) · [Träna en agent](#train-an-agent-headless-rl) · [Web3](#web3) · [Bidra](CONTRIBUTING.sv_SE.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![World of ClaudeCraft titelskärm](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## Vad det här är
 
-World of ClaudeCraft är en komplett MMO i klassisk stil som du kan spela just nu i din webbläsare, hosta själv med ett enda kommando och till och med träna AI-agenter att spela. Den är gratis, öppen källkod och live på [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+World of CodexCraft är en komplett MMO i klassisk stil som du kan spela just nu i din webbläsare, hosta själv med ett enda kommando och till och med träna AI-agenter att spela. Den är gratis, öppen källkod och live på [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 En gemensam värld körs på tre platser, alla från samma spelkärna:
 
@@ -154,7 +153,7 @@ Protokollet och bindningarna är dokumenterade i `headless/CLAUDE.md` och `pytho
 
 ## Web3
 
-World of ClaudeCraft är web3-inbyggt kring **$WOC**, vår community-token på Solana. Anslut en Solana-plånbok, länka den till ditt konto med en signatur (icke-förvaltande, ingen transaktion att godkänna), och ditt skrivskyddade $WOC-saldo dyker upp i HUD:en tillsammans med en kosmetisk innehavarnivå-badge.
+World of CodexCraft är web3-inbyggt kring **$WOC**, vår community-token på Solana. Anslut en Solana-plånbok, länka den till ditt konto med en signatur (icke-förvaltande, ingen transaktion att godkänna), och ditt skrivskyddade $WOC-saldo dyker upp i HUD:en tillsammans med en kosmetisk innehavarnivå-badge.
 
 Det är endast kosmetiskt och behövs inte för att spela. Inget spenderas eller tjänas in i spelet, det finns inget pay-to-win, och hela spelet spelas utmärkt utan att någonsin ansluta en plånbok.
 
@@ -305,13 +304,6 @@ Varje spelarsynlig sträng löses genom `t()`, och spelet levereras i **21 lokal
 
 Bidrag av alla slag är välkomna: kod, översättningar, buggrapporter och dokumentation. Börja med [CONTRIBUTING.md](CONTRIBUTING.sv_SE.md) för installation, läs [uppförandekoden](../../CODE_OF_CONDUCT.md), och kolla [SECURITY.md](../../SECURITY.md) innan du rapporterar en sårbarhet. Ny här? Leta efter issues märkta [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), öppna en [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose), eller säg hej på [Discord](https://discord.com/invite/worldofclaudecraft).
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![World of ClaudeCraft community](../../woc_community.png)
-
-</div>
 
 ## Licens
 

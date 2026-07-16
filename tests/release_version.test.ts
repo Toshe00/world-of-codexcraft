@@ -163,7 +163,7 @@ describe('release version transforms', () => {
   });
 
   it('fails loudly when a README has no version badge', () => {
-    expect(() => setReadmeVersionBadge('# World of ClaudeCraft', '0.21.0', 'README.md')).toThrow(
+    expect(() => setReadmeVersionBadge('# World of CodexCraft', '0.21.0', 'README.md')).toThrow(
       /version badge/,
     );
   });

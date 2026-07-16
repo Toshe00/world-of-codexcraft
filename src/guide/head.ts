@@ -24,7 +24,6 @@ import { type GuideRoute, hrefFor } from './routes';
 
 // The site origin. Matches index.html's canonical/og:url host exactly.
 const ORIGIN = 'https://worldofclaudecraft.com';
-const LOGO = `${ORIGIN}/woc_logo_square.webp`;
 const GITHUB_URL = 'https://github.com/levy-street/world-of-claudecraft';
 const DISCORD_URL = 'https://discord.com/invite/worldofclaudecraft';
 
@@ -220,13 +219,12 @@ function videoGameNode(description: string, inLanguage: string): Record<string, 
   return {
     '@type': 'VideoGame',
     name: t('guide.brand'),
-    alternateName: 'World of Claudecraft',
+    alternateName: 'CodexCraft',
     genre: t('seo.genre'),
     playMode: t('seo.playMode'),
     applicationCategory: t('seo.applicationCategory'),
     operatingSystem: t('seo.operatingSystem'),
     url: `${ORIGIN}/play`,
-    image: LOGO,
     description,
     inLanguage,
     sameAs: [GITHUB_URL, DISCORD_URL],

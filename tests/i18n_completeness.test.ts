@@ -152,25 +152,26 @@ describe('i18n whole-catalog completeness', () => {
   // it is a genuine brand/URL that should never be translated.
   it('non-Latin locales ship no untranslated English (only brand/URL leaves stay identical)', () => {
     const BRAND_ALLOW = new Set([
-      'footer.copyright', // "{year} World of ClaudeCraft" - brand
+      'footer.copyright', // "{year} World of CodexCraft" - brand
       'footer.githubLink', // repository URL
       'fiesta.bracket', // "Fiesta" event brand
-      'serverUnavailable.logoAlt', // "World of ClaudeCraft" logo alt text - brand
-      'guide.brand', // "World of ClaudeCraft" - brand (Guide)
-      'guide.brandShort', // "ClaudeCraft" - brand (Guide)
-      'guide.home.title', // "World of ClaudeCraft" - brand (Guide hero)
-      'guide.footer.rights', // "World of ClaudeCraft" - brand (Guide footer)
+      'serverUnavailable.logoAlt', // "World of CodexCraft" wordmark - brand
+      'guide.brand', // "World of CodexCraft" - brand (Guide)
+      'guide.brandShort', // "CodexCraft" - brand (Guide)
+      'guide.home.title', // "World of CodexCraft" - brand (Guide hero)
+      'guide.footer.rights', // "World of CodexCraft" - brand (Guide footer)
+      'playerCard.brandWordmark', // "World of CodexCraft" - brand (player card)
       'hudChrome.discord.title', // "Discord" - brand
       'hudChrome.discord.open', // "Discord" - brand
       'hudChrome.steam.title', // "Steam" - brand
-      'hudChrome.discord.panelTitle', // "World of ClaudeCraft" - brand
+      'hudChrome.discord.panelTitle', // "World of CodexCraft" - brand
       'hudChrome.discord.linkedTitle', // "Discord: {name}" - brand + player name
       'hudChrome.keybinds.discord', // "Discord" - brand (Key Bindings action label)
       'hudChrome.claudium.title', // "Claudium" - in-game currency brand
       'hudChrome.claudium.balanceUnit', // "{amount} Claudium" - currency brand
       'hudChrome.claudium.storeCost', // "{amount} Claudium" - currency brand
       'guide.controls.discord', // "Discord" - brand (Guide controls-page action label)
-      'desktop.crash.title', // "World of ClaudeCraft" - brand (desktop crash dialog title)
+      'desktop.crash.title', // "World of CodexCraft" - brand (desktop crash dialog title)
       'auth.emailPlaceholder', // "you@example.com" - RFC 2606 example address, kept verbatim
     ]);
     const wordy = (v: string) => /[a-z]{4,}/.test(v.replace(/\{[^}]*\}/g, ''));

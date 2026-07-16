@@ -242,7 +242,7 @@ import {
 import { formatXp } from './ui/xp_bar';
 import type { IWorld, LeaderboardEntry } from './world_api';
 
-const WORLD_SEED = 20061; // fixed: World of ClaudeCraft is a persistent place
+const WORLD_SEED = 20061; // fixed: World of CodexCraft is a persistent place
 const CLICK_MOVE_TURN_RATE = 4.2; // rad/sec; responsive turning while the camera stays decoupled from click spam
 const CLICK_MOVE_WAYPOINT_STOP = 0.8; // yards; intermediate A* corners should roll through, not stutter-stop
 const CLICK_MOVE_REROUTE_DISTANCE = 4; // yards; live entity targets can move this far before we recompute the path
@@ -4976,8 +4976,8 @@ function updateSeoMetadata(lang: SupportedLanguage): void {
           {
             '@type': 'WebSite',
             '@id': 'https://worldofclaudecraft.com/#website',
-            name: 'World of ClaudeCraft',
-            alternateName: 'World of Claudecraft',
+            name: 'World of CodexCraft',
+            alternateName: 'CodexCraft',
             url: canonicalHref,
             inLanguage: languageTag(lang),
             description: t('seo.description'),
@@ -4986,22 +4986,20 @@ function updateSeoMetadata(lang: SupportedLanguage): void {
           {
             '@type': 'Organization',
             '@id': 'https://worldofclaudecraft.com/#organization',
-            name: 'World of ClaudeCraft',
+            name: 'World of CodexCraft',
             url: 'https://worldofclaudecraft.com/',
-            logo: 'https://worldofclaudecraft.com/woc_logo_square.webp',
             sameAs,
           },
           {
             '@type': 'VideoGame',
             '@id': 'https://worldofclaudecraft.com/#game',
-            name: 'World of ClaudeCraft',
-            alternateName: 'World of Claudecraft',
+            name: 'World of CodexCraft',
+            alternateName: 'CodexCraft',
             genre: t('seo.genre'),
             playMode: t('seo.playMode'),
             applicationCategory: t('seo.applicationCategory'),
             operatingSystem: t('seo.operatingSystem'),
             url: canonicalHref,
-            image: 'https://worldofclaudecraft.com/woc_logo_square.webp',
             description: t('seo.description'),
             inLanguage: languageTag(lang),
             publisher: { '@id': 'https://worldofclaudecraft.com/#organization' },

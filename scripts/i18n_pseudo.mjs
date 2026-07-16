@@ -5,7 +5,7 @@
 // (a fixed 1:1 ASCII->Latin map) and wrapped in brackets, so on screen any text
 // that stays plain ASCII with NO brackets is an untranslated literal hiding in
 // plain sight. {placeholder} tokens are preserved EXACTLY so interpolation still
-// works; emoji / non-ASCII pass through unchanged.
+// works; approved brand names, emoji, and non-ASCII pass through unchanged.
 //
 // The map is FIXED and 1:1, so the same `en` always yields the same en_XA - the
 // generated artifact stays reproducible like the rest of the i18n output. This
@@ -74,11 +74,26 @@ const ACCENT_MAP = {
   Z: 'Ž',
 };
 
-// Accent-push the ASCII letters of `text`; everything else (incl. surrogate-pair
-// emoji, iterated correctly by for..of) passes through untouched.
+// Phase 2 requires the visible product names to remain byte-identical in every
+// locale, including the dev-only pseudo-locale. Match the long form first because
+// it contains the short form.
+const VERBATIM_BRANDS = ['World of CodexCraft', 'CodexCraft'];
+
+// Accent-push the ASCII letters of `text`; approved brand names and everything
+// non-ASCII pass through untouched.
 function accentPush(text) {
   let out = '';
-  for (const ch of text) out += ACCENT_MAP[ch] ?? ch;
+  for (let index = 0; index < text.length;) {
+    const brand = VERBATIM_BRANDS.find((candidate) => text.startsWith(candidate, index));
+    if (brand) {
+      out += brand;
+      index += brand.length;
+      continue;
+    }
+    const ch = text[index];
+    out += ACCENT_MAP[ch] ?? ch;
+    index += 1;
+  }
   return out;
 }
 

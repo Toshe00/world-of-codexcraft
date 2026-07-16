@@ -124,7 +124,7 @@ export const tr_TR: Record<string, string> = {
   'usage.metric.githubLinkFailure': 'GitHub bağlama hataları',
   'usage.metric.githubLinkRateLimited': 'GitHub bağlama kısıtlanmış istekleri',
   'usage.metric.githubLinkRequest': 'GitHub bağlama istekleri',
-  'app.title': 'World of ClaudeCraft - Yönetici',
+  'app.title': 'World of CodexCraft - Yönetici',
   'app.shortTitle': 'WoC Yöneticisi',
   'auth.username': 'Kullanıcı adı',
   'auth.password': 'Parola',

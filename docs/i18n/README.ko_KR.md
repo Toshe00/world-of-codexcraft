@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **브라우저에서 무료로 직접 만든 세계를 모험하고, 파티를 맺고, 레이드하세요. 오픈 소스, web3, 그리고 지금 바로 온라인.**
 
@@ -22,13 +22,12 @@
 
 [지금 플레이](https://worldofclaudecraft.com/) · [직접 세계 호스팅하기](#host-your-own-world-one-command) · [에이전트 훈련하기](#train-an-agent-headless-rl) · [Web3](#web3) · [기여하기](CONTRIBUTING.ko_KR.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![World of ClaudeCraft 타이틀 화면](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## 이것은 무엇인가
 
-World of ClaudeCraft는 지금 바로 브라우저에서 플레이할 수 있고, 명령어 하나로 직접 호스팅할 수 있으며, 심지어 AI 에이전트를 훈련시켜 플레이하게 할 수도 있는 완성된 클래식 시대 MMO입니다. 무료이고, 오픈 소스이며, [worldofclaudecraft.com](https://worldofclaudecraft.com/)에서 실시간으로 운영됩니다.
+World of CodexCraft는 지금 바로 브라우저에서 플레이할 수 있고, 명령어 하나로 직접 호스팅할 수 있으며, 심지어 AI 에이전트를 훈련시켜 플레이하게 할 수도 있는 완성된 클래식 시대 MMO입니다. 무료이고, 오픈 소스이며, [worldofclaudecraft.com](https://worldofclaudecraft.com/)에서 실시간으로 운영됩니다.
 
 하나의 공유 세계가 동일한 게임 코어에서 세 곳에서 실행됩니다:
 
@@ -154,7 +153,7 @@ env.close()
 
 ## Web3
 
-World of ClaudeCraft는 Solana 위의 커뮤니티 토큰 **$WOC**를 중심으로 web3 네이티브입니다. Solana 지갑을 연결하고, 서명 한 번으로 계정에 연동하면(비수탁형, 승인할 트랜잭션 없음), 읽기 전용 $WOC 잔액이 장식용 보유자 등급 배지와 함께 HUD에 표시됩니다.
+World of CodexCraft는 Solana 위의 커뮤니티 토큰 **$WOC**를 중심으로 web3 네이티브입니다. Solana 지갑을 연결하고, 서명 한 번으로 계정에 연동하면(비수탁형, 승인할 트랜잭션 없음), 읽기 전용 $WOC 잔액이 장식용 보유자 등급 배지와 함께 HUD에 표시됩니다.
 
 이는 장식용일 뿐이며 플레이에 필요하지 않습니다. 게임 안에서 소비되거나 획득되는 것은 없고, pay-to-win도 없으며, 지갑을 한 번도 연결하지 않아도 게임 전체가 멀쩡히 플레이됩니다.
 
@@ -305,13 +304,6 @@ node scripts/crypt_raid.mjs     # five bots clear the Hollow Crypt (ALLOW_DEV_CO
 
 모든 종류의 기여를 환영합니다: 코드, 번역, 버그 신고, 문서. 설정은 [CONTRIBUTING.ko_KR.md](CONTRIBUTING.ko_KR.md)로 시작하고, [행동 강령](../../CODE_OF_CONDUCT.md)을 읽으며, 취약점을 신고하기 전에 [SECURITY.md](../../SECURITY.md)를 확인하세요. 여기가 처음이신가요? [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue) 라벨이 붙은 이슈를 찾거나, [이슈](https://github.com/levy-street/world-of-claudecraft/issues/new/choose)를 열거나, [Discord](https://discord.com/invite/worldofclaudecraft)에서 인사를 건네세요.
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![World of ClaudeCraft 커뮤니티](../../woc_community.png)
-
-</div>
 
 ## 라이선스
 

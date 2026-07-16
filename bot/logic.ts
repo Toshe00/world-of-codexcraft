@@ -1,4 +1,4 @@
-// Pure (IO-free) logic for the World of ClaudeCraft Discord bot: Gateway intents,
+// Pure (IO-free) logic for the World of CodexCraft Discord bot: Gateway intents,
 // slash-command definitions + routing, role-sync diffing, embed/message building,
 // and voice-presence shaping. Kept separate from the ws/fetch IO (gateway.ts,
 // discord_api.ts, server_client.ts) so it is unit-tested without a network. This
@@ -56,8 +56,8 @@ export function resumePayload(
 
 // ── Slash commands ───────────────────────────────────────────────────────────
 export const SLASH_COMMANDS = [
-  { name: 'whoami', description: 'Show your World of ClaudeCraft link status and reward points' },
-  { name: 'link', description: 'Get the link to connect your Discord to World of ClaudeCraft' },
+  { name: 'whoami', description: 'Show your World of CodexCraft link status and reward points' },
+  { name: 'link', description: 'Get the link to connect your Discord to World of CodexCraft' },
 ] as const;
 
 export type SlashCommandName = (typeof SLASH_COMMANDS)[number]['name'];
@@ -180,7 +180,7 @@ export function buildWhoamiContent(roles: {
   lifetimePoints: number;
 }): string {
   if (!roles.linked) {
-    return 'Your Discord is not linked to a World of ClaudeCraft account yet. Use /link to connect it and start earning rewards.';
+    return 'Your Discord is not linked to a World of CodexCraft account yet. Use /link to connect it and start earning rewards.';
   }
   const rank = tierRoleName(roles.statusTier)?.replace('WoC ', '') ?? 'Unranked';
   return `Linked. Rank: **${rank}** · ${roles.points} reward points (lifetime ${roles.lifetimePoints}). Use /flex to show off your top character.`;
@@ -188,12 +188,12 @@ export function buildWhoamiContent(roles: {
 
 /** /link reply pointing at the in-game link flow. */
 export function buildLinkContent(gameUrl: string): string {
-  return `Connect your Discord to World of ClaudeCraft to earn rewards and flex your characters: open ${gameUrl}, log in, and press the Discord button in the game HUD (or "Continue with Discord" on the login screen).`;
+  return `Connect your Discord to World of CodexCraft to earn rewards and flex your characters: open ${gameUrl}, log in, and press the Discord button in the game HUD (or "Continue with Discord" on the login screen).`;
 }
 
 /** Welcome message for a new guild member. */
 export function buildWelcomeMessage(opts: { userMention: string; gameUrl: string }): string {
-  return `Welcome to World of ClaudeCraft, ${opts.userMention}! Play at ${opts.gameUrl} and link your Discord in the game HUD to earn rewards, claim swag, and rank up here in the server.`;
+  return `Welcome to World of CodexCraft, ${opts.userMention}! Play at ${opts.gameUrl} and link your Discord in the game HUD to earn rewards, claim swag, and rank up here in the server.`;
 }
 
 // ── Voice presence ───────────────────────────────────────────────────────────
@@ -281,7 +281,7 @@ export function buildRelayMessage(item: RelayItem, gameUrl: string): Record<stri
       },
       { name: 'Location', value: `${item.zone} (${item.realm})`, inline: true },
     ],
-    footer: { text: 'World of ClaudeCraft' },
+    footer: { text: 'World of CodexCraft' },
   };
   if (item.profileUrl) embed.url = item.profileUrl;
   if (avatarUrl) embed.thumbnail = { url: avatarUrl };
@@ -406,7 +406,7 @@ export function buildActivityMessage(item: ActivityItem): Record<string, unknown
     author: subjectAvatar ? { name: author, icon_url: subjectAvatar } : { name: author },
     title,
     description,
-    footer: { text: 'World of ClaudeCraft' },
+    footer: { text: 'World of CodexCraft' },
   };
   if (item.profileUrl) embed.url = item.profileUrl;
   if (subjectAvatar) embed.thumbnail = { url: subjectAvatar };
@@ -476,7 +476,7 @@ export function buildDailyRewardWinnersMessage(
           { name: 'Realm', value: day.realm, inline: true },
           { name: 'Prize Pool', value: usd(day.prizePoolUsd), inline: true },
         ],
-        footer: { text: 'World of ClaudeCraft' },
+        footer: { text: 'World of CodexCraft' },
       },
     ],
     allowed_mentions: { parse: [] },

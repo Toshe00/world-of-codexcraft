@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **Quest, group up, and raid a hand-built world, free in your browser. Open source, web3, and online right now.**
 
@@ -22,13 +22,11 @@
 
 [Play now](https://worldofclaudecraft.com/) · [Host your own world](#host-your-own-world-one-command) · [Train an agent](#train-an-agent-headless-rl) · [Web3](#web3) · [Contributing](CONTRIBUTING.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![World of ClaudeCraft title screen](docs/screenshots/title-screen.jpg)
-
 </div>
 
 ## What this is
 
-World of ClaudeCraft is a complete classic-era MMO you can play right now in your browser, host yourself with one command, and even train AI agents to play. It is free, open source, and live at [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+World of CodexCraft is a complete classic-era MMO you can play right now in your browser, host yourself with one command, and even train AI agents to play. It is free, open source, and live at [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 One shared world runs in three places, all from the same game core:
 
@@ -91,9 +89,9 @@ See [Host your own world](#host-your-own-world-one-command) below to stand up th
 
 ### Desktop apps for Windows, Linux, and macOS
 
-World of ClaudeCraft ships as full desktop apps for all three major desktop platforms: signed Windows installers, Linux AppImage and deb packages, and signed and notarized universal macOS builds. They use the same game client and online world as the browser, with native packaging and automatic updates.
+World of CodexCraft ships as full desktop apps for all three major desktop platforms: signed Windows installers, Linux AppImage and deb packages, and signed and notarized universal macOS builds. They use the same game client and online world as the browser, with native packaging and automatic updates.
 
-Online sign-in is Discord and email only, exactly the web flow: email/password logs in inside the app, and "Continue with Discord" opens your default browser on the `/desktop-login` page, which hands a one-time code back to the app over a `worldofclaudecraft://` deep link that the app exchanges for a normal World of ClaudeCraft session token.
+Online sign-in is Discord and email only, exactly the web flow: email/password logs in inside the app, and "Continue with Discord" opens your default browser on the `/desktop-login` page, which hands a one-time code back to the app over a `worldofclaudecraft://` deep link that the app exchanges for a normal World of CodexCraft session token.
 
 ```bash
 npm run electron:dev          # Vite + Electron dev shell
@@ -171,7 +169,7 @@ The protocol and bindings are documented in `headless/CLAUDE.md` and `python/CLA
 
 ## Web3
 
-World of ClaudeCraft is web3-native around **$WOC**, our community token on Solana. Connect a Solana wallet, link it to your account with one signature (non-custodial, no transaction to approve), and your read-only $WOC balance shows up in the HUD alongside a cosmetic holder-tier badge.
+World of CodexCraft is web3-native around **$WOC**, our community token on Solana. Connect a Solana wallet, link it to your account with one signature (non-custodial, no transaction to approve), and your read-only $WOC balance shows up in the HUD alongside a cosmetic holder-tier badge.
 
 $WOC also has optional utility in the live game:
 
@@ -351,14 +349,6 @@ Every player-visible string resolves through `t()`, and the game ships in **22 l
 ## Contributing
 
 Contributions of every kind are welcome: code, translations, bug reports, and documentation. Start with [CONTRIBUTING.md](CONTRIBUTING.md) for setup, read the [Code of Conduct](CODE_OF_CONDUCT.md), and check [SECURITY.md](SECURITY.md) before reporting a vulnerability. New here? Look for issues labeled [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), open an [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose), or say hello on [Discord](https://discord.com/invite/worldofclaudecraft).
-
-<div align="center">
-
-![World of Claude](worldofclaude.png)
-
-![World of ClaudeCraft community](woc_community.png)
-
-</div>
 
 ## License
 

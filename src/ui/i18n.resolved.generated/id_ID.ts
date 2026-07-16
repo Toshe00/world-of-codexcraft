@@ -612,8 +612,8 @@ export const id_ID: EnTranslations = {
     },
     "nativeUpdate": {
       "title": "Pembaruan Tersedia",
-      "body": "Versi baru World of ClaudeCraft tersedia. Perbarui sekarang untuk perbaikan dan peningkatan terbaru.",
-      "bodyWithVersion": "Versi {version} World of ClaudeCraft tersedia. Perbarui sekarang untuk perbaikan dan peningkatan terbaru.",
+      "body": "Versi baru World of CodexCraft tersedia. Perbarui sekarang untuk perbaikan dan peningkatan terbaru.",
+      "bodyWithVersion": "Versi {version} World of CodexCraft tersedia. Perbarui sekarang untuk perbaikan dan peningkatan terbaru.",
       "notNow": "Jangan sekarang",
       "update": "Perbarui"
     },
@@ -1461,7 +1461,7 @@ export const id_ID: EnTranslations = {
     },
     "discord": {
       "title": "Discord",
-      "panelTitle": "World of ClaudeCraft",
+      "panelTitle": "World of CodexCraft",
       "open": "Discord",
       "close": "Tutup",
       "keybind": "Panel Discord",
@@ -2115,8 +2115,8 @@ export const id_ID: EnTranslations = {
     }
   },
   "guide": {
-    "brand": "World of ClaudeCraft",
-    "brandShort": "ClaudeCraft",
+    "brand": "World of CodexCraft",
+    "brandShort": "CodexCraft",
     "tagline": "MMO bergaya klasik yang bisa kamu mainkan gratis di peramban.",
     "skipToContent": "Lewati ke konten utama",
     "loading": "Memuat...",
@@ -2181,7 +2181,7 @@ export const id_ID: EnTranslations = {
       "github": "Sumber di GitHub",
       "discord": "Gabung Discord",
       "communityWiki": "Wiki Komunitas",
-      "rights": "World of ClaudeCraft",
+      "rights": "World of CodexCraft",
       "linksLabel": "Tautan main dan komunitas"
     },
     "language": {
@@ -2204,7 +2204,7 @@ export const id_ID: EnTranslations = {
     },
     "home": {
       "eyebrow": "MMO browser bergaya klasik",
-      "title": "World of ClaudeCraft",
+      "title": "World of CodexCraft",
       "subtitle": "Berpetualang, bersatu, dan jelajahi dunia rakitan tangan, gratis di browser-mu.",
       "ctaPlay": "Main Sekarang",
       "ctaLearn": "Cara Bermain",
@@ -2696,7 +2696,7 @@ export const id_ID: EnTranslations = {
     },
     "worldPage": {
       "heading": "Dunia",
-      "intro": "World of ClaudeCraft adalah satu daratan menyambung yang kamu lintasi dengan berjalan kaki, tiga zona terbentang dari selatan ke utara. Tidak ada perjalanan kilat, jadi pengembaraan itu sendiri bagian dari petualangan.",
+      "intro": "World of CodexCraft adalah satu daratan menyambung yang kamu lintasi dengan berjalan kaki, tiga zona terbentang dari selatan ke utara. Tidak ada perjalanan kilat, jadi pengembaraan itu sendiri bagian dari petualangan.",
       "hub": "Markas utama",
       "mapHeading": "Jalan ke utara",
       "mapSub": "Tiga zona, dari selatan ke utara, masing-masing setingkat lebih tinggi dalam level. Ikuti jejak misi dan daratan akan membawamu dari lembah ke puncak.",
@@ -3203,7 +3203,7 @@ export const id_ID: EnTranslations = {
   },
   "editor": {
     "appTitle": "Editor Peta",
-    "docTitle": "Editor Peta - World of ClaudeCraft",
+    "docTitle": "Editor Peta - World of CodexCraft",
     "untitledMap": "Peta Tanpa Judul",
     "playtestPlayerName": "Pembuat Peta",
     "topbar": {
@@ -3678,7 +3678,7 @@ export const id_ID: EnTranslations = {
     "realmName": "Nama Dunia"
   },
   "footer": {
-    "copyright": "2026 World of ClaudeCraft",
+    "copyright": "2026 World of CodexCraft",
     "githubLink": "https://github.com/levy-street/world-of-claudecraft",
     "githubLabel": "Proyek Sumber Terbuka",
     "whitepaper": "Whitepaper",
@@ -3734,7 +3734,7 @@ export const id_ID: EnTranslations = {
     "serverOnline": "Online",
     "serverOffline": "Offline",
     "play": "Main",
-    "playAria": "Mainkan World of ClaudeCraft",
+    "playAria": "Mainkan World of CodexCraft",
     "serverLabel": "Pilih dunia Anda",
     "serverAria": "Pilih dunia: Online atau Offline",
     "serverOfflineSub": "Dunia lokal seketika",
@@ -3940,16 +3940,16 @@ export const id_ID: EnTranslations = {
     "levelClass": "Level {level} - {className}",
     "topPercent": "TERATAS {percent}%",
     "realmSubtitle": "Dunia {realm}",
-    "defaultRealm": "World of ClaudeCraft",
-    "brandWordmark": "WORLD OF CLAUDECRAFT",
+    "defaultRealm": "World of CodexCraft",
+    "brandWordmark": "World of CodexCraft",
     "recruited": "{count} direkrut",
     "footerHandle": "@{handle}",
     "footerHandleWithRecruits": "@{handle} - {recruited}",
     "footerCta": "Tempa legendamu: {siteUrl}",
     "arenaStat": "Arena",
     "shareTierBit": ", pemegang $WOC peringkat {tier}",
-    "shareText": "Aku sedang menempa legendaku di World of ClaudeCraft: Level {level} {className}{tierBit}. Bergabunglah dengan duniaku:",
-    "nativeShareTitle": "World of ClaudeCraft",
+    "shareText": "Aku sedang menempa legendaku di World of CodexCraft: Level {level} {className}{tierBit}. Bergabunglah dengan duniaku:",
+    "nativeShareTitle": "World of CodexCraft",
     "fileNameFallback": "pemain",
     "actionShareX": "Bagikan ke X",
     "actionCopyReferral": "Salin Tautan Rujukan",
@@ -4571,13 +4571,13 @@ export const id_ID: EnTranslations = {
     }
   },
   "seo": {
-    "title": "World of ClaudeCraft: MMO Web Bergaya Klasik",
-    "description": "Mulailah petualangan epik di World of ClaudeCraft, micro-MMO bergaya klasik yang dapat dimainkan langsung di peramban. Bergabunglah dengan dunia bersama yang persisten, naikkan level kelas, dan kalahkan musuh!",
+    "title": "World of CodexCraft: MMO Web Bergaya Klasik",
+    "description": "Mulailah petualangan epik di World of CodexCraft, micro-MMO bergaya klasik yang dapat dimainkan langsung di peramban. Bergabunglah dengan dunia bersama yang persisten, naikkan level kelas, dan kalahkan musuh!",
     "genre": "MMORPG",
     "playMode": "Multipemain",
     "applicationCategory": "Permainan",
     "operatingSystem": "Peramban web",
-    "officialLabel": "Situs resmi World of ClaudeCraft",
+    "officialLabel": "Situs resmi World of CodexCraft",
     "officialBody": "worldofclaudecraft.com adalah MMO peramban gratis resmi untuk dunia Claudemoon. Bermain daring dengan karakter yang persisten, jelajahi solo secara luring, baca wiki, dan ikuti tautan komunitas terverifikasi dari situs ini."
   },
   "a11y": {
@@ -4586,9 +4586,9 @@ export const id_ID: EnTranslations = {
     "mainNavigation": "Navigasi utama",
     "languageSelection": "Pemilihan bahasa",
     "characterActions": "Aksi karakter",
-    "githubProject": "Buka proyek GitHub World of ClaudeCraft",
-    "discordCommunity": "Gabung komunitas Discord World of ClaudeCraft",
-    "donateProject": "Berdonasi untuk mendukung World of ClaudeCraft"
+    "githubProject": "Buka proyek GitHub World of CodexCraft",
+    "discordCommunity": "Gabung komunitas Discord World of CodexCraft",
+    "donateProject": "Berdonasi untuk mendukung World of CodexCraft"
   },
   "loading": {
     "world": "Memuat dunia...",
@@ -4660,11 +4660,11 @@ export const id_ID: EnTranslations = {
       "later": "Nanti"
     },
     "crash": {
-      "title": "World of ClaudeCraft",
+      "title": "World of CodexCraft",
       "body": "Tampilan gim berhenti bekerja. Muat ulang?",
       "reload": "Muat Ulang",
       "quit": "Keluar",
-      "fatalBody": "World of ClaudeCraft mengalami kesalahan tak terduga dan perlu ditutup."
+      "fatalBody": "World of CodexCraft mengalami kesalahan tak terduga dan perlu ditutup."
     }
   },
   "realm": {
@@ -4792,17 +4792,17 @@ export const id_ID: EnTranslations = {
     "iosStandaloneDetail": "Kamu berada dalam mode layar penuh layar-beranda. Pertahankan perangkat dalam posisi lanskap.",
     "iosInstallDetail": "Untuk layar penuh sejati di iPhone atau iPad, pasang halaman ini ke Layar Beranda terlebih dahulu.",
     "iosShareStep": "Di Safari, ketuk Bagikan, lalu Tambahkan ke Layar Beranda.",
-    "iosOpenStep": "Buka World of ClaudeCraft dari ikon Layar Beranda yang baru.",
+    "iosOpenStep": "Buka World of CodexCraft dari ikon Layar Beranda yang baru.",
     "androidStandaloneDetail": "Kamu berada dalam mode aplikasi layar penuh. Pertahankan perangkat dalam posisi lanskap.",
     "androidInstallDetail": "Untuk layar penuh di Android, pasang halaman ini atau tambahkan ke layar Beranda terlebih dahulu.",
     "androidInstallStep": "Di Chrome, ketuk menu, lalu Pasang aplikasi atau Tambahkan ke layar Beranda.",
-    "androidOpenStep": "Buka World of ClaudeCraft dari ikon baru.",
+    "androidOpenStep": "Buka World of CodexCraft dari ikon baru.",
     "otherStandaloneDetail": "Pertahankan perangkatmu dalam layar penuh posisi lanskap.",
     "otherInstallDetail": "Pasang atau tambahkan halaman ini ke layar Beranda untuk pengalaman seluler layar penuh terbaik."
   },
   "serverUnavailable": {
-    "title": "World of ClaudeCraft - Dunia Tidak Tersedia",
-    "logoAlt": "World of ClaudeCraft",
+    "title": "World of CodexCraft - Dunia Tidak Tersedia",
+    "logoAlt": "World of CodexCraft",
     "eyebrow": "Pemeliharaan dunia",
     "heading": "Dunia sementara tidak tersedia.",
     "body": "Kami sedang memulai ulang layanan game dan memperkirakan Claudemoon akan kembali sebentar lagi. Halaman ini akan terus memeriksa secara otomatis.",

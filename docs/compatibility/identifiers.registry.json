@@ -559,8 +559,8 @@
           "tests/server/fixtures/main/**/*",
           "tests/shipped_item_ids.golden.json"
         ],
-        "expectedOccurrenceCount": 3792,
-        "occurrenceInventorySha256": "907c6f6074d940c75aac4fccb2b0b6e5dd38ea2980d1cbb40e2c50657a878fb6"
+        "expectedOccurrenceCount": 2468,
+        "occurrenceInventorySha256": "1e6612164e26b417a55b874ced949f07b38afc91ec1acf21611c4ac2ceeb41f0"
       },
       "owner": "Product and UI",
       "usage": "Player-facing title, copy, metadata, and documentation.",
@@ -599,8 +599,8 @@
           "tests/server/fixtures/main/**/*",
           "tests/shipped_item_ids.golden.json"
         ],
-        "expectedOccurrenceCount": 980,
-        "occurrenceInventorySha256": "297465a5bb2077a48530fcb682f292a6c6a01addc87765f176885d01a6a2129f"
+        "expectedOccurrenceCount": 944,
+        "occurrenceInventorySha256": "ec1af1c3f303454b06af55b4b11fae9056c63f9a59e825d1e33d4ad0682527ed"
       },
       "owner": "Repository and platform maintainers",
       "usage": "Repository coordinates, package metadata, technical examples, and substrings of separately classified identities.",
@@ -729,8 +729,8 @@
           "tests/server/fixtures/main/**/*",
           "tests/shipped_item_ids.golden.json"
         ],
-        "expectedOccurrenceCount": 189,
-        "occurrenceInventorySha256": "a8f6591c90883603b689b37b19a7a6d9af67ed800f575d8fdf7188da89e53021"
+        "expectedOccurrenceCount": 190,
+        "occurrenceInventorySha256": "cc08091a17203872da9eeb27623b2305632406d4cb234ea920636810329735d2"
       },
       "owner": "Realm and persistence",
       "usage": "Realm routing, database partition keys, player-visible realm name, and realm-scoped records.",
@@ -771,8 +771,8 @@
           "tests/server/fixtures/main/**/*",
           "tests/shipped_item_ids.golden.json"
         ],
-        "expectedOccurrenceCount": 787,
-        "occurrenceInventorySha256": "283726fb244a9eedf7f699a5b2b0abf800af5ee56b9679ad33211432509bf062"
+        "expectedOccurrenceCount": 788,
+        "occurrenceInventorySha256": "28b54cda47298f54649ea1603ae54ce0548acaa31a22b0eccf250750c9ea2645"
       },
       "owner": "World narrative and UI",
       "usage": "Player-facing place and deployment documentation label.",
@@ -813,8 +813,8 @@
           "tests/server/fixtures/main/**/*",
           "tests/shipped_item_ids.golden.json"
         ],
-        "expectedOccurrenceCount": 1199,
-        "occurrenceInventorySha256": "3649647781f433b9a854a6cf0c1173992c78e81f96c6a65cb65ba6022acfa431"
+        "expectedOccurrenceCount": 1200,
+        "occurrenceInventorySha256": "7d1de959588261dfe396acbcab0a75bb8fb803c1e912fceadab16ce2b162bec0"
       },
       "owner": "Simulation, persistence, and infrastructure",
       "usage": "Content slugs, deployment names, database examples, filesystem fragments, and test fixtures.",
@@ -920,8 +920,8 @@
         "targets": ["content"],
         "paths": ["**/*", "*"],
         "excludePaths": ["tests/server/fixtures/main/**/*"],
-        "expectedOccurrenceCount": 23,
-        "occurrenceInventorySha256": "ee00bf3e1d8d085e7f36e9450aba10730f39c8297eefc821a504f46301d6f897"
+        "expectedOccurrenceCount": 24,
+        "occurrenceInventorySha256": "54460e6e377f659e9d3a9733c8b14570ff99597f2aac71acebf4eaab0a5293c3"
       },
       "owner": "Deployment and operations",
       "usage": "Installed application, environment, and operational script root.",
@@ -993,8 +993,8 @@
           "src/ui/i18n.resolved.generated/**/*",
           "tests/server/fixtures/main/**/*"
         ],
-        "expectedOccurrenceCount": 1658,
-        "occurrenceInventorySha256": "5e752eb92d02a274fc0211e9e82652bdc76a36afd4cbc67f4dac654b38216d39"
+        "expectedOccurrenceCount": 1659,
+        "occurrenceInventorySha256": "a62c3c620a2cc3cd4dfc94690eda8d9f302d6011cf7cc2ce447c18994bc0867e"
       },
       "owner": "Economy and commerce",
       "usage": "Purchased balance, proxy integration, UI unit, routes, database fields, and tests.",
@@ -1032,8 +1032,8 @@
           "src/ui/i18n.resolved.generated/**/*",
           "tests/server/fixtures/main/**/*"
         ],
-        "expectedOccurrenceCount": 329,
-        "occurrenceInventorySha256": "023133ff8ea93fdea263a205a3f916d9259c9a0db298e70437a8b86e78ddd765"
+        "expectedOccurrenceCount": 330,
+        "occurrenceInventorySha256": "1b4689285c5ff4dfba420f537913bfae6b485fc365048a4c786211d694398615"
       },
       "owner": "Economy, cosmetics, and UI",
       "usage": "Weapon-skin storefront, account-wide purchases, ownership, loadout, and presentation.",
@@ -1110,8 +1110,8 @@
           "src/ui/i18n.resolved.generated/**/*",
           "tests/server/fixtures/main/**/*"
         ],
-        "expectedOccurrenceCount": 452,
-        "occurrenceInventorySha256": "85a39e9e03d10625382bf99f3f1bd4c0ef1f90a650d43a845ff6a39bc68a7df6"
+        "expectedOccurrenceCount": 401,
+        "occurrenceInventorySha256": "72c1b60ac69ff814fafa57a49da34ce3026fb6f629590f7f881b6e06f32e4e1e"
       },
       "owner": "Cross-platform maintainers",
       "usage": "Catch-all family spanning storage, SQL fields, functions, metrics, assets, automation, and fixtures.",
@@ -1152,7 +1152,7 @@
           "tests/server/fixtures/main/**/*"
         ],
         "expectedOccurrenceCount": 693,
-        "occurrenceInventorySha256": "dab113f2f1e7f3815d3785b29fc40e0cf7c2b3adbbc8701f9055f346a8541932"
+        "occurrenceInventorySha256": "0fe0d11efee631f576d5f4169b9ba8ae1b57ff530ff013893c26d5e5a7431aeb"
       },
       "owner": "Cross-platform maintainers",
       "usage": "Build plugin names, MIME types, CSS and DOM contracts, tooling IDs, agent names, routes, headers, and other delimited technical prefixes.",
@@ -1357,8 +1357,8 @@
         "targets": ["content"],
         "paths": ["**/*", "*"],
         "excludePaths": ["tests/server/fixtures/main/**/*"],
-        "expectedOccurrenceCount": 84,
-        "occurrenceInventorySha256": "664960327da1188f26e938e3bbff4ab4789b9cc4225de2d55020362a827791ba"
+        "expectedOccurrenceCount": 85,
+        "occurrenceInventorySha256": "7f29dd5d77e51566e5fd3f5f48d8658096e35f8497332f894b63dbce713767f2"
       },
       "owner": "Economy and deployment",
       "usage": "Mint selection, economy tuning, reward valuation, and client exposure of economic configuration.",
@@ -1427,8 +1427,8 @@
         "targets": ["content"],
         "paths": ["**/*", "*"],
         "excludePaths": ["tests/server/fixtures/main/**/*"],
-        "expectedOccurrenceCount": 232,
-        "occurrenceInventorySha256": "dfe41a2110f7fea94832d416d1934c0413c758a5ca5a36a941e394065044b313"
+        "expectedOccurrenceCount": 233,
+        "occurrenceInventorySha256": "1e8285fa6404ecff849b4f7b705001094125b94ca4506c25a417afeb31c069b5"
       },
       "owner": "Deployment and application configuration",
       "usage": "Build, runtime, service, test, and tooling configuration.",
@@ -1503,8 +1503,8 @@
         "targets": ["content"],
         "paths": ["**/*", "*"],
         "excludePaths": ["tests/server/fixtures/main/**/*"],
-        "expectedOccurrenceCount": 5,
-        "occurrenceInventorySha256": "b77d5318425a1f75bffdf2f87a2ce243a624514ea034250b4915b5e911ed5dea"
+        "expectedOccurrenceCount": 6,
+        "occurrenceInventorySha256": "b38e7841d6c36b1525f04b165232ce0d4f7e4a90969fa990f00e10078a658c6f"
       },
       "owner": "Desktop platform",
       "usage": "Electron appId, packaging identity, installed application, updater, and platform integration tests.",
@@ -1538,8 +1538,8 @@
         "targets": ["content", "path"],
         "paths": ["**/*", "*"],
         "excludePaths": ["tests/server/fixtures/main/**/*"],
-        "expectedOccurrenceCount": 29,
-        "occurrenceInventorySha256": "8ad8fb6f9dbc56586aae67fc5456f6bc181397bde917ffa0b6e61ba79b20fdc9"
+        "expectedOccurrenceCount": 30,
+        "occurrenceInventorySha256": "5de3be9d4caa3c892c64df75fb74203e5ab366d377d93b8a8407c6b29b69c2d4"
       },
       "owner": "Mobile platform",
       "usage": "Android application ID and package path, iOS bundle ID, and mobile OAuth callback identity.",
@@ -1573,8 +1573,8 @@
         "targets": ["content"],
         "paths": ["**/*", "*"],
         "excludePaths": ["tests/server/fixtures/main/**/*"],
-        "expectedOccurrenceCount": 18,
-        "occurrenceInventorySha256": "a988283644a9103ebd89a5df465432430c11c5f406ded1d8ffe46d9d54bb6093"
+        "expectedOccurrenceCount": 19,
+        "occurrenceInventorySha256": "ed141ecbfda68a373ea55da349864a7f0415771a20ddea9f762de7f72b2e1db2"
       },
       "owner": "Desktop platform and authentication",
       "usage": "Installed deep links, Discord login return, and application navigation.",
@@ -1648,8 +1648,8 @@
         "targets": ["content"],
         "paths": ["**/*", "*"],
         "excludePaths": ["tests/server/fixtures/main/**/*"],
-        "expectedOccurrenceCount": 34,
-        "occurrenceInventorySha256": "ff04b69aa44d0c3b13f40a391287ef64b7a51f17561e2a229af1a9e6cc79af63"
+        "expectedOccurrenceCount": 35,
+        "occurrenceInventorySha256": "d2d712e08aaafcdaa7669cc883f5a7b803cce9c32760adc11ba5a9599a49ea33"
       },
       "owner": "Desktop platform and server security",
       "usage": "Electron custom origin and server origin allowlist contract.",
@@ -1721,8 +1721,8 @@
           "public/sitemap.xml",
           "tests/server/fixtures/main/**/*"
         ],
-        "expectedOccurrenceCount": 634,
-        "occurrenceInventorySha256": "c676b4d27f9f0c387bf92ef12ecb53947f9fbdafbe48aeae00536823304ce47a"
+        "expectedOccurrenceCount": 606,
+        "occurrenceInventorySha256": "34e7acb0083fc7e377ba7b57190c468be815c52f3447d9564f21a06901d5f8f6"
       },
       "owner": "Web, deployment, email, and desktop updates",
       "usage": "Public site, dev and admin subdomains, email hosts, OAuth configuration, and Electron update feed.",
@@ -2088,8 +2088,8 @@
           "tests/server/fixtures/main/**/*",
           "tests/shipped_item_ids.golden.json"
         ],
-        "expectedOccurrenceCount": 2976,
-        "occurrenceInventorySha256": "b2158068e476c34ba2ea898ef21d974664641e99a8f1bef713b0350fed8155da"
+        "expectedOccurrenceCount": 2381,
+        "occurrenceInventorySha256": "5ca30a7f3df5cf16bf03e48d0f91d2b3e37c5e6a03ae644e76ddfeb450929152"
       },
       "owner": "Generators and test fixtures",
       "usage": "Generated UI catalogs, guide data, sitemap, parity goldens, server fixture mirrors, and shipped content-ID golden.",

@@ -74,7 +74,7 @@ async function main() {
     ok(errors.length === 0, `no page/console errors (got: ${JSON.stringify(errors)})`);
 
     const title = await page.title();
-    ok(title === 'World of ClaudeCraft - Official Links', `document.title is localized ("${title}")`);
+    ok(title === 'World of CodexCraft - Official Links', `document.title is localized ("${title}")`);
 
     const htmlLang = await page.evaluate(() => document.documentElement.lang);
     ok(htmlLang === 'en', `html lang = en (got "${htmlLang}")`);

@@ -123,7 +123,7 @@ export const id_ID: Record<string, string> = {
   'usage.metric.githubLinkFailure': 'Kegagalan tautan GitHub',
   'usage.metric.githubLinkRateLimited': 'Permintaan tautan GitHub yang dibatasi',
   'usage.metric.githubLinkRequest': 'Permintaan tautan GitHub',
-  'app.title': 'World of ClaudeCraft - Admin',
+  'app.title': 'World of CodexCraft - Admin',
   'app.shortTitle': 'Admin WoC',
   'auth.username': 'Nama pengguna',
   'auth.password': 'Kata sandi',

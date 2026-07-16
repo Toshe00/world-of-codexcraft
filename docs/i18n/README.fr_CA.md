@@ -1,6 +1,6 @@
 <div align="center">
 
-# World of ClaudeCraft
+# World of CodexCraft
 
 **Faites des quêtes, formez un groupe et menez des raids dans un monde fait main, gratuit dans votre navigateur. Code ouvert, web3 et en ligne dès maintenant.**
 
@@ -22,13 +22,12 @@
 
 [Jouer maintenant](https://worldofclaudecraft.com/) · [Héberger votre propre monde](#host-your-own-world-one-command) · [Entraîner un agent](#train-an-agent-headless-rl) · [Web3](#web3) · [Contribuer](CONTRIBUTING.fr_CA.md) · [Discord](https://discord.com/invite/worldofclaudecraft)
 
-![Écran-titre de World of ClaudeCraft](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## Ce que c'est
 
-World of ClaudeCraft est un MMO complet d'époque classique auquel vous pouvez jouer dès maintenant dans votre navigateur, que vous pouvez héberger vous-même avec une seule commande et où vous pouvez même entraîner des agents d'IA à jouer. Il est gratuit, à code ouvert et en ligne sur [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+World of CodexCraft est un MMO complet d'époque classique auquel vous pouvez jouer dès maintenant dans votre navigateur, que vous pouvez héberger vous-même avec une seule commande et où vous pouvez même entraîner des agents d'IA à jouer. Il est gratuit, à code ouvert et en ligne sur [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 Un seul monde partagé s'exécute à trois endroits, tous à partir du même noyau de jeu :
 
@@ -154,7 +153,7 @@ Le protocole et les liaisons sont documentés dans `headless/CLAUDE.md` et `pyth
 
 ## Web3
 
-World of ClaudeCraft est natif web3 autour de **$WOC**, notre jeton communautaire sur Solana. Connectez un portefeuille Solana, liez-le à votre compte avec une seule signature (non dépositaire, aucune transaction à approuver), et votre solde de $WOC en lecture seule apparaît dans l'ATH à côté d'un badge cosmétique de palier de détenteur.
+World of CodexCraft est natif web3 autour de **$WOC**, notre jeton communautaire sur Solana. Connectez un portefeuille Solana, liez-le à votre compte avec une seule signature (non dépositaire, aucune transaction à approuver), et votre solde de $WOC en lecture seule apparaît dans l'ATH à côté d'un badge cosmétique de palier de détenteur.
 
 C'est purement cosmétique et non requis pour jouer. Rien n'est dépensé ni gagné en jeu, il n'y a pas de pay-to-win, et tout le jeu se joue très bien sans jamais connecter de portefeuille.
 
@@ -305,13 +304,6 @@ Chaque chaîne visible par le joueur se résout via `t()`, et le jeu est livré 
 
 Les contributions de toutes sortes sont les bienvenues : code, traductions, rapports de bogues et documentation. Commencez par [CONTRIBUTING.md](CONTRIBUTING.fr_CA.md) pour la configuration, lisez le [Code de conduite](../../CODE_OF_CONDUCT.md), et consultez [SECURITY.md](../../SECURITY.md) avant de signaler une vulnérabilité. Nouveau ici ? Cherchez les enjeux étiquetés [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), ouvrez un [enjeu](https://github.com/levy-street/world-of-claudecraft/issues/new/choose), ou dites bonjour sur [Discord](https://discord.com/invite/worldofclaudecraft).
 
-<div align="center">
-
-![World of Claude](../../worldofclaude.png)
-
-![Communauté de World of ClaudeCraft](../../woc_community.png)
-
-</div>
 
 ## Licence
 

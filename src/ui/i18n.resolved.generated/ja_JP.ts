@@ -612,8 +612,8 @@ export const ja_JP: EnTranslations = {
     },
     "nativeUpdate": {
       "title": "アップデートがあります",
-      "body": "World of ClaudeCraft の新しいバージョンが利用可能です。今すぐアップデートして最新の修正と改善を入手しましょう。",
-      "bodyWithVersion": "World of ClaudeCraft のバージョン {version} が利用可能です。今すぐアップデートして最新の修正と改善を入手しましょう。",
+      "body": "World of CodexCraft の新しいバージョンが利用可能です。今すぐアップデートして最新の修正と改善を入手しましょう。",
+      "bodyWithVersion": "World of CodexCraft のバージョン {version} が利用可能です。今すぐアップデートして最新の修正と改善を入手しましょう。",
       "notNow": "後で",
       "update": "更新"
     },
@@ -1461,7 +1461,7 @@ export const ja_JP: EnTranslations = {
     },
     "discord": {
       "title": "Discord",
-      "panelTitle": "World of ClaudeCraft",
+      "panelTitle": "World of CodexCraft",
       "open": "Discord",
       "close": "閉じる",
       "keybind": "Discordパネル",
@@ -2115,8 +2115,8 @@ export const ja_JP: EnTranslations = {
     }
   },
   "guide": {
-    "brand": "World of ClaudeCraft",
-    "brandShort": "ClaudeCraft",
+    "brand": "World of CodexCraft",
+    "brandShort": "CodexCraft",
     "tagline": "ブラウザで無料で遊べる、クラシックスタイルのMMO。",
     "skipToContent": "メインコンテンツへスキップ",
     "loading": "読み込み中...",
@@ -2181,7 +2181,7 @@ export const ja_JP: EnTranslations = {
       "github": "GitHubのソース",
       "discord": "Discordに参加",
       "communityWiki": "コミュニティWiki",
-      "rights": "World of ClaudeCraft",
+      "rights": "World of CodexCraft",
       "linksLabel": "プレイとコミュニティのリンク"
     },
     "language": {
@@ -2204,7 +2204,7 @@ export const ja_JP: EnTranslations = {
     },
     "home": {
       "eyebrow": "クラシックスタイルのブラウザMMO",
-      "title": "World of ClaudeCraft",
+      "title": "World of CodexCraft",
       "subtitle": "クエストをこなし、仲間と組み、手作りのワールドを冒険しよう。ブラウザで無料。",
       "ctaPlay": "今すぐプレイ",
       "ctaLearn": "遊び方",
@@ -2696,7 +2696,7 @@ export const ja_JP: EnTranslations = {
     },
     "worldPage": {
       "heading": "世界",
-      "intro": "World of ClaudeCraftは、自らの足で歩いて渡る一続きの大地です。南から北へと3つのゾーンが連なっています。ファストトラベルはなく、その旅路こそが冒険の一部です。",
+      "intro": "World of CodexCraftは、自らの足で歩いて渡る一続きの大地です。南から北へと3つのゾーンが連なっています。ファストトラベルはなく、その旅路こそが冒険の一部です。",
       "hub": "拠点",
       "mapHeading": "北への道",
       "mapSub": "南から北へ三つのゾーンが並び、それぞれレベルが一段ずつ上がります。クエストの道筋をたどれば、土地が谷から峰々へとあなたを運んでいきます。",
@@ -3203,7 +3203,7 @@ export const ja_JP: EnTranslations = {
   },
   "editor": {
     "appTitle": "マップエディター",
-    "docTitle": "マップエディター - World of ClaudeCraft",
+    "docTitle": "マップエディター - World of CodexCraft",
     "untitledMap": "無題のマップ",
     "playtestPlayerName": "マップ職人",
     "topbar": {
@@ -3678,7 +3678,7 @@ export const ja_JP: EnTranslations = {
     "realmName": "ワールド名"
   },
   "footer": {
-    "copyright": "2026 World of ClaudeCraft",
+    "copyright": "2026 World of CodexCraft",
     "githubLink": "https://github.com/levy-street/world-of-claudecraft",
     "githubLabel": "オープンソースプロジェクト",
     "whitepaper": "ホワイトペーパー",
@@ -3734,7 +3734,7 @@ export const ja_JP: EnTranslations = {
     "serverOnline": "オンライン",
     "serverOffline": "オフライン",
     "play": "プレイ",
-    "playAria": "World of ClaudeCraftをプレイ",
+    "playAria": "World of CodexCraftをプレイ",
     "serverLabel": "ワールドを選択",
     "serverAria": "ワールドを選択：オンラインまたはオフライン",
     "serverOfflineSub": "即座にローカルの世界へ",
@@ -3940,16 +3940,16 @@ export const ja_JP: EnTranslations = {
     "levelClass": "レベル{level} - {className}",
     "topPercent": "上位 {percent}%",
     "realmSubtitle": "{realm} ワールド",
-    "defaultRealm": "ClaudeCraftの世界",
-    "brandWordmark": "WORLD OF CLAUDECRAFT",
+    "defaultRealm": "CodexCraftの世界",
+    "brandWordmark": "World of CodexCraft",
     "recruited": "招待 {count}人",
     "footerHandle": "@{handle}",
     "footerHandleWithRecruits": "@{handle} - {recruited}",
     "footerCta": "あなたの伝説を鍛えよう: {siteUrl}",
     "arenaStat": "アリーナ",
     "shareTierBit": ", {tier}ランクの$WOCホルダー",
-    "shareText": "World of ClaudeCraftで伝説を鍛えています: レベル{level} {className}{tierBit}。私のワールドに参加してください:",
-    "nativeShareTitle": "ClaudeCraftの世界",
+    "shareText": "World of CodexCraftで伝説を鍛えています: レベル{level} {className}{tierBit}。私のワールドに参加してください:",
+    "nativeShareTitle": "CodexCraftの世界",
     "fileNameFallback": "プレイヤー",
     "actionShareX": "Xで共有",
     "actionCopyReferral": "紹介リンクをコピー",
@@ -4571,13 +4571,13 @@ export const ja_JP: EnTranslations = {
     }
   },
   "seo": {
-    "title": "World of ClaudeCraft: クラシック風Web MMO",
-    "description": "ブラウザで直接遊べるクラシック風マイクロMMO、World of ClaudeCraft で壮大な冒険に出ましょう。永続的な共有ワールドに参加し、クラスを育て、敵を倒してください。",
+    "title": "World of CodexCraft: クラシック風Web MMO",
+    "description": "ブラウザで直接遊べるクラシック風マイクロMMO、World of CodexCraft で壮大な冒険に出ましょう。永続的な共有ワールドに参加し、クラスを育て、敵を倒してください。",
     "genre": "MMORPG",
     "playMode": "マルチプレイヤー",
     "applicationCategory": "ゲーム",
     "operatingSystem": "Webブラウザ",
-    "officialLabel": "World of ClaudeCraft 公式サイト",
+    "officialLabel": "World of CodexCraft 公式サイト",
     "officialBody": "worldofclaudecraft.com は Claudemoon ワールドの公式無料ブラウザMMOです。永続キャラクターでオンラインプレイし、オフラインでソロ探索し、wikiを読み、このサイトから確認済みのコミュニティリンクをたどれます。"
   },
   "a11y": {
@@ -4586,9 +4586,9 @@ export const ja_JP: EnTranslations = {
     "mainNavigation": "メインナビゲーション",
     "languageSelection": "言語選択",
     "characterActions": "キャラクター操作",
-    "githubProject": "GitHubでWorld of ClaudeCraftプロジェクトを開く",
-    "discordCommunity": "World of ClaudeCraftのDiscordコミュニティに参加",
-    "donateProject": "World of ClaudeCraftを支援するために寄付"
+    "githubProject": "GitHubでWorld of CodexCraftプロジェクトを開く",
+    "discordCommunity": "World of CodexCraftのDiscordコミュニティに参加",
+    "donateProject": "World of CodexCraftを支援するために寄付"
   },
   "loading": {
     "world": "世界を読み込み中...",
@@ -4660,11 +4660,11 @@ export const ja_JP: EnTranslations = {
       "later": "後で"
     },
     "crash": {
-      "title": "World of ClaudeCraft",
+      "title": "World of CodexCraft",
       "body": "ゲーム画面が停止しました。再読み込みしますか？",
       "reload": "再読み込み",
       "quit": "終了",
-      "fatalBody": "World of ClaudeCraft で予期しないエラーが発生したため、終了します。"
+      "fatalBody": "World of CodexCraft で予期しないエラーが発生したため、終了します。"
     }
   },
   "realm": {
@@ -4792,17 +4792,17 @@ export const ja_JP: EnTranslations = {
     "iosStandaloneDetail": "ホーム画面からの全画面モードです。端末を横向きに保ってください。",
     "iosInstallDetail": "iPhoneまたはiPadで本当の全画面を使うには、先にこのページをホーム画面に追加してください。",
     "iosShareStep": "Safariで共有をタップし、ホーム画面に追加を選びます。",
-    "iosOpenStep": "新しいホーム画面アイコンからWorld of ClaudeCraftを開きます。",
+    "iosOpenStep": "新しいホーム画面アイコンからWorld of CodexCraftを開きます。",
     "androidStandaloneDetail": "全画面アプリモードです。端末を横向きに保ってください。",
     "androidInstallDetail": "Androidで全画面にするには、このページをインストールするかホーム画面に追加してください。",
     "androidInstallStep": "Chromeでメニューを開き、アプリをインストールまたはホーム画面に追加を選びます。",
-    "androidOpenStep": "新しいアイコンからWorld of ClaudeCraftを開きます。",
+    "androidOpenStep": "新しいアイコンからWorld of CodexCraftを開きます。",
     "otherStandaloneDetail": "端末を横向き全画面に保ってください。",
     "otherInstallDetail": "最高のモバイル全画面体験のため、このページをインストールするかホーム画面に追加してください。"
   },
   "serverUnavailable": {
-    "title": "World of ClaudeCraft - ワールド利用不可",
-    "logoAlt": "World of ClaudeCraft",
+    "title": "World of CodexCraft - ワールド利用不可",
+    "logoAlt": "World of CodexCraft",
     "eyebrow": "ワールドメンテナンス",
     "heading": "ワールドは一時的に利用できません。",
     "body": "ゲームサービスを再起動しています。Claudemoonはまもなく戻る予定です。このページは自動的に確認を続けます。",

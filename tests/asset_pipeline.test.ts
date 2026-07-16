@@ -833,6 +833,22 @@ describe('asset library registry parsers', () => {
     );
     expect(knight.registration.visualKeys).toContain('player_warrior');
     expect(knight.registration.referenced).toBe(true);
+    const naturePalettePaths = [
+      'models/environment/laboratory/birch_tree_1.glb',
+      'models/environment/laboratory/nature_palette_01/birch_tree_2.glb',
+      'models/environment/laboratory/nature_palette_01/bush_flowers.glb',
+      'models/environment/laboratory/nature_palette_01/dead_tree_2.glb',
+      'models/environment/laboratory/nature_palette_01/flower_1_clump.glb',
+      'models/environment/laboratory/nature_palette_01/grass_large.glb',
+    ];
+    const naturePalette = assets.filter((asset: { path: string }) =>
+      naturePalettePaths.includes(asset.path),
+    );
+    expect(naturePalette).toHaveLength(6);
+    expect(new Set(naturePalette.map((asset: { path: string }) => asset.path)).size).toBe(6);
+    for (const asset of naturePalette) {
+      expect(asset).toMatchObject({ category: 'environment', kind: 'model' });
+    }
   });
 
   it('serves allowlisted repository assets with portable URL paths', async () => {

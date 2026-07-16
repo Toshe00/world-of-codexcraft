@@ -12,6 +12,7 @@ import { delvePropsPreloadInternalsForTest } from '../src/render/delve_props';
 import { doorPortalPreloadInternalsForTest } from '../src/render/door_portal';
 import { fishPreloadInternalsForTest } from '../src/render/fish';
 import { gatherNodePreloadInternalsForTest } from '../src/render/gather_nodes';
+import { LABORATORY_NATURE_PALETTE_CONFIG } from '../src/render/laboratory_nature_palette_core';
 import { mailboxPreloadInternalsForTest } from '../src/render/mailbox';
 import { yumiMazePreloadInternalsForTest } from '../src/render/yumi_maze';
 
@@ -27,8 +28,11 @@ function expectAssetExistsAndManifested(url: string): void {
 }
 
 describe('GLB-replacement asset preload sets resolve to real, manifested files', () => {
-  it('laboratory birch asset', () => {
-    expectAssetExistsAndManifested('/models/environment/laboratory/birch_tree_1.glb');
+  it('laboratory nature palette assets', () => {
+    expect(LABORATORY_NATURE_PALETTE_CONFIG).toHaveLength(6);
+    for (const asset of LABORATORY_NATURE_PALETTE_CONFIG) {
+      expectAssetExistsAndManifested(`/${asset.assetPath}`);
+    }
   });
 
   it('critter species assets', () => {

@@ -110,6 +110,11 @@
         ],
         "excludePaths": [
           "public/models/environment/laboratory/birch_tree_1.glb",
+          "public/models/environment/laboratory/nature_palette_01/birch_tree_2.glb",
+          "public/models/environment/laboratory/nature_palette_01/bush_flowers.glb",
+          "public/models/environment/laboratory/nature_palette_01/dead_tree_2.glb",
+          "public/models/environment/laboratory/nature_palette_01/flower_1_clump.glb",
+          "public/models/environment/laboratory/nature_palette_01/grass_large.glb",
           "public/models/props/cracked_grave.glb",
           "public/models/props/destructible_wall.glb",
           "public/models/props/dungeon_door_arch.glb",
@@ -236,6 +241,161 @@
         "embeddedAssetIds": [],
         "expectedPathCount": 1,
         "pathInventorySha256": "6a97009909c57c98ba141b394303a007fb735075bc56a9c3f9ca81a4fb4b35e7"
+      },
+      "sourceOrAuthor": "Quaternius, Ultimate Stylized Nature Pack",
+      "provenanceUrl": null,
+      "declaredLicense": "CC0-1.0",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "operator-declared-source-metadata",
+          "description": "The operator declared Quaternius, Ultimate Stylized Nature Pack, and CC0; the local license proof is absent or unverified."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "not-required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["converted", "optimized"],
+      "status": "reusable",
+      "justification": "The asset is registered from operator-declared CC0 metadata for laboratory use, with the missing proof recorded as a release follow-up.",
+      "notes": [
+        "Converted from the original glTF without artistic modification; texture resizing, WebP encoding, and Meshopt compression are technical optimizations.",
+        "The local license proof is absent or unverified and must be checked before any public release."
+      ]
+    },
+    {
+      "id": "quaternius-ultimate-stylized-nature-birch-tree-2",
+      "category": "model",
+      "coverage": {
+        "paths": ["public/models/environment/laboratory/nature_palette_01/birch_tree_2.glb"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 1,
+        "pathInventorySha256": "0f0c0121f97205b1b0cb1baed515a17cd9b3cd771d6ef123527c8eea24b8c32d"
+      },
+      "sourceOrAuthor": "Quaternius, Ultimate Stylized Nature Pack",
+      "provenanceUrl": null,
+      "declaredLicense": "CC0-1.0",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "operator-declared-source-metadata",
+          "description": "The operator declared Quaternius, Ultimate Stylized Nature Pack, and CC0; the local license proof is absent or unverified."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "not-required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["converted", "optimized"],
+      "status": "reusable",
+      "justification": "The asset is registered from operator-declared CC0 metadata for laboratory use, with the missing proof recorded as a release follow-up.",
+      "notes": [
+        "Converted from the original glTF without artistic modification; texture resizing, WebP encoding, and Meshopt compression are technical optimizations.",
+        "The local license proof is absent or unverified and must be checked before any public release."
+      ]
+    },
+    {
+      "id": "quaternius-ultimate-stylized-nature-bush-flowers",
+      "category": "model",
+      "coverage": {
+        "paths": ["public/models/environment/laboratory/nature_palette_01/bush_flowers.glb"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 1,
+        "pathInventorySha256": "d7df7b99378d98b90090da05530a08c7670e5b0eef08cd34f8f040328f30a4b4"
+      },
+      "sourceOrAuthor": "Quaternius, Ultimate Stylized Nature Pack",
+      "provenanceUrl": null,
+      "declaredLicense": "CC0-1.0",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "operator-declared-source-metadata",
+          "description": "The operator declared Quaternius, Ultimate Stylized Nature Pack, and CC0; the local license proof is absent or unverified."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "not-required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["converted", "optimized"],
+      "status": "reusable",
+      "justification": "The asset is registered from operator-declared CC0 metadata for laboratory use, with the missing proof recorded as a release follow-up.",
+      "notes": [
+        "Converted from the original glTF without artistic modification; texture resizing, WebP encoding, and Meshopt compression are technical optimizations.",
+        "The local license proof is absent or unverified and must be checked before any public release."
+      ]
+    },
+    {
+      "id": "quaternius-ultimate-stylized-nature-dead-tree-2",
+      "category": "model",
+      "coverage": {
+        "paths": ["public/models/environment/laboratory/nature_palette_01/dead_tree_2.glb"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 1,
+        "pathInventorySha256": "6555526701eb047e721c45e7ec2d78ddf27217b1c03596c230d8a241eb3e1af5"
+      },
+      "sourceOrAuthor": "Quaternius, Ultimate Stylized Nature Pack",
+      "provenanceUrl": null,
+      "declaredLicense": "CC0-1.0",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "operator-declared-source-metadata",
+          "description": "The operator declared Quaternius, Ultimate Stylized Nature Pack, and CC0; the local license proof is absent or unverified."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "not-required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["converted", "optimized"],
+      "status": "reusable",
+      "justification": "The asset is registered from operator-declared CC0 metadata for laboratory use, with the missing proof recorded as a release follow-up.",
+      "notes": [
+        "Converted from the original glTF without artistic modification; texture resizing, WebP encoding, and Meshopt compression are technical optimizations.",
+        "The local license proof is absent or unverified and must be checked before any public release."
+      ]
+    },
+    {
+      "id": "quaternius-ultimate-stylized-nature-flower-1-clump",
+      "category": "model",
+      "coverage": {
+        "paths": ["public/models/environment/laboratory/nature_palette_01/flower_1_clump.glb"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 1,
+        "pathInventorySha256": "381f5e7637dfdc921458a18607d304fb179b1c2c488684655049c4484b2e89fc"
+      },
+      "sourceOrAuthor": "Quaternius, Ultimate Stylized Nature Pack",
+      "provenanceUrl": null,
+      "declaredLicense": "CC0-1.0",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "operator-declared-source-metadata",
+          "description": "The operator declared Quaternius, Ultimate Stylized Nature Pack, and CC0; the local license proof is absent or unverified."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "not-required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["converted", "optimized"],
+      "status": "reusable",
+      "justification": "The asset is registered from operator-declared CC0 metadata for laboratory use, with the missing proof recorded as a release follow-up.",
+      "notes": [
+        "Converted from the original glTF without artistic modification; texture resizing, WebP encoding, and Meshopt compression are technical optimizations.",
+        "The local license proof is absent or unverified and must be checked before any public release."
+      ]
+    },
+    {
+      "id": "quaternius-ultimate-stylized-nature-grass-large",
+      "category": "model",
+      "coverage": {
+        "paths": ["public/models/environment/laboratory/nature_palette_01/grass_large.glb"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 1,
+        "pathInventorySha256": "fac54ff5bc6cd3c478a092d571107d4fba6a5285281d618ca46c432c5020b7d5"
       },
       "sourceOrAuthor": "Quaternius, Ultimate Stylized Nature Pack",
       "provenanceUrl": null,

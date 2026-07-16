@@ -36,6 +36,7 @@ import {
 } from '../ui/holder_tier';
 import { formatNumber, getLanguage, t } from '../ui/i18n';
 import { raidMarkerDataUrl } from '../ui/icons';
+import { emoteIconUrl } from '../ui/emote_icons';
 import { type IWorld, OVERHEAD_EMOTES } from '../world_api';
 
 import { castBarState } from './cast_bar';
@@ -49,8 +50,6 @@ import {
 import { type NameplatePlan, nameplatePlanInto, newNameplatePlan } from './nameplate_view';
 import { FRIENDLY, isFriendlyPet, mobNameColor } from './reaction';
 import type { EntityView } from './renderer';
-
-const emoteIconUrl = (id: string): string => `/ui/emotes/emote-${id}.png`;
 
 export interface NameplatePainterDeps {
   /** the per-entity view pool the renderer owns (keyed by entity id) */

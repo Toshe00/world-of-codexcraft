@@ -1,0 +1,9 @@
+{
+  "$schema": "./asset-replacements.schema.json",
+  "registryVersion": 1,
+  "policy": {
+    "productionActivationAllowed": false,
+    "laboratoryActivationEnv": "VITE_ASSET_REPLACEMENT_LAB"
+  },
+  "replacements": []
+}

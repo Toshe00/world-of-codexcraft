@@ -8,6 +8,7 @@
 // Each theme is a composed multi-track loop scheduled with a lookahead
 // timer; zone changes crossfade.
 
+import { resolveRuntimeAssetUrl } from '../assets';
 import type { BiomeId } from '../sim/types';
 import { MUSIC_OVERRIDES } from './music_overrides.generated';
 
@@ -2745,7 +2746,7 @@ export class MusicDirector {
   private ensureBossElement(): HTMLAudioElement | null {
     if (this.bossElement) return this.bossElement;
     if (typeof Audio !== 'function') return null;
-    const el = new Audio('/audio/dungeon-boss-fight.mp3');
+    const el = new Audio(resolveRuntimeAssetUrl('/audio/dungeon-boss-fight.mp3'));
     el.loop = true;
     el.preload = 'auto';
     this.bossElement = el;
@@ -2756,7 +2757,7 @@ export class MusicDirector {
     const ctx = this.ctx;
     if (!ctx || this.bossBuffer || this.bossLoading || typeof fetch !== 'function') return;
     this.bossLoading = true;
-    void fetch('/audio/dungeon-boss-fight.mp3')
+    void fetch(resolveRuntimeAssetUrl('/audio/dungeon-boss-fight.mp3'))
       .then((res) => res.arrayBuffer())
       .then((bytes) => ctx.decodeAudioData(bytes))
       .then((buffer) => {
@@ -2816,7 +2817,7 @@ export class MusicDirector {
     if (this.sowfieldSrcMade || !this.ctx || typeof Audio !== 'function') return;
     this.sowfieldSrcMade = true;
     const mk = (url: string, gain: GainNode | null): HTMLAudioElement => {
-      const el = new Audio(url);
+      const el = new Audio(resolveRuntimeAssetUrl(url));
       el.loop = true;
       el.preload = 'auto';
       try {

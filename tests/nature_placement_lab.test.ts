@@ -205,6 +205,8 @@ describe('nature placement laboratory controller', () => {
         .fn()
         .mockReturnValueOnce({ x: 1, y: 2, z: 3 })
         .mockReturnValueOnce({ x: 2, y: 3, z: 4 })
+        .mockReturnValueOnce({ x: 2, y: 3, z: 4 })
+        .mockReturnValueOnce({ x: 2, y: 3, z: 4 })
         .mockReturnValue({ x: 8, y: 4, z: 9 }),
       render,
       sampleGroundY: () => 0,
@@ -405,6 +407,25 @@ describe('nature placement laboratory render ownership', () => {
     expect(scene.children).toHaveLength(0);
     expect(geometryDispose).not.toHaveBeenCalled();
     expect(materialDispose).not.toHaveBeenCalled();
+  });
+
+  it('disposes the ground-selection rectangle geometry and material completely', () => {
+    const scene = new THREE.Scene();
+    const render = new NaturePlacementRender(scene, vi.fn());
+    render.syncSelectionRectangle({ x: 0, y: 2, z: 0 }, { x: 4, y: 2, z: 4 });
+    const rectangle = render.group.getObjectByName('Nature Placement Lab selection rectangle') as
+      | THREE.LineLoop<THREE.BufferGeometry, THREE.LineBasicMaterial>
+      | undefined;
+    expect(rectangle).toBeDefined();
+    if (!rectangle) throw new Error('selection rectangle missing');
+    const geometryDispose = vi.spyOn(rectangle.geometry, 'dispose');
+    const materialDispose = vi.spyOn(rectangle.material, 'dispose');
+
+    render.dispose();
+
+    expect(geometryDispose).toHaveBeenCalledOnce();
+    expect(materialDispose).toHaveBeenCalledOnce();
+    expect(scene.children).toEqual([]);
   });
 });
 

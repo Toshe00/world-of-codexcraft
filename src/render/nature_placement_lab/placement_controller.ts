@@ -1,17 +1,13 @@
 import { formatNumber, t } from '../../ui/i18n';
 import {
-  cloneNaturePlacementEditSnapshot,
-  equalNaturePlacementEditSnapshots,
   NATURE_PLACEMENT_ASSETS,
+  NATURE_PLACEMENT_LIMITS,
   type NaturePlacement,
   type NaturePlacementAssetId,
-  type NaturePlacementEditSnapshot,
   type NaturePlacementPoint,
-  NaturePlacementState,
   validNaturePlacementPoint,
 } from './placement_core';
 import { EditHistory } from './placement_history';
-import { parseNaturePlacementJson, serializeNaturePlacements } from './placement_json';
 import {
   loadNaturePlacementPreferences,
   type NaturePlacementPreferenceStorage,
@@ -19,6 +15,25 @@ import {
   normalizeNaturePlacementPreferences,
   saveNaturePlacementPreferences,
 } from './placement_preferences';
+import {
+  cloneNaturePlacementProjectSnapshot,
+  createNaturePlacementProject,
+  equalNaturePlacementProjectSnapshots,
+  type NaturePlacementGroup,
+  type NaturePlacementLayer,
+  type NaturePlacementProject,
+  type NaturePlacementProjectSnapshot,
+  type NatureProjectPlacement,
+  selectionCenter,
+} from './placement_project_core';
+import {
+  parseNaturePlacementProjectJson,
+  serializeNaturePlacementProject,
+} from './placement_project_json';
+import {
+  type NaturePlacementProjectStorage,
+  NaturePlacementProjectStore,
+} from './placement_project_storage';
 import {
   type NaturePlacementShortcut,
   resolveNaturePlacementShortcut,
@@ -30,16 +45,25 @@ import {
   snapPlacementScale,
 } from './placement_snapping';
 import {
+  calculateNaturePlacementStatistics,
+  type NaturePlacementStatistics,
+} from './placement_statistics_core';
+import {
   type NaturePlacementInspectorField,
   type NaturePlacementInspectorInput,
   validateNaturePlacementTransform,
 } from './placement_transform_validation';
+import { NaturePlacementWorkspace } from './placement_workspace_core';
 
 export interface NaturePlacementRenderAdapter {
   clearGhost(): void;
   dispose(): void;
   pickPlacement(clientX: number, clientY: number): string | null;
-  sync(placements: readonly NaturePlacement[], selectedId: string | null): void;
+  sync(placements: readonly NaturePlacement[], selectedIds: readonly string[]): void;
+  syncSelectionRectangle?(
+    start: NaturePlacementPoint | null,
+    end: NaturePlacementPoint | null,
+  ): void;
   syncGrid(
     visible: boolean,
     cellSize: NaturePlacementPreferences['gridSize'],
@@ -48,7 +72,7 @@ export interface NaturePlacementRenderAdapter {
   updateGhost(
     assetId: NaturePlacementAssetId,
     point: NaturePlacementPoint,
-    transform: NonNullable<NaturePlacementState['activeTransform']>,
+    transform: NonNullable<NaturePlacementWorkspace['activeTransform']>,
   ): void;
 }
 
@@ -57,10 +81,16 @@ export interface NaturePlacementUiView {
   canRedo: boolean;
   canUndo: boolean;
   count: number;
+  project: NaturePlacementProject;
+  projects: readonly Pick<NaturePlacementProject, 'projectId' | 'name' | 'modifiedAt'>[];
+  layers: readonly NaturePlacementLayer[];
+  groups: readonly NaturePlacementGroup[];
   placing: boolean;
   preferences: NaturePlacementPreferences;
   selectedAssetId: NaturePlacementAssetId | null;
   selectedPlacement: NaturePlacement | null;
+  selectedPlacements: readonly NatureProjectPlacement[];
+  statistics: NaturePlacementStatistics;
   status: string;
   statusSeverity: 'error' | 'info';
 }
@@ -73,6 +103,39 @@ export interface NaturePlacementUiCallbacks {
   duplicateSelected(): void;
   exportJson(): string;
   importJson(source: string): void;
+  newProject(name: string): void;
+  renameProject(name: string): void;
+  saveProject(): void;
+  saveProjectAs(name: string): void;
+  loadProject(projectId: string): void;
+  deleteProject(): void;
+  createLayer(name: string): void;
+  renameLayer(layerId: string, name: string): void;
+  deleteLayer(layerId: string): void;
+  deleteLayerPlacements(layerId: string): void;
+  setLayerVisible(layerId: string, visible: boolean): void;
+  setLayerLocked(layerId: string, locked: boolean): void;
+  selectLayer(layerId: string): void;
+  selectAll(): void;
+  deselectAll(): void;
+  invertSelection(): void;
+  selectAssetPlacements(assetId: NaturePlacementAssetId): void;
+  moveSelectionToLayer(layerId: string): void;
+  applyGroupTransform(input: {
+    moveX: string;
+    moveY: string;
+    moveZ: string;
+    rotationDegrees: string;
+    scaleFactor: string;
+    groundOffsetDelta: string;
+  }): void;
+  groupSelection(name: string): void;
+  ungroupSelection(): void;
+  renameGroup(groupId: string, name: string): void;
+  selectGroup(groupId: string): void;
+  duplicateGroup(groupId: string): void;
+  deleteGroup(groupId: string): void;
+  deleteGroupAndPlacements(groupId: string): void;
   placeOnGround(): void;
   redo(): void;
   resetTransform(): void;
@@ -93,6 +156,7 @@ interface ControllerOptions {
   eventWindow: Window;
   initialWorkCenter: NaturePlacementPoint;
   preferenceStorage: NaturePlacementPreferenceStorage | null;
+  projectStorage?: NaturePlacementProjectStorage | null;
   projectTerrain: (clientX: number, clientY: number) => NaturePlacementPoint | null;
   render: NaturePlacementRenderAdapter;
   sampleGroundY: (x: number, z: number) => number;
@@ -120,20 +184,27 @@ function transformMergeKey(
 }
 
 export class NaturePlacementController {
-  readonly state = new NaturePlacementState();
+  readonly state: NaturePlacementWorkspace;
   private readonly canvas: HTMLCanvasElement;
   private readonly eventWindow: Window;
   private readonly preferenceStorage: NaturePlacementPreferenceStorage | null;
+  private readonly projectPersistenceAvailable: boolean;
+  private readonly projectStore: NaturePlacementProjectStore;
   private readonly projectTerrain: ControllerOptions['projectTerrain'];
   private readonly render: NaturePlacementRenderAdapter;
   private readonly sampleGroundY: ControllerOptions['sampleGroundY'];
   private readonly ui: NaturePlacementUiAdapter;
-  private readonly history = new EditHistory<NaturePlacementEditSnapshot>(
-    cloneNaturePlacementEditSnapshot,
-    equalNaturePlacementEditSnapshots,
+  private readonly history = new EditHistory<NaturePlacementProjectSnapshot>(
+    cloneNaturePlacementProjectSnapshot,
+    equalNaturePlacementProjectSnapshots,
   );
+  private readonly importedProjectIds = new Set<string>();
   private dragging = false;
-  private dragStart: NaturePlacementEditSnapshot | null = null;
+  private dragStart: NaturePlacementProjectSnapshot | null = null;
+  private dragPointerOffset: NaturePlacementPoint | null = null;
+  private marqueeStart: NaturePlacementPoint | null = null;
+  private marqueeEnd: NaturePlacementPoint | null = null;
+  private marqueeMode: 'replace' | 'add' | 'toggle' = 'replace';
   private disposed = false;
   private lastPointer: { x: number; y: number } | null = null;
   private preferences: NaturePlacementPreferences;
@@ -145,10 +216,25 @@ export class NaturePlacementController {
     this.canvas = options.canvas;
     this.eventWindow = options.eventWindow;
     this.preferenceStorage = options.preferenceStorage;
+    const projectStorage =
+      options.projectStorage === undefined ? options.preferenceStorage : options.projectStorage;
+    this.projectPersistenceAvailable = projectStorage !== null;
+    this.projectStore = new NaturePlacementProjectStore(projectStorage);
     this.projectTerrain = options.projectTerrain;
     this.render = options.render;
     this.sampleGroundY = options.sampleGroundY;
     this.workCenter = { ...options.initialWorkCenter };
+    const restoredProject = this.projectStore.loadActive();
+    const initialProject =
+      restoredProject ??
+      createNaturePlacementProject(
+        this.createProjectId(),
+        t('hudChrome.naturePlacementLab.untitledProjectName'),
+        () => new Date(),
+        { center: options.initialWorkCenter },
+      );
+    if (!restoredProject) this.projectStore.save(initialProject);
+    this.state = new NaturePlacementWorkspace(initialProject);
     this.preferences = loadNaturePlacementPreferences(this.preferenceStorage);
     this.ui = options.createUi({
       applyTransform: (input) => this.applyTransform(input),
@@ -158,6 +244,32 @@ export class NaturePlacementController {
       duplicateSelected: () => this.duplicateSelected(),
       exportJson: () => this.exportJson(),
       importJson: (source) => this.importJson(source),
+      newProject: (name) => this.newProject(name),
+      renameProject: (name) => this.renameProject(name),
+      saveProject: () => this.saveProject(),
+      saveProjectAs: (name) => this.saveProjectAs(name),
+      loadProject: (projectId) => this.loadProject(projectId),
+      deleteProject: () => this.deleteProject(),
+      createLayer: (name) => this.createLayer(name),
+      renameLayer: (layerId, name) => this.renameLayer(layerId, name),
+      deleteLayer: (layerId) => this.deleteLayer(layerId),
+      deleteLayerPlacements: (layerId) => this.deleteLayerPlacements(layerId),
+      setLayerVisible: (layerId, visible) => this.setLayerVisible(layerId, visible),
+      setLayerLocked: (layerId, locked) => this.setLayerLocked(layerId, locked),
+      selectLayer: (layerId) => this.selectLayer(layerId),
+      selectAll: () => this.selectAll(),
+      deselectAll: () => this.deselectAll(),
+      invertSelection: () => this.invertSelection(),
+      selectAssetPlacements: (assetId) => this.selectAssetPlacements(assetId),
+      moveSelectionToLayer: (layerId) => this.moveSelectionToLayer(layerId),
+      applyGroupTransform: (input) => this.applyGroupTransform(input),
+      groupSelection: (name) => this.groupSelection(name),
+      ungroupSelection: () => this.ungroupSelection(),
+      renameGroup: (groupId, name) => this.renameGroup(groupId, name),
+      selectGroup: (groupId) => this.selectGroup(groupId),
+      duplicateGroup: (groupId) => this.duplicateGroup(groupId),
+      deleteGroup: (groupId) => this.deleteGroup(groupId),
+      deleteGroupAndPlacements: (groupId) => this.deleteGroupAndPlacements(groupId),
       placeOnGround: () => this.placeOnGround(),
       redo: () => this.redo(),
       resetTransform: () => this.resetTransform(),
@@ -172,7 +284,8 @@ export class NaturePlacementController {
     this.eventWindow.addEventListener('mousemove', this.onMouseMove, true);
     this.eventWindow.addEventListener('mouseup', this.onMouseUp, true);
     this.eventWindow.addEventListener('keydown', this.onKeyDown, true);
-    this.render.sync([], null);
+    this.eventWindow.addEventListener('blur', this.onBlur);
+    this.render.sync(this.state.visiblePlacements, []);
     this.syncGrid();
     this.refreshUi();
   }
@@ -200,6 +313,10 @@ export class NaturePlacementController {
     this.state.cancelPlacement();
     this.dragging = false;
     this.dragStart = null;
+    this.dragPointerOffset = null;
+    this.marqueeStart = null;
+    this.marqueeEnd = null;
+    this.render.syncSelectionRectangle?.(null, null);
     this.render.clearGhost();
     this.setStatus(t('hudChrome.naturePlacementLab.statusPlacementCancelled'));
     this.sync();
@@ -209,9 +326,32 @@ export class NaturePlacementController {
     this.lastPointer = { x: clientX, y: clientY };
     const point = this.preparePoint(this.projectTerrain(clientX, clientY));
     if (this.dragging) {
-      if (this.state.moveSelected(point)) {
+      const center = this.state.selectionCenter;
+      if (
+        point &&
+        center &&
+        this.state.applySelectionTransform(
+          {
+            moveTo: {
+              x: point.x + (this.dragPointerOffset?.x ?? 0),
+              y: point.y + (this.dragPointerOffset?.y ?? 0),
+              z: point.z + (this.dragPointerOffset?.z ?? 0),
+            },
+          },
+          this.groupSnapOptions(),
+          this.sampleGroundY,
+        )
+      ) {
         this.setStatus(t('hudChrome.naturePlacementLab.statusPlacementMoved'));
-        this.sync();
+        this.syncScene();
+      }
+      return;
+    }
+    if (this.marqueeStart) {
+      const rawPoint = this.projectTerrain(clientX, clientY);
+      if (rawPoint && validNaturePlacementPoint(rawPoint)) {
+        this.marqueeEnd = { ...rawPoint };
+        this.render.syncSelectionRectangle?.(this.marqueeStart, this.marqueeEnd);
       }
       return;
     }
@@ -224,7 +364,11 @@ export class NaturePlacementController {
     this.render.updateGhost(transform.assetId, point, transform);
   }
 
-  primaryDown(clientX: number, clientY: number): boolean {
+  primaryDown(
+    clientX: number,
+    clientY: number,
+    modifiers: { ctrlKey?: boolean; shiftKey?: boolean } = {},
+  ): boolean {
     if (this.state.placementActive) {
       const before = this.state.editSnapshot;
       this.snapActiveTransform();
@@ -242,19 +386,60 @@ export class NaturePlacementController {
       return true;
     }
     const id = this.render.pickPlacement(clientX, clientY);
-    if (!id || !this.state.selectPlacement(id)) return false;
+    if (!id) {
+      const point = this.projectTerrain(clientX, clientY);
+      if (!point || !validNaturePlacementPoint(point)) return false;
+      this.marqueeStart = { ...point };
+      this.marqueeEnd = { ...point };
+      this.marqueeMode = modifiers.ctrlKey ? 'toggle' : modifiers.shiftKey ? 'add' : 'replace';
+      if (this.marqueeMode === 'replace') this.state.deselectAll();
+      this.render.syncSelectionRectangle?.(this.marqueeStart, this.marqueeEnd);
+      this.sync();
+      return true;
+    }
+    const mode = modifiers.ctrlKey
+      ? 'toggle'
+      : modifiers.shiftKey || this.state.selectedPlacementIds.includes(id)
+        ? 'add'
+        : 'replace';
+    if (!this.state.selectPlacement(id, mode)) return false;
+    if (!this.state.selectedPlacementIds.includes(id)) {
+      this.sync();
+      return true;
+    }
     this.dragging = true;
     this.dragStart = this.state.editSnapshot;
+    const pointerPoint = this.projectTerrain(clientX, clientY);
+    const center = this.state.selectionCenter;
+    this.dragPointerOffset =
+      pointerPoint && center
+        ? {
+            x: center.x - pointerPoint.x,
+            y: center.y - pointerPoint.y,
+            z: center.z - pointerPoint.z,
+          }
+        : null;
     this.setStatus(t('hudChrome.naturePlacementLab.statusPlacementSelected', { id }));
     this.sync();
     return true;
   }
 
   pointerUp(): void {
+    if (this.marqueeStart) {
+      if (this.marqueeEnd) {
+        this.state.selectInRectangle(this.marqueeStart, this.marqueeEnd, this.marqueeMode);
+      }
+      this.marqueeStart = null;
+      this.marqueeEnd = null;
+      this.render.syncSelectionRectangle?.(null, null);
+      this.sync();
+      return;
+    }
     if (!this.dragging) return;
     this.dragging = false;
     if (this.dragStart) this.history.record(this.dragStart, this.state.editSnapshot);
     this.dragStart = null;
+    this.dragPointerOffset = null;
     this.sync();
   }
 
@@ -289,8 +474,9 @@ export class NaturePlacementController {
   }
 
   duplicateSelected(): void {
-    const selected = this.state.selectedPlacement;
-    if (!selected) {
+    const selected = this.state.selectedPlacements;
+    const center = this.state.selectionCenter;
+    if (selected.length === 0 || !center) {
       this.setStatus(t('hudChrome.naturePlacementLab.statusNoSelection'), 'error');
       this.refreshUi();
       return;
@@ -298,9 +484,9 @@ export class NaturePlacementController {
     const before = this.state.editSnapshot;
     const distance = Math.max(0.5, this.preferences.gridSize);
     let target = {
-      ...selected.position,
-      x: selected.position.x + distance,
-      z: selected.position.z + distance,
+      ...center,
+      x: center.x + distance,
+      z: center.z + distance,
     };
     if (this.preferences.snapPosition) {
       target = snapPlacementPosition(target, this.preferences.gridSize);
@@ -314,18 +500,22 @@ export class NaturePlacementController {
       }
       target = grounded;
     }
-    const duplicate = this.state.duplicateSelected({
-      x: target.x - selected.position.x,
-      y: target.y - selected.position.y,
-      z: target.z - selected.position.z,
+    const duplicates = this.state.duplicateSelected({
+      x: target.x - center.x,
+      y: target.y - center.y,
+      z: target.z - center.z,
     });
-    if (!duplicate) {
+    if (!duplicates) {
       this.setStatus(t('hudChrome.naturePlacementLab.statusDuplicateFailed'), 'error');
       this.refreshUi();
       return;
     }
     this.history.record(before, this.state.editSnapshot);
-    this.setStatus(t('hudChrome.naturePlacementLab.statusDuplicated', { id: duplicate.id }));
+    this.setStatus(
+      t('hudChrome.naturePlacementLab.statusDuplicated', {
+        id: duplicates.map((placement) => placement.id).join(', '),
+      }),
+    );
     this.sync();
   }
 
@@ -345,7 +535,11 @@ export class NaturePlacementController {
 
   clear(): void {
     const before = this.state.editSnapshot;
-    this.state.clear();
+    if (!this.state.clear()) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusLockedLayer'), 'error');
+      this.refreshUi();
+      return;
+    }
     this.history.record(before, this.state.editSnapshot);
     this.dragging = false;
     this.dragStart = null;
@@ -412,20 +606,23 @@ export class NaturePlacementController {
   }
 
   placeOnGround(): void {
-    const selected = this.state.selectedPlacement;
-    if (!selected) {
+    if (this.state.selectedPlacementIds.length === 0) {
       this.setStatus(t('hudChrome.naturePlacementLab.statusNoSelection'), 'error');
       this.refreshUi();
       return;
     }
-    const grounded = placePointOnGround(selected.position, this.sampleGroundY);
-    if (!grounded) {
+    const before = this.state.editSnapshot;
+    if (
+      !this.state.applySelectionTransform(
+        { placeOnGround: true },
+        this.groupSnapOptions(),
+        this.sampleGroundY,
+      )
+    ) {
       this.setStatus(t('hudChrome.naturePlacementLab.statusNoTerrain'), 'error');
       this.refreshUi();
       return;
     }
-    const before = this.state.editSnapshot;
-    this.state.moveSelected(grounded);
     this.history.record(before, this.state.editSnapshot);
     this.setStatus(t('hudChrome.naturePlacementLab.statusPlacedOnGround'));
     this.sync();
@@ -441,7 +638,7 @@ export class NaturePlacementController {
   }
 
   exportJson(): string {
-    const json = serializeNaturePlacements(this.state.placements);
+    const json = serializeNaturePlacementProject(this.state.projectData);
     this.setStatus(
       t('hudChrome.naturePlacementLab.statusExported', {
         count: formatNumber(this.state.placements.length),
@@ -454,16 +651,26 @@ export class NaturePlacementController {
   importJson(source: string): void {
     if (this.disposed) return;
     try {
-      const placements = parseNaturePlacementJson(source);
+      const project = parseNaturePlacementProjectJson(source, {
+        createProjectId: () => this.createProjectId(),
+        existingProjectIds: this.projectStore.projectIds(),
+        legacyName: t('hudChrome.naturePlacementLab.importedProjectName'),
+      });
+      if (this.projectPersistenceAvailable && !this.projectStore.save(project)) {
+        this.setStatus(t('hudChrome.naturePlacementLab.statusProjectFailed'), 'error');
+        this.refreshUi();
+        return;
+      }
       const before = this.state.editSnapshot;
-      this.state.replacePlacements(placements);
+      this.state.replaceProject(project);
       this.history.record(before, this.state.editSnapshot);
+      this.importedProjectIds.add(project.projectId);
       this.dragging = false;
       this.dragStart = null;
       this.render.clearGhost();
       this.setStatus(
         t('hudChrome.naturePlacementLab.statusImported', {
-          count: formatNumber(placements.length),
+          count: formatNumber(project.placements.length),
         }),
       );
       this.sync();
@@ -472,6 +679,313 @@ export class NaturePlacementController {
       this.setStatus(t('hudChrome.naturePlacementLab.statusImportFailed'), 'error');
       this.refreshUi();
     }
+  }
+
+  newProject(name: string): void {
+    const project = createNaturePlacementProject(this.createProjectId(), name);
+    if (!this.projectStore.save(project)) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusProjectFailed'), 'error');
+      this.refreshUi();
+      return;
+    }
+    this.state.replaceProject(project);
+    this.history.clear();
+    this.importedProjectIds.clear();
+    this.setStatus(t('hudChrome.naturePlacementLab.statusProjectCreated'));
+    this.sync();
+  }
+
+  renameProject(name: string): void {
+    const project = this.state.projectData;
+    const selectedPlacementIds = this.state.selectedPlacementIds;
+    project.name = name;
+    project.modifiedAt = new Date().toISOString();
+    if (!this.projectStore.save(project)) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusProjectFailed'), 'error');
+      this.refreshUi();
+      return;
+    }
+    this.state.restoreEditSnapshot({ project, selectedPlacementIds });
+    this.setStatus(t('hudChrome.naturePlacementLab.statusProjectRenamed'));
+    this.sync();
+  }
+
+  saveProject(): void {
+    if (!this.projectStore.save(this.state.projectData)) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusProjectFailed'), 'error');
+    } else {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusProjectSaved'));
+    }
+    this.refreshUi();
+  }
+
+  saveProjectAs(name: string): void {
+    const timestamp = new Date().toISOString();
+    const project = this.state.projectData;
+    project.projectId = this.createProjectId();
+    project.name = name;
+    project.createdAt = timestamp;
+    project.modifiedAt = timestamp;
+    if (!this.projectStore.save(project)) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusProjectFailed'), 'error');
+      this.refreshUi();
+      return;
+    }
+    this.state.replaceProject(project);
+    this.history.clear();
+    this.importedProjectIds.clear();
+    this.setStatus(t('hudChrome.naturePlacementLab.statusProjectSaved'));
+    this.sync();
+  }
+
+  loadProject(projectId: string): void {
+    const project = this.projectStore.get(projectId);
+    if (!project || !this.projectStore.setActive(projectId)) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusProjectFailed'), 'error');
+      this.refreshUi();
+      return;
+    }
+    this.state.replaceProject(project);
+    this.history.clear();
+    this.importedProjectIds.clear();
+    this.setStatus(t('hudChrome.naturePlacementLab.statusProjectLoaded'));
+    this.sync();
+  }
+
+  deleteProject(): void {
+    const projectId = this.state.projectData.projectId;
+    if (!this.projectStore.delete(projectId)) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusProjectFailed'), 'error');
+      this.refreshUi();
+      return;
+    }
+    const next = this.projectStore.loadActive();
+    if (next) this.state.replaceProject(next);
+    else {
+      const project = createNaturePlacementProject(
+        this.createProjectId(),
+        t('hudChrome.naturePlacementLab.untitledProjectName'),
+      );
+      this.projectStore.save(project);
+      this.state.replaceProject(project);
+    }
+    this.history.clear();
+    this.importedProjectIds.clear();
+    this.setStatus(t('hudChrome.naturePlacementLab.statusProjectDeleted'));
+    this.sync();
+  }
+
+  createLayer(name: string): void {
+    this.recordWorkspaceEdit(
+      () => this.state.createLayer(name) !== null,
+      t('hudChrome.naturePlacementLab.statusLayerCreated'),
+    );
+  }
+
+  renameLayer(layerId: string, name: string): void {
+    this.recordWorkspaceEdit(
+      () => this.state.renameLayer(layerId, name),
+      t('hudChrome.naturePlacementLab.statusLayerRenamed'),
+    );
+  }
+
+  deleteLayer(layerId: string): void {
+    this.recordWorkspaceEdit(
+      () => this.state.deleteEmptyLayer(layerId),
+      t('hudChrome.naturePlacementLab.statusLayerDeleted'),
+    );
+  }
+
+  deleteLayerPlacements(layerId: string): void {
+    this.recordWorkspaceEdit(
+      () => this.state.deleteLayerPlacements(layerId),
+      t('hudChrome.naturePlacementLab.statusLayerCleared'),
+    );
+  }
+
+  setLayerVisible(layerId: string, visible: boolean): void {
+    this.recordWorkspaceEdit(
+      () => this.state.setLayerVisible(layerId, visible),
+      t('hudChrome.naturePlacementLab.statusLayerUpdated'),
+    );
+  }
+
+  setLayerLocked(layerId: string, locked: boolean): void {
+    this.recordWorkspaceEdit(
+      () => this.state.setLayerLocked(layerId, locked),
+      t('hudChrome.naturePlacementLab.statusLayerUpdated'),
+    );
+  }
+
+  selectLayer(layerId: string): void {
+    this.state.selectByLayer(layerId);
+    this.sync();
+  }
+
+  selectAll(): void {
+    this.state.selectAll();
+    this.sync();
+  }
+
+  deselectAll(): void {
+    this.state.deselectAll();
+    this.sync();
+  }
+
+  invertSelection(): void {
+    this.state.invertSelection();
+    this.sync();
+  }
+
+  selectAssetPlacements(assetId: NaturePlacementAssetId): void {
+    this.state.selectByAsset(assetId);
+    this.sync();
+  }
+
+  moveSelectionToLayer(layerId: string): void {
+    this.recordWorkspaceEdit(
+      () => this.state.moveSelectionToLayer(layerId),
+      t('hudChrome.naturePlacementLab.statusLayerChanged'),
+    );
+  }
+
+  applyGroupTransform(input: {
+    moveX: string;
+    moveY: string;
+    moveZ: string;
+    rotationDegrees: string;
+    scaleFactor: string;
+    groundOffsetDelta: string;
+  }): void {
+    const center = this.state.selectionCenter;
+    if (!center) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusNoSelection'), 'error');
+      this.refreshUi();
+      return;
+    }
+    const values = {
+      moveX: input.moveX.trim() === '' ? center.x : Number(input.moveX),
+      moveY: input.moveY.trim() === '' ? center.y : Number(input.moveY),
+      moveZ: input.moveZ.trim() === '' ? center.z : Number(input.moveZ),
+      rotationDegrees: input.rotationDegrees.trim() === '' ? 0 : Number(input.rotationDegrees),
+      scaleFactor: input.scaleFactor.trim() === '' ? 1 : Number(input.scaleFactor),
+      groundOffsetDelta:
+        input.groundOffsetDelta.trim() === '' ? 0 : Number(input.groundOffsetDelta),
+    };
+    if (!Object.values(values).every(Number.isFinite)) {
+      this.setStatus(
+        t('hudChrome.naturePlacementLab.statusFiniteRequired', { field: 'Transform' }),
+        'error',
+      );
+      this.refreshUi();
+      return;
+    }
+    if (values.rotationDegrees < -360 || values.rotationDegrees > 360) {
+      this.setStatus(
+        t('hudChrome.naturePlacementLab.statusOutsideLimits', {
+          field: 'Rotation',
+          min: -360,
+          max: 360,
+        }),
+        'error',
+      );
+      this.refreshUi();
+      return;
+    }
+    this.recordWorkspaceEdit(
+      () =>
+        this.state.applySelectionTransform(
+          {
+            moveTo: { x: values.moveX, y: values.moveY, z: values.moveZ },
+            rotationDelta: (values.rotationDegrees * Math.PI) / 180,
+            scaleFactor: values.scaleFactor,
+            groundOffsetDelta: values.groundOffsetDelta,
+          },
+          this.groupSnapOptions(),
+          this.sampleGroundY,
+        ),
+      t('hudChrome.naturePlacementLab.statusTransformApplied'),
+    );
+  }
+
+  groupSelection(name: string): void {
+    this.recordWorkspaceEdit(
+      () => this.state.groupSelection(name) !== null,
+      t('hudChrome.naturePlacementLab.statusGroupCreated'),
+    );
+  }
+
+  ungroupSelection(): void {
+    this.recordWorkspaceEdit(
+      () => this.state.ungroupSelection(),
+      t('hudChrome.naturePlacementLab.statusGroupDeleted'),
+    );
+  }
+
+  renameGroup(groupId: string, name: string): void {
+    this.recordWorkspaceEdit(
+      () => this.state.renameGroup(groupId, name),
+      t('hudChrome.naturePlacementLab.statusGroupRenamed'),
+    );
+  }
+
+  selectGroup(groupId: string): void {
+    if (!this.state.selectGroup(groupId)) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusLockedLayer'), 'error');
+      this.refreshUi();
+      return;
+    }
+    this.sync();
+  }
+
+  duplicateGroup(groupId: string): void {
+    const group = this.state.groups.find((entry) => entry.groupId === groupId);
+    const placementIds = new Set(group?.placementIds ?? []);
+    const center = selectionCenter(
+      this.state.placements.filter((placement) => placementIds.has(placement.id)),
+    );
+    if (!group || !center) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusOperationRejected'), 'error');
+      this.refreshUi();
+      return;
+    }
+    const distance = Math.max(0.5, this.preferences.gridSize);
+    let target = { ...center, x: center.x + distance, z: center.z + distance };
+    if (this.preferences.snapPosition) {
+      target = snapPlacementPosition(target, this.preferences.gridSize);
+    }
+    if (this.preferences.snapToGround) {
+      const grounded = placePointOnGround(target, this.sampleGroundY);
+      if (!grounded) {
+        this.setStatus(t('hudChrome.naturePlacementLab.statusNoTerrain'), 'error');
+        this.refreshUi();
+        return;
+      }
+      target = grounded;
+    }
+    this.recordWorkspaceEdit(
+      () =>
+        this.state.duplicateGroup(
+          groupId,
+          { x: target.x - center.x, y: target.y - center.y, z: target.z - center.z },
+          t('hudChrome.naturePlacementLab.groupCopyName', { name: group.name }),
+        ) !== null,
+      t('hudChrome.naturePlacementLab.statusGroupDuplicated'),
+    );
+  }
+
+  deleteGroup(groupId: string): void {
+    this.recordWorkspaceEdit(
+      () => this.state.deleteGroup(groupId),
+      t('hudChrome.naturePlacementLab.statusGroupDeleted'),
+    );
+  }
+
+  deleteGroupAndPlacements(groupId: string): void {
+    this.recordWorkspaceEdit(
+      () => this.state.deleteGroupAndPlacements(groupId),
+      t('hudChrome.naturePlacementLab.statusGroupDeleted'),
+    );
   }
 
   dispose(): void {
@@ -483,11 +997,15 @@ export class NaturePlacementController {
     this.eventWindow.removeEventListener('mousemove', this.onMouseMove, true);
     this.eventWindow.removeEventListener('mouseup', this.onMouseUp, true);
     this.eventWindow.removeEventListener('keydown', this.onKeyDown, true);
+    this.eventWindow.removeEventListener('blur', this.onBlur);
     this.render.clearGhost();
     this.ui.dispose();
     this.render.dispose();
     this.history.clear();
     this.dragStart = null;
+    this.dragPointerOffset = null;
+    this.marqueeStart = null;
+    this.marqueeEnd = null;
     this.lastPointer = null;
   }
 
@@ -503,10 +1021,23 @@ export class NaturePlacementController {
     return prepared;
   }
 
-  private restoreHistory(snapshot: NaturePlacementEditSnapshot): void {
+  private restoreHistory(snapshot: NaturePlacementProjectSnapshot): void {
+    const currentProjectId = this.state.projectData.projectId;
+    const targetProjectId = snapshot.project.projectId;
+    if (currentProjectId !== targetProjectId) {
+      if (this.importedProjectIds.has(targetProjectId)) {
+        this.projectStore.save(snapshot.project);
+      } else {
+        this.projectStore.setActive(targetProjectId);
+      }
+      if (this.importedProjectIds.has(currentProjectId)) {
+        this.projectStore.delete(currentProjectId);
+      }
+    }
     this.state.restoreEditSnapshot(snapshot);
     this.dragging = false;
     this.dragStart = null;
+    this.dragPointerOffset = null;
     this.render.clearGhost();
   }
 
@@ -525,9 +1056,13 @@ export class NaturePlacementController {
   }
 
   private sync(): void {
-    this.render.sync(this.state.placements, this.state.selectedPlacementId);
-    this.refreshGhost();
+    this.syncScene();
     this.refreshUi();
+  }
+
+  private syncScene(): void {
+    this.render.sync(this.state.visiblePlacements, this.state.selectedPlacementIds);
+    this.refreshGhost();
   }
 
   private syncGrid(): void {
@@ -549,15 +1084,30 @@ export class NaturePlacementController {
   }
 
   private refreshUi(): void {
+    const project = this.state.projectData;
+    const selectedPlacements = this.state.selectedPlacements;
     this.ui.update({
       assetIds: NATURE_PLACEMENT_ASSETS.map((asset) => asset.assetId),
       canRedo: this.history.canRedo,
       canUndo: this.history.canUndo,
       count: this.state.placements.length,
+      project,
+      projects: this.projectStore.list().map(({ projectId, name, modifiedAt }) => ({
+        projectId,
+        name,
+        modifiedAt,
+      })),
+      layers: this.state.layers,
+      groups: this.state.groups,
       placing: this.state.placementActive,
       preferences: { ...this.preferences },
       selectedAssetId: this.state.selectedAssetId,
       selectedPlacement: this.state.selectedPlacement,
+      selectedPlacements,
+      statistics: calculateNaturePlacementStatistics(
+        project,
+        new Set(this.state.selectedPlacementIds),
+      ),
       status: this.status,
       statusSeverity: this.statusSeverity,
     });
@@ -569,10 +1119,28 @@ export class NaturePlacementController {
     fine: boolean,
   ): void {
     const before = this.state.editSnapshot;
-    const selectedId = this.state.selectedPlacementId;
+    const selectedIds = this.state.selectedPlacementIds;
     let changed = false;
     const active = this.state.activeTransform;
-    if (active && kind === 'rotate' && this.preferences.snapRotation) {
+    if (selectedIds.length > 1) {
+      const rotationStep = (this.preferences.rotationStep * Math.PI) / 180;
+      const scaleFactor = 1 + Math.sign(direction) * this.preferences.scaleStep;
+      changed = this.state.applySelectionTransform(
+        kind === 'rotate'
+          ? { rotationDelta: Math.sign(direction) * rotationStep }
+          : kind === 'scale'
+            ? { scaleFactor }
+            : {
+                groundOffsetDelta:
+                  Math.sign(direction) *
+                  (fine
+                    ? NATURE_PLACEMENT_LIMITS.groundOffsetStepFine
+                    : NATURE_PLACEMENT_LIMITS.groundOffsetStep),
+              },
+        this.groupSnapOptions(),
+        this.sampleGroundY,
+      );
+    } else if (active && kind === 'rotate' && this.preferences.snapRotation) {
       const step = (this.preferences.rotationStep * Math.PI) / 180;
       changed = this.state.setActiveTransform({
         ...active,
@@ -598,8 +1166,12 @@ export class NaturePlacementController {
             : this.state.adjustGroundOffset(direction, fine);
     }
     if (!changed) return;
-    if (selectedId) {
-      this.history.record(before, this.state.editSnapshot, `shortcut:${selectedId}:${kind}`);
+    if (selectedIds.length > 0) {
+      this.history.record(
+        before,
+        this.state.editSnapshot,
+        `shortcut:${selectedIds.join(',')}:${kind}`,
+      );
     }
     this.setStatus(t('hudChrome.naturePlacementLab.statusTransformAdjusted'));
     this.sync();
@@ -644,6 +1216,39 @@ export class NaturePlacementController {
     this.statusSeverity = severity;
   }
 
+  private groupSnapOptions() {
+    return {
+      position: this.preferences.snapPosition,
+      rotation: this.preferences.snapRotation,
+      scale: this.preferences.snapScale,
+      gridSize: this.preferences.gridSize,
+      rotationStep: this.preferences.rotationStep,
+      scaleStep: this.preferences.scaleStep,
+    } as const;
+  }
+
+  private recordWorkspaceEdit(mutate: () => boolean, successStatus: string): void {
+    const before = this.state.editSnapshot;
+    if (!mutate()) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusOperationRejected'), 'error');
+      this.refreshUi();
+      return;
+    }
+    this.history.record(before, this.state.editSnapshot);
+    this.setStatus(successStatus);
+    this.sync();
+  }
+
+  private createProjectId(): string {
+    const taken = this.projectStore?.projectIds?.() ?? new Set<string>();
+    const randomUuid = globalThis.crypto?.randomUUID?.();
+    if (randomUuid && !taken.has(`project-${randomUuid}`)) return `project-${randomUuid}`;
+    const value = Date.now().toString(36);
+    let index = 1;
+    while (taken.has(`project-${value}-${index}`)) index++;
+    return `project-${value}-${index}`;
+  }
+
   private toggleGrid(): void {
     this.setPreferences({ gridVisible: !this.preferences.gridVisible });
   }
@@ -656,6 +1261,7 @@ export class NaturePlacementController {
     if (action === 'undo') this.undo();
     else if (action === 'redo') this.redo();
     else if (action === 'duplicate') this.duplicateSelected();
+    else if (action === 'selectAll') this.selectAll();
     else if (action === 'toggleGrid') this.toggleGrid();
     else if (action === 'toggleSnapPosition') this.toggleSnapPosition();
     else if (action === 'placeOnGround') this.placeOnGround();
@@ -675,17 +1281,28 @@ export class NaturePlacementController {
       return;
     }
     if (event.button !== 0) return;
-    if (this.primaryDown(event.clientX, event.clientY)) consume(event);
+    if (
+      this.primaryDown(event.clientX, event.clientY, {
+        ctrlKey: event.ctrlKey,
+        shiftKey: event.shiftKey,
+      })
+    )
+      consume(event);
   };
 
   private readonly onMouseMove = (event: MouseEvent): void => {
-    if (!this.state.placementActive && !this.dragging) return;
+    if (!this.state.placementActive && !this.dragging && !this.marqueeStart) return;
     this.pointerMove(event.clientX, event.clientY);
     consume(event);
   };
 
+  private readonly onBlur = (): void => {
+    if (this.dragging || this.marqueeStart) this.cancelPlacement();
+  };
+
   private readonly onMouseUp = (event: MouseEvent): void => {
-    if (event.button !== 0 || (!this.state.placementActive && !this.dragging)) return;
+    if (event.button !== 0 || (!this.state.placementActive && !this.dragging && !this.marqueeStart))
+      return;
     this.pointerUp();
     consume(event);
   };
@@ -697,7 +1314,7 @@ export class NaturePlacementController {
   };
 
   private readonly onContextMenu = (event: MouseEvent): void => {
-    if (!this.state.placementActive && !this.dragging) return;
+    if (!this.state.placementActive && !this.dragging && !this.marqueeStart) return;
     this.cancelPlacement();
     consume(event);
   };
@@ -705,7 +1322,7 @@ export class NaturePlacementController {
   private readonly onKeyDown = (event: KeyboardEvent): void => {
     const action = resolveNaturePlacementShortcut(event, {
       activeTransform: this.state.placementActive || this.state.selectedPlacementId !== null,
-      placementActive: this.state.placementActive || this.dragging,
+      placementActive: this.state.placementActive || this.dragging || this.marqueeStart !== null,
       selectedPlacement: this.state.selectedPlacementId !== null,
     });
     if (!action) return;

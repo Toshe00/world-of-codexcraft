@@ -35,6 +35,7 @@ function createDefaultController(options: NaturePlacementLabOptions): NaturePlac
     eventWindow: window,
     initialWorkCenter: options.initialWorkCenter,
     preferenceStorage,
+    projectStorage: preferenceStorage,
     projectTerrain: options.projectTerrain,
     render,
     sampleGroundY: options.sampleGroundY,
@@ -57,3 +58,4 @@ export function createNaturePlacementLab(
 export type { NaturePlacementController } from './placement_controller';
 export type { NaturePlacement, NaturePlacementAssetId } from './placement_core';
 export { NATURE_PLACEMENT_PREFERENCES_KEY } from './placement_preferences';
+export { NATURE_PLACEMENT_PROJECTS_KEY } from './placement_project_storage';

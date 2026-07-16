@@ -47,8 +47,9 @@ export class NaturePlacementRender {
   private ghost: THREE.Group | null = null;
   private ghostAssetId: NaturePlacementAssetId | null = null;
   private ghostGeneration = 0;
-  private selectionHelper: THREE.BoxHelper | null = null;
-  private selectedId: string | null = null;
+  private readonly selectionHelpers = new Map<string, THREE.BoxHelper>();
+  private readonly selectedIds = new Set<string>();
+  private selectionRectangle: THREE.LineLoop | null = null;
   private disposed = false;
   private readonly grid: NaturePlacementGrid;
 
@@ -71,9 +72,14 @@ export class NaturePlacementRender {
     this.grid.update(visible, cellSize, center);
   }
 
-  sync(placements: readonly NaturePlacement[], selectedId: string | null): void {
+  sync(placements: readonly NaturePlacement[], selected: readonly string[] | string | null): void {
     if (this.disposed) return;
-    const selectionChanged = this.selectedId !== selectedId;
+    const selectedIds =
+      selected === null ? [] : typeof selected === 'string' ? [selected] : selected;
+    const nextSelectedIds = new Set(selectedIds);
+    const selectionChanged =
+      nextSelectedIds.size !== this.selectedIds.size ||
+      [...nextSelectedIds].some((id) => !this.selectedIds.has(id));
     const liveIds = new Set(placements.map((placement) => placement.id));
     for (const id of [...this.entries.keys()]) {
       if (!liveIds.has(id)) this.removeEntry(id);
@@ -88,12 +94,40 @@ export class NaturePlacementRender {
         this.addEntry(placement);
       }
     }
-    this.selectedId = selectedId;
-    if (selectionChanged || (selectedId !== null && !this.selectionHelper)) {
+    this.selectedIds.clear();
+    for (const id of nextSelectedIds) this.selectedIds.add(id);
+    if (selectionChanged || this.selectionHelpers.size !== this.selectedIds.size) {
       this.refreshSelection();
     } else {
-      this.selectionHelper?.update();
+      for (const helper of this.selectionHelpers.values()) helper.update();
     }
+  }
+
+  syncSelectionRectangle(
+    start: NaturePlacementPoint | null,
+    end: NaturePlacementPoint | null,
+  ): void {
+    if (!start || !end || this.disposed) {
+      this.dropSelectionRectangle();
+      return;
+    }
+    if (!this.selectionRectangle) {
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(12), 3));
+      const material = new THREE.LineBasicMaterial({ color: SELECTION_COLOR, depthTest: false });
+      this.selectionRectangle = new THREE.LineLoop(geometry, material);
+      this.selectionRectangle.name = 'Nature Placement Lab selection rectangle';
+      this.selectionRectangle.renderOrder = 9_002;
+      this.group.add(this.selectionRectangle);
+    }
+    const y = Math.max(start.y, end.y) + 0.03;
+    const points = [start.x, y, start.z, end.x, y, start.z, end.x, y, end.z, start.x, y, end.z];
+    const attribute = this.selectionRectangle.geometry.getAttribute('position');
+    for (let index = 0; index < 4; index++) {
+      attribute.setXYZ(index, points[index * 3], points[index * 3 + 1], points[index * 3 + 2]);
+    }
+    attribute.needsUpdate = true;
+    this.selectionRectangle.geometry.computeBoundingSphere();
   }
 
   updateGhost(
@@ -183,6 +217,7 @@ export class NaturePlacementRender {
     this.clearGhost();
     this.grid.dispose();
     this.dropSelection();
+    this.dropSelectionRectangle();
     for (const id of [...this.entries.keys()]) this.removeEntry(id);
     this.scene.remove(this.group);
     this.templates.clear();
@@ -237,7 +272,7 @@ export class NaturePlacementRender {
         entry.model = model;
         entry.group.add(model);
         this.applyTransform(entry);
-        if (this.selectedId === entry.placement.id) this.refreshSelection();
+        if (this.selectedIds.has(entry.placement.id)) this.refreshSelection();
       })
       .catch((error: unknown) =>
         console.warn(`Nature Placement Lab asset failed to load: ${placement.assetId}`, error),
@@ -251,7 +286,10 @@ export class NaturePlacementRender {
     entry.removed = true;
     this.entries.delete(id);
     this.group.remove(entry.group);
-    if (this.selectedId === id) this.dropSelection();
+    if (this.selectedIds.has(id)) {
+      const helper = this.selectionHelpers.get(id);
+      if (helper) this.dropSelectionHelper(id, helper);
+    }
   }
 
   private applyTransform(entry: RenderEntry): void {
@@ -286,27 +324,39 @@ export class NaturePlacementRender {
       model.position.y = -minY * worldScale;
     }
     group.updateMatrixWorld(true);
-    if (this.selectionHelper && this.selectedId === group.userData.naturePlacementId) {
-      this.selectionHelper.update();
-    }
+    this.selectionHelpers.get(String(group.userData.naturePlacementId))?.update();
   }
 
   private refreshSelection(): void {
     this.dropSelection();
-    const entry = this.selectedId === null ? undefined : this.entries.get(this.selectedId);
-    if (!entry?.model) return;
-    this.selectionHelper = new THREE.BoxHelper(entry.group, SELECTION_COLOR);
-    this.selectionHelper.name = 'Nature Placement Lab selection';
-    this.selectionHelper.renderOrder = 9_001;
-    this.group.add(this.selectionHelper);
+    for (const id of this.selectedIds) {
+      const entry = this.entries.get(id);
+      if (!entry?.model) continue;
+      const helper = new THREE.BoxHelper(entry.group, SELECTION_COLOR);
+      helper.name = 'Nature Placement Lab selection';
+      helper.renderOrder = 9_001;
+      this.group.add(helper);
+      this.selectionHelpers.set(id, helper);
+    }
   }
 
   private dropSelection(): void {
-    if (!this.selectionHelper) return;
-    this.group.remove(this.selectionHelper);
-    this.selectionHelper.geometry.dispose();
-    disposeMaterial(this.selectionHelper.material);
-    this.selectionHelper = null;
+    for (const [id, helper] of this.selectionHelpers) this.dropSelectionHelper(id, helper);
+  }
+
+  private dropSelectionHelper(id: string, helper: THREE.BoxHelper): void {
+    this.group.remove(helper);
+    helper.geometry.dispose();
+    disposeMaterial(helper.material);
+    this.selectionHelpers.delete(id);
+  }
+
+  private dropSelectionRectangle(): void {
+    if (!this.selectionRectangle) return;
+    this.group.remove(this.selectionRectangle);
+    this.selectionRectangle.geometry.dispose();
+    disposeMaterial(this.selectionRectangle.material);
+    this.selectionRectangle = null;
   }
 
   private track(task: Promise<unknown>): void {

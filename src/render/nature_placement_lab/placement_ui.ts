@@ -79,12 +79,23 @@ function downloadJson(documentRef: Document, source: string): void {
 
 export class NaturePlacementUi implements NaturePlacementUiAdapter {
   private readonly abort = new AbortController();
+  private layersAbort: AbortController | null = null;
+  private groupsAbort: AbortController | null = null;
   private readonly root: HTMLElement;
   private readonly body: HTMLElement;
   private readonly toggle: HTMLButtonElement;
   private readonly assets: HTMLElement;
   private readonly assetButtons = new Map<NaturePlacementAssetId, HTMLButtonElement>();
   private readonly selection: HTMLElement;
+  private readonly selectionAssets: HTMLElement;
+  private readonly selectionLayers: HTMLElement;
+  private readonly projectSelect: HTMLSelectElement;
+  private readonly layersRoot: HTMLElement;
+  private readonly layerTarget: HTMLSelectElement;
+  private readonly assetSelection: HTMLSelectElement;
+  private readonly groupsRoot: HTMLElement;
+  private readonly statisticsRoot: HTMLElement;
+  private readonly groupTransformFields = new Map<string, HTMLInputElement>();
   private readonly placeButton: HTMLButtonElement;
   private readonly count: HTMLElement;
   private readonly status: HTMLElement;
@@ -127,6 +138,32 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     this.body = documentRef.createElement('div');
     this.body.className = 'nature-placement-lab-body';
 
+    const projectsSection = section(documentRef, t('hudChrome.naturePlacementLab.projectsSection'));
+    this.projectSelect = documentRef.createElement('select');
+    this.projectSelect.className = 'nature-placement-lab-wide-select';
+    this.projectSelect.setAttribute(
+      'aria-label',
+      t('hudChrome.naturePlacementLab.projectsSection'),
+    );
+    const projectActions = documentRef.createElement('div');
+    projectActions.className = 'nature-placement-lab-actions nature-placement-lab-actions-3';
+    const newProject = button(documentRef, t('hudChrome.naturePlacementLab.newProject'));
+    const renameProject = button(documentRef, t('hudChrome.naturePlacementLab.renameProject'));
+    const saveProject = button(documentRef, t('hudChrome.naturePlacementLab.saveProject'));
+    const saveProjectAs = button(documentRef, t('hudChrome.naturePlacementLab.saveProjectAs'));
+    const loadProject = button(documentRef, t('hudChrome.naturePlacementLab.loadProject'));
+    const deleteProject = button(documentRef, t('hudChrome.naturePlacementLab.deleteProject'));
+    projectActions.append(
+      newProject,
+      renameProject,
+      saveProject,
+      saveProjectAs,
+      loadProject,
+      deleteProject,
+    );
+    projectsSection.append(this.projectSelect, projectActions);
+    this.body.appendChild(projectsSection);
+
     const assetsSection = section(documentRef, t('hudChrome.naturePlacementLab.assetsSection'));
     this.assets = documentRef.createElement('div');
     this.assets.className = 'nature-placement-lab-assets';
@@ -134,18 +171,55 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     assetsSection.appendChild(this.assets);
     this.body.appendChild(assetsSection);
 
+    const layersSection = section(documentRef, t('hudChrome.naturePlacementLab.layersSection'));
+    this.layersRoot = documentRef.createElement('div');
+    this.layersRoot.className = 'nature-placement-lab-list';
+    const createLayer = button(documentRef, t('hudChrome.naturePlacementLab.createLayer'));
+    layersSection.append(this.layersRoot, createLayer);
+    this.body.appendChild(layersSection);
+
     const selectionSection = section(
       documentRef,
       t('hudChrome.naturePlacementLab.selectionSection'),
     );
     this.selection = documentRef.createElement('p');
     this.selection.className = 'nature-placement-lab-selection';
+    this.selectionAssets = documentRef.createElement('p');
+    this.selectionAssets.className = 'nature-placement-lab-selection';
+    this.selectionLayers = documentRef.createElement('p');
+    this.selectionLayers.className = 'nature-placement-lab-selection';
     const selectionActions = documentRef.createElement('div');
-    selectionActions.className = 'nature-placement-lab-actions';
+    selectionActions.className = 'nature-placement-lab-actions nature-placement-lab-actions-3';
     this.placeButton = button(documentRef, t('hudChrome.naturePlacementLab.placeSelected'));
     const duplicateButton = button(documentRef, t('hudChrome.naturePlacementLab.duplicate'));
-    selectionActions.append(this.placeButton, duplicateButton);
-    selectionSection.append(this.selection, selectionActions);
+    const selectAll = button(documentRef, t('hudChrome.naturePlacementLab.selectAll'));
+    const deselectAll = button(documentRef, t('hudChrome.naturePlacementLab.deselectAll'));
+    const invertSelection = button(documentRef, t('hudChrome.naturePlacementLab.invertSelection'));
+    const ungroup = button(documentRef, t('hudChrome.naturePlacementLab.ungroup'));
+    selectionActions.append(
+      this.placeButton,
+      duplicateButton,
+      selectAll,
+      deselectAll,
+      invertSelection,
+      ungroup,
+    );
+    const selectionFilters = documentRef.createElement('div');
+    selectionFilters.className = 'nature-placement-lab-inline';
+    this.assetSelection = documentRef.createElement('select');
+    this.assetSelection.setAttribute('aria-label', t('hudChrome.naturePlacementLab.selectByAsset'));
+    const selectByAsset = button(documentRef, t('hudChrome.naturePlacementLab.selectByAsset'));
+    this.layerTarget = documentRef.createElement('select');
+    this.layerTarget.setAttribute('aria-label', t('hudChrome.naturePlacementLab.moveToLayer'));
+    const moveToLayer = button(documentRef, t('hudChrome.naturePlacementLab.moveToLayer'));
+    selectionFilters.append(this.assetSelection, selectByAsset, this.layerTarget, moveToLayer);
+    selectionSection.append(
+      this.selection,
+      this.selectionAssets,
+      this.selectionLayers,
+      selectionActions,
+      selectionFilters,
+    );
     this.body.appendChild(selectionSection);
 
     const transformSection = section(
@@ -165,6 +239,45 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
       signal,
     );
     this.body.appendChild(transformSection);
+
+    const groupTransformSection = section(
+      documentRef,
+      t('hudChrome.naturePlacementLab.applyGroupTransform'),
+    );
+    const groupTransformGrid = documentRef.createElement('div');
+    groupTransformGrid.className = 'nature-placement-lab-controls';
+    const groupFields = [
+      ['moveX', 'hudChrome.naturePlacementLab.selectionCenterX'],
+      ['moveY', 'hudChrome.naturePlacementLab.selectionCenterY'],
+      ['moveZ', 'hudChrome.naturePlacementLab.selectionCenterZ'],
+      ['rotationDegrees', 'hudChrome.naturePlacementLab.rotationDelta'],
+      ['scaleFactor', 'hudChrome.naturePlacementLab.scaleFactor'],
+      ['groundOffsetDelta', 'hudChrome.naturePlacementLab.groundOffsetDelta'],
+    ] as const;
+    for (const [field, key] of groupFields) {
+      const label = documentRef.createElement('label');
+      label.textContent = t(key);
+      const input = documentRef.createElement('input');
+      input.type = 'number';
+      input.step = 'any';
+      input.autocomplete = 'off';
+      this.groupTransformFields.set(field, input);
+      label.appendChild(input);
+      groupTransformGrid.appendChild(label);
+    }
+    const applyGroupTransform = button(
+      documentRef,
+      t('hudChrome.naturePlacementLab.applyGroupTransform'),
+    );
+    groupTransformSection.append(groupTransformGrid, applyGroupTransform);
+    this.body.appendChild(groupTransformSection);
+
+    const groupsSection = section(documentRef, t('hudChrome.naturePlacementLab.groupsSection'));
+    this.groupsRoot = documentRef.createElement('div');
+    this.groupsRoot.className = 'nature-placement-lab-list';
+    const groupSelection = button(documentRef, t('hudChrome.naturePlacementLab.groupSelection'));
+    groupsSection.append(this.groupsRoot, groupSelection);
+    this.body.appendChild(groupsSection);
 
     const snappingSection = section(documentRef, t('hudChrome.naturePlacementLab.snappingSection'));
     this.gridButton = button(documentRef, t('hudChrome.naturePlacementLab.hideGrid'));
@@ -265,6 +378,15 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     help.textContent = t('hudChrome.naturePlacementLab.help');
     this.body.append(this.count, help, this.status);
 
+    const statisticsSection = section(
+      documentRef,
+      t('hudChrome.naturePlacementLab.statisticsSection'),
+    );
+    this.statisticsRoot = documentRef.createElement('div');
+    this.statisticsRoot.className = 'nature-placement-lab-statistics';
+    statisticsSection.appendChild(this.statisticsRoot);
+    this.body.insertBefore(statisticsSection, this.count);
+
     this.fileInput = documentRef.createElement('input');
     this.fileInput.type = 'file';
     this.fileInput.accept = 'application/json,.json';
@@ -273,6 +395,59 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     mount.appendChild(this.root);
 
     this.toggle.addEventListener('click', () => this.setOpen(!this.open), { signal });
+    newProject.addEventListener(
+      'click',
+      () => {
+        const name = this.prompt(t('hudChrome.naturePlacementLab.projectNamePrompt'));
+        if (name) this.callbacks.newProject(name);
+      },
+      { signal },
+    );
+    renameProject.addEventListener(
+      'click',
+      () => {
+        const name = this.prompt(
+          t('hudChrome.naturePlacementLab.projectNamePrompt'),
+          this.view?.project.name,
+        );
+        if (name) this.callbacks.renameProject(name);
+      },
+      { signal },
+    );
+    saveProject.addEventListener('click', () => this.callbacks.saveProject(), { signal });
+    saveProjectAs.addEventListener(
+      'click',
+      () => {
+        const name = this.prompt(
+          t('hudChrome.naturePlacementLab.projectNamePrompt'),
+          this.view?.project.name,
+        );
+        if (name) this.callbacks.saveProjectAs(name);
+      },
+      { signal },
+    );
+    loadProject.addEventListener(
+      'click',
+      () => this.callbacks.loadProject(this.projectSelect.value),
+      { signal },
+    );
+    deleteProject.addEventListener(
+      'click',
+      () => {
+        if (this.confirm(t('hudChrome.naturePlacementLab.confirmDeleteProject'))) {
+          this.callbacks.deleteProject();
+        }
+      },
+      { signal },
+    );
+    createLayer.addEventListener(
+      'click',
+      () => {
+        const name = this.prompt(t('hudChrome.naturePlacementLab.layerNamePrompt'));
+        if (name) this.callbacks.createLayer(name);
+      },
+      { signal },
+    );
     this.placeButton.addEventListener(
       'click',
       () =>
@@ -280,6 +455,42 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
       { signal },
     );
     duplicateButton.addEventListener('click', () => this.callbacks.duplicateSelected(), { signal });
+    selectAll.addEventListener('click', () => this.callbacks.selectAll(), { signal });
+    deselectAll.addEventListener('click', () => this.callbacks.deselectAll(), { signal });
+    invertSelection.addEventListener('click', () => this.callbacks.invertSelection(), { signal });
+    ungroup.addEventListener('click', () => this.callbacks.ungroupSelection(), { signal });
+    selectByAsset.addEventListener(
+      'click',
+      () =>
+        this.callbacks.selectAssetPlacements(this.assetSelection.value as NaturePlacementAssetId),
+      { signal },
+    );
+    moveToLayer.addEventListener(
+      'click',
+      () => this.callbacks.moveSelectionToLayer(this.layerTarget.value),
+      { signal },
+    );
+    applyGroupTransform.addEventListener(
+      'click',
+      () =>
+        this.callbacks.applyGroupTransform({
+          moveX: this.groupTransformFields.get('moveX')?.value ?? '',
+          moveY: this.groupTransformFields.get('moveY')?.value ?? '',
+          moveZ: this.groupTransformFields.get('moveZ')?.value ?? '',
+          rotationDegrees: this.groupTransformFields.get('rotationDegrees')?.value ?? '',
+          scaleFactor: this.groupTransformFields.get('scaleFactor')?.value ?? '',
+          groundOffsetDelta: this.groupTransformFields.get('groundOffsetDelta')?.value ?? '',
+        }),
+      { signal },
+    );
+    groupSelection.addEventListener(
+      'click',
+      () => {
+        const name = this.prompt(t('hudChrome.naturePlacementLab.groupNamePrompt'));
+        if (name) this.callbacks.groupSelection(name);
+      },
+      { signal },
+    );
     this.gridButton.addEventListener(
       'click',
       () => this.callbacks.setPreferences({ gridVisible: !this.view?.preferences.gridVisible }),
@@ -302,6 +513,17 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
 
   update(view: NaturePlacementUiView): void {
     this.view = view;
+    const projectOptions = view.projects.map((project) => {
+      const option = this.documentRef.createElement('option');
+      option.value = project.projectId;
+      option.textContent = project.name;
+      return option;
+    });
+    this.projectSelect.replaceChildren(...projectOptions);
+    this.projectSelect.value = view.project.projectId;
+
+    const assetSelectionValue = this.assetSelection.value;
+    this.assetSelection.replaceChildren();
     for (const assetId of view.assetIds) {
       let assetButton = this.assetButtons.get(assetId);
       if (!assetButton) {
@@ -315,17 +537,72 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
       const selected = view.selectedAssetId === assetId;
       assetButton.classList.toggle('selected', selected);
       assetButton.setAttribute('aria-pressed', String(selected));
+      const option = this.documentRef.createElement('option');
+      option.value = assetId;
+      option.textContent = assetId;
+      this.assetSelection.appendChild(option);
     }
-    this.selection.textContent = view.selectedPlacement
-      ? t('hudChrome.naturePlacementLab.selectedObject', { id: view.selectedPlacement.id })
-      : view.selectedAssetId
-        ? t('hudChrome.naturePlacementLab.selectedAsset', { assetId: view.selectedAssetId })
-        : t('hudChrome.naturePlacementLab.noAssetSelected');
+    if (view.assetIds.includes(assetSelectionValue as NaturePlacementAssetId)) {
+      this.assetSelection.value = assetSelectionValue;
+    }
+    const selectedAssetIds = [
+      ...new Set(view.selectedPlacements.map((placement) => placement.assetId)),
+    ];
+    const layerNames = new Map(view.layers.map((layer) => [layer.layerId, layer.name]));
+    const selectedLayerNames = [
+      ...new Set(
+        view.selectedPlacements.map(
+          (placement) => layerNames.get(placement.layerId) ?? placement.layerId,
+        ),
+      ),
+    ];
+    this.selection.textContent = t('hudChrome.naturePlacementLab.selectedCount', {
+      count: formatNumber(view.selectedPlacements.length),
+    });
+    this.selectionAssets.textContent = t('hudChrome.naturePlacementLab.selectedAssets', {
+      assets: selectedAssetIds.join(', ') || '-',
+    });
+    this.selectionLayers.textContent = t('hudChrome.naturePlacementLab.selectedLayers', {
+      layers: selectedLayerNames.join(', ') || '-',
+    });
     this.placeButton.textContent = view.placing
       ? t('hudChrome.naturePlacementLab.cancelPlacement')
       : t('hudChrome.naturePlacementLab.placeSelected');
     this.placeButton.disabled = view.selectedAssetId === null;
     this.inspector.update(view.selectedPlacement, this.documentRef.activeElement);
+
+    const center =
+      view.selectedPlacements.length > 0
+        ? {
+            x:
+              view.selectedPlacements.reduce((sum, placement) => sum + placement.position.x, 0) /
+              view.selectedPlacements.length,
+            y:
+              view.selectedPlacements.reduce((sum, placement) => sum + placement.position.y, 0) /
+              view.selectedPlacements.length,
+            z:
+              view.selectedPlacements.reduce((sum, placement) => sum + placement.position.z, 0) /
+              view.selectedPlacements.length,
+          }
+        : null;
+    const activeGroupField = [...this.groupTransformFields.values()].includes(
+      this.documentRef.activeElement as HTMLInputElement,
+    );
+    if (!activeGroupField) {
+      const defaults: Record<string, string> = {
+        moveX: center ? String(center.x) : '',
+        moveY: center ? String(center.y) : '',
+        moveZ: center ? String(center.z) : '',
+        rotationDegrees: '0',
+        scaleFactor: '1',
+        groundOffsetDelta: '0',
+      };
+      for (const [field, input] of this.groupTransformFields) input.value = defaults[field] ?? '';
+    }
+
+    this.renderLayers(view);
+    this.renderGroups(view);
+    this.renderStatistics(view);
 
     this.gridButton.textContent = view.preferences.gridVisible
       ? t('hudChrome.naturePlacementLab.hideGrid')
@@ -357,6 +634,8 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
 
   dispose(): void {
     this.disposed = true;
+    this.layersAbort?.abort();
+    this.groupsAbort?.abort();
     this.abort.abort();
     this.root.remove();
   }
@@ -373,6 +652,189 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
       .catch(() => {
         if (!this.disposed) this.callbacks.importJson('');
       });
+  }
+
+  private renderLayers(view: NaturePlacementUiView): void {
+    this.layersAbort?.abort();
+    this.layersAbort = new AbortController();
+    const signal = this.layersAbort.signal;
+    const targetValue = this.layerTarget.value;
+    this.layerTarget.replaceChildren();
+    const rows = view.layers.map((layer) => {
+      const option = this.documentRef.createElement('option');
+      option.value = layer.layerId;
+      option.textContent = layer.name;
+      this.layerTarget.appendChild(option);
+
+      const row = this.documentRef.createElement('div');
+      row.className = 'nature-placement-lab-list-row';
+      const name = this.documentRef.createElement('strong');
+      name.textContent = layer.name;
+      const visible = checkbox(
+        this.documentRef,
+        t('hudChrome.naturePlacementLab.visible'),
+        (checked) => this.callbacks.setLayerVisible(layer.layerId, checked),
+        signal,
+      );
+      visible.input.checked = layer.visible;
+      const locked = checkbox(
+        this.documentRef,
+        t('hudChrome.naturePlacementLab.locked'),
+        (checked) => this.callbacks.setLayerLocked(layer.layerId, checked),
+        signal,
+      );
+      locked.input.checked = layer.locked;
+      const actions = this.documentRef.createElement('div');
+      actions.className = 'nature-placement-lab-actions nature-placement-lab-actions-3';
+      const select = button(this.documentRef, t('hudChrome.naturePlacementLab.selectLayer'));
+      const rename = button(this.documentRef, t('hudChrome.naturePlacementLab.renameLayer'));
+      const remove = button(this.documentRef, t('hudChrome.naturePlacementLab.deleteLayer'));
+      const clear = button(
+        this.documentRef,
+        t('hudChrome.naturePlacementLab.deleteLayerPlacements'),
+      );
+      select.disabled = layer.locked || !layer.visible;
+      select.addEventListener('click', () => this.callbacks.selectLayer(layer.layerId), {
+        signal,
+      });
+      rename.addEventListener(
+        'click',
+        () => {
+          const value = this.prompt(t('hudChrome.naturePlacementLab.layerNamePrompt'), layer.name);
+          if (value) this.callbacks.renameLayer(layer.layerId, value);
+        },
+        { signal },
+      );
+      remove.addEventListener(
+        'click',
+        () => {
+          if (this.confirm(t('hudChrome.naturePlacementLab.confirmDeleteLayer'))) {
+            this.callbacks.deleteLayer(layer.layerId);
+          }
+        },
+        { signal },
+      );
+      clear.addEventListener(
+        'click',
+        () => {
+          if (this.confirm(t('hudChrome.naturePlacementLab.confirmDeleteLayerPlacements'))) {
+            this.callbacks.deleteLayerPlacements(layer.layerId);
+          }
+        },
+        { signal },
+      );
+      actions.append(select, rename, remove, clear);
+      row.append(name, visible.label, locked.label, actions);
+      return row;
+    });
+    this.layersRoot.replaceChildren(...rows);
+    if (view.layers.some((layer) => layer.layerId === targetValue))
+      this.layerTarget.value = targetValue;
+  }
+
+  private renderGroups(view: NaturePlacementUiView): void {
+    this.groupsAbort?.abort();
+    this.groupsAbort = new AbortController();
+    const signal = this.groupsAbort.signal;
+    const rows = view.groups.map((group) => {
+      const row = this.documentRef.createElement('div');
+      row.className = 'nature-placement-lab-list-row';
+      const name = this.documentRef.createElement('strong');
+      name.textContent = t('hudChrome.naturePlacementLab.groupSummary', {
+        name: group.name,
+        count: formatNumber(group.placementIds.length),
+      });
+      const actions = this.documentRef.createElement('div');
+      actions.className = 'nature-placement-lab-actions nature-placement-lab-actions-3';
+      const select = button(this.documentRef, t('hudChrome.naturePlacementLab.selectGroup'));
+      const rename = button(this.documentRef, t('hudChrome.naturePlacementLab.renameGroup'));
+      const duplicate = button(this.documentRef, t('hudChrome.naturePlacementLab.duplicateGroup'));
+      const remove = button(this.documentRef, t('hudChrome.naturePlacementLab.deleteGroup'));
+      const removeAll = button(
+        this.documentRef,
+        t('hudChrome.naturePlacementLab.deleteGroupAndPlacements'),
+      );
+      select.addEventListener('click', () => this.callbacks.selectGroup(group.groupId), {
+        signal,
+      });
+      rename.addEventListener(
+        'click',
+        () => {
+          const value = this.prompt(t('hudChrome.naturePlacementLab.groupNamePrompt'), group.name);
+          if (value) this.callbacks.renameGroup(group.groupId, value);
+        },
+        { signal },
+      );
+      duplicate.addEventListener('click', () => this.callbacks.duplicateGroup(group.groupId), {
+        signal,
+      });
+      remove.addEventListener('click', () => this.callbacks.deleteGroup(group.groupId), {
+        signal,
+      });
+      removeAll.addEventListener(
+        'click',
+        () => {
+          if (this.confirm(t('hudChrome.naturePlacementLab.confirmDeleteGroupPlacements'))) {
+            this.callbacks.deleteGroupAndPlacements(group.groupId);
+          }
+        },
+        { signal },
+      );
+      actions.append(select, rename, duplicate, remove, removeAll);
+      row.append(name, actions);
+      return row;
+    });
+    this.groupsRoot.replaceChildren(...rows);
+  }
+
+  private renderStatistics(view: NaturePlacementUiView): void {
+    const statistics = view.statistics;
+    const lines = [
+      t('hudChrome.naturePlacementLab.totalPlacements', {
+        count: formatNumber(statistics.totalPlacements),
+      }),
+      t('hudChrome.naturePlacementLab.visiblePlacements', {
+        count: formatNumber(statistics.visiblePlacements),
+      }),
+      t('hudChrome.naturePlacementLab.statisticsSelected', {
+        count: formatNumber(statistics.selectedPlacements),
+      }),
+      t('hudChrome.naturePlacementLab.placementsByAsset', {
+        counts:
+          statistics.byAsset
+            .map((entry) => `${entry.assetId}: ${formatNumber(entry.count)}`)
+            .join(', ') || '-',
+      }),
+      t('hudChrome.naturePlacementLab.placementsByLayer', {
+        counts:
+          statistics.byLayer
+            .map((entry) => `${entry.name}: ${formatNumber(entry.count)}`)
+            .join(', ') || '-',
+      }),
+      t('hudChrome.naturePlacementLab.estimatedTriangles', {
+        count: formatNumber(statistics.estimatedTriangles),
+      }),
+      t('hudChrome.naturePlacementLab.estimatedMediaBytes', {
+        count: formatNumber(statistics.estimatedUniqueAssetMediaBytes),
+      }),
+    ];
+    this.statisticsRoot.replaceChildren(
+      ...lines.map((line) => {
+        const paragraph = this.documentRef.createElement('p');
+        paragraph.textContent = line;
+        return paragraph;
+      }),
+    );
+  }
+
+  private prompt(label: string, initialValue = ''): string | null {
+    const value = this.documentRef.defaultView?.prompt(label, initialValue) ?? null;
+    const normalized = value?.trim() ?? '';
+    return normalized.length > 0 ? normalized : null;
+  }
+
+  private confirm(message: string): boolean {
+    return this.documentRef.defaultView?.confirm(message) ?? false;
   }
 
   private setOpen(open: boolean): void {

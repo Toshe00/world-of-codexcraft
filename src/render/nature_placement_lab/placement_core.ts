@@ -1,4 +1,5 @@
 import { LABORATORY_NATURE_PALETTE_CONFIG } from '../laboratory_nature_palette_core';
+import { NATURE_PLACEMENT_ASSET_METADATA } from './placement_asset_metadata';
 
 export const NATURE_PLACEMENT_FORMAT_VERSION = 1 as const;
 
@@ -36,6 +37,8 @@ export interface NaturePlacementAsset {
   readonly defaultGroundOffsetY: number;
   readonly defaultRotationY: number;
   readonly shadows: boolean;
+  readonly estimatedTriangles: number;
+  readonly mediaBytes: number;
 }
 
 const allowedAssetIds = new Set<string>(NATURE_PLACEMENT_ASSET_IDS);
@@ -52,6 +55,10 @@ export const NATURE_PLACEMENT_ASSETS: readonly NaturePlacementAsset[] = Object.f
       defaultGroundOffsetY: config.groundOffsetY ?? 0,
       defaultRotationY: normalizePlacementRotation(config.rotationY),
       shadows: config.shadows,
+      estimatedTriangles:
+        NATURE_PLACEMENT_ASSET_METADATA[config.label as NaturePlacementAssetId].triangles,
+      mediaBytes:
+        NATURE_PLACEMENT_ASSET_METADATA[config.label as NaturePlacementAssetId].mediaBytes,
     });
   }),
 );
@@ -73,6 +80,7 @@ export interface NaturePlacementPoint {
 export interface NaturePlacement {
   id: string;
   assetId: NaturePlacementAssetId;
+  layerId?: string;
   position: NaturePlacementPoint;
   rotationY: number;
   scale: number;

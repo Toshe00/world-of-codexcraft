@@ -224,9 +224,12 @@ describe('BirchTree_1 laboratory GLB', () => {
   });
 
   it('is the only planned media inventory addition for this laboratory directory', () => {
-    expect(Object.keys(MEDIA_ASSETS)).toHaveLength(1_063);
+    expect(Object.keys(MEDIA_ASSETS)).toHaveLength(1_068);
     expect(MEDIA_ASSETS[assetPath]).toContain('birch_tree_1.9e48caadd4ee.glb');
-    expect(readdirSync(path.dirname(publicFile(assetPath)))).toEqual(['birch_tree_1.glb']);
+    expect(readdirSync(path.dirname(publicFile(assetPath))).sort()).toEqual([
+      'birch_tree_1.glb',
+      'nature_palette_01',
+    ]);
   });
 
   it('has precise declared CC0 provenance with the missing-proof warning', () => {

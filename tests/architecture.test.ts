@@ -215,7 +215,7 @@ const UI_PURE_CORES = [
 const RENDER_PURE_CORES = [
   'src/render/cast_bar.ts',
   'src/render/delve_interactable_visibility_core.ts',
-  'src/render/laboratory_birch_preview_core.ts',
+  'src/render/laboratory_nature_palette_core.ts',
   'src/render/nameplate_view.ts',
   'src/render/net_interp_core.ts',
   'src/render/terrain_region_core.ts',

@@ -1,0 +1,347 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:codexcraft:schemas:identifier-compatibility-registry:v1",
+  "title": "CodexCraft identifier compatibility registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "registryVersion", "scope", "detectors", "rules"],
+  "properties": {
+    "$schema": {
+      "$ref": "#/$defs/nonEmptyString"
+    },
+    "registryVersion": {
+      "const": 1
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "detectors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/detector"
+      }
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pathList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "uniqueItems": true
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["roots", "files", "pathRoots", "pathFiles", "textExtensions", "exclusions"],
+      "properties": {
+        "roots": {
+          "$ref": "#/$defs/pathList"
+        },
+        "files": {
+          "$ref": "#/$defs/pathList"
+        },
+        "pathRoots": {
+          "$ref": "#/$defs/pathList"
+        },
+        "pathFiles": {
+          "$ref": "#/$defs/pathList"
+        },
+        "textExtensions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^\\.[A-Za-z0-9.]+$"
+          },
+          "uniqueItems": true
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "paths",
+              "justification",
+              "expectedPathCount",
+              "pathInventorySha256"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/kebabId"
+              },
+              "paths": {
+                "$ref": "#/$defs/nonEmptyPathList"
+              },
+              "justification": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "expectedPathCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "pathInventorySha256": {
+                "$ref": "#/$defs/sha256"
+              }
+            }
+          }
+        }
+      }
+    },
+    "kebabId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "nonEmptyPathList": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "uniqueItems": true
+    },
+    "detector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "target", "kind", "expression", "flags", "description"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/kebabId"
+        },
+        "target": {
+          "enum": ["content", "path", "both"]
+        },
+        "kind": {
+          "enum": ["literal", "regex"]
+        },
+        "expression": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "flags": {
+          "type": "string",
+          "pattern": "^[imu]*$"
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "paths": {
+          "$ref": "#/$defs/nonEmptyPathList"
+        },
+        "excludePaths": {
+          "$ref": "#/$defs/pathList"
+        },
+        "valueGroup": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sourceValueMode": {
+          "enum": ["exact", "family"]
+        }
+      }
+    },
+    "category": {
+      "enum": [
+        "display-label",
+        "brand-asset",
+        "documentation-only",
+        "persistent-content-id",
+        "database-identifier",
+        "database-value",
+        "realm-identifier",
+        "client-storage-key",
+        "network-route",
+        "network-header",
+        "network-protocol",
+        "desktop-app-identity",
+        "mobile-app-identity",
+        "oauth-or-callback",
+        "environment-variable",
+        "docker-or-infrastructure",
+        "filesystem-path",
+        "public-domain-or-url",
+        "email-identity",
+        "telemetry-or-metric",
+        "economic-identifier",
+        "web3-identifier",
+        "generated-mirror",
+        "third-party-trademark",
+        "unknown-sensitive"
+      ]
+    },
+    "strategy": {
+      "enum": [
+        "rename-display-only",
+        "keep-stable",
+        "alias-then-migrate",
+        "dual-read-dual-write",
+        "redirect-required",
+        "database-migration-required",
+        "application-transition-required",
+        "infrastructure-migration-required",
+        "economic-review-required",
+        "legal-review-required",
+        "generated-from-source",
+        "replace-before-release",
+        "investigate-before-change"
+      ]
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "detectorIds",
+        "targets",
+        "paths",
+        "expectedOccurrenceCount",
+        "occurrenceInventorySha256"
+      ],
+      "properties": {
+        "detectorIds": {
+          "$ref": "#/$defs/nonEmptyPathList"
+        },
+        "targets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": ["content", "path"]
+          },
+          "uniqueItems": true
+        },
+        "paths": {
+          "$ref": "#/$defs/nonEmptyPathList"
+        },
+        "excludePaths": {
+          "$ref": "#/$defs/pathList"
+        },
+        "expectedOccurrenceCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "occurrenceInventorySha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "reference", "description"],
+      "properties": {
+        "type": {
+          "enum": ["repository-file", "test", "runtime-contract", "manual-review"]
+        },
+        "reference": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "identifier",
+        "category",
+        "coverage",
+        "owner",
+        "usage",
+        "stability",
+        "persistent",
+        "publiclyExposed",
+        "renamePolicy",
+        "strategy",
+        "aliases",
+        "risks",
+        "justification",
+        "evidence",
+        "tests",
+        "notes",
+        "uncertainties"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/kebabId"
+        },
+        "identifier": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "category": {
+          "$ref": "#/$defs/category"
+        },
+        "coverage": {
+          "$ref": "#/$defs/coverage"
+        },
+        "owner": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "usage": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "stability": {
+          "enum": ["ephemeral", "versioned", "stable", "permanent", "unknown"]
+        },
+        "persistent": {
+          "type": "boolean"
+        },
+        "publiclyExposed": {
+          "type": "boolean"
+        },
+        "renamePolicy": {
+          "enum": ["allowed", "forbidden", "migration-required", "unknown"]
+        },
+        "strategy": {
+          "$ref": "#/$defs/strategy"
+        },
+        "aliases": {
+          "$ref": "#/$defs/pathList"
+        },
+        "risks": {
+          "$ref": "#/$defs/nonEmptyPathList"
+        },
+        "justification": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "tests": {
+          "$ref": "#/$defs/nonEmptyPathList"
+        },
+        "notes": {
+          "$ref": "#/$defs/pathList"
+        },
+        "uncertainties": {
+          "$ref": "#/$defs/pathList"
+        },
+        "sourceRuleIds": {
+          "$ref": "#/$defs/nonEmptyPathList"
+        }
+      }
+    }
+  }
+}

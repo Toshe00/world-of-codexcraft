@@ -1,0 +1,2154 @@
+{
+  "$schema": "identifiers.schema.json",
+  "registryVersion": 1,
+  "scope": {
+    "roots": [
+      ".agents",
+      ".claude",
+      ".codex",
+      ".githooks",
+      ".github",
+      "android",
+      "bot",
+      "build",
+      "deploy",
+      "docs",
+      "electron",
+      "headless",
+      "ios",
+      "ip-refactor",
+      "mediawiki",
+      "public",
+      "python",
+      "scripts",
+      "server",
+      "src",
+      "tests",
+      "third_party"
+    ],
+    "files": [
+      ".browserslistrc",
+      ".dockerignore",
+      ".env.example",
+      ".gitattributes",
+      ".gitignore",
+      "admin.html",
+      "AGENTS.md",
+      "biome.json",
+      "capacitor.config.ts",
+      "CLAUDE.md",
+      "CODE_OF_CONDUCT.md",
+      "CONTRIBUTING.md",
+      "CREDITS.md",
+      "DEPLOY.md",
+      "docker-compose.yml",
+      "Dockerfile",
+      "editor.html",
+      "ELECTRON-DESKTOP-AUDIT.md",
+      "GEMINI.md",
+      "guide.html",
+      "index.html",
+      "LICENSE",
+      "License.txt",
+      "mediawiki/Dockerfile",
+      "music_editor.html",
+      "package-lock.json",
+      "package.json",
+      "play.html",
+      "PRIVACY_POLICY.md",
+      "README.md",
+      "SECURITY.md",
+      "svelte.config.js",
+      "TERMS_AND_CONDITIONS.md",
+      "THIRD_PARTY_NOTICES.md",
+      "tsconfig.admin.json",
+      "tsconfig.json",
+      "vite.config.ts",
+      "vitest.browser.config.ts"
+    ],
+    "pathRoots": [
+      ".agents",
+      ".claude",
+      ".codex",
+      ".githooks",
+      ".github",
+      "android",
+      "bot",
+      "build",
+      "deploy",
+      "docs",
+      "electron",
+      "headless",
+      "ios",
+      "ip-refactor",
+      "mediawiki",
+      "public",
+      "python",
+      "scripts",
+      "server",
+      "src",
+      "tests",
+      "third_party"
+    ],
+    "pathFiles": [
+      "build-version-footer.png",
+      "woc_community.png",
+      "woc_logo_square.webp",
+      "worldofclaude.png"
+    ],
+    "textExtensions": [
+      ".cjs",
+      ".css",
+      ".cts",
+      ".env",
+      ".gradle",
+      ".html",
+      ".js",
+      ".json",
+      ".md",
+      ".mjs",
+      ".mts",
+      ".pbxproj",
+      ".plist",
+      ".properties",
+      ".py",
+      ".sh",
+      ".svelte",
+      ".toml",
+      ".ts",
+      ".tsx",
+      ".txt",
+      ".webmanifest",
+      ".xml",
+      ".yaml",
+      ".yml"
+    ],
+    "exclusions": [
+      {
+        "id": "identifier-registry-control-plane",
+        "paths": [
+          "docs/compatibility/IDENTIFIERS.md",
+          "docs/compatibility/identifiers.registry.json",
+          "docs/compatibility/identifiers.schema.json",
+          "scripts/lib/identifier_compatibility.d.mts",
+          "scripts/lib/identifier_compatibility.mjs",
+          "scripts/verify_identifier_compatibility.mjs",
+          "tests/identifier_compatibility_registry.test.ts"
+        ],
+        "justification": "The registry, schema, verifier, documentation, and their literal contract tests necessarily quote every controlled identifier. Their exact path inventory is locked here to prevent the exclusion from growing silently.",
+        "expectedPathCount": 7,
+        "pathInventorySha256": "854772c7619a72c2b487c4067769354b223fe6c38d945ebda574f3eee2ecb3d5"
+      }
+    ]
+  },
+  "detectors": [
+    {
+      "id": "world-of-claudecraft-label",
+      "target": "content",
+      "kind": "literal",
+      "expression": "World of ClaudeCraft",
+      "flags": "i",
+      "description": "Full player-facing project title."
+    },
+    {
+      "id": "claudecraft-label",
+      "target": "content",
+      "kind": "regex",
+      "expression": "(?<!World of )ClaudeCraft",
+      "flags": "i",
+      "description": "Short project title outside the full title."
+    },
+    {
+      "id": "worldofclaudecraft-slug",
+      "target": "both",
+      "kind": "regex",
+      "expression": "worldofclaudecraft",
+      "flags": "i",
+      "description": "Unqualified compact project slug used in repository and technical identities."
+    },
+    {
+      "id": "woc-token",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\$WOC\\b|\\bWOC\\b",
+      "flags": "",
+      "description": "Standalone WOC brand or token symbol."
+    },
+    {
+      "id": "woc-infrastructure-name",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\bwoc(?:[-/][a-z0-9_.-]+)+",
+      "flags": "i",
+      "description": "Lowercase woc-prefixed service, installed path, and container asset identities.",
+      "paths": ["Dockerfile", "mediawiki/Dockerfile", "docker-compose.yml", "deploy/**/*"]
+    },
+    {
+      "id": "woc-delimited-technical",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\bwoc(?:[-/][a-z0-9_.-]+)+",
+      "flags": "i",
+      "description": "Catch-all woc- and woc/ technical namespaces outside dedicated infrastructure files.",
+      "excludePaths": ["Dockerfile", "mediawiki/Dockerfile", "docker-compose.yml", "deploy/**/*"]
+    },
+    {
+      "id": "levy-street",
+      "target": "content",
+      "kind": "literal",
+      "expression": "Levy Street",
+      "flags": "i",
+      "description": "Levy Street organization or attribution name."
+    },
+    {
+      "id": "claudemoon",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\bClaudemoon\\b",
+      "flags": "i",
+      "description": "Claudemoon realm identifier and its visible rendering."
+    },
+    {
+      "id": "claudemoon-grant-id",
+      "target": "content",
+      "kind": "literal",
+      "expression": "champion_of_claudemoon",
+      "flags": "",
+      "description": "Persistent hidden grant ID derived from the Claudemoon realm name."
+    },
+    {
+      "id": "eastbrook-display",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\bEastbrook(?: Vale)?\\b",
+      "flags": "",
+      "description": "Eastbrook player-facing place label."
+    },
+    {
+      "id": "eastbrook-technical",
+      "target": "both",
+      "kind": "regex",
+      "expression": "\\beastbrook(?:[-_][a-z0-9_-]+)?\\b",
+      "flags": "",
+      "description": "Lowercase Eastbrook identifiers not proven to be display-only."
+    },
+    {
+      "id": "eastbrook-docker",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\beastbrook(?:-(?:db|game|discord-bot|wiki(?:-db)?)|_(?:pgdata|wikidb|wiki_images))\\b",
+      "flags": "",
+      "description": "Docker service, container, and volume names in the Eastbrook deployment family."
+    },
+    {
+      "id": "eastbrook-database-config",
+      "target": "content",
+      "kind": "regex",
+      "expression": "(?:POSTGRES_(?:USER|DB)[:=]\\s*eastbrook|(?:psql|pg_dump)\\s+-U\\s+eastbrook\\s+eastbrook|postgres(?:ql)?://eastbrook)",
+      "flags": "i",
+      "description": "PostgreSQL user, database, and connection identities for Eastbrook."
+    },
+    {
+      "id": "eastbrook-filesystem",
+      "target": "content",
+      "kind": "literal",
+      "expression": "/opt/eastbrook",
+      "flags": "",
+      "description": "Installed Eastbrook filesystem root."
+    },
+    {
+      "id": "claudium",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\bClaudium\\b",
+      "flags": "i",
+      "description": "Claudium economic balance, purchase, and presentation identifier."
+    },
+    {
+      "id": "armory",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\bArmory\\b",
+      "flags": "i",
+      "description": "Armory store, weapon-skin ownership, and presentation identifier."
+    },
+    {
+      "id": "woc-client-storage-key",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\bwoc_(?:site_visitor_id|editor_(?:autosave|draft|drafts_index|server_links|map|maps|maps_index|tutorial_seen|playtest)|session|seed|gamepad|keybinds|haptics_on|perf(?:_session_id|_overlay)?|settings|cached_stats|discord_(?:choice|cta_dismissed|onboard)|homepage_music_muted|last_realm|spawn_intro_seen|native_discord_verifier|bag_filter|bank_filter|deed_watch|lfg_intent|layout_reset_epoch|player_frame_pos|target_frame_pos|chat_(?:active_tab|geometry|tabs)|emote_wheel_|hotbar_|ignored_chat_names|mobile_chat_bottom|native_auto_locale|party_collapsed|theme)(?=$|[^a-z0-9_])",
+      "flags": "",
+      "description": "Known localStorage and sessionStorage key families."
+    },
+    {
+      "id": "woc-lower-technical",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\bwoc_[a-z0-9_:-]+",
+      "flags": "",
+      "description": "Catch-all lowercase woc_ technical identifier family requiring explicit review."
+    },
+    {
+      "id": "woc-network-header",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\bx-woc-[a-z0-9-]+\\b",
+      "flags": "i",
+      "description": "HTTP headers in the x-woc-* namespace."
+    },
+    {
+      "id": "woc-network-route",
+      "target": "content",
+      "kind": "regex",
+      "expression": "/api/woc/[a-z0-9_./?=&${}-]+",
+      "flags": "i",
+      "description": "HTTP routes in the /api/woc/* namespace."
+    },
+    {
+      "id": "claudium-network-route",
+      "target": "content",
+      "kind": "regex",
+      "expression": "/(?:api|v1)/claudium[a-z0-9_./?=&${}-]*",
+      "flags": "i",
+      "description": "Internal and upstream Claudium HTTP routes."
+    },
+    {
+      "id": "oauth-callback-route",
+      "target": "content",
+      "kind": "regex",
+      "expression": "/(?:api/auth/(?:discord|github)[a-z0-9_./?=&${}-]*|oauth/(?:authorize|token|revoke|device_authorization|device)[a-z0-9_./?=&${}-]*)",
+      "flags": "i",
+      "description": "OAuth endpoints and callbacks whose deployed values must remain coordinated."
+    },
+    {
+      "id": "woc-metric",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\bwoc_(?:accounts_online|characters_created_total|chat_messages_total|client_fps|client_frame_p95_seconds|client_long_frames_rate|player_[a-z0-9_]+|players_online|sim_[a-z0-9_]+|ws_[a-z0-9_]+)\\b",
+      "flags": "",
+      "description": "Prometheus and client-performance metric names."
+    },
+    {
+      "id": "economic-environment-variable",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\b(?:VITE_)?WOC_(?:MINT|ECONOMY_[A-Z0-9_]+|DAILY_REWARD_[A-Z0-9_]+)\\b",
+      "flags": "",
+      "description": "Environment variables controlling mint and economic policy."
+    },
+    {
+      "id": "economic-code-constant",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\b(?:WOC_MAX_SUPPLY|HOLDER_TIER_DEFS)\\b",
+      "flags": "",
+      "description": "Code-level constants that define WOC supply and holder-tier economics."
+    },
+    {
+      "id": "woc-environment-variable",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\b(?:VITE_WOC_MINT|WOC_(?:CPU_MONITOR_[A-Z0-9_]+|DAILY_REWARD_[A-Z0-9_]+|ECONOMY_[A-Z0-9_]+|SFX_STUDIO_[A-Z0-9_]+|STEAM_[A-Z0-9_]+|CLOSE_INSPECTOR|CRASH_SUBMIT_URL|DEV_BASE|DEV_URL|DISTRIBUTION|E2E_BASE|EXPECTED_PID|FFMPEG_PATH|FFPROBE_PATH|MINT|OPEN_DEVTOOLS|PASS|PROFILE_MS|PROFILE_SAMPLE_INTERVAL_US|SHOT_PORT|UPDATE_CHANNEL|URL|USER))\\b",
+      "flags": "",
+      "description": "Known environment variables in the WOC and VITE_WOC namespaces."
+    },
+    {
+      "id": "woc-uppercase-technical",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\bWOC_(?!(?:CPU_MONITOR_[A-Z0-9_]+|DAILY_REWARD_[A-Z0-9_]+|ECONOMY_[A-Z0-9_]+|SFX_STUDIO_[A-Z0-9_]+|STEAM_[A-Z0-9_]+|CLOSE_INSPECTOR|CRASH_SUBMIT_URL|DEV_BASE|DEV_URL|DISTRIBUTION|E2E_BASE|EXPECTED_PID|FFMPEG_PATH|FFPROBE_PATH|MINT|OPEN_DEVTOOLS|PASS|PROFILE_MS|PROFILE_SAMPLE_INTERVAL_US|SHOT_PORT|UPDATE_CHANNEL|URL|USER)\\b)[A-Z0-9_]+\\b",
+      "flags": "",
+      "description": "Uppercase WOC technical constants and protocol markers that are not environment variables."
+    },
+    {
+      "id": "desktop-app-id",
+      "target": "content",
+      "kind": "literal",
+      "expression": "com.worldofclaudecraft.desktop",
+      "flags": "",
+      "description": "Electron desktop application identity."
+    },
+    {
+      "id": "mobile-app-id",
+      "target": "content",
+      "kind": "regex",
+      "expression": "com\\.worldofclaudecraft(?!\\.desktop)(?:\\.oauth)?",
+      "flags": "",
+      "description": "Android application ID, iOS bundle ID, and mobile OAuth identity."
+    },
+    {
+      "id": "mobile-package-path",
+      "target": "path",
+      "kind": "regex",
+      "expression": "(?:^|/)com/worldofclaudecraft(?:/|$)",
+      "flags": "",
+      "description": "Android Java package directory corresponding to the installed app identity."
+    },
+    {
+      "id": "electron-url-scheme",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\"schemes\"\\s*:\\s*\\[\\s*\"(worldofclaudecraft)\"",
+      "flags": "i",
+      "description": "Electron protocol scheme registered in package configuration.",
+      "paths": ["package.json"],
+      "valueGroup": 1
+    },
+    {
+      "id": "android-url-scheme",
+      "target": "content",
+      "kind": "regex",
+      "expression": "android:scheme=\"(worldofclaudecraft)\"",
+      "flags": "i",
+      "description": "Android intent-filter URL scheme.",
+      "paths": ["android/app/src/main/AndroidManifest.xml"],
+      "valueGroup": 1
+    },
+    {
+      "id": "ios-url-scheme",
+      "target": "content",
+      "kind": "regex",
+      "expression": "<key>CFBundleURLSchemes</key>\\s*<array>\\s*<string>(worldofclaudecraft)</string>",
+      "flags": "i",
+      "description": "iOS CFBundle URL scheme.",
+      "paths": ["ios/App/App/Info.plist"],
+      "valueGroup": 1
+    },
+    {
+      "id": "desktop-deep-link",
+      "target": "content",
+      "kind": "literal",
+      "expression": "worldofclaudecraft://",
+      "flags": "i",
+      "description": "Installed desktop deep-link protocol."
+    },
+    {
+      "id": "desktop-app-origin",
+      "target": "content",
+      "kind": "literal",
+      "expression": "app://worldofclaudecraft",
+      "flags": "i",
+      "description": "Electron custom application origin."
+    },
+    {
+      "id": "desktop-bridge",
+      "target": "content",
+      "kind": "regex",
+      "expression": "(?:window\\.)?wocDesktop|wocApiOrigin",
+      "flags": "",
+      "description": "Desktop preload bridge and injected application-origin contract."
+    },
+    {
+      "id": "public-domain",
+      "target": "content",
+      "kind": "regex",
+      "expression": "(?:[a-z0-9-]+\\.)*worldofclaudecraft\\.com\\b",
+      "flags": "i",
+      "description": "Public World of ClaudeCraft domain and subdomain family."
+    },
+    {
+      "id": "worldofclaudecraft-email",
+      "target": "content",
+      "kind": "regex",
+      "expression": "[a-z0-9._%+-]+@(?:[a-z0-9-]+\\.)*worldofclaudecraft\\.com\\b",
+      "flags": "i",
+      "description": "Email identities hosted under the project domain."
+    },
+    {
+      "id": "levy-street-email",
+      "target": "content",
+      "kind": "regex",
+      "expression": "[a-z0-9._%+-]+@levystreet\\.com\\b",
+      "flags": "i",
+      "description": "Levy Street email identities."
+    },
+    {
+      "id": "solana-mint",
+      "target": "content",
+      "kind": "literal",
+      "expression": "3WjLscH2JsXLEFJZRA9z8ti8yRGxWGKbqymPd7UicRth",
+      "flags": "",
+      "description": "Checked-in Solana WOC mint address."
+    },
+    {
+      "id": "persistent-content-property",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\b(?:id|itemId|questId|zoneId|dungeonId|delveId|deedId|mobId|bossId|npcId|factionId|recipeId|skinId|weaponSkinId)\\s*:\\s*['\"]([a-z0-9][a-z0-9_.:-]*)['\"]",
+      "flags": "",
+      "description": "Authored persistent content identifiers declared in simulation content.",
+      "paths": ["src/sim/content/**/*.ts", "src/sim/data.ts", "src/guide/content.generated.ts"],
+      "valueGroup": 1
+    },
+    {
+      "id": "persistent-composite-content-id",
+      "target": "content",
+      "kind": "regex",
+      "expression": "['\"]((?:poi|gather|fish|worldboss|dungeon|delve):[a-z0-9_:-]+)['\"]",
+      "flags": "i",
+      "description": "Persistent composite world-content identifiers serialized into saves or state.",
+      "paths": ["src/sim/**/*.ts", "src/guide/content.generated.ts"],
+      "valueGroup": 1
+    },
+    {
+      "id": "derived-heroic-content-id",
+      "target": "content",
+      "kind": "regex",
+      "expression": "['\"](heroic_[a-z0-9_]+)['\"]",
+      "flags": "",
+      "description": "Derived heroic IDs that become shipped persistent item and content identifiers.",
+      "paths": ["src/sim/**/*.ts", "tests/shipped_item_ids.golden.json"],
+      "valueGroup": 1,
+      "sourceValueMode": "family"
+    },
+    {
+      "id": "armory-ownership",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\b(?:account_weapon_cosmetics|weaponSkinIds|weaponSkinLoadout)\\b",
+      "flags": "",
+      "description": "Database and serialized ownership identifiers for Armory weapon skins."
+    },
+    {
+      "id": "woc-schema-lock",
+      "target": "content",
+      "kind": "literal",
+      "expression": "0x57_4f_43_01",
+      "flags": "",
+      "description": "PostgreSQL advisory-lock key encoding the WOC schema namespace."
+    },
+    {
+      "id": "wallet-database-identity",
+      "target": "content",
+      "kind": "regex",
+      "expression": "\\b(?:wallet_links|pubkey)\\b",
+      "flags": "",
+      "description": "Web3 wallet-link table and public-key database identities.",
+      "paths": ["server/**/*.ts", "tests/**/*.ts"]
+    },
+    {
+      "id": "brand-asset-path",
+      "target": "path",
+      "kind": "regex",
+      "expression": "(?:woc|worldofclaude|world-of-claudecraft)",
+      "flags": "i",
+      "description": "Tracked asset filenames carrying a project brand token.",
+      "paths": [
+        "public/**/*",
+        "build/**/*",
+        "woc_community.png",
+        "woc_logo_square.webp",
+        "worldofclaude.png"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "visible-project-labels",
+      "identifier": "World of ClaudeCraft and ClaudeCraft display labels",
+      "category": "display-label",
+      "coverage": {
+        "detectorIds": ["world-of-claudecraft-label", "claudecraft-label"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "public/sitemap.xml",
+          "tests/parity/golden/**/*",
+          "tests/server/fixtures/main/**/*",
+          "tests/shipped_item_ids.golden.json"
+        ],
+        "expectedOccurrenceCount": 3792,
+        "occurrenceInventorySha256": "907c6f6074d940c75aac4fccb2b0b6e5dd38ea2980d1cbb40e2c50657a878fb6"
+      },
+      "owner": "Product and UI",
+      "usage": "Player-facing title, copy, metadata, and documentation.",
+      "stability": "versioned",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "allowed",
+      "strategy": "rename-display-only",
+      "aliases": [],
+      "risks": ["Changing copy must not change adjacent technical identifiers."],
+      "justification": "The detector covers words separated from compact slugs, domains, protocols, storage keys, and application IDs, so this rule is limited to display text.",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "src/ui/i18n.catalog/shell.ts",
+          "description": "Authored UI catalog containing the visible project title."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": ["No display text is changed in phase 1B."],
+      "uncertainties": []
+    },
+    {
+      "id": "project-slug",
+      "identifier": "worldofclaudecraft compact slug",
+      "category": "unknown-sensitive",
+      "coverage": {
+        "detectorIds": ["worldofclaudecraft-slug"],
+        "targets": ["content", "path"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "public/sitemap.xml",
+          "tests/parity/golden/**/*",
+          "tests/server/fixtures/main/**/*",
+          "tests/shipped_item_ids.golden.json"
+        ],
+        "expectedOccurrenceCount": 980,
+        "occurrenceInventorySha256": "297465a5bb2077a48530fcb682f292a6c6a01addc87765f176885d01a6a2129f"
+      },
+      "owner": "Repository and platform maintainers",
+      "usage": "Repository coordinates, package metadata, technical examples, and substrings of separately classified identities.",
+      "stability": "unknown",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "unknown",
+      "strategy": "investigate-before-change",
+      "aliases": [],
+      "risks": [
+        "A global replacement would alter domains, application identities, protocols, and installed paths."
+      ],
+      "justification": "The compact spelling is treated as sensitive wherever it occurs; dedicated rules add stricter classifications for known contracts.",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "package.json",
+          "description": "Package metadata contains the compact project slug."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": [
+        "Some repository-only occurrences may later be split into a lower-risk documentation rule."
+      ]
+    },
+    {
+      "id": "woc-symbol",
+      "identifier": "WOC and $WOC standalone symbol",
+      "category": "economic-identifier",
+      "coverage": {
+        "detectorIds": ["woc-token"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "public/sitemap.xml",
+          "tests/parity/golden/**/*",
+          "tests/server/fixtures/main/**/*",
+          "tests/shipped_item_ids.golden.json"
+        ],
+        "expectedOccurrenceCount": 997,
+        "occurrenceInventorySha256": "0cf4a1982610fe0e899f98576834d775c76328730697a3572ac1d3ac2b9f7d1d"
+      },
+      "owner": "Economy and product",
+      "usage": "Brand acronym, reward-unit symbol, token label, and technical prefix explanation.",
+      "stability": "stable",
+      "persistent": true,
+      "publiclyExposed": true,
+      "renamePolicy": "migration-required",
+      "strategy": "economic-review-required",
+      "aliases": [],
+      "risks": [
+        "The same symbol is used in economic and non-economic contexts; visual changes cannot be assumed safe."
+      ],
+      "justification": "Economic usage makes the standalone symbol compatibility-sensitive even when a particular occurrence is prose.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "server/wallet.ts",
+          "description": "Wallet behavior uses the WOC unit and balance contract."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "levy-street-identity",
+      "identifier": "Levy Street organization identity",
+      "category": "third-party-trademark",
+      "coverage": {
+        "detectorIds": ["levy-street"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "public/sitemap.xml",
+          "tests/parity/golden/**/*",
+          "tests/server/fixtures/main/**/*",
+          "tests/shipped_item_ids.golden.json"
+        ],
+        "expectedOccurrenceCount": 31,
+        "occurrenceInventorySha256": "3e47450b7ec910a1c4157679bc3faa026720ab904e3c6fd57afbd5c3ba146029"
+      },
+      "owner": "Project maintainers",
+      "usage": "Organization attribution, community role text, and contact identity.",
+      "stability": "unknown",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "unknown",
+      "strategy": "legal-review-required",
+      "aliases": [],
+      "risks": [
+        "Attribution and trademark obligations must not be inferred or rewritten mechanically."
+      ],
+      "justification": "The repository contains attribution-like and community-role uses, so any change requires ownership and legal review.",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "CREDITS.md",
+          "description": "Project credits are the attribution source."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": [
+        "This registry does not determine trademark ownership or licensing obligations."
+      ]
+    },
+    {
+      "id": "claudemoon-realm",
+      "identifier": "Claudemoon realm identifier",
+      "category": "realm-identifier",
+      "coverage": {
+        "detectorIds": ["claudemoon"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "public/sitemap.xml",
+          "tests/parity/golden/**/*",
+          "tests/server/fixtures/main/**/*",
+          "tests/shipped_item_ids.golden.json"
+        ],
+        "expectedOccurrenceCount": 189,
+        "occurrenceInventorySha256": "a8f6591c90883603b689b37b19a7a6d9af67ed800f575d8fdf7188da89e53021"
+      },
+      "owner": "Realm and persistence",
+      "usage": "Realm routing, database partition keys, player-visible realm name, and realm-scoped records.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": true,
+      "renamePolicy": "forbidden",
+      "strategy": "keep-stable",
+      "aliases": [],
+      "risks": [
+        "Changing the realm value could split or orphan realm-scoped market, mail, character, and presence data."
+      ],
+      "justification": "server/realm.ts defines the canonical realm and database call sites persist that value.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "server/realm.ts",
+          "description": "Canonical realm definition and validation."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": ["A future display alias must remain separate from the stored realm ID."],
+      "uncertainties": []
+    },
+    {
+      "id": "eastbrook-visible-label",
+      "identifier": "Eastbrook and Eastbrook Vale display labels",
+      "category": "display-label",
+      "coverage": {
+        "detectorIds": ["eastbrook-display"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "public/sitemap.xml",
+          "tests/parity/golden/**/*",
+          "tests/server/fixtures/main/**/*",
+          "tests/shipped_item_ids.golden.json"
+        ],
+        "expectedOccurrenceCount": 787,
+        "occurrenceInventorySha256": "283726fb244a9eedf7f699a5b2b0abf800af5ee56b9679ad33211432509bf062"
+      },
+      "owner": "World narrative and UI",
+      "usage": "Player-facing place and deployment documentation label.",
+      "stability": "versioned",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "allowed",
+      "strategy": "rename-display-only",
+      "aliases": [],
+      "risks": [
+        "Capitalized labels can sit beside lowercase content, database, Docker, and filesystem IDs."
+      ],
+      "justification": "Only the capitalized display spelling is allowed here; lowercase technical forms are classified separately.",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "src/sim/content/zone1.ts",
+          "description": "Authored world content provides the visible location name."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": ["No label is changed in phase 1B."],
+      "uncertainties": []
+    },
+    {
+      "id": "eastbrook-technical-identifiers",
+      "identifier": "lowercase eastbrook technical family",
+      "category": "unknown-sensitive",
+      "coverage": {
+        "detectorIds": ["eastbrook-technical"],
+        "targets": ["content", "path"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "public/sitemap.xml",
+          "tests/parity/golden/**/*",
+          "tests/server/fixtures/main/**/*",
+          "tests/shipped_item_ids.golden.json"
+        ],
+        "expectedOccurrenceCount": 1199,
+        "occurrenceInventorySha256": "3649647781f433b9a854a6cf0c1173992c78e81f96c6a65cb65ba6022acfa431"
+      },
+      "owner": "Simulation, persistence, and infrastructure",
+      "usage": "Content slugs, deployment names, database examples, filesystem fragments, and test fixtures.",
+      "stability": "unknown",
+      "persistent": true,
+      "publiclyExposed": false,
+      "renamePolicy": "migration-required",
+      "strategy": "investigate-before-change",
+      "aliases": [],
+      "risks": [
+        "The family mixes saved content IDs with deployment identities and cannot be globally replaced."
+      ],
+      "justification": "Known database, Docker, and path forms receive additional strict rules; the remaining family stays conservative.",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "docs/CODEXCRAFT_TRANSFORMATION_AUDIT.md",
+          "description": "Phase 1A audit identifies Eastbrook as a mixed visible and technical family."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": [
+        "Individual lowercase identifiers need ownership review before any later migration plan."
+      ]
+    },
+    {
+      "id": "eastbrook-docker-volumes",
+      "identifier": "eastbrook Docker services, containers, and volumes",
+      "category": "docker-or-infrastructure",
+      "coverage": {
+        "detectorIds": ["eastbrook-docker"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 34,
+        "occurrenceInventorySha256": "c8375c5171bf5f4362bc32253ef16c4baa9b631aeddc92cddf6e6e052b61e07b"
+      },
+      "owner": "Deployment and operations",
+      "usage": "Docker Compose service, container, and persistent volume identities.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": false,
+      "renamePolicy": "migration-required",
+      "strategy": "infrastructure-migration-required",
+      "aliases": [],
+      "risks": [
+        "Renaming a volume without a data migration can create an empty database or wiki instance."
+      ],
+      "justification": "Compose names bind operational resources independently of visible branding.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "docker-compose.yml",
+          "description": "Docker Compose defines the services and named volumes."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "eastbrook-database",
+      "identifier": "eastbrook PostgreSQL database and user",
+      "category": "database-identifier",
+      "coverage": {
+        "detectorIds": ["eastbrook-database-config"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 11,
+        "occurrenceInventorySha256": "87fb838417e4bfb192b5b391f5327efa2bcbb0632a3fbd4e7f9810d5babca140"
+      },
+      "owner": "Database and deployment",
+      "usage": "PostgreSQL role, database, connection string, backup, and restore commands.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": false,
+      "renamePolicy": "migration-required",
+      "strategy": "database-migration-required",
+      "aliases": [],
+      "risks": [
+        "An uncoordinated rename breaks connections, backup restore, and ownership of existing data."
+      ],
+      "justification": "The values name live database resources, not display labels.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "docker-compose.yml",
+          "description": "Compose configures the PostgreSQL role and database."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "eastbrook-filesystem-path",
+      "identifier": "/opt/eastbrook deployment path",
+      "category": "filesystem-path",
+      "coverage": {
+        "detectorIds": ["eastbrook-filesystem"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 23,
+        "occurrenceInventorySha256": "ee00bf3e1d8d085e7f36e9450aba10730f39c8297eefc821a504f46301d6f897"
+      },
+      "owner": "Deployment and operations",
+      "usage": "Installed application, environment, and operational script root.",
+      "stability": "stable",
+      "persistent": true,
+      "publiclyExposed": false,
+      "renamePolicy": "migration-required",
+      "strategy": "infrastructure-migration-required",
+      "aliases": [],
+      "risks": [
+        "Changing the path can break services, update scripts, or persisted host configuration."
+      ],
+      "justification": "Host filesystem paths require a coordinated deployment migration.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "deploy/user-data.sh",
+          "description": "Deployment bootstrap installs and operates from this path."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "woc-infrastructure-identities",
+      "identifier": "lowercase woc-prefixed infrastructure names and installed paths",
+      "category": "docker-or-infrastructure",
+      "coverage": {
+        "detectorIds": ["woc-infrastructure-name"],
+        "targets": ["content"],
+        "paths": ["Dockerfile", "mediawiki/Dockerfile", "docker-compose.yml", "deploy/**/*"],
+        "expectedOccurrenceCount": 8,
+        "occurrenceInventorySha256": "2a9f212e66b5902246449a6c169484e95758a264fd748e6f250e831613ee6aa5"
+      },
+      "owner": "Deployment and operations",
+      "usage": "Container entrypoints, installed directories, service assets, and deployment-local technical names.",
+      "stability": "stable",
+      "persistent": true,
+      "publiclyExposed": false,
+      "renamePolicy": "migration-required",
+      "strategy": "infrastructure-migration-required",
+      "aliases": [],
+      "risks": [
+        "Renaming a container path or entrypoint without updating every build and deployment consumer breaks startup or asset loading."
+      ],
+      "justification": "Lowercase woc path and service prefixes are infrastructure contracts, not the WOC economic symbol.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "mediawiki/Dockerfile",
+          "description": "MediaWiki image installs woc-prefixed entrypoints, paths, and branded asset destinations."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "claudium-economic",
+      "identifier": "Claudium economic identifier",
+      "category": "economic-identifier",
+      "coverage": {
+        "detectorIds": ["claudium"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "tests/server/fixtures/main/**/*"
+        ],
+        "expectedOccurrenceCount": 1657,
+        "occurrenceInventorySha256": "f792d83cd25a26c31d24ff86ad9339c032a1e7fe7e403aa91fee966b6b1068a0"
+      },
+      "owner": "Economy and commerce",
+      "usage": "Purchased balance, proxy integration, UI unit, routes, database fields, and tests.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": true,
+      "renamePolicy": "migration-required",
+      "strategy": "economic-review-required",
+      "aliases": [],
+      "risks": [
+        "A rename can desynchronize balances, checkout, receipts, APIs, and stored values."
+      ],
+      "justification": "Claudium represents a balance-bearing economic concept and is not merely UI copy.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "server/claudium.ts",
+          "description": "Server economic service owns Claudium balance behavior."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "armory-economic",
+      "identifier": "Armory store and ownership identifier",
+      "category": "economic-identifier",
+      "coverage": {
+        "detectorIds": ["armory"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "tests/server/fixtures/main/**/*"
+        ],
+        "expectedOccurrenceCount": 329,
+        "occurrenceInventorySha256": "023133ff8ea93fdea263a205a3f916d9259c9a0db298e70437a8b86e78ddd765"
+      },
+      "owner": "Economy, cosmetics, and UI",
+      "usage": "Weapon-skin storefront, account-wide purchases, ownership, loadout, and presentation.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": true,
+      "renamePolicy": "migration-required",
+      "strategy": "economic-review-required",
+      "aliases": [],
+      "risks": [
+        "Treating Armory as display-only could disconnect purchased ownership from the store and loadout flows."
+      ],
+      "justification": "Armory participates in account-wide economic ownership and requires domain review before change.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "src/ui/woc_store_view.ts",
+          "description": "Store view binds Armory presentation to purchase and ownership state."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "woc-client-storage",
+      "identifier": "woc_* client storage keys",
+      "category": "client-storage-key",
+      "coverage": {
+        "detectorIds": ["woc-client-storage-key"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "tests/server/fixtures/main/**/*"
+        ],
+        "expectedOccurrenceCount": 157,
+        "occurrenceInventorySha256": "e0373bf02728639e2b2b7395e2b8d91ae6ba48515fef29a8ef6e34861b9b8c8e"
+      },
+      "owner": "Client platform and UI",
+      "usage": "Browser localStorage and sessionStorage keys for sessions, settings, layouts, editor drafts, and client state.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": false,
+      "renamePolicy": "migration-required",
+      "strategy": "dual-read-dual-write",
+      "aliases": [],
+      "risks": [
+        "Renaming a key directly loses sessions, settings, drafts, layout, or onboarding state for existing clients."
+      ],
+      "justification": "The keys are read from previously installed browser state and require an overlap window for migration.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "src/game/settings.ts",
+          "description": "Client settings persist through a woc_* storage key."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": ["A later migration should define per-key aliases and retirement criteria."],
+      "uncertainties": []
+    },
+    {
+      "id": "woc-lower-technical-identifiers",
+      "identifier": "other lowercase woc_* technical identifiers",
+      "category": "unknown-sensitive",
+      "coverage": {
+        "detectorIds": ["woc-lower-technical"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "tests/server/fixtures/main/**/*"
+        ],
+        "expectedOccurrenceCount": 452,
+        "occurrenceInventorySha256": "85a39e9e03d10625382bf99f3f1bd4c0ef1f90a650d43a845ff6a39bc68a7df6"
+      },
+      "owner": "Cross-platform maintainers",
+      "usage": "Catch-all family spanning storage, SQL fields, functions, metrics, assets, automation, and fixtures.",
+      "stability": "unknown",
+      "persistent": false,
+      "publiclyExposed": false,
+      "renamePolicy": "unknown",
+      "strategy": "investigate-before-change",
+      "aliases": [],
+      "risks": [
+        "The prefix spans unrelated compatibility domains and is unsafe for global replacement."
+      ],
+      "justification": "Dedicated rules pin known storage, metric, and economic members while this detector prevents less visible members from escaping review.",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "docs/CODEXCRAFT_TRANSFORMATION_AUDIT.md",
+          "description": "Phase 1A audit documents the cross-cutting woc_* namespace."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": [
+        "Remaining family members need finer ownership classification before a future migration."
+      ]
+    },
+    {
+      "id": "woc-delimited-technical-identifiers",
+      "identifier": "woc- and woc/ delimited technical namespaces",
+      "category": "unknown-sensitive",
+      "coverage": {
+        "detectorIds": ["woc-delimited-technical"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "tests/server/fixtures/main/**/*"
+        ],
+        "expectedOccurrenceCount": 693,
+        "occurrenceInventorySha256": "dab113f2f1e7f3815d3785b29fc40e0cf7c2b3adbbc8701f9055f346a8541932"
+      },
+      "owner": "Cross-platform maintainers",
+      "usage": "Build plugin names, MIME types, CSS and DOM contracts, tooling IDs, agent names, routes, headers, and other delimited technical prefixes.",
+      "stability": "unknown",
+      "persistent": false,
+      "publiclyExposed": false,
+      "renamePolicy": "unknown",
+      "strategy": "investigate-before-change",
+      "aliases": [],
+      "risks": [
+        "Delimited WOC prefixes span build, network, UI, tooling, and local protocol contracts that need separate owners."
+      ],
+      "justification": "Dedicated network and infrastructure rules provide stricter classifications while this catch-all prevents remaining woc- and woc/ prefixes from becoming invisible.",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "vite.config.ts",
+          "description": "Vite plugins use stable woc-prefixed technical names."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": ["Individual families need narrower categories before any later migration."]
+    },
+    {
+      "id": "woc-network-headers",
+      "identifier": "x-woc-* HTTP headers",
+      "category": "network-header",
+      "coverage": {
+        "detectorIds": ["woc-network-header"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 86,
+        "occurrenceInventorySha256": "f89e5ad8638405a53c5ba6319638796534d6acd8c45f3319874b9b8ff8719f5f"
+      },
+      "owner": "Server, bot, and tooling security",
+      "usage": "Secret authentication, editor tooling, and network request metadata.",
+      "stability": "stable",
+      "persistent": false,
+      "publiclyExposed": false,
+      "renamePolicy": "forbidden",
+      "strategy": "keep-stable",
+      "aliases": [],
+      "risks": [
+        "Changing one side of a header contract breaks authentication or protected tooling requests."
+      ],
+      "justification": "Headers are wire contracts shared by separately deployed clients and services.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "bot/server_client.ts",
+          "description": "Discord bot sends a secret x-woc-* header to the game server."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "woc-balance-route",
+      "identifier": "/api/woc/* HTTP routes",
+      "category": "network-route",
+      "coverage": {
+        "detectorIds": ["woc-network-route"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 50,
+        "occurrenceInventorySha256": "4dd70c3cea33300efae1382d7d293c43b5b94878655968a4b3f45ded17d248d1"
+      },
+      "owner": "Economy API",
+      "usage": "Client and server balance routes in the WOC namespace.",
+      "stability": "stable",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "forbidden",
+      "strategy": "keep-stable",
+      "aliases": [],
+      "risks": ["Changing the route without an alias breaks deployed clients and monitoring."],
+      "justification": "The route is a public network contract and remains unchanged in this phase.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "server/wallet.ts",
+          "description": "Wallet server implements the balance route."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "claudium-network-routes",
+      "identifier": "Claudium HTTP route family",
+      "category": "network-route",
+      "coverage": {
+        "detectorIds": ["claudium-network-route"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 164,
+        "occurrenceInventorySha256": "e97897ff048e469651fa4e18992d6e048dc640c24ddb63700e0755a1e3ebf2be"
+      },
+      "owner": "Economy API",
+      "usage": "Internal and upstream balance, checkout, and economy transport.",
+      "stability": "stable",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "forbidden",
+      "strategy": "keep-stable",
+      "aliases": [],
+      "risks": [
+        "Route drift breaks the proxy, SDK, or deployed client independently of display branding."
+      ],
+      "justification": "These are transport contracts for the Claudium economic system.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "server/claudium_proxy.ts",
+          "description": "Server proxy maps Claudium network endpoints."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "oauth-callbacks",
+      "identifier": "OAuth routes and callbacks",
+      "category": "oauth-or-callback",
+      "coverage": {
+        "detectorIds": ["oauth-callback-route"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 384,
+        "occurrenceInventorySha256": "6f5e0730eee76651a64b778d6ca437e2794ac7604d104dd280b6780db5f6e05d"
+      },
+      "owner": "Authentication and platform integrations",
+      "usage": "Discord, GitHub, desktop, mobile, and device authorization endpoints and callback paths.",
+      "stability": "stable",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "migration-required",
+      "strategy": "alias-then-migrate",
+      "aliases": [],
+      "risks": [
+        "Provider consoles, applications, and deployed clients must accept both callbacks during transition."
+      ],
+      "justification": "OAuth path changes require coordinated allowlists and a compatibility window.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "server/oauth.ts",
+          "description": "Authentication server defines OAuth routes and callbacks."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "woc-telemetry-metrics",
+      "identifier": "woc_* telemetry and metric names",
+      "category": "telemetry-or-metric",
+      "coverage": {
+        "detectorIds": ["woc-metric"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 98,
+        "occurrenceInventorySha256": "92295e0e502ba17f56b275163ad9c96681d7e5a1b3495028009777c49bd9317d"
+      },
+      "owner": "Observability and performance",
+      "usage": "Prometheus series and client performance telemetry names.",
+      "stability": "stable",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "forbidden",
+      "strategy": "keep-stable",
+      "aliases": [],
+      "risks": ["Renaming series breaks dashboards, alerts, and historical continuity."],
+      "justification": "Metric names are external observability contracts even when not player-visible.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "server/http/game_metrics.ts",
+          "description": "Game metrics endpoint emits the woc_* metric family."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "economic-environment",
+      "identifier": "WOC mint and economy environment variables",
+      "category": "economic-identifier",
+      "coverage": {
+        "detectorIds": ["economic-environment-variable"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 84,
+        "occurrenceInventorySha256": "664960327da1188f26e938e3bbff4ab4789b9cc4225de2d55020362a827791ba"
+      },
+      "owner": "Economy and deployment",
+      "usage": "Mint selection, economy tuning, reward valuation, and client exposure of economic configuration.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": false,
+      "renamePolicy": "migration-required",
+      "strategy": "economic-review-required",
+      "aliases": [],
+      "risks": [
+        "Changing names or meanings can alter economic policy or select a different asset."
+      ],
+      "justification": "These variables control economic behavior and require more than an infrastructure-only rename.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": ".env.example",
+          "description": "Example environment documents economic variable contracts."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "economic-code-contracts",
+      "identifier": "WOC_MAX_SUPPLY and HOLDER_TIER_DEFS economic constants",
+      "category": "economic-identifier",
+      "coverage": {
+        "detectorIds": ["economic-code-constant"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 18,
+        "occurrenceInventorySha256": "7bb8534f079c35f4dff80555762726be179fb8b10e768c703a7b760c461b9673"
+      },
+      "owner": "Economy and progression",
+      "usage": "Token-supply normalization and holder-tier threshold definitions.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": true,
+      "renamePolicy": "migration-required",
+      "strategy": "economic-review-required",
+      "aliases": [],
+      "risks": [
+        "Changing these identities or their meaning can desynchronize server and client economic classification."
+      ],
+      "justification": "These are code-level economic contracts, not environment variables or display labels.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "src/sim/holder_tier.ts",
+          "description": "Shared holder-tier logic defines the supply and ordered tier contract."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "woc-environment",
+      "identifier": "WOC_* and VITE_WOC_* environment variables",
+      "category": "environment-variable",
+      "coverage": {
+        "detectorIds": ["woc-environment-variable"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 232,
+        "occurrenceInventorySha256": "dfe41a2110f7fea94832d416d1934c0413c758a5ca5a36a941e394065044b313"
+      },
+      "owner": "Deployment and application configuration",
+      "usage": "Build, runtime, service, test, and tooling configuration.",
+      "stability": "stable",
+      "persistent": false,
+      "publiclyExposed": false,
+      "renamePolicy": "migration-required",
+      "strategy": "infrastructure-migration-required",
+      "aliases": [],
+      "risks": [
+        "Renaming a variable without simultaneous deployment updates silently changes defaults or disables features."
+      ],
+      "justification": "Environment variable names are deployment interfaces and must not follow display rebranding automatically.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": ".env.example",
+          "description": "Example environment enumerates deployed configuration names."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "woc-uppercase-technical-identifiers",
+      "identifier": "non-environment uppercase WOC_* technical constants",
+      "category": "unknown-sensitive",
+      "coverage": {
+        "detectorIds": ["woc-uppercase-technical"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "tests/server/fixtures/main/**/*"
+        ],
+        "expectedOccurrenceCount": 220,
+        "occurrenceInventorySha256": "23ffe42bd4a977cf66ecbf9bd832632012d1ff62098e2440b666201eff0e3c10"
+      },
+      "owner": "Cross-platform maintainers",
+      "usage": "Code constants, telemetry symbols, test protocol markers, and other uppercase WOC namespaces not proven to be environment variables.",
+      "stability": "unknown",
+      "persistent": false,
+      "publiclyExposed": false,
+      "renamePolicy": "unknown",
+      "strategy": "investigate-before-change",
+      "aliases": [],
+      "risks": [
+        "The uppercase namespace contains several unrelated technical contracts and cannot be rebranded globally."
+      ],
+      "justification": "A controlled environment-variable allowlist separates deployed configuration from other uppercase technical names.",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "docs/CODEXCRAFT_TRANSFORMATION_AUDIT.md",
+          "description": "The transformation audit identifies WOC-prefixed technical families as compatibility-sensitive."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": [
+        "Each remaining uppercase family needs ownership review before a future migration."
+      ]
+    },
+    {
+      "id": "desktop-application-id",
+      "identifier": "com.worldofclaudecraft.desktop",
+      "category": "desktop-app-identity",
+      "coverage": {
+        "detectorIds": ["desktop-app-id"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 5,
+        "occurrenceInventorySha256": "b77d5318425a1f75bffdf2f87a2ce243a624514ea034250b4915b5e911ed5dea"
+      },
+      "owner": "Desktop platform",
+      "usage": "Electron appId, packaging identity, installed application, updater, and platform integration tests.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": true,
+      "renamePolicy": "migration-required",
+      "strategy": "application-transition-required",
+      "aliases": [],
+      "risks": [
+        "A new appId installs as a different application and can break updates, credentials, shortcuts, and platform state."
+      ],
+      "justification": "The appId is an installed application identity independent of the visible product name.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "electron/desktop_config.cjs",
+          "description": "Desktop configuration defines the canonical appId."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "mobile-application-id",
+      "identifier": "com.worldofclaudecraft mobile application and OAuth IDs",
+      "category": "mobile-app-identity",
+      "coverage": {
+        "detectorIds": ["mobile-app-id", "mobile-package-path"],
+        "targets": ["content", "path"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 29,
+        "occurrenceInventorySha256": "8ad8fb6f9dbc56586aae67fc5456f6bc181397bde917ffa0b6e61ba79b20fdc9"
+      },
+      "owner": "Mobile platform",
+      "usage": "Android application ID and package path, iOS bundle ID, and mobile OAuth callback identity.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": true,
+      "renamePolicy": "migration-required",
+      "strategy": "application-transition-required",
+      "aliases": [],
+      "risks": [
+        "Changing a mobile identity produces a different installed app and invalidates store, signing, keychain, and callback configuration."
+      ],
+      "justification": "Mobile application and bundle IDs are platform identities, not visible labels.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "capacitor.config.ts",
+          "description": "Capacitor configuration defines the canonical mobile appId."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "desktop-deep-link",
+      "identifier": "worldofclaudecraft:// desktop protocol",
+      "category": "network-protocol",
+      "coverage": {
+        "detectorIds": ["desktop-deep-link"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 18,
+        "occurrenceInventorySha256": "a988283644a9103ebd89a5df465432430c11c5f406ded1d8ffe46d9d54bb6093"
+      },
+      "owner": "Desktop platform and authentication",
+      "usage": "Installed deep links, Discord login return, and application navigation.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": true,
+      "renamePolicy": "migration-required",
+      "strategy": "alias-then-migrate",
+      "aliases": [],
+      "risks": [
+        "Existing links and installed protocol handlers continue to target the old scheme."
+      ],
+      "justification": "A protocol transition requires registering and accepting both schemes before retiring the old one.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "electron/desktop_config.cjs",
+          "description": "Desktop config owns the custom protocol."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "installed-url-schemes",
+      "identifier": "worldofclaudecraft installed desktop and mobile URL schemes",
+      "category": "network-protocol",
+      "coverage": {
+        "detectorIds": ["electron-url-scheme", "android-url-scheme", "ios-url-scheme"],
+        "targets": ["content"],
+        "paths": [
+          "package.json",
+          "android/app/src/main/AndroidManifest.xml",
+          "ios/App/App/Info.plist"
+        ],
+        "expectedOccurrenceCount": 3,
+        "occurrenceInventorySha256": "94df14a5859b43930cf5fc5b6fafc5c232b3af05b9863ee0202313719a3e5e11"
+      },
+      "owner": "Desktop, mobile, and authentication platforms",
+      "usage": "Operating-system URL scheme registration for login callbacks and application deep links.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": true,
+      "renamePolicy": "migration-required",
+      "strategy": "alias-then-migrate",
+      "aliases": [],
+      "risks": [
+        "Existing installed applications and callback links continue to depend on the registered scheme."
+      ],
+      "justification": "Application manifests register the raw scheme without ://, so it is a platform protocol contract distinct from a compact project slug.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "android/app/src/main/AndroidManifest.xml",
+          "description": "Android registers the URL scheme and Discord callback host."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [
+        "A future transition must register both old and new schemes before link producers migrate."
+      ],
+      "uncertainties": []
+    },
+    {
+      "id": "desktop-application-origin",
+      "identifier": "app://worldofclaudecraft origin",
+      "category": "network-protocol",
+      "coverage": {
+        "detectorIds": ["desktop-app-origin"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 34,
+        "occurrenceInventorySha256": "ff04b69aa44d0c3b13f40a391287ef64b7a51f17561e2a229af1a9e6cc79af63"
+      },
+      "owner": "Desktop platform and server security",
+      "usage": "Electron custom origin and server origin allowlist contract.",
+      "stability": "stable",
+      "persistent": false,
+      "publiclyExposed": false,
+      "renamePolicy": "forbidden",
+      "strategy": "keep-stable",
+      "aliases": [],
+      "risks": [
+        "Origin drift can break desktop API calls or weaken origin validation assumptions."
+      ],
+      "justification": "The origin is coordinated between Electron and server security checks.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "electron/desktop_config.cjs",
+          "description": "Desktop config defines the application origin."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "desktop-bridge-contract",
+      "identifier": "window.wocDesktop and wocApiOrigin bridge names",
+      "category": "network-protocol",
+      "coverage": {
+        "detectorIds": ["desktop-bridge"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 114,
+        "occurrenceInventorySha256": "494ffc1275c7120099b5606d5666f32ed6a1e9a29b4747e907d6d52cf6ac2499"
+      },
+      "owner": "Desktop platform",
+      "usage": "Preload-to-renderer bridge surface and injected API origin.",
+      "stability": "stable",
+      "persistent": false,
+      "publiclyExposed": false,
+      "renamePolicy": "forbidden",
+      "strategy": "keep-stable",
+      "aliases": [],
+      "risks": ["Changing only preload or renderer breaks the desktop shell at runtime."],
+      "justification": "The names form a versioned cross-context application protocol.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "electron/preload.cjs",
+          "description": "Electron preload exposes the desktop bridge."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "public-domains",
+      "identifier": "worldofclaudecraft.com and subdomains",
+      "category": "public-domain-or-url",
+      "coverage": {
+        "detectorIds": ["public-domain"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "public/sitemap.xml",
+          "tests/server/fixtures/main/**/*"
+        ],
+        "expectedOccurrenceCount": 634,
+        "occurrenceInventorySha256": "c676b4d27f9f0c387bf92ef12ecb53947f9fbdafbe48aeae00536823304ce47a"
+      },
+      "owner": "Web, deployment, email, and desktop updates",
+      "usage": "Public site, dev and admin subdomains, email hosts, OAuth configuration, and Electron update feed.",
+      "stability": "stable",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "migration-required",
+      "strategy": "redirect-required",
+      "aliases": [],
+      "risks": [
+        "A domain transition affects DNS, TLS, email, OAuth allowlists, update feeds, links, and origin policy."
+      ],
+      "justification": "Public domains require a redirect and service-coordination plan, never a textual replacement alone.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "electron/update_guard.cjs",
+          "description": "Desktop update feed allowlist relies on the project domain."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "project-email-identities",
+      "identifier": "email addresses under worldofclaudecraft.com",
+      "category": "email-identity",
+      "coverage": {
+        "detectorIds": ["worldofclaudecraft-email"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 10,
+        "occurrenceInventorySha256": "6a0e15713aa93e5d94e5222a1c12d51a4cccae1d8985e9c63e3f01be55934176"
+      },
+      "owner": "Email and support operations",
+      "usage": "Transactional sender, legal, security, privacy, and support contacts.",
+      "stability": "stable",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "migration-required",
+      "strategy": "infrastructure-migration-required",
+      "aliases": [],
+      "risks": [
+        "Changing an address requires mailbox, sender-authentication, legal-document, and delivery coordination."
+      ],
+      "justification": "Email identities depend on operational infrastructure and public contact continuity.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "server/email/index.ts",
+          "description": "Transactional email sender is configured under the project domain."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "levy-street-email-identities",
+      "identifier": "email addresses under levystreet.com",
+      "category": "email-identity",
+      "coverage": {
+        "detectorIds": ["levy-street-email"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 59,
+        "occurrenceInventorySha256": "1d7a15cadea9335cd2b1675ae38b1a79324f1aaa21017d7699abb7c5e0e879da"
+      },
+      "owner": "Project maintainers",
+      "usage": "Public contact and attribution addresses.",
+      "stability": "unknown",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "unknown",
+      "strategy": "legal-review-required",
+      "aliases": [],
+      "risks": ["The repository does not prove mailbox ownership or migration authority."],
+      "justification": "A future change needs explicit authorization and continuity planning for third-party email identities.",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "SECURITY.md",
+          "description": "Public security contact is a checked-in email identity."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": [
+        "Mailbox ownership and forwarding capabilities are outside repository evidence."
+      ]
+    },
+    {
+      "id": "web3-mint",
+      "identifier": "WOC Solana mint address",
+      "category": "web3-identifier",
+      "coverage": {
+        "detectorIds": ["solana-mint"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 25,
+        "occurrenceInventorySha256": "d69437e56e49312cd98a45567f778e6afac68f0c9cf09b2a08df5c6dd16f6d4f"
+      },
+      "owner": "Web3 and economy",
+      "usage": "Default and configured Solana asset identity for wallet balance reads.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": true,
+      "renamePolicy": "forbidden",
+      "strategy": "economic-review-required",
+      "aliases": [],
+      "risks": [
+        "Changing the mint points balance reads at a different on-chain asset and cannot migrate the address by renaming."
+      ],
+      "justification": "A Solana mint is an immutable external asset identity.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "server/wallet.ts",
+          "description": "Wallet service contains the checked-in default mint."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": ["Any replacement is a new economic asset transition, not a rename."],
+      "uncertainties": []
+    },
+    {
+      "id": "persistent-content-identifiers",
+      "identifier": "authored zone, quest, item, dungeon, delve, deed, mob, recipe, skin, and content IDs",
+      "category": "persistent-content-id",
+      "coverage": {
+        "detectorIds": [
+          "persistent-content-property",
+          "persistent-composite-content-id",
+          "claudemoon-grant-id",
+          "derived-heroic-content-id"
+        ],
+        "targets": ["content"],
+        "paths": ["src/sim/**/*.ts"],
+        "expectedOccurrenceCount": 2365,
+        "occurrenceInventorySha256": "2d2db6ad1b6f24f1bb6a8bde15dd6c733172b717c87dc0dfbe30c64d315f3490"
+      },
+      "owner": "Simulation content and persistence",
+      "usage": "Saved inventory, quests, zone state, deeds, encounters, loot, world objects, and cross-system lookups.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": false,
+      "renamePolicy": "forbidden",
+      "strategy": "keep-stable",
+      "aliases": [],
+      "risks": [
+        "Renaming an authored ID can orphan saved progress, inventory, ownership, or server records."
+      ],
+      "justification": "Character and world state serialize raw content identifiers and restore them through authored lookup tables.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "src/sim/types.ts",
+          "description": "Persistent character state contains raw item, quest, zone, and content IDs."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": ["Visible names may change separately while the stored ID remains stable."],
+      "uncertainties": []
+    },
+    {
+      "id": "armory-ownership-database",
+      "identifier": "account_weapon_cosmetics, weaponSkinIds, and weaponSkinLoadout",
+      "category": "database-identifier",
+      "coverage": {
+        "detectorIds": ["armory-ownership"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 188,
+        "occurrenceInventorySha256": "8c4b23a226dd8c67a6188f52e43fa822e59ac7a7d9ab0e22804e66a05a19e32b"
+      },
+      "owner": "Database, economy, and cosmetics",
+      "usage": "Account-wide weapon-skin ownership table and serialized ownership or loadout fields.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": false,
+      "renamePolicy": "migration-required",
+      "strategy": "database-migration-required",
+      "aliases": [],
+      "risks": [
+        "Schema or serialized-field drift can hide purchased cosmetics or overwrite active loadouts."
+      ],
+      "justification": "These identifiers bridge database ownership, server state, client state, and economic purchase behavior.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "server/db.ts",
+          "description": "Database schema and queries persist account weapon cosmetics."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "woc-schema-advisory-lock",
+      "identifier": "0x57_4f_43_01 PostgreSQL advisory-lock key",
+      "category": "database-identifier",
+      "coverage": {
+        "detectorIds": ["woc-schema-lock"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "expectedOccurrenceCount": 1,
+        "occurrenceInventorySha256": "9df0e72e3716b68332f7add187197e49deb8eadd2933be838c6476dcdcb8ecbf"
+      },
+      "owner": "Database schema lifecycle",
+      "usage": "Cross-process PostgreSQL advisory lock for schema initialization.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": false,
+      "renamePolicy": "forbidden",
+      "strategy": "keep-stable",
+      "aliases": [],
+      "risks": [
+        "Changing the key can let old and new processes acquire different schema locks during a rolling deployment."
+      ],
+      "justification": "The numeric key is a database coordination identity and encodes WOC even though it is not a visible string.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "server/db.ts",
+          "description": "Database startup uses the advisory-lock key around schema work."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "wallet-link-database",
+      "identifier": "wallet_links table and pubkey column",
+      "category": "database-identifier",
+      "coverage": {
+        "detectorIds": ["wallet-database-identity"],
+        "targets": ["content"],
+        "paths": ["**/*", "*"],
+        "excludePaths": ["tests/server/fixtures/main/**/*"],
+        "expectedOccurrenceCount": 104,
+        "occurrenceInventorySha256": "28ed600111c27c467b6f6e75b29594592a41e8b05820964e44255b7acac09814"
+      },
+      "owner": "Database, identity, and Web3",
+      "usage": "Persistent account-to-wallet association and unique Solana public-key lookup.",
+      "stability": "permanent",
+      "persistent": true,
+      "publiclyExposed": false,
+      "renamePolicy": "migration-required",
+      "strategy": "database-migration-required",
+      "aliases": [],
+      "risks": [
+        "Changing the table or column without coordinated DDL and query migration breaks wallet ownership lookup."
+      ],
+      "justification": "The table and public-key column persist the external wallet identity used by economic behavior.",
+      "evidence": [
+        {
+          "type": "runtime-contract",
+          "reference": "server/db.ts",
+          "description": "Database DDL and queries persist wallet links by public key."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": [],
+      "uncertainties": []
+    },
+    {
+      "id": "brand-asset-files",
+      "identifier": "brand-bearing asset filenames",
+      "category": "brand-asset",
+      "coverage": {
+        "detectorIds": ["brand-asset-path"],
+        "targets": ["path"],
+        "paths": [
+          "public/**/*",
+          "build/**/*",
+          "woc_community.png",
+          "woc_logo_square.webp",
+          "worldofclaude.png"
+        ],
+        "expectedOccurrenceCount": 8,
+        "occurrenceInventorySha256": "581be1aaf32b7193eedf86992de843cae273eeb019a4c53638b89b12436320d5"
+      },
+      "owner": "Brand and asset pipeline",
+      "usage": "Tracked logos, icons, screenshots, and distribution images whose filenames carry old branding.",
+      "stability": "versioned",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "migration-required",
+      "strategy": "replace-before-release",
+      "aliases": [],
+      "risks": [
+        "Replacing or renaming files requires updating every manifest and runtime reference without editing generated assets by hand."
+      ],
+      "justification": "Asset names are inventory only in phase 1B; no asset bytes or references are changed.",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "docs/assets/PROVENANCE.md",
+          "description": "Phase 1A asset provenance documents the source and generated mirror model."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": ["Future replacement must follow the asset provenance registry and generators."],
+      "uncertainties": []
+    },
+    {
+      "id": "generated-identifier-mirrors",
+      "identifier": "generated mirrors of registered sensitive identifiers",
+      "category": "generated-mirror",
+      "coverage": {
+        "detectorIds": [
+          "world-of-claudecraft-label",
+          "claudecraft-label",
+          "worldofclaudecraft-slug",
+          "woc-token",
+          "levy-street",
+          "claudemoon",
+          "eastbrook-display",
+          "eastbrook-technical",
+          "eastbrook-docker",
+          "eastbrook-database-config",
+          "eastbrook-filesystem",
+          "claudium",
+          "armory",
+          "woc-client-storage-key",
+          "woc-lower-technical",
+          "woc-delimited-technical",
+          "woc-network-header",
+          "woc-network-route",
+          "claudium-network-route",
+          "oauth-callback-route",
+          "woc-metric",
+          "economic-environment-variable",
+          "woc-environment-variable",
+          "woc-uppercase-technical",
+          "desktop-app-id",
+          "mobile-app-id",
+          "desktop-deep-link",
+          "desktop-app-origin",
+          "desktop-bridge",
+          "public-domain",
+          "worldofclaudecraft-email",
+          "levy-street-email",
+          "solana-mint",
+          "persistent-content-property",
+          "persistent-composite-content-id",
+          "derived-heroic-content-id",
+          "armory-ownership"
+        ],
+        "targets": ["content"],
+        "paths": [
+          "src/**/*.generated.ts",
+          "src/ui/i18n.resolved.generated/**/*",
+          "public/sitemap.xml",
+          "tests/parity/golden/**/*",
+          "tests/server/fixtures/main/**/*",
+          "tests/shipped_item_ids.golden.json"
+        ],
+        "expectedOccurrenceCount": 2976,
+        "occurrenceInventorySha256": "b2158068e476c34ba2ea898ef21d974664641e99a8f1bef713b0350fed8155da"
+      },
+      "owner": "Generators and test fixtures",
+      "usage": "Generated UI catalogs, guide data, sitemap, parity goldens, server fixture mirrors, and shipped content-ID golden.",
+      "stability": "versioned",
+      "persistent": false,
+      "publiclyExposed": true,
+      "renamePolicy": "forbidden",
+      "strategy": "generated-from-source",
+      "aliases": [],
+      "risks": [
+        "Editing a mirror hides the authored source and the next regeneration will overwrite the change."
+      ],
+      "justification": "Generated occurrences are tracked as mirrors and must have a same-detector authored source occurrence.",
+      "evidence": [
+        {
+          "type": "repository-file",
+          "reference": "src/guide/CLAUDE.md",
+          "description": "Guide instructions identify content.generated.ts as generated from simulation sources."
+        }
+      ],
+      "tests": ["tests/identifier_compatibility_registry.test.ts"],
+      "notes": ["The verifier rejects a generated-only detector without a linked source rule."],
+      "uncertainties": [],
+      "sourceRuleIds": [
+        "visible-project-labels",
+        "project-slug",
+        "woc-symbol",
+        "levy-street-identity",
+        "claudemoon-realm",
+        "eastbrook-visible-label",
+        "eastbrook-technical-identifiers",
+        "eastbrook-docker-volumes",
+        "eastbrook-database",
+        "eastbrook-filesystem-path",
+        "claudium-economic",
+        "armory-economic",
+        "woc-client-storage",
+        "woc-lower-technical-identifiers",
+        "woc-delimited-technical-identifiers",
+        "woc-network-headers",
+        "woc-balance-route",
+        "claudium-network-routes",
+        "oauth-callbacks",
+        "woc-telemetry-metrics",
+        "economic-environment",
+        "woc-environment",
+        "woc-uppercase-technical-identifiers",
+        "desktop-application-id",
+        "mobile-application-id",
+        "desktop-deep-link",
+        "desktop-application-origin",
+        "desktop-bridge-contract",
+        "public-domains",
+        "project-email-identities",
+        "levy-street-email-identities",
+        "web3-mint",
+        "persistent-content-identifiers",
+        "armory-ownership-database"
+      ]
+    }
+  ]
+}

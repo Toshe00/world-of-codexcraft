@@ -583,6 +583,7 @@ export const MEDIA_ASSETS: Record<string, string> =
   "models/dungeon/wall_window_open_scaffold.glb": "/media/models/dungeon/wall_window_open_scaffold.6069ba86b273.glb",
   "models/dungeon/wooden_gate.glb": "/media/models/dungeon/wooden_gate.4bd6bd7b3cd0.glb",
   "models/dungeon/wooden_gate_halloween.glb": "/media/models/dungeon/wooden_gate_halloween.2275330cdfba.glb",
+  "models/environment/laboratory/birch_tree_1.glb": "/media/models/environment/laboratory/birch_tree_1.9e48caadd4ee.glb",
   "models/foliage/bush.glb": "/media/models/foliage/bush.614172ada35f.glb",
   "models/foliage/bush_flowers.glb": "/media/models/foliage/bush_flowers.e03f73e8085a.glb",
   "models/foliage/dead_1.glb": "/media/models/foliage/dead_1.ebba93b79c76.glb",

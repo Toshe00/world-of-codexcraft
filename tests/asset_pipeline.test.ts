@@ -10,6 +10,7 @@
 // each import is a namespace import behind @ts-expect-error (the same convention
 // as tests/backdrop_filter_survival.test.ts importing scripts/*.mjs).
 import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
+import { request as httpRequest } from 'node:http';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { transformMesh } from '@gltf-transform/functions';
@@ -832,5 +833,60 @@ describe('asset library registry parsers', () => {
     );
     expect(knight.registration.visualKeys).toContain('player_warrior');
     expect(knight.registration.referenced).toBe(true);
+  });
+
+  it('serves allowlisted repository assets with portable URL paths', async () => {
+    const library = await libraryImport;
+    const { server } = await library.serveLibrary({ port: 0 });
+    try {
+      const address = server.address();
+      if (!address || typeof address === 'string') throw new Error('viewer server has no TCP port');
+      expect(address.address).toBe('127.0.0.1');
+      const base = `http://127.0.0.1:${address.port}`;
+      const model = await fetch(`${base}/repo/public/models/foliage/pine_3.glb`);
+      expect(model.status).toBe(200);
+      expect(model.headers.get('content-type')).toBe('model/gltf-binary');
+      expect((await model.arrayBuffer()).byteLength).toBeGreaterThan(0);
+      expect((await fetch(`${base}/repo/package.json`)).status).toBe(403);
+      expect(
+        (
+          await fetch(`${base}/api/wizard/model`, {
+            body: '{}',
+            headers: { 'Content-Type': 'text/plain', Origin: 'https://malicious.example' },
+            method: 'POST',
+          })
+        ).status,
+      ).toBe(403);
+      expect(
+        (
+          await fetch(`${base}/api/not-an-action`, {
+            body: '{}',
+            headers: { 'Content-Type': 'application/json', Origin: base },
+            method: 'POST',
+          })
+        ).status,
+      ).toBe(404);
+
+      const traversalStatus = await new Promise<number>((resolve, reject) => {
+        const request = httpRequest(
+          {
+            host: '127.0.0.1',
+            port: address.port,
+            path: '/thumbs/%2e%2e/%2e%2e/%2e%2e/%2e%2e/package.json',
+          },
+          (response) => {
+            response.resume();
+            response.on('end', () => resolve(response.statusCode ?? 0));
+          },
+        );
+        request.on('error', reject);
+        request.end();
+      });
+      expect(traversalStatus).toBe(403);
+    } finally {
+      await new Promise<void>((resolve, reject) =>
+        server.close((error?: Error) => (error ? reject(error) : resolve())),
+      );
+    }
   });
 });

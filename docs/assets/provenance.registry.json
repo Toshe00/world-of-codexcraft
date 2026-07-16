@@ -109,6 +109,7 @@
           "public/vfx/*.png"
         ],
         "excludePaths": [
+          "public/models/environment/laboratory/birch_tree_1.glb",
           "public/models/props/cracked_grave.glb",
           "public/models/props/destructible_wall.glb",
           "public/models/props/dungeon_door_arch.glb",
@@ -225,6 +226,37 @@
       "justification": "Repository credits and build specs explicitly connect these outputs to packs declared CC0.",
       "notes": [
         "Keep upstream pack notices and source archives with release records even where attribution is not required."
+      ]
+    },
+    {
+      "id": "quaternius-ultimate-stylized-nature-birch-tree-1",
+      "category": "model",
+      "coverage": {
+        "paths": ["public/models/environment/laboratory/birch_tree_1.glb"],
+        "embeddedAssetIds": [],
+        "expectedPathCount": 1,
+        "pathInventorySha256": "6a97009909c57c98ba141b394303a007fb735075bc56a9c3f9ca81a4fb4b35e7"
+      },
+      "sourceOrAuthor": "Quaternius, Ultimate Stylized Nature Pack",
+      "provenanceUrl": null,
+      "declaredLicense": "CC0-1.0",
+      "evidence": [
+        {
+          "type": "manual-review",
+          "reference": "operator-declared-source-metadata",
+          "description": "The operator declared Quaternius, Ultimate Stylized Nature Pack, and CC0; the local license proof is absent or unverified."
+        }
+      ],
+      "knownRightsHolder": null,
+      "attribution": "not-required",
+      "redistribution": "allowed",
+      "commercialUse": "allowed",
+      "transformationStatus": ["converted", "optimized"],
+      "status": "reusable",
+      "justification": "The asset is registered from operator-declared CC0 metadata for laboratory use, with the missing proof recorded as a release follow-up.",
+      "notes": [
+        "Converted from the original glTF without artistic modification; texture resizing, WebP encoding, and Meshopt compression are technical optimizations.",
+        "The local license proof is absent or unverified and must be checked before any public release."
       ]
     },
     {

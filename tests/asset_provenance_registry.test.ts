@@ -313,14 +313,14 @@ describe('asset provenance verifier', () => {
     const result = verifyAssetProvenance({ repoRoot, registry });
 
     expect(result.ok, formatAssetProvenanceReport(result)).toBe(true);
-    expect(result.scopedAssetCount).toBe(2336);
+    expect(result.scopedAssetCount).toBe(2337);
     expect(result.summaryByStatus).toEqual({
       'attribution-required': 27,
       'blocked-pending-proof': 592,
       'project-owned-proof-required': 275,
       'purchased-license-non-transferable': 407,
       'replace-before-release': 50,
-      reusable: 942,
+      reusable: 943,
       'third-party-trademark': 3,
       unknown: 40,
     });

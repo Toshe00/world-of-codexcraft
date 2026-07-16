@@ -184,6 +184,10 @@ function walk(dir, out = []) {
   return out;
 }
 
+function portableRelative(from, to) {
+  return relative(from, to).replaceAll('\\', '/');
+}
+
 function sha12(path) {
   return createHash('sha1').update(readFileSync(path)).digest('hex').slice(0, 12);
 }
@@ -225,7 +229,7 @@ export function collectInventory() {
 
   // 1. Every GLB under public/models.
   for (const abs of walk(join(REPO_ROOT, 'public/models')).filter((f) => f.endsWith('.glb'))) {
-    const rel = relative(join(REPO_ROOT, 'public'), abs); // models/...
+    const rel = portableRelative(join(REPO_ROOT, 'public'), abs); // models/...
     const parts = rel.split('/');
     const category = parts[1] === 'chars' ? `chars/${parts[2]}` : parts[1];
     const name = parts[parts.length - 1].replace(/\.glb$/, '');
@@ -265,7 +269,7 @@ export function collectInventory() {
   for (const abs of walk(join(REPO_ROOT, 'public/textures/skins')).filter((f) =>
     f.endsWith('.png'),
   )) {
-    const rel = relative(join(REPO_ROOT, 'public'), abs);
+    const rel = portableRelative(join(REPO_ROOT, 'public'), abs);
     const [, , model, file] = rel.split('/');
     const slots = registries.skins.get(rel) ?? [];
     assets.push({
@@ -292,7 +296,7 @@ export function collectInventory() {
   const mechTexDir = join(REPO_ROOT, 'public/models/chars/players/Mech/textures');
   const mechGlb = 'models/chars/players/Mech/characters/CombatMech.glb';
   for (const abs of walk(mechTexDir).filter((f) => f.endsWith('.png') && !f.includes('_emis'))) {
-    const rel = relative(join(REPO_ROOT, 'public'), abs);
+    const rel = portableRelative(join(REPO_ROOT, 'public'), abs);
     const file = rel
       .split('/')
       .pop()
@@ -546,7 +550,7 @@ export function emitViewer(assets) {
         repoGlb = `public/${a.modelGlb}`;
         repoAtlas = `public/${a.path}`;
       } else if (a.kind === 'job' && abs) {
-        repoGlb = relative(REPO_ROOT, abs);
+        repoGlb = portableRelative(REPO_ROOT, abs);
       }
       return { ...a, repoGlb, repoAtlas };
     }),
@@ -599,7 +603,15 @@ async function buildThreeBundle() {
 export async function serveLibrary({ port = 5180, refresh = null } = {}) {
   const http = await import('node:http');
   const { readFileSync: rf, existsSync: ex, statSync: st } = await import('node:fs');
-  const { extname, join: pjoin, normalize: pnorm } = await import('node:path');
+  const {
+    extname,
+    isAbsolute,
+    join: pjoin,
+    normalize: pnorm,
+    relative: prel,
+    resolve: presolve,
+    sep: psep,
+  } = await import('node:path');
   const wiz = await import('./wizard.mjs');
   const threeBundle = await buildThreeBundle();
   // Viewer page modules are read per request (not cached) so edits to the live
@@ -608,6 +620,11 @@ export async function serveLibrary({ port = 5180, refresh = null } = {}) {
 
   // Only these repo subtrees are reachable via /repo/* (never .env, src, etc.).
   const ALLOWED = ['public/', 'tmp/asset_pipeline/'];
+  const REPO_MEDIA_EXTENSIONS = new Set(['.glb', '.png', '.jpg', '.jpeg', '.webp']);
+  const isInside = (root, candidate) => {
+    const rel = prel(root, candidate);
+    return rel !== '' && !isAbsolute(rel) && rel !== '..' && !rel.startsWith(`..${psep}`);
+  };
   const send = (res, code, type, body) => {
     res.writeHead(code, { 'Content-Type': type, 'Cache-Control': 'no-store' });
     res.end(body);
@@ -738,6 +755,13 @@ export async function serveLibrary({ port = 5180, refresh = null } = {}) {
   const server = http.createServer((req, res) => {
     try {
       const url = decodeURIComponent((req.url || '/').split('?')[0]);
+      const host = req.headers.host ?? '';
+      if (!/^(127\.0\.0\.1|localhost):\d+$/.test(host))
+        return send(res, 403, 'text/plain', 'forbidden');
+      if (url.startsWith('/api/') && req.method === 'POST') {
+        const expectedOrigin = `http://${host}`;
+        if (req.headers.origin !== expectedOrigin) return send(res, 403, 'text/plain', 'forbidden');
+      }
       if (url === '/api/wizard/upload' && req.method === 'POST') return void handleUpload(req, res);
       if (url.startsWith('/api/')) return void handleApi(req, res, url);
       if (url === '/wizard_ui.js') return send(res, 200, MIME['.js'], pageModule('wizard_ui.js'));
@@ -747,17 +771,22 @@ export async function serveLibrary({ port = 5180, refresh = null } = {}) {
         return send(res, 200, MIME['.js'], pageModule('viewer_live.js'));
       if (url === '/weapon_vfx.js') return send(res, 200, MIME['.js'], pageModule('weapon_vfx.js'));
       if (url.startsWith('/thumbs/')) {
-        const p = pjoin(LIBRARY_DIR, url.slice(1));
+        const p = presolve(THUMBS_DIR, url.slice('/thumbs/'.length));
+        if (!isInside(THUMBS_DIR, p)) return send(res, 403, 'text/plain', 'forbidden');
         if (ex(p) && st(p).isFile())
           return send(res, 200, MIME[extname(p)] ?? 'application/octet-stream', rf(p));
         return send(res, 404, 'text/plain', 'not found');
       }
       if (url.startsWith('/repo/')) {
-        const rel = pnorm(url.slice('/repo/'.length)).replace(/^(\.\.[/\\])+/, '');
+        const rel = pnorm(url.slice('/repo/'.length))
+          .replaceAll('\\', '/')
+          .replace(/^(\.\.[/\\])+/, '');
         if (!ALLOWED.some((a) => rel.startsWith(a)))
           return send(res, 403, 'text/plain', 'forbidden');
-        const p = pjoin(REPO_ROOT, rel);
-        if (!p.startsWith(REPO_ROOT)) return send(res, 403, 'text/plain', 'forbidden');
+        const p = presolve(REPO_ROOT, rel);
+        if (!isInside(REPO_ROOT, p)) return send(res, 403, 'text/plain', 'forbidden');
+        if (!REPO_MEDIA_EXTENSIONS.has(extname(p).toLowerCase()))
+          return send(res, 403, 'text/plain', 'forbidden');
         if (ex(p) && st(p).isFile()) {
           return send(res, 200, MIME[extname(p)] ?? 'application/octet-stream', rf(p));
         }
@@ -769,6 +798,8 @@ export async function serveLibrary({ port = 5180, refresh = null } = {}) {
     }
   });
 
-  await new Promise((resolve) => server.listen(port, resolve));
-  return { server, url: `http://localhost:${port}/` };
+  await new Promise((resolve) => server.listen(port, '127.0.0.1', resolve));
+  const address = server.address();
+  const boundPort = address && typeof address === 'object' ? address.port : port;
+  return { server, url: `http://127.0.0.1:${boundPort}/` };
 }

@@ -27,6 +27,10 @@ function expectAssetExistsAndManifested(url: string): void {
 }
 
 describe('GLB-replacement asset preload sets resolve to real, manifested files', () => {
+  it('laboratory birch asset', () => {
+    expectAssetExistsAndManifested('/models/environment/laboratory/birch_tree_1.glb');
+  });
+
   it('critter species assets', () => {
     for (const url of Object.values(critterPreloadInternalsForTest.speciesAssetUrl)) {
       expectAssetExistsAndManifested(url);

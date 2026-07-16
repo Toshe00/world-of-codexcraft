@@ -151,6 +151,37 @@ export const ja_JP: EnTranslations = {
     }
   },
   "hudChrome": {
+    "naturePlacementLab": {
+      "title": "自然配置ラボ",
+      "assetsAria": "ラボ用アセット",
+      "placeSelected": "選択アセットを配置",
+      "deleteSelected": "選択オブジェクトを削除",
+      "clearAll": "すべて消去",
+      "exportJson": "JSON をエクスポート",
+      "importJson": "JSON をインポート",
+      "selectedObject": "選択中のオブジェクト：{id}",
+      "selectedAsset": "選択中のアセット：{assetId}",
+      "noAssetSelected": "アセット未選択",
+      "cancelPlacement": "配置をキャンセル",
+      "placementsCount": "ラボ配置数：{count}",
+      "help": "左クリックで配置またはドラッグします。右クリックまたは Escape でキャンセルします。R で回転、ホイールまたはプラスとマイナスで拡縮、Page Up と Page Down で高さを調整します。Shift で微調整します。",
+      "statusReady": "準備完了",
+      "statusAssetSelected": "{assetId} を選択しました",
+      "statusSelectAssetFirst": "先にアセットを選択してください",
+      "statusPlacementActive": "配置モードが有効です",
+      "statusPlacementCancelled": "配置をキャンセルしました",
+      "statusPlacementMoved": "配置を移動しました",
+      "statusNoTerrain": "有効な地形点がありません",
+      "statusAssetPlaced": "{assetId} を配置しました",
+      "statusPlacementSelected": "{id} を選択しました",
+      "statusNoSelection": "配置が選択されていません",
+      "statusPlacementDeleted": "配置を削除しました",
+      "statusCleared": "ラボの配置をすべて消去しました",
+      "statusExported": "{count} 件の配置をエクスポートしました",
+      "statusImported": "{count} 件の配置をインポートしました",
+      "statusImportFailed": "配置のインポートに失敗しました",
+      "statusTransformAdjusted": "変形を調整しました"
+    },
     "spectate": {
       "banner": "{name}を観戦中"
     },

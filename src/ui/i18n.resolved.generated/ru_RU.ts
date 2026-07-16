@@ -151,6 +151,37 @@ export const ru_RU: EnTranslations = {
     }
   },
   "hudChrome": {
+    "naturePlacementLab": {
+      "title": "Лаборатория природных объектов",
+      "assetsAria": "Объекты лаборатории",
+      "placeSelected": "Разместить выбранное",
+      "deleteSelected": "Удалить выбранное",
+      "clearAll": "Очистить всё",
+      "exportJson": "Экспорт JSON",
+      "importJson": "Импорт JSON",
+      "selectedObject": "Выбранный объект: {id}",
+      "selectedAsset": "Выбранный ресурс: {assetId}",
+      "noAssetSelected": "Ресурс не выбран",
+      "cancelPlacement": "Отменить размещение",
+      "placementsCount": "Объектов лаборатории: {count}",
+      "help": "Левая кнопка размещает или перетаскивает. Правая кнопка или Escape отменяет. R вращает. Колесо или плюс и минус меняют масштаб. Page Up и Page Down меняют высоту. Shift включает точную настройку.",
+      "statusReady": "Готово",
+      "statusAssetSelected": "Выбрано: {assetId}",
+      "statusSelectAssetFirst": "Сначала выберите ресурс",
+      "statusPlacementActive": "Режим размещения включён",
+      "statusPlacementCancelled": "Размещение отменено",
+      "statusPlacementMoved": "Объект перемещён",
+      "statusNoTerrain": "Нет подходящей точки рельефа",
+      "statusAssetPlaced": "Размещено: {assetId}",
+      "statusPlacementSelected": "Выбрано: {id}",
+      "statusNoSelection": "Объект не выбран",
+      "statusPlacementDeleted": "Объект удалён",
+      "statusCleared": "Все объекты лаборатории удалены",
+      "statusExported": "Экспортировано объектов: {count}",
+      "statusImported": "Импортировано объектов: {count}",
+      "statusImportFailed": "Не удалось импортировать объекты",
+      "statusTransformAdjusted": "Преобразование изменено"
+    },
     "spectate": {
       "banner": "Наблюдение за {name}"
     },

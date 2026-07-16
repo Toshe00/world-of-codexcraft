@@ -151,6 +151,37 @@ export const zh_TW: EnTranslations = {
     }
   },
   "hudChrome": {
+    "naturePlacementLab": {
+      "title": "自然放置實驗室",
+      "assetsAria": "實驗室資源",
+      "placeSelected": "放置所選資源",
+      "deleteSelected": "刪除所選物件",
+      "clearAll": "全部清除",
+      "exportJson": "匯出 JSON",
+      "importJson": "匯入 JSON",
+      "selectedObject": "所選物件：{id}",
+      "selectedAsset": "所選資源：{assetId}",
+      "noAssetSelected": "未選擇資源",
+      "cancelPlacement": "取消放置",
+      "placementsCount": "實驗室放置數：{count}",
+      "help": "左鍵放置或拖曳。右鍵或 Escape 取消。R 旋轉。滾輪或加減鍵縮放。Page Up 和 Page Down 調整高度。Shift 啟用精細調整。",
+      "statusReady": "就緒",
+      "statusAssetSelected": "已選擇 {assetId}",
+      "statusSelectAssetFirst": "請先選擇資源",
+      "statusPlacementActive": "放置模式已啟用",
+      "statusPlacementCancelled": "已取消放置",
+      "statusPlacementMoved": "物件已移動",
+      "statusNoTerrain": "沒有有效的地形點",
+      "statusAssetPlaced": "已放置 {assetId}",
+      "statusPlacementSelected": "已選擇 {id}",
+      "statusNoSelection": "未選擇放置物件",
+      "statusPlacementDeleted": "放置物件已刪除",
+      "statusCleared": "已清除所有實驗室放置物件",
+      "statusExported": "已匯出 {count} 個放置物件",
+      "statusImported": "已匯入 {count} 個放置物件",
+      "statusImportFailed": "放置資料匯入失敗",
+      "statusTransformAdjusted": "變換已調整"
+    },
     "spectate": {
       "banner": "正在觀察 {name}"
     },

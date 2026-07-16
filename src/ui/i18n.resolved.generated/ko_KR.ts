@@ -151,6 +151,37 @@ export const ko_KR: EnTranslations = {
     }
   },
   "hudChrome": {
+    "naturePlacementLab": {
+      "title": "자연 배치 실험실",
+      "assetsAria": "실험실 애셋",
+      "placeSelected": "선택한 애셋 배치",
+      "deleteSelected": "선택한 오브젝트 삭제",
+      "clearAll": "모두 지우기",
+      "exportJson": "JSON 내보내기",
+      "importJson": "JSON 가져오기",
+      "selectedObject": "선택한 오브젝트: {id}",
+      "selectedAsset": "선택한 애셋: {assetId}",
+      "noAssetSelected": "선택한 애셋 없음",
+      "cancelPlacement": "배치 취소",
+      "placementsCount": "실험실 배치 수: {count}",
+      "help": "왼쪽 클릭으로 배치하거나 드래그합니다. 오른쪽 클릭 또는 Escape로 취소합니다. R로 회전하고, 휠 또는 더하기와 빼기로 크기를 조절하며, Page Up과 Page Down으로 높이를 조절합니다. Shift로 미세 조정합니다.",
+      "statusReady": "준비됨",
+      "statusAssetSelected": "{assetId} 선택됨",
+      "statusSelectAssetFirst": "먼저 애셋을 선택하세요",
+      "statusPlacementActive": "배치 모드 활성화됨",
+      "statusPlacementCancelled": "배치 취소됨",
+      "statusPlacementMoved": "배치 이동됨",
+      "statusNoTerrain": "유효한 지형 지점이 없습니다",
+      "statusAssetPlaced": "{assetId} 배치됨",
+      "statusPlacementSelected": "{id} 선택됨",
+      "statusNoSelection": "선택한 배치 없음",
+      "statusPlacementDeleted": "배치 삭제됨",
+      "statusCleared": "실험실 배치를 모두 지웠습니다",
+      "statusExported": "배치 {count}개를 내보냈습니다",
+      "statusImported": "배치 {count}개를 가져왔습니다",
+      "statusImportFailed": "배치 가져오기 실패",
+      "statusTransformAdjusted": "변형 조정됨"
+    },
     "spectate": {
       "banner": "{name} 관전 중"
     },

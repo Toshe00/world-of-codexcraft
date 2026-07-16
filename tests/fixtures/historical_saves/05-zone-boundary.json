@@ -1,0 +1,40 @@
+{
+  "fixtureSchemaVersion": 1,
+  "synthetic": true,
+  "scenario": "position-near-zone-boundary",
+  "sourceFormatVersion": null,
+  "character": {
+    "id": 910005,
+    "accountId": 920005,
+    "name": "FixtureBoundary",
+    "class": "rogue",
+    "realm": "FixtureRealm",
+    "state": {
+      "level": 7,
+      "xp": 210,
+      "copper": 450,
+      "hp": 80,
+      "resource": 100,
+      "pos": { "x": 0, "z": 179.999 },
+      "facing": 1.25,
+      "equipment": { "mainhand": "rusty_dagger", "chest": "footpad_jerkin" },
+      "inventory": [],
+      "questLog": [],
+      "questsDone": []
+    }
+  },
+  "expectedZoneIndex": 0,
+  "protectedStateFields": [
+    "level",
+    "xp",
+    "copper",
+    "hp",
+    "resource",
+    "pos",
+    "facing",
+    "equipment",
+    "inventory",
+    "questLog",
+    "questsDone"
+  ]
+}

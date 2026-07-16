@@ -1,0 +1,40 @@
+{
+  "fixtureSchemaVersion": 1,
+  "synthetic": true,
+  "scenario": "position-potentially-invalid-on-future-map",
+  "sourceFormatVersion": null,
+  "character": {
+    "id": 910006,
+    "accountId": 920006,
+    "name": "FixtureOutrider",
+    "class": "hunter",
+    "realm": "FixtureRealm",
+    "state": {
+      "level": 18,
+      "xp": 800,
+      "copper": 32000,
+      "hp": 220,
+      "resource": 250,
+      "pos": { "x": 170, "z": 700 },
+      "facing": -1.1,
+      "equipment": { "mainhand": "rusty_hatchet", "chest": "footpad_jerkin" },
+      "inventory": [{ "itemId": "baked_bread", "count": 3 }],
+      "questLog": [],
+      "questsDone": []
+    }
+  },
+  "expectedZoneIndex": 2,
+  "protectedStateFields": [
+    "level",
+    "xp",
+    "copper",
+    "hp",
+    "resource",
+    "pos",
+    "facing",
+    "equipment",
+    "inventory",
+    "questLog",
+    "questsDone"
+  ]
+}

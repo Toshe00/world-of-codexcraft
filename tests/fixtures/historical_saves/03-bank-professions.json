@@ -1,0 +1,66 @@
+{
+  "fixtureSchemaVersion": 1,
+  "synthetic": true,
+  "scenario": "bank-and-professions",
+  "sourceFormatVersion": "synthetic-pre-gathering-rename",
+  "character": {
+    "id": 910003,
+    "accountId": 920003,
+    "name": "FixtureArtisan",
+    "class": "warrior",
+    "realm": "FixtureRealm",
+    "state": {
+      "level": 15,
+      "xp": 1200,
+      "copper": 54321,
+      "hp": 200,
+      "resource": 0,
+      "pos": { "x": 15, "z": 320 },
+      "facing": -0.5,
+      "equipment": { "mainhand": "redbrook_blade", "chest": "militia_vest" },
+      "inventory": [{ "itemId": "linen_scrap", "count": 8 }],
+      "bank": {
+        "inventory": [
+          { "itemId": "wolf_fang", "count": 20 },
+          { "itemId": "minor_healing_potion", "count": 4 }
+        ],
+        "purchasedSlots": 12,
+        "bonusSlots": 2
+      },
+      "questLog": [],
+      "questsDone": ["q_prof_intro"],
+      "professions": { "mining": 42, "logging": 17, "herbalism": 9 },
+      "craftSkills": {
+        "armorcrafting": 12,
+        "weaponcrafting": 35,
+        "jewelcrafting": 0,
+        "alchemy": 8,
+        "engineering": 21,
+        "cooking": 5,
+        "inscription": 0,
+        "enchanting": 14,
+        "tailoring": 0,
+        "leatherworking": 3
+      },
+      "knownRecipes": ["recipe_minor_healing_potion", "recipe_tanned_leather_jerkin"]
+    }
+  },
+  "expectedZoneIndex": 1,
+  "protectedStateFields": [
+    "level",
+    "xp",
+    "copper",
+    "hp",
+    "resource",
+    "pos",
+    "facing",
+    "equipment",
+    "inventory",
+    "bank",
+    "questLog",
+    "questsDone",
+    "professions",
+    "craftSkills",
+    "knownRecipes"
+  ]
+}

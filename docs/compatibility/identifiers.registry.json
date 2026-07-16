@@ -993,8 +993,8 @@
           "src/ui/i18n.resolved.generated/**/*",
           "tests/server/fixtures/main/**/*"
         ],
-        "expectedOccurrenceCount": 1657,
-        "occurrenceInventorySha256": "f792d83cd25a26c31d24ff86ad9339c032a1e7fe7e403aa91fee966b6b1068a0"
+        "expectedOccurrenceCount": 1658,
+        "occurrenceInventorySha256": "5e752eb92d02a274fc0211e9e82652bdc76a36afd4cbc67f4dac654b38216d39"
       },
       "owner": "Economy and commerce",
       "usage": "Purchased balance, proxy integration, UI unit, routes, database fields, and tests.",

@@ -151,6 +151,37 @@ export const en_XA: EnTranslations = {
     }
   },
   "hudChrome": {
+    "naturePlacementLab": {
+      "title": "[Ñáţúŕé Þļáçéɱéñţ Ļáƀ]",
+      "assetsAria": "[Ļáƀóŕáţóŕý áššéţš]",
+      "placeSelected": "[Þļáçé šéļéçţéð]",
+      "deleteSelected": "[Ðéļéţé šéļéçţéð]",
+      "clearAll": "[Çļéáŕ áļļ]",
+      "exportJson": "[Éẋþóŕţ ĴŠÓÑ]",
+      "importJson": "[Íɱþóŕţ ĴŠÓÑ]",
+      "selectedObject": "[Šéļéçţéð óƀĵéçţ: {id}]",
+      "selectedAsset": "[Šéļéçţéð áššéţ: {assetId}]",
+      "noAssetSelected": "[Ñó áššéţ šéļéçţéð]",
+      "cancelPlacement": "[Çáñçéļ þļáçéɱéñţ]",
+      "placementsCount": "[Ļáƀóŕáţóŕý þļáçéɱéñţš: {count}]",
+      "help": "[Ļéƒţ çļíçķ þļáçéš óŕ ðŕáĝš. Ŕíĝĥţ çļíçķ óŕ Éšçáþé çáñçéļš. Ŕ ŕóţáţéš. Ŵĥééļ óŕ þļúš áñð ɱíñúš šçáļéš. Þáĝé Úþ áñð Þáĝé Ðóŵñ áðĵúšţ ĥéíĝĥţ. Šĥíƒţ éñáƀļéš ƒíñé áðĵúšţɱéñţš.]",
+      "statusReady": "[Ŕéáðý]",
+      "statusAssetSelected": "[{assetId} šéļéçţéð]",
+      "statusSelectAssetFirst": "[Šéļéçţ áñ áššéţ ƒíŕšţ]",
+      "statusPlacementActive": "[Þļáçéɱéñţ ɱóðé áçţíʋé]",
+      "statusPlacementCancelled": "[Þļáçéɱéñţ çáñçéļļéð]",
+      "statusPlacementMoved": "[Þļáçéɱéñţ ɱóʋéð]",
+      "statusNoTerrain": "[Ñó ʋáļíð ţéŕŕáíñ þóíñţ]",
+      "statusAssetPlaced": "[{assetId} þļáçéð]",
+      "statusPlacementSelected": "[{id} šéļéçţéð]",
+      "statusNoSelection": "[Ñó šéļéçţéð þļáçéɱéñţ]",
+      "statusPlacementDeleted": "[Þļáçéɱéñţ ðéļéţéð]",
+      "statusCleared": "[Áļļ ļáƀóŕáţóŕý þļáçéɱéñţš çļéáŕéð]",
+      "statusExported": "[{count} þļáçéɱéñţš éẋþóŕţéð]",
+      "statusImported": "[{count} þļáçéɱéñţš íɱþóŕţéð]",
+      "statusImportFailed": "[Þļáçéɱéñţ íɱþóŕţ ƒáíļéð]",
+      "statusTransformAdjusted": "[Ţŕáñšƒóŕɱ áðĵúšţéð]"
+    },
     "spectate": {
       "banner": "[Šþéçţáţíñĝ {name}]"
     },

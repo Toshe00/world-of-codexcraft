@@ -151,6 +151,37 @@ export const it_IT: EnTranslations = {
     }
   },
   "hudChrome": {
+    "naturePlacementLab": {
+      "title": "Nature Placement Lab",
+      "assetsAria": "Laboratory assets",
+      "placeSelected": "Place selected",
+      "deleteSelected": "Delete selected",
+      "clearAll": "Clear all",
+      "exportJson": "Export JSON",
+      "importJson": "Import JSON",
+      "selectedObject": "Selected object: {id}",
+      "selectedAsset": "Selected asset: {assetId}",
+      "noAssetSelected": "No asset selected",
+      "cancelPlacement": "Cancel placement",
+      "placementsCount": "Laboratory placements: {count}",
+      "help": "Left click places or drags. Right click or Escape cancels. R rotates. Wheel or plus and minus scales. Page Up and Page Down adjust height. Shift enables fine adjustments.",
+      "statusReady": "Ready",
+      "statusAssetSelected": "{assetId} selected",
+      "statusSelectAssetFirst": "Select an asset first",
+      "statusPlacementActive": "Placement mode active",
+      "statusPlacementCancelled": "Placement cancelled",
+      "statusPlacementMoved": "Placement moved",
+      "statusNoTerrain": "No valid terrain point",
+      "statusAssetPlaced": "{assetId} placed",
+      "statusPlacementSelected": "{id} selected",
+      "statusNoSelection": "No selected placement",
+      "statusPlacementDeleted": "Placement deleted",
+      "statusCleared": "All laboratory placements cleared",
+      "statusExported": "{count} placements exported",
+      "statusImported": "{count} placements imported",
+      "statusImportFailed": "Placement import failed",
+      "statusTransformAdjusted": "Transform adjusted"
+    },
     "spectate": {
       "banner": "Stai osservando {name}"
     },

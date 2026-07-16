@@ -100,6 +100,7 @@ import {
   isProjectedNameplateAnchorVisible,
   nameplateScreenTransform,
 } from './nameplate_projection';
+import { createNaturePlacementLab, type NaturePlacementController } from './nature_placement_lab';
 import { facingAlpha, remoteEntityAlpha } from './net_interp_core';
 import { resolveDirectPickEntityId } from './pick_resolution';
 import { PlacedAssetsView } from './placed_assets';
@@ -993,6 +994,7 @@ export class Renderer {
   // allocates no closure (see the drape path in vale_cup_team_ring.ts).
   private groundSample = (x: number, z: number): number => groundHeight(x, z, this.sim.cfg.seed);
   private laboratoryNaturePalette: LaboratoryNaturePalette | null = null;
+  private naturePlacementLab: NaturePlacementController | null = null;
 
   private lowGfx: boolean;
   private post: PostPipeline | null = null;
@@ -1317,6 +1319,15 @@ export class Renderer {
       position: { x: this.sim.player.pos.x, z: this.sim.player.pos.z },
       facing: this.sim.player.facing,
     });
+    this.naturePlacementLab = createNaturePlacementLab({
+      camera: this.camera,
+      canvas: this.webgl.domElement,
+      projectTerrain: (clientX, clientY) => {
+        const rect = this.webgl.domElement.getBoundingClientRect();
+        return this.terrainSurfacePoint(clientX - rect.left, clientY - rect.top);
+      },
+      scene: this.scene,
+    });
 
     this.foliage = buildFoliage(this.sim.cfg.seed);
     setRenderCategory(this.foliage.group, 'foliage');
@@ -1566,6 +1577,8 @@ export class Renderer {
   }
 
   dispose(): void {
+    this.naturePlacementLab?.dispose();
+    this.naturePlacementLab = null;
     this.laboratoryNaturePalette?.dispose();
     this.laboratoryNaturePalette = null;
   }
@@ -5363,16 +5376,27 @@ export class Renderer {
    * past the built terrain footprint. Editor-only (3D in-world editing).
    */
   surfacePoint(clientX: number, clientY: number): THREE.Vector3 | null {
+    const terrainPoint = this.terrainSurfacePoint(clientX, clientY);
+    if (terrainPoint) return terrainPoint;
+    const ndc = new THREE.Vector2(
+      (clientX / this.viewport.width) * 2 - 1,
+      -(clientY / this.viewport.height) * 2 + 1,
+    );
+    this.raycaster.setFromCamera(ndc, this.camera);
+    const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+    const pt = new THREE.Vector3();
+    return this.raycaster.ray.intersectPlane(plane, pt) ? pt : null;
+  }
+
+  /** Strict terrain-only projection for development placement tools. */
+  terrainSurfacePoint(clientX: number, clientY: number): THREE.Vector3 | null {
     const ndc = new THREE.Vector2(
       (clientX / this.viewport.width) * 2 - 1,
       -(clientY / this.viewport.height) * 2 + 1,
     );
     this.raycaster.setFromCamera(ndc, this.camera);
     const hits = this.raycaster.intersectObjects(this.terrainView.group.children, false);
-    if (hits.length > 0 && hits[0].point) return hits[0].point.clone();
-    const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
-    const pt = new THREE.Vector3();
-    return this.raycaster.ray.intersectPlane(plane, pt) ? pt : null;
+    return hits.length > 0 && hits[0].point ? hits[0].point.clone() : null;
   }
 
   /**

@@ -87,6 +87,10 @@ import {
 import { buildImpactSite, type ImpactSiteView } from './impact_site';
 import { ensureDelveInteriorKit } from './interior_kit';
 import { buildJailScene } from './jail_scene';
+import {
+  createLaboratoryBirchPreview,
+  type LaboratoryBirchPreview,
+} from './laboratory_birch_preview';
 import { type LocoTrack, newLocoTrack, updateLocomotion } from './locomotion';
 import { buildMailboxPillar } from './mailbox';
 import { buildMotes, type MotesView } from './motes';
@@ -988,6 +992,7 @@ export class Renderer {
   // seed-bound ground sampler, built once so the per-frame Vale Cup ring update
   // allocates no closure (see the drape path in vale_cup_team_ring.ts).
   private groundSample = (x: number, z: number): number => groundHeight(x, z, this.sim.cfg.seed);
+  private laboratoryBirchPreview: LaboratoryBirchPreview | null = null;
 
   private lowGfx: boolean;
   private post: PostPipeline | null = null;
@@ -1307,6 +1312,12 @@ export class Renderer {
       freezeStaticMatrices(mesh); // water animates via uniforms, never transforms
     }
 
+    this.laboratoryBirchPreview = createLaboratoryBirchPreview(this.scene, this.groundSample);
+    void this.laboratoryBirchPreview?.initialize({
+      position: { x: this.sim.player.pos.x, z: this.sim.player.pos.z },
+      facing: this.sim.player.facing,
+    });
+
     this.foliage = buildFoliage(this.sim.cfg.seed);
     setRenderCategory(this.foliage.group, 'foliage');
     this.scene.add(this.foliage.group);
@@ -1552,6 +1563,11 @@ export class Renderer {
     window.visualViewport?.addEventListener('resize', resize);
     window.visualViewport?.addEventListener('scroll', resize);
     document.addEventListener('fullscreenchange', resize);
+  }
+
+  dispose(): void {
+    this.laboratoryBirchPreview?.dispose();
+    this.laboratoryBirchPreview = null;
   }
 
   private measureViewport(): { width: number; height: number } {

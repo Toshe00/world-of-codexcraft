@@ -609,6 +609,7 @@ export class Editor3DViewport {
       try {
         this.renderer.editorCam = null;
         this.renderer.webgl.setAnimationLoop(null);
+        this.renderer.dispose();
         this.renderer.webgl.dispose();
         this.renderer.webgl.forceContextLoss();
       } catch {

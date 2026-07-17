@@ -33,7 +33,7 @@ import {
 import type { DelveModuleId } from '../sim/delve_layout';
 import type { BiomeId } from '../sim/types';
 import { ALL_CLASSES, type Entity, type SimEvent } from '../sim/types';
-import { groundHeight, waterLevelAt, zoneBiomeAt } from '../sim/world';
+import { groundHeight, terrainHeight, waterLevelAt, zoneBiomeAt } from '../sim/world';
 import { attachAvatarFallback } from '../ui/avatar_fallback';
 import { tEntity } from '../ui/entity_i18n';
 import type { IWorld } from '../world_api';
@@ -996,6 +996,9 @@ export class Renderer {
   private groundSample = (x: number, z: number): number => groundHeight(x, z, this.sim.cfg.seed);
   private laboratoryNaturePalette: LaboratoryNaturePalette | null = null;
   private naturePlacementLab: NaturePlacementController | null = null;
+  private startZoneTerrainSurvey: import('./start_zone_terrain_survey').TerrainSurveyController | null =
+    null;
+  private startZoneTerrainSurveyGeneration = 0;
   private publishedZoneLab: PublishedZoneLabHandle | null = null;
   private publishedZoneLabGeneration = 0;
 
@@ -1339,6 +1342,40 @@ export class Renderer {
     });
     if (
       import.meta.env.DEV &&
+      import.meta.env.VITE_START_ZONE_TERRAIN_LAB === '1' &&
+      !canvas.classList.contains('editor-3d-canvas')
+    ) {
+      const generation = ++this.startZoneTerrainSurveyGeneration;
+      void import('./start_zone_terrain_survey')
+        .then(({ createStartZoneTerrainSurvey }) => {
+          if (generation !== this.startZoneTerrainSurveyGeneration) return;
+          const survey = createStartZoneTerrainSurvey({
+            canvas: this.webgl.domElement,
+            entities: [...this.sim.entities.values()].map((entity) => ({
+              kind: entity.kind,
+              templateId: entity.templateId,
+              name: entity.name,
+              pos: { x: entity.pos.x, y: entity.pos.y, z: entity.pos.z },
+            })),
+            projectTerrain: (clientX, clientY) => {
+              const rect = this.webgl.domElement.getBoundingClientRect();
+              return this.terrainSurfacePoint(clientX - rect.left, clientY - rect.top);
+            },
+            sampleHeight: (x, z) => terrainHeight(x, z, this.sim.cfg.seed),
+            scene: this.scene,
+          });
+          if (generation !== this.startZoneTerrainSurveyGeneration) {
+            survey?.dispose();
+            return;
+          }
+          this.startZoneTerrainSurvey = survey;
+        })
+        .catch((error: unknown) =>
+          console.warn('Starter Zone Terrain Survey failed to initialize', error),
+        );
+    }
+    if (
+      import.meta.env.DEV &&
       import.meta.env.VITE_PUBLISHED_ZONE_LAB === '1' &&
       !canvas.classList.contains('editor-3d-canvas')
     ) {
@@ -1609,6 +1646,9 @@ export class Renderer {
   }
 
   dispose(): void {
+    this.startZoneTerrainSurveyGeneration++;
+    this.startZoneTerrainSurvey?.dispose();
+    this.startZoneTerrainSurvey = null;
     this.publishedZoneLabGeneration++;
     this.publishedZoneLab?.dispose();
     this.publishedZoneLab = null;

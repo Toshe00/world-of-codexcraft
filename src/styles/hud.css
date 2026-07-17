@@ -4678,7 +4678,8 @@
   }
 
   /* ---------- nature placement lab ---------- */
-  #nature-placement-lab {
+  #nature-placement-lab,
+  #starter-zone-terrain-survey {
     position: fixed;
     top: 12px;
     right: 12px;
@@ -4688,6 +4689,10 @@
     padding: 8px;
     pointer-events: auto;
     color: var(--color-text-light);
+  }
+  #starter-zone-terrain-survey {
+    right: auto;
+    left: 12px;
   }
   .nature-placement-lab-toggle {
     width: 100%;
@@ -4701,7 +4706,8 @@
     overscroll-behavior: contain;
     padding-right: 3px;
   }
-  #nature-placement-lab .btn {
+  #nature-placement-lab .btn,
+  #starter-zone-terrain-survey .btn {
     margin: 0;
   }
   .nature-placement-lab-section {
@@ -4770,6 +4776,7 @@
   .nature-placement-lab-inspector input,
   .nature-placement-lab-controls select,
   .nature-placement-lab-controls input,
+  .nature-placement-lab-controls textarea,
   .nature-placement-lab-wide-select,
   .nature-placement-lab-inline select {
     box-sizing: border-box;
@@ -4865,6 +4872,20 @@
   .nature-placement-lab-status[data-severity="error"] {
     color: var(--color-text-error);
   }
+  .terrain-survey-corners {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3px 8px;
+    color: var(--color-text-muted);
+    font-size: 11px;
+  }
+  .terrain-survey-notes {
+    grid-column: 1 / -1;
+  }
+  .terrain-survey-notes textarea {
+    min-height: 56px;
+    resize: vertical;
+  }
   .published-zone-lab-indicator {
     position: fixed;
     right: 12px;
@@ -4899,9 +4920,11 @@
   }
   @media (pointer: coarse) {
     #nature-placement-lab .btn,
+    #starter-zone-terrain-survey .btn,
     .nature-placement-lab-inspector input,
     .nature-placement-lab-controls select,
     .nature-placement-lab-controls input,
+    .nature-placement-lab-controls textarea,
     .nature-placement-lab-wide-select,
     .nature-placement-lab-inline select,
     .nature-placement-lab-check {

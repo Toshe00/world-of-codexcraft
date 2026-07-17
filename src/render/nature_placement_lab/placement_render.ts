@@ -41,6 +41,8 @@ function disposeMaterial(material: THREE.Material | THREE.Material[]): void {
 export class NaturePlacementRender {
   readonly group = new THREE.Group();
   private readonly entries = new Map<string, RenderEntry>();
+  private readonly previewEntries = new Map<string, RenderEntry>();
+  private readonly previewGroup = new THREE.Group();
   private readonly templates = new Map<NaturePlacementAssetId, Promise<Template>>();
   private readonly pending = new Set<Promise<unknown>>();
   private readonly raycaster = new THREE.Raycaster();
@@ -50,6 +52,7 @@ export class NaturePlacementRender {
   private readonly selectionHelpers = new Map<string, THREE.BoxHelper>();
   private readonly selectedIds = new Set<string>();
   private selectionRectangle: THREE.LineLoop | null = null;
+  private previewActive = false;
   private disposed = false;
   private readonly grid: NaturePlacementGrid;
 
@@ -60,6 +63,7 @@ export class NaturePlacementRender {
     private readonly canvas?: HTMLCanvasElement,
   ) {
     this.group.name = ROOT_NAME;
+    this.previewGroup.name = 'Published Zone Preview';
     this.scene.add(this.group);
     this.grid = new NaturePlacementGrid(this.group);
   }
@@ -101,6 +105,33 @@ export class NaturePlacementRender {
     } else {
       for (const helper of this.selectionHelpers.values()) helper.update();
     }
+  }
+
+  startCompiledPreview(placements: readonly NaturePlacement[]): void {
+    if (this.disposed) return;
+    this.stopCompiledPreview();
+    this.previewActive = true;
+    this.clearGhost();
+    this.dropSelectionRectangle();
+    this.grid.setSuppressed(true);
+    for (const entry of this.entries.values()) entry.group.visible = false;
+    for (const helper of this.selectionHelpers.values()) helper.visible = false;
+    this.group.add(this.previewGroup);
+    for (const placement of placements) {
+      this.addEntry(placement, this.previewEntries, this.previewGroup, false);
+    }
+  }
+
+  stopCompiledPreview(): void {
+    if (!this.previewActive && this.previewEntries.size === 0) return;
+    for (const id of [...this.previewEntries.keys()]) {
+      this.removeEntry(id, this.previewEntries, this.previewGroup);
+    }
+    this.group.remove(this.previewGroup);
+    this.previewActive = false;
+    this.grid.setSuppressed(false);
+    for (const entry of this.entries.values()) entry.group.visible = true;
+    for (const helper of this.selectionHelpers.values()) helper.visible = true;
   }
 
   syncSelectionRectangle(
@@ -185,7 +216,7 @@ export class NaturePlacementRender {
   }
 
   pickPlacement(clientX: number, clientY: number): string | null {
-    if (!this.camera || !this.canvas || this.entries.size === 0) return null;
+    if (this.previewActive || !this.camera || !this.canvas || this.entries.size === 0) return null;
     const rect = this.canvas.getBoundingClientRect();
     if (rect.width <= 0 || rect.height <= 0) return null;
     const ndc = new THREE.Vector2(
@@ -214,6 +245,7 @@ export class NaturePlacementRender {
   dispose(): void {
     if (this.disposed) return;
     this.disposed = true;
+    this.stopCompiledPreview();
     this.clearGhost();
     this.grid.dispose();
     this.dropSelection();
@@ -244,11 +276,16 @@ export class NaturePlacementRender {
     return cached;
   }
 
-  private addEntry(placement: NaturePlacement): void {
+  private addEntry(
+    placement: NaturePlacement,
+    entries: Map<string, RenderEntry> = this.entries,
+    parent: THREE.Group = this.group,
+    editable = true,
+  ): void {
     const group = new THREE.Group();
     group.name = placement.id;
     group.userData.naturePlacementId = placement.id;
-    this.group.add(group);
+    parent.add(group);
     const entry: RenderEntry = {
       group,
       model: null,
@@ -256,7 +293,7 @@ export class NaturePlacementRender {
       removed: false,
       template: null,
     };
-    this.entries.set(placement.id, entry);
+    entries.set(placement.id, entry);
     const task = this.template(placement.assetId)
       .then((template) => {
         if (this.disposed || entry.removed) return;
@@ -272,7 +309,7 @@ export class NaturePlacementRender {
         entry.model = model;
         entry.group.add(model);
         this.applyTransform(entry);
-        if (this.selectedIds.has(entry.placement.id)) this.refreshSelection();
+        if (editable && this.selectedIds.has(entry.placement.id)) this.refreshSelection();
       })
       .catch((error: unknown) =>
         console.warn(`Nature Placement Lab asset failed to load: ${placement.assetId}`, error),
@@ -280,13 +317,17 @@ export class NaturePlacementRender {
     this.track(task);
   }
 
-  private removeEntry(id: string): void {
-    const entry = this.entries.get(id);
+  private removeEntry(
+    id: string,
+    entries: Map<string, RenderEntry> = this.entries,
+    parent: THREE.Group = this.group,
+  ): void {
+    const entry = entries.get(id);
     if (!entry) return;
     entry.removed = true;
-    this.entries.delete(id);
-    this.group.remove(entry.group);
-    if (this.selectedIds.has(id)) {
+    entries.delete(id);
+    parent.remove(entry.group);
+    if (entries === this.entries && this.selectedIds.has(id)) {
       const helper = this.selectionHelpers.get(id);
       if (helper) this.dropSelectionHelper(id, helper);
     }

@@ -56,6 +56,12 @@ import {
   validateNaturePlacementTransform,
 } from './placement_transform_validation';
 import { NaturePlacementWorkspace } from './placement_workspace_core';
+import {
+  compileNaturePlacementZone,
+  natureZonePreviewPlacements,
+  serializeNatureZonePackage,
+  type NatureZonePackage,
+} from './placement_zone_publication';
 
 export interface NaturePlacementRenderAdapter {
   clearGhost(): void;
@@ -71,6 +77,8 @@ export interface NaturePlacementRenderAdapter {
     cellSize: NaturePlacementPreferences['gridSize'],
     center: NaturePlacementPoint,
   ): void;
+  startCompiledPreview?(placements: readonly NaturePlacement[]): void;
+  stopCompiledPreview?(): void;
   updateGhost(
     assetId: NaturePlacementAssetId,
     point: NaturePlacementPoint,
@@ -88,6 +96,9 @@ export interface NaturePlacementUiView {
   layers: readonly NaturePlacementLayer[];
   groups: readonly NaturePlacementGroup[];
   placing: boolean;
+  compiledZonePackage: NatureZonePackage | null;
+  previewActive: boolean;
+  publicationWarnings: readonly string[];
   preferences: NaturePlacementPreferences;
   selectedAssetId: NaturePlacementAssetId | null;
   selectedPlacement: NaturePlacement | null;
@@ -99,11 +110,17 @@ export interface NaturePlacementUiView {
 
 export interface NaturePlacementUiCallbacks {
   applyTransform(input: NaturePlacementInspectorInput): void;
+  buildZonePackage(input: {
+    zoneId: string;
+    name: string;
+    includedLayerIds: readonly string[];
+  }): void;
   cancelPlacement(): void;
   clear(): void;
   deleteSelected(): void;
   duplicateSelected(): void;
   exportJson(): string;
+  exportZonePackage(): { fileName: string; source: string } | null;
   importJson(source: string): void;
   languageChanged(): void;
   newProject(name: string): void;
@@ -140,11 +157,13 @@ export interface NaturePlacementUiCallbacks {
   deleteGroup(groupId: string): void;
   deleteGroupAndPlacements(groupId: string): void;
   placeOnGround(): void;
+  previewCompiledZone(): void;
   redo(): void;
   resetTransform(): void;
   selectAsset(assetId: NaturePlacementAssetId): void;
   setPreferences(patch: Partial<NaturePlacementPreferences>): void;
   startPlacement(): void;
+  stopPreview(): void;
   undo(): void;
 }
 
@@ -214,6 +233,9 @@ export class NaturePlacementController {
   private status = t('hudChrome.naturePlacementLab.statusReady');
   private statusSeverity: NaturePlacementUiView['statusSeverity'] = 'info';
   private workCenter: NaturePlacementPoint;
+  private compiledZonePackage: NatureZonePackage | null = null;
+  private compiledProjectSignature: string | null = null;
+  private previewActive = false;
 
   constructor(options: ControllerOptions) {
     this.canvas = options.canvas;
@@ -241,11 +263,13 @@ export class NaturePlacementController {
     this.preferences = loadNaturePlacementPreferences(this.preferenceStorage);
     this.ui = options.createUi({
       applyTransform: (input) => this.applyTransform(input),
+      buildZonePackage: (input) => this.buildZonePackage(input),
       cancelPlacement: () => this.cancelPlacement(),
       clear: () => this.clear(),
       deleteSelected: () => this.deleteSelected(),
       duplicateSelected: () => this.duplicateSelected(),
       exportJson: () => this.exportJson(),
+      exportZonePackage: () => this.exportZonePackage(),
       importJson: (source) => this.importJson(source),
       languageChanged: () => this.languageChanged(),
       newProject: (name) => this.newProject(name),
@@ -275,11 +299,13 @@ export class NaturePlacementController {
       deleteGroup: (groupId) => this.deleteGroup(groupId),
       deleteGroupAndPlacements: (groupId) => this.deleteGroupAndPlacements(groupId),
       placeOnGround: () => this.placeOnGround(),
+      previewCompiledZone: () => this.previewCompiledZone(),
       redo: () => this.redo(),
       resetTransform: () => this.resetTransform(),
       selectAsset: (assetId) => this.selectAsset(assetId),
       setPreferences: (patch) => this.setPreferences(patch),
       startPlacement: () => this.startPlacement(),
+      stopPreview: () => this.stopPreview(),
       undo: () => this.undo(),
     });
     this.canvas.addEventListener('mousedown', this.onMouseDown, true);
@@ -302,7 +328,11 @@ export class NaturePlacementController {
   }
 
   languageChanged(): void {
-    this.setStatus(t('hudChrome.naturePlacementLab.statusReady'));
+    this.setStatus(
+      this.previewActive
+        ? t('hudChrome.naturePlacementLab.publishedZonePreview')
+        : t('hudChrome.naturePlacementLab.statusReady'),
+    );
     this.refreshUi();
   }
 
@@ -332,6 +362,7 @@ export class NaturePlacementController {
   }
 
   pointerMove(clientX: number, clientY: number): void {
+    if (this.previewActive) return;
     this.lastPointer = { x: clientX, y: clientY };
     const point = this.preparePoint(this.projectTerrain(clientX, clientY));
     if (this.dragging) {
@@ -378,6 +409,7 @@ export class NaturePlacementController {
     clientY: number,
     modifiers: { ctrlKey?: boolean; shiftKey?: boolean } = {},
   ): boolean {
+    if (this.previewActive) return false;
     if (this.state.placementActive) {
       const before = this.state.editSnapshot;
       this.snapActiveTransform();
@@ -434,6 +466,7 @@ export class NaturePlacementController {
   }
 
   pointerUp(): void {
+    if (this.previewActive) return;
     if (this.marqueeStart) {
       if (this.marqueeEnd) {
         this.state.selectInRectangle(this.marqueeStart, this.marqueeEnd, this.marqueeMode);
@@ -459,6 +492,7 @@ export class NaturePlacementController {
   }
 
   undo(): void {
+    if (this.rejectPreviewEdit()) return;
     const snapshot = this.history.undo();
     if (!snapshot) {
       this.setStatus(t('hudChrome.naturePlacementLab.statusNothingToUndo'), 'error');
@@ -471,6 +505,7 @@ export class NaturePlacementController {
   }
 
   redo(): void {
+    if (this.rejectPreviewEdit()) return;
     const snapshot = this.history.redo();
     if (!snapshot) {
       this.setStatus(t('hudChrome.naturePlacementLab.statusNothingToRedo'), 'error');
@@ -655,6 +690,94 @@ export class NaturePlacementController {
     );
     this.refreshUi();
     return json;
+  }
+
+  buildZonePackage(input: {
+    zoneId: string;
+    name: string;
+    includedLayerIds: readonly string[];
+  }): void {
+    if (this.previewActive) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusStopPreviewFirst'), 'error');
+      this.refreshUi();
+      return;
+    }
+    if (this.dragging || this.marqueeStart) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusFinishEditFirst'), 'error');
+      this.refreshUi();
+      return;
+    }
+    this.state.cancelPlacement();
+    this.render.clearGhost();
+    try {
+      const project = this.state.projectData;
+      this.compiledZonePackage = compileNaturePlacementZone(
+        project,
+        input.zoneId,
+        input.name,
+        input.includedLayerIds,
+      );
+      this.compiledProjectSignature = serializeNaturePlacementProject(project);
+      this.setStatus(
+        t('hudChrome.naturePlacementLab.statusZonePackageBuilt', {
+          count: formatNumber(this.compiledZonePackage.statistics.placementCount),
+        }),
+      );
+    } catch (error) {
+      console.warn('Nature Placement Lab zone package build rejected', error);
+      this.compiledZonePackage = null;
+      this.compiledProjectSignature = null;
+      this.setStatus(t('hudChrome.naturePlacementLab.statusZonePackageBuildFailed'), 'error');
+    }
+    this.sync();
+  }
+
+  previewCompiledZone(): void {
+    if (!this.compiledZonePackage) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusBuildZonePackageFirst'), 'error');
+      this.refreshUi();
+      return;
+    }
+    if (!this.render.startCompiledPreview) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusPreviewUnavailable'), 'error');
+      this.refreshUi();
+      return;
+    }
+    if (this.dragging || this.marqueeStart) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusFinishEditFirst'), 'error');
+      this.refreshUi();
+      return;
+    }
+    this.state.cancelPlacement();
+    this.render.clearGhost();
+    this.render.startCompiledPreview(natureZonePreviewPlacements(this.compiledZonePackage));
+    this.previewActive = true;
+    this.setStatus(t('hudChrome.naturePlacementLab.publishedZonePreview'));
+    this.refreshUi();
+  }
+
+  stopPreview(): void {
+    if (!this.previewActive) return;
+    this.render.stopCompiledPreview?.();
+    this.previewActive = false;
+    this.setStatus(t('hudChrome.naturePlacementLab.statusPreviewStopped'));
+    this.sync();
+  }
+
+  exportZonePackage(): { fileName: string; source: string } | null {
+    if (!this.compiledZonePackage) {
+      this.setStatus(t('hudChrome.naturePlacementLab.statusBuildZonePackageFirst'), 'error');
+      this.refreshUi();
+      return null;
+    }
+    const source = serializeNatureZonePackage(this.compiledZonePackage);
+    this.setStatus(
+      t('hudChrome.naturePlacementLab.statusZonePackageExported', {
+        count: formatNumber(this.compiledZonePackage.statistics.placementCount),
+      }),
+    );
+    this.refreshUi();
+    return { fileName: `${this.compiledZonePackage.zoneId}.json`, source };
   }
 
   importJson(source: string): void {
@@ -1007,6 +1130,8 @@ export class NaturePlacementController {
     this.eventWindow.removeEventListener('mouseup', this.onMouseUp, true);
     this.eventWindow.removeEventListener('keydown', this.onKeyDown, true);
     this.eventWindow.removeEventListener('blur', this.onBlur);
+    this.render.stopCompiledPreview?.();
+    this.previewActive = false;
     this.render.clearGhost();
     this.ui.dispose();
     this.render.dispose();
@@ -1070,6 +1195,7 @@ export class NaturePlacementController {
   }
 
   private syncScene(): void {
+    if (this.previewActive) return;
     this.render.sync(this.state.visiblePlacements, this.state.selectedPlacementIds);
     this.refreshGhost();
   }
@@ -1109,6 +1235,9 @@ export class NaturePlacementController {
       layers: this.state.layers,
       groups: this.state.groups,
       placing: this.state.placementActive,
+      compiledZonePackage: this.compiledZonePackage,
+      previewActive: this.previewActive,
+      publicationWarnings: this.publicationWarnings(project),
       preferences: { ...this.preferences },
       selectedAssetId: this.state.selectedAssetId,
       selectedPlacement: this.state.selectedPlacement,
@@ -1120,6 +1249,50 @@ export class NaturePlacementController {
       status: this.status,
       statusSeverity: this.statusSeverity,
     });
+  }
+
+  private publicationWarnings(project: NaturePlacementProject): string[] {
+    if (!this.compiledZonePackage) return [];
+    const included = new Set(this.compiledZonePackage.includedLayerIds);
+    const hiddenCount = project.layers.filter(
+      (layer) => included.has(layer.layerId) && !layer.visible,
+    ).length;
+    const placementCounts = new Map(project.layers.map((layer) => [layer.layerId, 0]));
+    for (const placement of project.placements) {
+      placementCounts.set(placement.layerId, (placementCounts.get(placement.layerId) ?? 0) + 1);
+    }
+    const emptyCount = project.layers.filter(
+      (layer) => included.has(layer.layerId) && (placementCounts.get(layer.layerId) ?? 0) === 0,
+    ).length;
+    const warnings: string[] = [];
+    if (hiddenCount > 0) {
+      warnings.push(
+        t('hudChrome.naturePlacementLab.warningHiddenLayersIncluded', {
+          count: formatNumber(hiddenCount),
+        }),
+      );
+    }
+    if (emptyCount > 0) {
+      warnings.push(
+        t('hudChrome.naturePlacementLab.warningEmptyLayersIncluded', {
+          count: formatNumber(emptyCount),
+        }),
+      );
+    }
+    if (
+      this.compiledProjectSignature !== null &&
+      serializeNaturePlacementProject(project) !== this.compiledProjectSignature
+    ) {
+      warnings.push(t('hudChrome.naturePlacementLab.warningCompiledPackageStale'));
+    }
+    return warnings;
+  }
+
+  private rejectPreviewEdit(): boolean {
+    if (!this.previewActive) return false;
+    this.setStatus(t('hudChrome.naturePlacementLab.statusPreviewReadOnly'), 'error');
+    this.refreshUi();
+    return true;
   }
 
   private adjustActive(
@@ -1284,6 +1457,7 @@ export class NaturePlacementController {
   }
 
   private readonly onMouseDown = (event: MouseEvent): void => {
+    if (this.previewActive) return;
     if (event.button === 2 && (this.state.placementActive || this.dragging)) {
       this.cancelPlacement();
       consume(event);
@@ -1300,6 +1474,7 @@ export class NaturePlacementController {
   };
 
   private readonly onMouseMove = (event: MouseEvent): void => {
+    if (this.previewActive) return;
     if (!this.state.placementActive && !this.dragging && !this.marqueeStart) return;
     this.pointerMove(event.clientX, event.clientY);
     consume(event);
@@ -1310,6 +1485,7 @@ export class NaturePlacementController {
   };
 
   private readonly onMouseUp = (event: MouseEvent): void => {
+    if (this.previewActive) return;
     if (event.button !== 0 || (!this.state.placementActive && !this.dragging && !this.marqueeStart))
       return;
     this.pointerUp();
@@ -1317,18 +1493,21 @@ export class NaturePlacementController {
   };
 
   private readonly onWheel = (event: WheelEvent): void => {
+    if (this.previewActive) return;
     if (!this.state.placementActive && this.state.selectedPlacementId === null) return;
     this.adjustActive('scale', event.deltaY < 0 ? 1 : -1, event.shiftKey);
     consume(event);
   };
 
   private readonly onContextMenu = (event: MouseEvent): void => {
+    if (this.previewActive) return;
     if (!this.state.placementActive && !this.dragging && !this.marqueeStart) return;
     this.cancelPlacement();
     consume(event);
   };
 
   private readonly onKeyDown = (event: KeyboardEvent): void => {
+    if (this.previewActive) return;
     const action = resolveNaturePlacementShortcut(event, {
       activeTransform: this.state.placementActive || this.state.selectedPlacementId !== null,
       placementActive: this.state.placementActive || this.dragging || this.marqueeStart !== null,

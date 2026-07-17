@@ -36,6 +36,7 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.naturePlacementLab.snappingSection': 'Magnétisme',
   'hudChrome.naturePlacementLab.historySection': 'Historique',
   'hudChrome.naturePlacementLab.importExportSection': 'Importation et exportation',
+  'hudChrome.naturePlacementLab.publicationPreviewSection': 'Aperçu de publication',
   'hudChrome.naturePlacementLab.newProject': 'Nouveau projet',
   'hudChrome.naturePlacementLab.renameProject': 'Renommer le projet',
   'hudChrome.naturePlacementLab.saveProject': 'Enregistrer le projet',
@@ -106,6 +107,32 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.naturePlacementLab.clearAll': 'Tout effacer',
   'hudChrome.naturePlacementLab.exportJson': 'Exporter le projet en JSON',
   'hudChrome.naturePlacementLab.importJson': 'Importer un projet JSON',
+  'hudChrome.naturePlacementLab.zoneId': 'ID de zone',
+  'hudChrome.naturePlacementLab.visibleName': 'Nom visible',
+  'hudChrome.naturePlacementLab.defaultZoneName': 'Zone naturelle du laboratoire',
+  'hudChrome.naturePlacementLab.layersToPublish': 'Calques à publier',
+  'hudChrome.naturePlacementLab.buildZonePackage': 'Construire le paquet de zone',
+  'hudChrome.naturePlacementLab.previewCompiledZone': 'Prévisualiser la zone compilée',
+  'hudChrome.naturePlacementLab.stopPreview': "Arrêter l'aperçu",
+  'hudChrome.naturePlacementLab.exportZonePackage': 'Exporter le paquet de zone',
+  'hudChrome.naturePlacementLab.publishedZonePreview': 'Aperçu de la zone publiée',
+  'hudChrome.naturePlacementLab.noCompiledPackage': 'Aucun paquet de zone compilé',
+  'hudChrome.naturePlacementLab.packageSummary': '{name} ({zoneId})',
+  'hudChrome.naturePlacementLab.packageSource': 'Projet source : {projectId}, version {version}',
+  'hudChrome.naturePlacementLab.packageLayers': 'Calques inclus : {layers}',
+  'hudChrome.naturePlacementLab.packagePlacementCount': 'Placements compilés : {count}',
+  'hudChrome.naturePlacementLab.packageEstimatedTriangles': 'Triangles compilés : {count}',
+  'hudChrome.naturePlacementLab.packageUniqueMediaBytes': 'Médias uniques : {count} octets',
+  'hudChrome.naturePlacementLab.packageBounds':
+    'Limites : X {minX} à {maxX}, Y {minY} à {maxY}, Z {minZ} à {maxZ}',
+  'hudChrome.naturePlacementLab.packageAssets': 'Ressources compilées : {assets}',
+  'hudChrome.naturePlacementLab.noPublicationWarnings': 'Aucun avertissement de publication',
+  'hudChrome.naturePlacementLab.warningHiddenLayersIncluded':
+    '{count} calques masqués sélectionnés seront inclus',
+  'hudChrome.naturePlacementLab.warningEmptyLayersIncluded':
+    '{count} calques sélectionnés ne contiennent aucun placement',
+  'hudChrome.naturePlacementLab.warningCompiledPackageStale':
+    'Le projet a changé depuis la compilation de ce paquet',
   'hudChrome.naturePlacementLab.apply': 'Appliquer',
   'hudChrome.naturePlacementLab.resetTransform': 'Réinitialiser la transformation',
   'hudChrome.naturePlacementLab.placeOnGround': 'Placer au sol',
@@ -146,6 +173,23 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.naturePlacementLab.statusPlacementCancelled': 'Placement annulé',
   'hudChrome.naturePlacementLab.statusPlacementMoved': 'Placement déplacé',
   'hudChrome.naturePlacementLab.statusNoTerrain': 'Aucun point de terrain valide',
+  'hudChrome.naturePlacementLab.statusZonePackageBuilt':
+    'Paquet de zone construit avec {count} placements',
+  'hudChrome.naturePlacementLab.statusZonePackageBuildFailed':
+    'Échec de la construction du paquet de zone',
+  'hudChrome.naturePlacementLab.statusBuildZonePackageFirst':
+    "Construisez d'abord un paquet de zone",
+  'hudChrome.naturePlacementLab.statusZonePackageExported':
+    'Paquet de zone exporté avec {count} placements',
+  'hudChrome.naturePlacementLab.statusPreviewStopped': 'Aperçu de la zone compilée arrêté',
+  'hudChrome.naturePlacementLab.statusPreviewReadOnly':
+    'La prévisualisation de la zone publiée est en lecture seule',
+  'hudChrome.naturePlacementLab.statusPreviewUnavailable':
+    'La prévisualisation de la zone compilée est indisponible',
+  'hudChrome.naturePlacementLab.statusStopPreviewFirst':
+    "Arrêtez d'abord la prévisualisation de la zone compilée",
+  'hudChrome.naturePlacementLab.statusFinishEditFirst':
+    'Terminez la modification active avant de construire ou prévisualiser',
   'hudChrome.naturePlacementLab.statusAssetPlaced': '{assetId} placé',
   'hudChrome.naturePlacementLab.statusPlacementSelected': '{id} sélectionné',
   'hudChrome.naturePlacementLab.statusNoSelection': 'Aucun placement sélectionné',

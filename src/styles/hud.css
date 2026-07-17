@@ -4716,6 +4716,33 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
+  .nature-placement-lab-publication > summary {
+    margin-bottom: 6px;
+    color: var(--color-gold);
+    font: 700 12px var(--title-font);
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .nature-placement-lab-publication-heading {
+    margin: 7px 0 5px;
+    color: var(--color-text-muted);
+    font-size: 11px;
+  }
+  .nature-placement-lab-publication-warnings p {
+    margin: 3px 0;
+    color: var(--color-gold);
+    font-size: 11px;
+    line-height: 1.35;
+  }
+  .nature-placement-lab-preview-banner {
+    margin: 7px 0 0;
+    padding: 5px;
+    border: 1px solid var(--color-border-focus);
+    color: var(--color-gold);
+    font: 700 12px var(--title-font);
+    text-align: center;
+  }
   .nature-placement-lab-assets,
   .nature-placement-lab-actions {
     display: grid;

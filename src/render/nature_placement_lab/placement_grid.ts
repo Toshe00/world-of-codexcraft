@@ -20,20 +20,28 @@ export class NaturePlacementGrid {
   private helper: THREE.GridHelper | null = null;
   private cellSize: NaturePlacementGridSize | null = null;
   private disposed = false;
+  private requestedVisible = false;
+  private suppressed = false;
 
   constructor(private readonly parent: THREE.Object3D) {}
 
   update(visible: boolean, cellSize: NaturePlacementGridSize, center: NaturePlacementPoint): void {
     if (this.disposed) return;
+    this.requestedVisible = visible;
     if (!this.helper || this.cellSize !== cellSize) this.rebuild(cellSize);
     if (!this.helper) return;
-    this.helper.visible = visible;
+    this.helper.visible = visible && !this.suppressed;
     this.helper.position.set(
       Math.round(center.x / cellSize) * cellSize,
       center.y + GRID_Y_LIFT,
       Math.round(center.z / cellSize) * cellSize,
     );
     this.helper.updateMatrixWorld(true);
+  }
+
+  setSuppressed(suppressed: boolean): void {
+    this.suppressed = suppressed;
+    if (this.helper) this.helper.visible = this.requestedVisible && !suppressed;
   }
 
   dispose(): void {

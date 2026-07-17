@@ -340,6 +340,15 @@ export const ja_JP: EnTranslations = {
       "statusGroupDuplicated": "グループを複製しました",
       "statusGroupDeleted": "グループを削除しました"
     },
+    "publishedZoneLab": {
+      "title": "Published Zone Lab",
+      "zoneId": "{zoneId}",
+      "inactive": "Inactive",
+      "loading": "Loading",
+      "loaded": "Loaded",
+      "unloaded": "Unloaded",
+      "invalid": "Invalid"
+    },
     "spectate": {
       "banner": "{name}を観戦中"
     },

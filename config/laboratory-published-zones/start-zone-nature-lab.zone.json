@@ -1,0 +1,152 @@
+{
+  "version": 1,
+  "zoneId": "start-zone-nature-lab",
+  "name": "Start Zone Nature Lab",
+  "sourceProjectId": "start-zone-nature-lab-project",
+  "sourceProjectVersion": 2,
+  "coordinateSpace": "world",
+  "includedLayerIds": [
+    "layer-bushes",
+    "layer-dead-nature",
+    "layer-flowers",
+    "layer-grass",
+    "layer-trees"
+  ],
+  "bounds": {
+    "minX": 20.2,
+    "maxX": 26,
+    "minY": -0.30549507576210355,
+    "maxY": 0.49466625319201574,
+    "minZ": -45.5,
+    "maxZ": -39.8
+  },
+  "placements": [
+    {
+      "id": "lab-placement-001",
+      "assetId": "BirchTree_1",
+      "layerId": "layer-trees",
+      "position": {
+        "x": 20.5,
+        "y": 0.12305978975693627,
+        "z": -45.5
+      },
+      "rotationY": 0.39269908169872414,
+      "scale": 1,
+      "groundOffsetY": 0
+    },
+    {
+      "id": "lab-placement-002",
+      "assetId": "BirchTree_2",
+      "layerId": "layer-trees",
+      "position": {
+        "x": 26,
+        "y": 0.14131930003593868,
+        "z": -44.5
+      },
+      "rotationY": 5.969026041820607,
+      "scale": 1,
+      "groundOffsetY": 0
+    },
+    {
+      "id": "lab-placement-003",
+      "assetId": "Bush_Flowers",
+      "layerId": "layer-bushes",
+      "position": {
+        "x": 22.2,
+        "y": 0.37942089867609663,
+        "z": -41.5
+      },
+      "rotationY": 0.4487989505128276,
+      "scale": 1,
+      "groundOffsetY": -0.08
+    },
+    {
+      "id": "lab-placement-004",
+      "assetId": "DeadTree_2",
+      "layerId": "layer-dead-nature",
+      "position": {
+        "x": 25.5,
+        "y": -0.30549507576210355,
+        "z": -39.8
+      },
+      "rotationY": 5.890486225480862,
+      "scale": 1,
+      "groundOffsetY": 0
+    },
+    {
+      "id": "lab-placement-005",
+      "assetId": "Flower_1_Clump",
+      "layerId": "layer-flowers",
+      "position": {
+        "x": 20.2,
+        "y": 0.49466625319201574,
+        "z": -40.2
+      },
+      "rotationY": 5.934119456780721,
+      "scale": 1,
+      "groundOffsetY": 0
+    },
+    {
+      "id": "lab-placement-006",
+      "assetId": "Grass_Large",
+      "layerId": "layer-grass",
+      "position": {
+        "x": 23.8,
+        "y": 0.2330542054389088,
+        "z": -43
+      },
+      "rotationY": 0.5235987755982988,
+      "scale": 1,
+      "groundOffsetY": 0
+    }
+  ],
+  "assetSummary": [
+    {
+      "assetId": "BirchTree_1",
+      "assetPath": "models/environment/laboratory/birch_tree_1.glb",
+      "placementCount": 1,
+      "estimatedTriangles": 4596,
+      "mediaBytes": 147792
+    },
+    {
+      "assetId": "BirchTree_2",
+      "assetPath": "models/environment/laboratory/nature_palette_01/birch_tree_2.glb",
+      "placementCount": 1,
+      "estimatedTriangles": 7660,
+      "mediaBytes": 176508
+    },
+    {
+      "assetId": "Bush_Flowers",
+      "assetPath": "models/environment/laboratory/nature_palette_01/bush_flowers.glb",
+      "placementCount": 1,
+      "estimatedTriangles": 478,
+      "mediaBytes": 78892
+    },
+    {
+      "assetId": "DeadTree_2",
+      "assetPath": "models/environment/laboratory/nature_palette_01/dead_tree_2.glb",
+      "placementCount": 1,
+      "estimatedTriangles": 5344,
+      "mediaBytes": 70060
+    },
+    {
+      "assetId": "Flower_1_Clump",
+      "assetPath": "models/environment/laboratory/nature_palette_01/flower_1_clump.glb",
+      "placementCount": 1,
+      "estimatedTriangles": 620,
+      "mediaBytes": 44492
+    },
+    {
+      "assetId": "Grass_Large",
+      "assetPath": "models/environment/laboratory/nature_palette_01/grass_large.glb",
+      "placementCount": 1,
+      "estimatedTriangles": 108,
+      "mediaBytes": 5648
+    }
+  ],
+  "statistics": {
+    "placementCount": 6,
+    "estimatedTriangles": 18806,
+    "uniqueMediaBytes": 523392
+  }
+}

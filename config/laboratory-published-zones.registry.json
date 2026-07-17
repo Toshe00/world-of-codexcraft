@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "productionActivationAllowed": false,
+  "entries": [
+    {
+      "zoneId": "start-zone-nature-lab",
+      "packagePath": "config/laboratory-published-zones/start-zone-nature-lab.zone.json",
+      "status": "laboratory",
+      "enabled": true,
+      "productionEnabled": false,
+      "platforms": [
+        "web",
+        "desktop",
+        "android",
+        "ios"
+      ],
+      "reason": "Validate the published nature-zone pipeline on the real start-zone terrain in development only.",
+      "rollbackStrategy": "Unset VITE_PUBLISHED_ZONE_LAB or set enabled to false, then restart the development client."
+    }
+  ]
+}

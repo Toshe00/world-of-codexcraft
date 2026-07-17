@@ -340,6 +340,15 @@ export const zh_TW: EnTranslations = {
       "statusGroupDuplicated": "群組已複製",
       "statusGroupDeleted": "群組已刪除"
     },
+    "publishedZoneLab": {
+      "title": "Published Zone Lab",
+      "zoneId": "{zoneId}",
+      "inactive": "Inactive",
+      "loading": "Loading",
+      "loaded": "Loaded",
+      "unloaded": "Unloaded",
+      "invalid": "Invalid"
+    },
     "spectate": {
       "banner": "正在觀察 {name}"
     },

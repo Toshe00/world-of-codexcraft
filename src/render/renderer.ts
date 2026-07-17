@@ -104,6 +104,7 @@ import { createNaturePlacementLab, type NaturePlacementController } from './natu
 import { facingAlpha, remoteEntityAlpha } from './net_interp_core';
 import { resolveDirectPickEntityId } from './pick_resolution';
 import { PlacedAssetsView } from './placed_assets';
+import type { PublishedZoneLabHandle } from './published_zones';
 import {
   applyPointLightBudget,
   type RankedPointLight,
@@ -995,6 +996,8 @@ export class Renderer {
   private groundSample = (x: number, z: number): number => groundHeight(x, z, this.sim.cfg.seed);
   private laboratoryNaturePalette: LaboratoryNaturePalette | null = null;
   private naturePlacementLab: NaturePlacementController | null = null;
+  private publishedZoneLab: PublishedZoneLabHandle | null = null;
+  private publishedZoneLabGeneration = 0;
 
   private lowGfx: boolean;
   private post: PostPipeline | null = null;
@@ -1334,6 +1337,29 @@ export class Renderer {
       sampleGroundY: this.groundSample,
       scene: this.scene,
     });
+    if (
+      import.meta.env.DEV &&
+      import.meta.env.VITE_PUBLISHED_ZONE_LAB === '1' &&
+      !canvas.classList.contains('editor-3d-canvas')
+    ) {
+      const generation = ++this.publishedZoneLabGeneration;
+      void import('./published_zones')
+        .then(({ createPublishedZoneLab }) => {
+          if (generation !== this.publishedZoneLabGeneration) return;
+          const lab = createPublishedZoneLab({
+            mount: this.nameplateLayer,
+            scene: this.scene,
+            zoneId: import.meta.env.VITE_PUBLISHED_ZONE_ID,
+          });
+          if (generation !== this.publishedZoneLabGeneration) {
+            lab.dispose();
+            return;
+          }
+          this.publishedZoneLab = lab;
+          lab.update({ x: this.sim.player.pos.x, z: this.sim.player.pos.z });
+        })
+        .catch((error: unknown) => console.warn('Published Zone Lab failed to initialize', error));
+    }
 
     this.foliage = buildFoliage(this.sim.cfg.seed);
     setRenderCategory(this.foliage.group, 'foliage');
@@ -1583,6 +1609,9 @@ export class Renderer {
   }
 
   dispose(): void {
+    this.publishedZoneLabGeneration++;
+    this.publishedZoneLab?.dispose();
+    this.publishedZoneLab = null;
     this.naturePlacementLab?.dispose();
     this.naturePlacementLab = null;
     this.laboratoryNaturePalette?.dispose();
@@ -4283,6 +4312,7 @@ export class Renderer {
     sharedUniforms.uTime.value = this.time;
     const sim = this.sim;
     const p = sim.player;
+    this.publishedZoneLab?.update({ x: p.pos.x, z: p.pos.z });
     this.naturePlacementLab?.updateWorkCenter({ x: p.pos.x, y: p.pos.y, z: p.pos.z });
     if (this.lastSelfId !== p.id) {
       this.lastSelfId = p.id;

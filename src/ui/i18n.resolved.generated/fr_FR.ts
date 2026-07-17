@@ -340,6 +340,15 @@ export const fr_FR: EnTranslations = {
       "statusGroupDuplicated": "Groupe dupliqué",
       "statusGroupDeleted": "Groupe supprimé"
     },
+    "publishedZoneLab": {
+      "title": "Laboratoire de zone publiée",
+      "zoneId": "{zoneId}",
+      "inactive": "Inactif",
+      "loading": "Chargement",
+      "loaded": "Chargé",
+      "unloaded": "Déchargé",
+      "invalid": "Invalide"
+    },
     "spectate": {
       "banner": "Vous observez {name}"
     },

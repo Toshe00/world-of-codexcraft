@@ -340,6 +340,15 @@ export const en_XA: EnTranslations = {
       "statusGroupDuplicated": "[Ĝŕóúþ ðúþļíçáţéð]",
       "statusGroupDeleted": "[Ĝŕóúþ ðéļéţéð]"
     },
+    "publishedZoneLab": {
+      "title": "[Þúƀļíšĥéð Žóñé Ļáƀ]",
+      "zoneId": "[{zoneId}]",
+      "inactive": "[Íñáçţíʋé]",
+      "loading": "[Ļóáðíñĝ]",
+      "loaded": "[Ļóáðéð]",
+      "unloaded": "[Úñļóáðéð]",
+      "invalid": "[Íñʋáļíð]"
+    },
     "spectate": {
       "banner": "[Šþéçţáţíñĝ {name}]"
     },

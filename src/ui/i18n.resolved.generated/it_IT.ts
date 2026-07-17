@@ -340,6 +340,15 @@ export const it_IT: EnTranslations = {
       "statusGroupDuplicated": "Group duplicated",
       "statusGroupDeleted": "Group deleted"
     },
+    "publishedZoneLab": {
+      "title": "Published Zone Lab",
+      "zoneId": "{zoneId}",
+      "inactive": "Inactive",
+      "loading": "Loading",
+      "loaded": "Loaded",
+      "unloaded": "Unloaded",
+      "invalid": "Invalid"
+    },
     "spectate": {
       "banner": "Stai osservando {name}"
     },

@@ -1,4 +1,5 @@
 import { formatNumber, t } from '../../ui/i18n';
+import type { TranslationKey } from '../../ui/i18n.catalog';
 import type {
   NaturePlacementUiAdapter,
   NaturePlacementUiCallbacks,
@@ -7,10 +8,101 @@ import type {
 import type { NaturePlacementAssetId } from './placement_core';
 import { NaturePlacementInspector } from './placement_inspector';
 import {
+  DEFAULT_NATURE_PLACEMENT_PROJECT_NAME,
+  IMPORTED_NATURE_PLACEMENT_PROJECT_NAME,
+} from './placement_project_core';
+import {
   NATURE_PLACEMENT_GRID_SIZES,
   NATURE_PLACEMENT_ROTATION_STEPS,
   NATURE_PLACEMENT_SCALE_STEPS,
 } from './placement_snapping';
+
+const STATIC_LOCALIZATION_KEYS = [
+  'hudChrome.naturePlacementLab.title',
+  'hudChrome.naturePlacementLab.projectsSection',
+  'hudChrome.naturePlacementLab.newProject',
+  'hudChrome.naturePlacementLab.renameProject',
+  'hudChrome.naturePlacementLab.saveProject',
+  'hudChrome.naturePlacementLab.saveProjectAs',
+  'hudChrome.naturePlacementLab.loadProject',
+  'hudChrome.naturePlacementLab.deleteProject',
+  'hudChrome.naturePlacementLab.assetsSection',
+  'hudChrome.naturePlacementLab.assetsAria',
+  'hudChrome.naturePlacementLab.layersSection',
+  'hudChrome.naturePlacementLab.createLayer',
+  'hudChrome.naturePlacementLab.selectionSection',
+  'hudChrome.naturePlacementLab.placeSelected',
+  'hudChrome.naturePlacementLab.duplicate',
+  'hudChrome.naturePlacementLab.selectAll',
+  'hudChrome.naturePlacementLab.deselectAll',
+  'hudChrome.naturePlacementLab.invertSelection',
+  'hudChrome.naturePlacementLab.ungroup',
+  'hudChrome.naturePlacementLab.selectByAsset',
+  'hudChrome.naturePlacementLab.moveToLayer',
+  'hudChrome.naturePlacementLab.transformSection',
+  'hudChrome.naturePlacementLab.id',
+  'hudChrome.naturePlacementLab.assetId',
+  'hudChrome.naturePlacementLab.positionX',
+  'hudChrome.naturePlacementLab.positionY',
+  'hudChrome.naturePlacementLab.positionZ',
+  'hudChrome.naturePlacementLab.rotationYDegrees',
+  'hudChrome.naturePlacementLab.scale',
+  'hudChrome.naturePlacementLab.groundOffsetY',
+  'hudChrome.naturePlacementLab.apply',
+  'hudChrome.naturePlacementLab.resetTransform',
+  'hudChrome.naturePlacementLab.placeOnGround',
+  'hudChrome.naturePlacementLab.applyGroupTransform',
+  'hudChrome.naturePlacementLab.selectionCenterX',
+  'hudChrome.naturePlacementLab.selectionCenterY',
+  'hudChrome.naturePlacementLab.selectionCenterZ',
+  'hudChrome.naturePlacementLab.rotationDelta',
+  'hudChrome.naturePlacementLab.scaleFactor',
+  'hudChrome.naturePlacementLab.groundOffsetDelta',
+  'hudChrome.naturePlacementLab.groupsSection',
+  'hudChrome.naturePlacementLab.groupSelection',
+  'hudChrome.naturePlacementLab.snappingSection',
+  'hudChrome.naturePlacementLab.hideGrid',
+  'hudChrome.naturePlacementLab.gridSize',
+  'hudChrome.naturePlacementLab.snapPosition',
+  'hudChrome.naturePlacementLab.snapRotation',
+  'hudChrome.naturePlacementLab.rotationStep',
+  'hudChrome.naturePlacementLab.snapScale',
+  'hudChrome.naturePlacementLab.scaleStep',
+  'hudChrome.naturePlacementLab.snapToGround',
+  'hudChrome.naturePlacementLab.historySection',
+  'hudChrome.naturePlacementLab.undo',
+  'hudChrome.naturePlacementLab.redo',
+  'hudChrome.naturePlacementLab.importExportSection',
+  'hudChrome.naturePlacementLab.clearAll',
+  'hudChrome.naturePlacementLab.exportJson',
+  'hudChrome.naturePlacementLab.importJson',
+  'hudChrome.naturePlacementLab.help',
+  'hudChrome.naturePlacementLab.statisticsSection',
+] as const satisfies readonly TranslationKey[];
+
+const DEFAULT_LAYER_LABELS = {
+  'layer-trees': ['Trees', 'hudChrome.naturePlacementLab.defaultLayerTrees'],
+  'layer-bushes': ['Bushes', 'hudChrome.naturePlacementLab.defaultLayerBushes'],
+  'layer-flowers': ['Flowers', 'hudChrome.naturePlacementLab.defaultLayerFlowers'],
+  'layer-grass': ['Grass', 'hudChrome.naturePlacementLab.defaultLayerGrass'],
+  'layer-dead-nature': ['Dead Nature', 'hudChrome.naturePlacementLab.defaultLayerDeadNature'],
+  'layer-other': ['Other', 'hudChrome.naturePlacementLab.defaultLayerOther'],
+} as const satisfies Readonly<Record<string, readonly [string, TranslationKey]>>;
+
+export function naturePlacementLayerDisplayName(layerId: string, name: string): string {
+  const entry = DEFAULT_LAYER_LABELS[layerId as keyof typeof DEFAULT_LAYER_LABELS];
+  return entry && name === entry[0] ? t(entry[1]) : name;
+}
+
+function projectDisplayName(name: string): string {
+  if (name === DEFAULT_NATURE_PLACEMENT_PROJECT_NAME) {
+    return t('hudChrome.naturePlacementLab.untitledProjectName');
+  }
+  if (name === IMPORTED_NATURE_PLACEMENT_PROJECT_NAME) {
+    return t('hudChrome.naturePlacementLab.importedProjectName');
+  }
+  return name;
+}
 
 function button(documentRef: Document, label: string, className = 'btn'): HTMLButtonElement {
   const element = documentRef.createElement('button');
@@ -112,6 +204,8 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
   private readonly undoButton: HTMLButtonElement;
   private readonly redoButton: HTMLButtonElement;
   private readonly historyState: HTMLElement;
+  private readonly localizedTextNodes: Array<{ key: TranslationKey; node: Text }> = [];
+  private readonly localizedAriaLabels: Array<{ element: Element; key: TranslationKey }> = [];
   private open = true;
   private view: NaturePlacementUiView | null = null;
   private disposed = false;
@@ -509,6 +603,15 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     for (const eventName of ['mousedown', 'mouseup', 'contextmenu', 'keydown'] as const) {
       this.root.addEventListener(eventName, (event) => event.stopPropagation(), { signal });
     }
+    this.bindLocalizedChrome();
+    documentRef.addEventListener(
+      'woc:languagechange',
+      () => {
+        this.relocalizeChrome();
+        this.callbacks.languageChanged();
+      },
+      { signal },
+    );
   }
 
   update(view: NaturePlacementUiView): void {
@@ -516,7 +619,7 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     const projectOptions = view.projects.map((project) => {
       const option = this.documentRef.createElement('option');
       option.value = project.projectId;
-      option.textContent = project.name;
+      option.textContent = projectDisplayName(project.name);
       return option;
     });
     this.projectSelect.replaceChildren(...projectOptions);
@@ -548,7 +651,12 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     const selectedAssetIds = [
       ...new Set(view.selectedPlacements.map((placement) => placement.assetId)),
     ];
-    const layerNames = new Map(view.layers.map((layer) => [layer.layerId, layer.name]));
+    const layerNames = new Map(
+      view.layers.map((layer) => [
+        layer.layerId,
+        naturePlacementLayerDisplayName(layer.layerId, layer.name),
+      ]),
+    );
     const selectedLayerNames = [
       ...new Set(
         view.selectedPlacements.map(
@@ -841,5 +949,29 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     this.open = open;
     this.body.hidden = !open;
     this.toggle.setAttribute('aria-expanded', String(open));
+  }
+
+  private bindLocalizedChrome(): void {
+    const elements = [...this.root.querySelectorAll<HTMLElement>('*')];
+    for (const key of STATIC_LOCALIZATION_KEYS) {
+      const english = t(key);
+      for (const element of elements) {
+        if (element.textContent === english && element.childNodes.length === 1) {
+          const node = element.firstChild;
+          if (node?.nodeType === Node.TEXT_NODE) {
+            this.localizedTextNodes.push({ key, node: node as Text });
+          }
+        }
+        if (element.getAttribute('aria-label') === english) {
+          this.localizedAriaLabels.push({ element, key });
+        }
+      }
+    }
+  }
+
+  private relocalizeChrome(): void {
+    for (const { key, node } of this.localizedTextNodes) node.data = t(key);
+    for (const { element, key } of this.localizedAriaLabels) element.setAttribute('aria-label', t(key));
+    if (this.view) this.update(this.view);
   }
 }

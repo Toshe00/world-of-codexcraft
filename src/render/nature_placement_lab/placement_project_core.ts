@@ -63,6 +63,9 @@ const DEFAULT_LAYER_ROWS = [
   ['layer-other', 'Other'],
 ] as const;
 
+export const DEFAULT_NATURE_PLACEMENT_PROJECT_NAME = 'Untitled Project';
+export const IMPORTED_NATURE_PLACEMENT_PROJECT_NAME = 'Imported Placements';
+
 export const DEFAULT_NATURE_PLACEMENT_LAYERS: readonly NaturePlacementLayer[] = Object.freeze(
   DEFAULT_LAYER_ROWS.map(([layerId, name]) =>
     Object.freeze({ layerId, name, visible: true, locked: false }),

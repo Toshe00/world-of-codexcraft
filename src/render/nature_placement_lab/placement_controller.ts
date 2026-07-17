@@ -18,7 +18,9 @@ import {
 import {
   cloneNaturePlacementProjectSnapshot,
   createNaturePlacementProject,
+  DEFAULT_NATURE_PLACEMENT_PROJECT_NAME,
   equalNaturePlacementProjectSnapshots,
+  IMPORTED_NATURE_PLACEMENT_PROJECT_NAME,
   type NaturePlacementGroup,
   type NaturePlacementLayer,
   type NaturePlacementProject,
@@ -103,6 +105,7 @@ export interface NaturePlacementUiCallbacks {
   duplicateSelected(): void;
   exportJson(): string;
   importJson(source: string): void;
+  languageChanged(): void;
   newProject(name: string): void;
   renameProject(name: string): void;
   saveProject(): void;
@@ -229,7 +232,7 @@ export class NaturePlacementController {
       restoredProject ??
       createNaturePlacementProject(
         this.createProjectId(),
-        t('hudChrome.naturePlacementLab.untitledProjectName'),
+        DEFAULT_NATURE_PLACEMENT_PROJECT_NAME,
         () => new Date(),
         { center: options.initialWorkCenter },
       );
@@ -244,6 +247,7 @@ export class NaturePlacementController {
       duplicateSelected: () => this.duplicateSelected(),
       exportJson: () => this.exportJson(),
       importJson: (source) => this.importJson(source),
+      languageChanged: () => this.languageChanged(),
       newProject: (name) => this.newProject(name),
       renameProject: (name) => this.renameProject(name),
       saveProject: () => this.saveProject(),
@@ -295,6 +299,11 @@ export class NaturePlacementController {
     this.render.clearGhost();
     this.setStatus(t('hudChrome.naturePlacementLab.statusAssetSelected', { assetId }));
     this.sync();
+  }
+
+  languageChanged(): void {
+    this.setStatus(t('hudChrome.naturePlacementLab.statusReady'));
+    this.refreshUi();
   }
 
   startPlacement(): void {
@@ -654,7 +663,7 @@ export class NaturePlacementController {
       const project = parseNaturePlacementProjectJson(source, {
         createProjectId: () => this.createProjectId(),
         existingProjectIds: this.projectStore.projectIds(),
-        legacyName: t('hudChrome.naturePlacementLab.importedProjectName'),
+        legacyName: IMPORTED_NATURE_PLACEMENT_PROJECT_NAME,
       });
       if (this.projectPersistenceAvailable && !this.projectStore.save(project)) {
         this.setStatus(t('hudChrome.naturePlacementLab.statusProjectFailed'), 'error');

@@ -3,6 +3,11 @@ import { dockLocalPoint, dockSectionAtLocal, dockSurfaceLine, dockSurfaceYAt } f
 import { fbm2, hash2 } from './rng';
 import type { BiomeId, HeightStamp, WorldContent } from './types';
 import { isInSowfieldShell, SOWFIELD_FLAT, sowfieldStandLift } from './vale_cup_layout';
+import {
+  activeStartZoneTerrainPlateauPatches,
+  applyStartZoneTerrainPlateauPatches,
+  startZoneTerrainPlateauRevision,
+} from './start_zone_terrain_plateau';
 
 // Terrain is a pure function of (x, z, seed) for a given active world content:
 // both the sim (ground clamping) and the renderer (mesh) sample the same
@@ -464,7 +469,7 @@ export function groundHeight(x: number, z: number, seed: number): number {
   return Math.max(terrain, dockSurfaceHeight(x, z, seed));
 }
 
-export function terrainHeight(x: number, z: number, seed: number): number {
+export function originalTerrainHeight(x: number, z: number, seed: number): number {
   const w = world();
   let h = baseHeight(x, z, seed);
 
@@ -572,6 +577,17 @@ export function terrainHeight(x: number, z: number, seed: number): number {
   return h;
 }
 
+// Canonical height seam for the development plateau laboratory. The original
+// heightfield above remains untouched; an empty overlay is exactly identical.
+export function terrainHeight(x: number, z: number, seed: number): number {
+  return applyStartZoneTerrainPlateauPatches(
+    originalTerrainHeight(x, z, seed),
+    x,
+    z,
+    activeStartZoneTerrainPlateauPatches(),
+  );
+}
+
 // Steepest local rise/run of the walkable heightfield at (x, z), independent of
 // travel direction. Movement gates on this (not just the slope along the step)
 // so a diagonal switchback approach cannot beat the straight-line climb limit.
@@ -590,10 +606,16 @@ export function terrainSteepness(x: number, z: number, seed: number): number {
 // long-running hosts. Cell granularity only shifts a gate line by under a
 // yard, far inside the walls' steepness margin (tests/terrain_walls.test.ts).
 const steepnessCache = new Map<number, Map<number, number>>(); // seed -> cell -> steepness
+let steepnessPlateauRevision = startZoneTerrainPlateauRevision();
 const STEEPNESS_CACHE_MAX = 400_000; // cells per seed; ~the whole overworld
 const STEEPNESS_CACHE_MAX_SEEDS = 4; // hosts run one seed; only test runs see more
 const STEEPNESS_CELL_SPAN = 16384; // cells per axis in the packed key
 export function terrainSteepnessAt(x: number, z: number, seed: number): number {
+  const plateauRevision = startZoneTerrainPlateauRevision();
+  if (plateauRevision !== steepnessPlateauRevision) {
+    steepnessCache.clear();
+    steepnessPlateauRevision = plateauRevision;
+  }
   // Instanced interiors (dungeons/arena/delves) are flat floors; skip the cache
   // entirely so their far-off coordinates never enter (or overflow) the packed
   // key space, which is sized for the overworld.

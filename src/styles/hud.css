@@ -4679,7 +4679,8 @@
 
   /* ---------- nature placement lab ---------- */
   #nature-placement-lab,
-  #starter-zone-terrain-survey {
+  #starter-zone-terrain-survey,
+  #starter-zone-plateau-lab {
     position: fixed;
     top: 12px;
     right: 12px;
@@ -4694,6 +4695,9 @@
     right: auto;
     left: 12px;
   }
+  #starter-zone-plateau-lab {
+    width: min(360px, calc(100% - 24px));
+  }
   .nature-placement-lab-toggle {
     width: 100%;
     min-height: 32px;
@@ -4707,7 +4711,8 @@
     padding-right: 3px;
   }
   #nature-placement-lab .btn,
-  #starter-zone-terrain-survey .btn {
+  #starter-zone-terrain-survey .btn,
+  #starter-zone-plateau-lab .btn {
     margin: 0;
   }
   .nature-placement-lab-section {
@@ -4886,6 +4891,22 @@
     min-height: 56px;
     resize: vertical;
   }
+  .starter-zone-plateau-lab-controls {
+    margin-top: 7px;
+  }
+  .starter-zone-plateau-protected-toggle {
+    margin-top: 7px;
+  }
+  .starter-zone-plateau-import {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 5px;
+    margin-top: 7px;
+  }
+  .starter-zone-plateau-import textarea {
+    min-height: 54px;
+    resize: vertical;
+  }
   .published-zone-lab-indicator {
     position: fixed;
     right: 12px;
@@ -4921,6 +4942,7 @@
   @media (pointer: coarse) {
     #nature-placement-lab .btn,
     #starter-zone-terrain-survey .btn,
+    #starter-zone-plateau-lab .btn,
     .nature-placement-lab-inspector input,
     .nature-placement-lab-controls select,
     .nature-placement-lab-controls input,

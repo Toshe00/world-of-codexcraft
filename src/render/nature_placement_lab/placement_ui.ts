@@ -73,6 +73,15 @@ const STATIC_LOCALIZATION_KEYS = [
   'hudChrome.naturePlacementLab.undo',
   'hudChrome.naturePlacementLab.redo',
   'hudChrome.naturePlacementLab.importExportSection',
+  'hudChrome.naturePlacementLab.publicationPreviewSection',
+  'hudChrome.naturePlacementLab.zoneId',
+  'hudChrome.naturePlacementLab.visibleName',
+  'hudChrome.naturePlacementLab.layersToPublish',
+  'hudChrome.naturePlacementLab.buildZonePackage',
+  'hudChrome.naturePlacementLab.previewCompiledZone',
+  'hudChrome.naturePlacementLab.stopPreview',
+  'hudChrome.naturePlacementLab.exportZonePackage',
+  'hudChrome.naturePlacementLab.publishedZonePreview',
   'hudChrome.naturePlacementLab.clearAll',
   'hudChrome.naturePlacementLab.exportJson',
   'hudChrome.naturePlacementLab.importJson',
@@ -157,12 +166,12 @@ function selectNumber<T extends number>(
   return { select, label };
 }
 
-function downloadJson(documentRef: Document, source: string): void {
+function downloadJson(documentRef: Document, source: string, fileName: string): void {
   const blob = new Blob([source], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const link = documentRef.createElement('a');
   link.href = url;
-  link.download = 'nature-placement-lab.json';
+  link.download = fileName;
   documentRef.body.appendChild(link);
   link.click();
   link.remove();
@@ -173,6 +182,7 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
   private readonly abort = new AbortController();
   private layersAbort: AbortController | null = null;
   private groupsAbort: AbortController | null = null;
+  private publicationLayersAbort: AbortController | null = null;
   private readonly root: HTMLElement;
   private readonly body: HTMLElement;
   private readonly toggle: HTMLButtonElement;
@@ -187,6 +197,21 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
   private readonly assetSelection: HTMLSelectElement;
   private readonly groupsRoot: HTMLElement;
   private readonly statisticsRoot: HTMLElement;
+  private readonly publicationSection: HTMLDetailsElement;
+  private readonly publicationZoneId: HTMLInputElement;
+  private readonly publicationName: HTMLInputElement;
+  private readonly publicationLayersRoot: HTMLElement;
+  private readonly publicationSummary: HTMLElement;
+  private readonly publicationWarnings: HTMLElement;
+  private readonly publicationStatistics: HTMLElement;
+  private readonly buildZoneButton: HTMLButtonElement;
+  private readonly previewZoneButton: HTMLButtonElement;
+  private readonly stopPreviewButton: HTMLButtonElement;
+  private readonly exportZoneButton: HTMLButtonElement;
+  private readonly previewBanner: HTMLElement;
+  private readonly publicationLayerIds = new Set<string>();
+  private publicationLayersInitialized = false;
+  private defaultPublicationName = '';
   private readonly groupTransformFields = new Map<string, HTMLInputElement>();
   private readonly placeButton: HTMLButtonElement;
   private readonly count: HTMLElement;
@@ -462,6 +487,80 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     ioSection.appendChild(documentActions);
     this.body.appendChild(ioSection);
 
+    this.publicationSection = documentRef.createElement('details');
+    this.publicationSection.className =
+      'nature-placement-lab-section nature-placement-lab-publication';
+    const publicationTitle = documentRef.createElement('summary');
+    publicationTitle.textContent = t('hudChrome.naturePlacementLab.publicationPreviewSection');
+    this.publicationSection.appendChild(publicationTitle);
+    const publicationControls = documentRef.createElement('div');
+    publicationControls.className = 'nature-placement-lab-controls';
+    const zoneIdLabel = documentRef.createElement('label');
+    const zoneIdText = documentRef.createElement('span');
+    zoneIdText.textContent = t('hudChrome.naturePlacementLab.zoneId');
+    this.publicationZoneId = documentRef.createElement('input');
+    this.publicationZoneId.type = 'text';
+    this.publicationZoneId.value = 'laboratory-nature-zone';
+    this.publicationZoneId.autocomplete = 'off';
+    zoneIdLabel.append(zoneIdText, this.publicationZoneId);
+    const nameLabel = documentRef.createElement('label');
+    const nameText = documentRef.createElement('span');
+    nameText.textContent = t('hudChrome.naturePlacementLab.visibleName');
+    this.publicationName = documentRef.createElement('input');
+    this.publicationName.type = 'text';
+    this.defaultPublicationName = t('hudChrome.naturePlacementLab.defaultZoneName');
+    this.publicationName.value = this.defaultPublicationName;
+    this.publicationName.autocomplete = 'off';
+    nameLabel.append(nameText, this.publicationName);
+    publicationControls.append(zoneIdLabel, nameLabel);
+    const layerHeading = documentRef.createElement('p');
+    layerHeading.className = 'nature-placement-lab-publication-heading';
+    layerHeading.textContent = t('hudChrome.naturePlacementLab.layersToPublish');
+    this.publicationLayersRoot = documentRef.createElement('div');
+    this.publicationLayersRoot.className = 'nature-placement-lab-list';
+    const publicationActions = documentRef.createElement('div');
+    publicationActions.className = 'nature-placement-lab-actions';
+    this.buildZoneButton = button(
+      documentRef,
+      t('hudChrome.naturePlacementLab.buildZonePackage'),
+    );
+    this.previewZoneButton = button(
+      documentRef,
+      t('hudChrome.naturePlacementLab.previewCompiledZone'),
+    );
+    this.stopPreviewButton = button(documentRef, t('hudChrome.naturePlacementLab.stopPreview'));
+    this.exportZoneButton = button(
+      documentRef,
+      t('hudChrome.naturePlacementLab.exportZonePackage'),
+    );
+    publicationActions.append(
+      this.buildZoneButton,
+      this.previewZoneButton,
+      this.stopPreviewButton,
+      this.exportZoneButton,
+    );
+    this.publicationSummary = documentRef.createElement('div');
+    this.publicationSummary.className = 'nature-placement-lab-statistics';
+    this.publicationWarnings = documentRef.createElement('div');
+    this.publicationWarnings.className = 'nature-placement-lab-publication-warnings';
+    this.publicationStatistics = documentRef.createElement('div');
+    this.publicationStatistics.className = 'nature-placement-lab-statistics';
+    this.publicationSection.append(
+      publicationControls,
+      layerHeading,
+      this.publicationLayersRoot,
+      publicationActions,
+      this.publicationSummary,
+      this.publicationWarnings,
+      this.publicationStatistics,
+    );
+    this.body.appendChild(this.publicationSection);
+
+    this.previewBanner = documentRef.createElement('p');
+    this.previewBanner.className = 'nature-placement-lab-preview-banner';
+    this.previewBanner.textContent = t('hudChrome.naturePlacementLab.publishedZonePreview');
+    this.previewBanner.hidden = true;
+
     this.count = documentRef.createElement('p');
     this.count.className = 'nature-placement-lab-count';
     this.status = documentRef.createElement('p');
@@ -470,7 +569,7 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     const help = documentRef.createElement('p');
     help.className = 'nature-placement-lab-help';
     help.textContent = t('hudChrome.naturePlacementLab.help');
-    this.body.append(this.count, help, this.status);
+    this.body.append(this.previewBanner, this.count, help, this.status);
 
     const statisticsSection = section(
       documentRef,
@@ -595,11 +694,37 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     clearButton.addEventListener('click', () => this.callbacks.clear(), { signal });
     exportButton.addEventListener(
       'click',
-      () => downloadJson(this.documentRef, this.callbacks.exportJson()),
+      () => downloadJson(this.documentRef, this.callbacks.exportJson(), 'nature-placement-lab.json'),
       { signal },
     );
     importButton.addEventListener('click', () => this.fileInput.click(), { signal });
     this.fileInput.addEventListener('change', () => this.importSelectedFile(), { signal });
+    this.buildZoneButton.addEventListener(
+      'click',
+      () =>
+        this.callbacks.buildZonePackage({
+          zoneId: this.publicationZoneId.value,
+          name: this.publicationName.value,
+          includedLayerIds: [...this.publicationLayerIds],
+        }),
+      { signal },
+    );
+    this.previewZoneButton.addEventListener(
+      'click',
+      () => this.callbacks.previewCompiledZone(),
+      { signal },
+    );
+    this.stopPreviewButton.addEventListener('click', () => this.callbacks.stopPreview(), {
+      signal,
+    });
+    this.exportZoneButton.addEventListener(
+      'click',
+      () => {
+        const exported = this.callbacks.exportZonePackage();
+        if (exported) downloadJson(this.documentRef, exported.source, exported.fileName);
+      },
+      { signal },
+    );
     for (const eventName of ['mousedown', 'mouseup', 'contextmenu', 'keydown'] as const) {
       this.root.addEventListener(eventName, (event) => event.stopPropagation(), { signal });
     }
@@ -711,6 +836,7 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     this.renderLayers(view);
     this.renderGroups(view);
     this.renderStatistics(view);
+    this.renderPublication(view);
 
     this.gridButton.textContent = view.preferences.gridVisible
       ? t('hudChrome.naturePlacementLab.hideGrid')
@@ -738,12 +864,29 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     });
     this.status.textContent = view.status;
     this.status.dataset.severity = view.statusSeverity;
+    this.previewBanner.hidden = !view.previewActive;
+    if (view.previewActive) this.publicationSection.open = true;
+    for (const control of this.body.querySelectorAll<
+      HTMLButtonElement | HTMLInputElement | HTMLSelectElement
+    >('button, input, select')) {
+      if (!this.publicationSection.contains(control)) control.disabled = view.previewActive;
+    }
+    this.publicationZoneId.disabled = view.previewActive;
+    this.publicationName.disabled = view.previewActive;
+    for (const input of this.publicationLayersRoot.querySelectorAll<HTMLInputElement>('input')) {
+      input.disabled = view.previewActive;
+    }
+    this.buildZoneButton.disabled = view.previewActive;
+    this.previewZoneButton.disabled = view.previewActive || view.compiledZonePackage === null;
+    this.stopPreviewButton.disabled = !view.previewActive;
+    this.exportZoneButton.disabled = view.compiledZonePackage === null;
   }
 
   dispose(): void {
     this.disposed = true;
     this.layersAbort?.abort();
     this.groupsAbort?.abort();
+    this.publicationLayersAbort?.abort();
     this.abort.abort();
     this.root.remove();
   }
@@ -935,6 +1078,114 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
     );
   }
 
+  private renderPublication(view: NaturePlacementUiView): void {
+    this.publicationLayersAbort?.abort();
+    this.publicationLayersAbort = new AbortController();
+    const signal = this.publicationLayersAbort.signal;
+    const knownLayerIds = new Set(view.layers.map((layer) => layer.layerId));
+    for (const layerId of [...this.publicationLayerIds]) {
+      if (!knownLayerIds.has(layerId)) this.publicationLayerIds.delete(layerId);
+    }
+    if (!this.publicationLayersInitialized) {
+      for (const layer of view.layers) {
+        if (layer.visible) this.publicationLayerIds.add(layer.layerId);
+      }
+      this.publicationLayersInitialized = true;
+    }
+    const layerRows = view.layers.map((layer) => {
+      const selected = checkbox(
+        this.documentRef,
+        naturePlacementLayerDisplayName(layer.layerId, layer.name),
+        (checked) => {
+          if (checked) this.publicationLayerIds.add(layer.layerId);
+          else this.publicationLayerIds.delete(layer.layerId);
+        },
+        signal,
+      );
+      selected.input.checked = this.publicationLayerIds.has(layer.layerId);
+      return selected.label;
+    });
+    this.publicationLayersRoot.replaceChildren(...layerRows);
+
+    const zonePackage = view.compiledZonePackage;
+    const summaryLines = zonePackage
+      ? [
+          t('hudChrome.naturePlacementLab.packageSummary', {
+            name: zonePackage.name,
+            zoneId: zonePackage.zoneId,
+          }),
+          t('hudChrome.naturePlacementLab.packageSource', {
+            projectId: zonePackage.sourceProjectId,
+            version: formatNumber(zonePackage.sourceProjectVersion),
+          }),
+          t('hudChrome.naturePlacementLab.packageLayers', {
+            layers: zonePackage.includedLayerIds
+              .map(
+                (layerId) =>
+                  naturePlacementLayerDisplayName(
+                    layerId,
+                    view.layers.find((layer) => layer.layerId === layerId)?.name ?? layerId,
+                  ),
+              )
+              .join(', '),
+          }),
+        ]
+      : [t('hudChrome.naturePlacementLab.noCompiledPackage')];
+    this.publicationSummary.replaceChildren(
+      ...summaryLines.map((line) => {
+        const paragraph = this.documentRef.createElement('p');
+        paragraph.textContent = line;
+        return paragraph;
+      }),
+    );
+
+    const warningLines =
+      view.publicationWarnings.length > 0
+        ? view.publicationWarnings
+        : [t('hudChrome.naturePlacementLab.noPublicationWarnings')];
+    this.publicationWarnings.replaceChildren(
+      ...warningLines.map((line) => {
+        const paragraph = this.documentRef.createElement('p');
+        paragraph.textContent = line;
+        return paragraph;
+      }),
+    );
+
+    const statisticsLines = zonePackage
+      ? [
+          t('hudChrome.naturePlacementLab.packagePlacementCount', {
+            count: formatNumber(zonePackage.statistics.placementCount),
+          }),
+          t('hudChrome.naturePlacementLab.packageEstimatedTriangles', {
+            count: formatNumber(zonePackage.statistics.estimatedTriangles),
+          }),
+          t('hudChrome.naturePlacementLab.packageUniqueMediaBytes', {
+            count: formatNumber(zonePackage.statistics.uniqueMediaBytes),
+          }),
+          t('hudChrome.naturePlacementLab.packageBounds', {
+            maxX: formatNumber(zonePackage.bounds.maxX),
+            maxY: formatNumber(zonePackage.bounds.maxY),
+            maxZ: formatNumber(zonePackage.bounds.maxZ),
+            minX: formatNumber(zonePackage.bounds.minX),
+            minY: formatNumber(zonePackage.bounds.minY),
+            minZ: formatNumber(zonePackage.bounds.minZ),
+          }),
+          t('hudChrome.naturePlacementLab.packageAssets', {
+            assets: zonePackage.assetSummary
+              .map((entry) => `${entry.assetId}: ${formatNumber(entry.placementCount)}`)
+              .join(', '),
+          }),
+        ]
+      : [];
+    this.publicationStatistics.replaceChildren(
+      ...statisticsLines.map((line) => {
+        const paragraph = this.documentRef.createElement('p');
+        paragraph.textContent = line;
+        return paragraph;
+      }),
+    );
+  }
+
   private prompt(label: string, initialValue = ''): string | null {
     const value = this.documentRef.defaultView?.prompt(label, initialValue) ?? null;
     const normalized = value?.trim() ?? '';
@@ -970,6 +1221,11 @@ export class NaturePlacementUi implements NaturePlacementUiAdapter {
   }
 
   private relocalizeChrome(): void {
+    const previousDefaultName = this.defaultPublicationName;
+    this.defaultPublicationName = t('hudChrome.naturePlacementLab.defaultZoneName');
+    if (this.publicationName.value === previousDefaultName) {
+      this.publicationName.value = this.defaultPublicationName;
+    }
     for (const { key, node } of this.localizedTextNodes) node.data = t(key);
     for (const { element, key } of this.localizedAriaLabels) element.setAttribute('aria-label', t(key));
     if (this.view) this.update(this.view);

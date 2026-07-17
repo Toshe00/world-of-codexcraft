@@ -340,6 +340,15 @@ export const ko_KR: EnTranslations = {
       "statusGroupDuplicated": "그룹을 복제했습니다",
       "statusGroupDeleted": "그룹을 삭제했습니다"
     },
+    "publishedZoneLab": {
+      "title": "Published Zone Lab",
+      "zoneId": "{zoneId}",
+      "inactive": "Inactive",
+      "loading": "Loading",
+      "loaded": "Loaded",
+      "unloaded": "Unloaded",
+      "invalid": "Invalid"
+    },
     "spectate": {
       "banner": "{name} 관전 중"
     },

@@ -1,0 +1,130 @@
+{
+  "version": 2,
+  "projectId": "start-zone-nature-lab-project",
+  "name": "Start Zone Nature Lab Project",
+  "createdAt": "2026-07-17T12:00:00.000Z",
+  "modifiedAt": "2026-07-17T12:00:00.000Z",
+  "placements": [
+    {
+      "id": "lab-placement-001",
+      "assetId": "BirchTree_1",
+      "layerId": "layer-trees",
+      "position": {
+        "x": 20.5,
+        "y": 0.12305978975693627,
+        "z": -45.5
+      },
+      "rotationY": 0.39269908169872414,
+      "scale": 1,
+      "groundOffsetY": 0
+    },
+    {
+      "id": "lab-placement-002",
+      "assetId": "BirchTree_2",
+      "layerId": "layer-trees",
+      "position": {
+        "x": 26,
+        "y": 0.14131930003593868,
+        "z": -44.5
+      },
+      "rotationY": 5.969026041820607,
+      "scale": 1,
+      "groundOffsetY": 0
+    },
+    {
+      "id": "lab-placement-003",
+      "assetId": "Bush_Flowers",
+      "layerId": "layer-bushes",
+      "position": {
+        "x": 22.2,
+        "y": 0.37942089867609663,
+        "z": -41.5
+      },
+      "rotationY": 0.4487989505128276,
+      "scale": 1,
+      "groundOffsetY": -0.08
+    },
+    {
+      "id": "lab-placement-004",
+      "assetId": "DeadTree_2",
+      "layerId": "layer-dead-nature",
+      "position": {
+        "x": 25.5,
+        "y": -0.30549507576210355,
+        "z": -39.8
+      },
+      "rotationY": 5.890486225480862,
+      "scale": 1,
+      "groundOffsetY": 0
+    },
+    {
+      "id": "lab-placement-005",
+      "assetId": "Flower_1_Clump",
+      "layerId": "layer-flowers",
+      "position": {
+        "x": 20.2,
+        "y": 0.49466625319201574,
+        "z": -40.2
+      },
+      "rotationY": 5.934119456780721,
+      "scale": 1,
+      "groundOffsetY": 0
+    },
+    {
+      "id": "lab-placement-006",
+      "assetId": "Grass_Large",
+      "layerId": "layer-grass",
+      "position": {
+        "x": 23.8,
+        "y": 0.2330542054389088,
+        "z": -43
+      },
+      "rotationY": 0.5235987755982988,
+      "scale": 1,
+      "groundOffsetY": 0
+    }
+  ],
+  "layers": [
+    {
+      "layerId": "layer-trees",
+      "name": "Trees",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "layerId": "layer-bushes",
+      "name": "Bushes",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "layerId": "layer-flowers",
+      "name": "Flowers",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "layerId": "layer-grass",
+      "name": "Grass",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "layerId": "layer-dead-nature",
+      "name": "Dead Nature",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "groups": [],
+  "workArea": {
+    "center": {
+      "x": 23,
+      "y": 0.2,
+      "z": -43
+    },
+    "width": 12,
+    "depth": 12,
+    "notes": "Additive runtime laboratory demonstration near the Eastbrook start area."
+  }
+}

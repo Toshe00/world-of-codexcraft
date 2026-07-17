@@ -4865,6 +4865,38 @@
   .nature-placement-lab-status[data-severity="error"] {
     color: var(--color-text-error);
   }
+  .published-zone-lab-indicator {
+    position: fixed;
+    right: 12px;
+    bottom: 180px;
+    z-index: 69;
+    display: grid;
+    gap: 2px;
+    min-width: 150px;
+    padding: 6px 8px;
+    border: 1px solid var(--color-border-default);
+    border-radius: 2px;
+    background: var(--color-bg-panel);
+    color: var(--color-text-muted);
+    font: 10px/1.25 var(--body-font);
+    opacity: 0.82;
+    pointer-events: none;
+  }
+  .published-zone-lab-indicator strong {
+    color: var(--color-gold);
+    font-family: var(--title-font);
+    font-size: 11px;
+  }
+  .published-zone-lab-state {
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+  }
+  .published-zone-lab-indicator[data-state="loaded"] .published-zone-lab-state {
+    color: var(--color-text-success);
+  }
+  .published-zone-lab-indicator[data-state="invalid"] .published-zone-lab-state {
+    color: var(--color-text-error);
+  }
   @media (pointer: coarse) {
     #nature-placement-lab .btn,
     .nature-placement-lab-inspector input,

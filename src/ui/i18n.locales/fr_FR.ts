@@ -235,6 +235,13 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.naturePlacementLab.statusGroupRenamed': 'Groupe renommé',
   'hudChrome.naturePlacementLab.statusGroupDuplicated': 'Groupe dupliqué',
   'hudChrome.naturePlacementLab.statusGroupDeleted': 'Groupe supprimé',
+  'hudChrome.publishedZoneLab.title': 'Laboratoire de zone publiée',
+  'hudChrome.publishedZoneLab.zoneId': '{zoneId}',
+  'hudChrome.publishedZoneLab.inactive': 'Inactif',
+  'hudChrome.publishedZoneLab.loading': 'Chargement',
+  'hudChrome.publishedZoneLab.loaded': 'Chargé',
+  'hudChrome.publishedZoneLab.unloaded': 'Déchargé',
+  'hudChrome.publishedZoneLab.invalid': 'Invalide',
   'hudChrome.auraEffect.damageReduction': 'Réduit tous les dégâts subis de {pct} %',
   'hudChrome.auraEffect.guardianWard':
     'Le prochain coup ennemi fatal vous restaure à {pct} % de vos points de vie à la place',

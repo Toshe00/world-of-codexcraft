@@ -102,20 +102,83 @@ when replacement is intentional. The tool creates the output directory and print
 triangle, and unique-media statistics. It does not edit a map, server file, production manifest,
 package file, or Git state.
 
-## Why the normal map is unchanged
+## Laboratory runtime registry
 
-Phase 4G only produces, validates, previews, and exports a static visual package. No normal renderer
-or map registry loads published package files. The lab itself remains fail-closed behind development
-mode and `VITE_NATURE_PLACEMENT_LAB=1`. The normal game therefore keeps its existing world, spawns,
-collision, simulation, network behavior, and asset loading.
+Phase 4H adds the machine-readable development registry at
+`config/laboratory-published-zones.registry.json`. A registry entry records the `zoneId`, checked-in
+package path, `laboratory` status, enabled state, supported platforms, reason, and rollback strategy.
+It must explicitly keep production activation disabled.
 
-Before a first activation, a later phase must define the map-owned package registry, deployment and
-cache policy, terrain compatibility checks, streaming and render budgets, release provenance,
-cross-version migration, and production rollback. Gameplay or collision data must remain in their
-authoritative systems rather than entering this visual format.
+The client validates the whole registry before selecting an entry. Validation rejects duplicate ids,
+unknown statuses or platforms, production activation, remote or absolute paths, folder traversal,
+missing packages, invalid packages, and a package whose `zoneId` does not match its entry. A package
+path is only an exact key into the checked-in allowlist in `published_zone_catalog.ts`. It is never
+used to build an import path or URL.
+
+The first runtime artifact is generated from the checked-in editor fixture, not authored by hand:
+
+- Project: `tests/fixtures/nature_placement/start-zone-nature-lab.project.json`
+- Package: `config/laboratory-published-zones/start-zone-nature-lab.zone.json`
+- Zone id: `start-zone-nature-lab`
+- Bounds: X `20.2` to `26`, Y `-0.30549507576210355` to `0.49466625319201574`, Z `-45.5` to `-39.8`
+
+The group is on the real terrain near the built-in player start at X `2`, Z `-2`. It stays outside
+the village square, buildings, merchants, campfire, portals, quest props, and primary travel roads.
+It is purely additive and contains one placement of each of the six existing laboratory assets.
+
+## Runtime activation and lifecycle
+
+The runtime is available only when both of these conditions are true:
+
+- `import.meta.env.DEV`
+- `VITE_PUBLISHED_ZONE_LAB=1`
+
+`VITE_PUBLISHED_ZONE_ID` selects an enabled allowlisted registry entry. If it is omitted, the local
+development default is `start-zone-nature-lab`. An unknown id produces the `invalid` state and loads
+nothing. No value from a save, server, remote player, URL, or filesystem path reaches this selector.
+
+The `Renderer` dynamically imports the laboratory runtime only inside the literal development and
+feature-flag branch. The editor viewport is excluded. With the laboratory disabled, the registry and
+package module are not evaluated, no package GLB is requested or preloaded, no indicator or language
+listener is created, and no additional instance exists.
+
+The runtime measures the local player's XZ distance to the compiled bounds. It loads at 60 world
+units or nearer and unloads only beyond 90 units. This hysteresis prevents boundary churn. A logical
+generation token cancels an obsolete in-flight load before it can attach instances. GLB requests use
+the existing shared `loadGltf` promise cache. Unloading removes cloned groups and references without
+disposing or evicting shared geometries, materials, or cached GLBs.
+
+The small development indicator shows the zone id and one of `inactive`, `loading`, `loaded`,
+`unloaded`, or `invalid`. Its English and French text uses the existing i18n catalog and updates on
+the normal language-change event. Destruction removes both the indicator and its event listener.
+
+## Manual test
+
+From PowerShell at the repository root, run exactly:
+
+```powershell
+$env:VITE_PUBLISHED_ZONE_LAB="1"
+$env:VITE_PUBLISHED_ZONE_ID="start-zone-nature-lab"
+npm run dev
+```
+
+Choose **Play Offline**, then walk southeast from Eastbrook toward the registered bounds. The
+indicator should move from `loading` to `loaded`, all six placements should appear on the real
+terrain, and walking more than 90 units from the bounds should unload them.
+
+For the normal-mode comparison, use a fresh PowerShell session with neither variable set and run
+`npm run dev`. The original map, asset requests, instances, events, HUD, simulation, persistence,
+and networking remain unchanged.
 
 ## Rollback
 
-During preview, select **Stop Preview**. For a local publication, remove the generated output file
-or restore its previous local copy. No normal-map rollback is needed in phase 4G because no package
-is registered or loaded by the game.
+The immediate rollback is to unset `VITE_PUBLISHED_ZONE_LAB`, set the registry entry's `enabled`
+field to `false`, or remove its exact path from the local package allowlist, then restart the
+development client. No map, simulation, save, server, or network rollback is required because Phase
+4H never replaces or mutates the normal map.
+
+Before a complete village can ship, the editor project still needs the full approved village asset
+set, a reviewed full-layout package, terrain and landmark compatibility checks, render and streaming
+budgets, release provenance, production deployment policy, cross-version migration, and a production
+rollback plan. Gameplay, collision, spawns, NPCs, quests, and persistence must remain in their
+authoritative systems rather than entering this visual package format.

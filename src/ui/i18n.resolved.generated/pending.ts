@@ -196,7 +196,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "es_ES": [
     "hudChrome.naturePlacementLab.apply",
@@ -385,7 +392,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "fr_FR": [],
   "fr_CA": [],
@@ -577,7 +591,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "de_DE": [
     "hudChrome.naturePlacementLab.apply",
@@ -766,7 +787,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "zh_CN": [
     "hudChrome.naturePlacementLab.buildZonePackage",
@@ -806,7 +834,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "zh_TW": [
     "hudChrome.naturePlacementLab.buildZonePackage",
@@ -846,7 +881,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "ko_KR": [
     "hudChrome.naturePlacementLab.buildZonePackage",
@@ -886,7 +928,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "ja_JP": [
     "hudChrome.naturePlacementLab.buildZonePackage",
@@ -926,7 +975,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "pt_BR": [
     "hudChrome.naturePlacementLab.apply",
@@ -1115,7 +1171,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "ru_RU": [
     "hudChrome.naturePlacementLab.buildZonePackage",
@@ -1155,7 +1218,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "cs_CZ": [
     "hudChrome.naturePlacementLab.apply",
@@ -1344,7 +1414,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "nl_NL": [
     "hudChrome.naturePlacementLab.apply",
@@ -1533,7 +1610,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "pl_PL": [
     "hudChrome.naturePlacementLab.apply",
@@ -1722,7 +1806,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "id_ID": [
     "hudChrome.naturePlacementLab.apply",
@@ -1911,7 +2002,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "tr_TR": [
     "hudChrome.naturePlacementLab.apply",
@@ -2100,7 +2198,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "sv_SE": [
     "hudChrome.naturePlacementLab.apply",
@@ -2289,7 +2394,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "vi_VN": [
     "hudChrome.naturePlacementLab.apply",
@@ -2478,7 +2590,14 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ],
   "da_DK": [
     "hudChrome.naturePlacementLab.apply",
@@ -2667,6 +2786,13 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.naturePlacementLab.warningCompiledPackageStale",
     "hudChrome.naturePlacementLab.warningEmptyLayersIncluded",
     "hudChrome.naturePlacementLab.warningHiddenLayersIncluded",
-    "hudChrome.naturePlacementLab.zoneId"
+    "hudChrome.naturePlacementLab.zoneId",
+    "hudChrome.publishedZoneLab.inactive",
+    "hudChrome.publishedZoneLab.invalid",
+    "hudChrome.publishedZoneLab.loaded",
+    "hudChrome.publishedZoneLab.loading",
+    "hudChrome.publishedZoneLab.title",
+    "hudChrome.publishedZoneLab.unloaded",
+    "hudChrome.publishedZoneLab.zoneId"
   ]
 };

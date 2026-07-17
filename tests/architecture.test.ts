@@ -223,6 +223,7 @@ const RENDER_PURE_CORES = [
   'src/render/nature_placement_lab/placement_workspace_core.ts',
   'src/render/nameplate_view.ts',
   'src/render/net_interp_core.ts',
+  'src/render/published_zones/published_zone_runtime_core.ts',
   'src/render/terrain_region_core.ts',
   'src/render/water_core.ts',
 ].map((rel) => join(repoRoot, rel));

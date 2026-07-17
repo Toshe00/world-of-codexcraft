@@ -31,9 +31,13 @@ import {
   ZONES,
 } from '../sim/data';
 import type { DelveModuleId } from '../sim/delve_layout';
+import {
+  activeStartZoneTerrainPlateauPatches,
+  type TerrainEntityHeightSource,
+} from '../sim/start_zone_terrain_plateau';
 import type { BiomeId } from '../sim/types';
 import { ALL_CLASSES, type Entity, type SimEvent } from '../sim/types';
-import { groundHeight, terrainHeight, waterLevelAt, zoneBiomeAt } from '../sim/world';
+import { groundHeight, originalTerrainHeight, terrainHeight, waterLevelAt, zoneBiomeAt } from '../sim/world';
 import { attachAvatarFallback } from '../ui/avatar_fallback';
 import { tEntity } from '../ui/entity_i18n';
 import type { IWorld } from '../world_api';
@@ -50,7 +54,7 @@ import {
   setWeaponVfxViewportHeight,
 } from './characters';
 import { mechAssetsReady, preloadMechAssets } from './characters/assets';
-import { skinCount, visualKeyFor } from './characters/manifest';
+import { skinCount, VISUALS, visualKeyFor } from './characters/manifest';
 import {
   playerRangedAttackAlreadyStarted,
   playerRangedAttackStartsAtLaunch,
@@ -93,6 +97,7 @@ import {
 } from './laboratory_nature_palette';
 import { type LocoTrack, newLocoTrack, updateLocomotion } from './locomotion';
 import { buildMailboxPillar } from './mailbox';
+import { updateTerrainEntityRenderPosition } from './start_zone_terrain_plateau/entity_terrain_anchor';
 import { buildMotes, type MotesView } from './motes';
 import { COMBO_PIP_MAX } from './nameplate_combo';
 import { NameplatePainter } from './nameplate_painter';
@@ -603,6 +608,9 @@ export interface EntityView {
   // render-space position last frame, for true u/s locomotion speed
   lastX: number;
   lastZ: number;
+  // Last reliable source classification. It resolves exact-height ties while
+  // the development plateau is inactive or has no local terrain delta.
+  terrainHeightSource: TerrainEntityHeightSource;
   // locomotion-state hysteresis so a one-frame speed dip can't reset the
   // walk clip (see locomotion.ts)
   loco: LocoTrack;
@@ -818,6 +826,7 @@ export class Renderer {
   // id, so they get their own list and `pickGatherNode` instead of widening
   // `pick()`'s numeric-id contract.
   gatherNodeMeshes: THREE.Object3D[] = [];
+  private gatherNodesGroup: THREE.Group | null = null;
   camYaw = Math.PI;
   camPitch = 0.32;
   camDist = 12;
@@ -943,6 +952,7 @@ export class Renderer {
   private lightRankDirty = true; // viewLights set changed: rebuild the budget rank
   private effectivePointLights = 0;
   private propsView!: {
+    group: THREE.Group;
     update(
       camX: number,
       camY: number,
@@ -999,6 +1009,9 @@ export class Renderer {
   private startZoneTerrainSurvey: import('./start_zone_terrain_survey').TerrainSurveyController | null =
     null;
   private startZoneTerrainSurveyGeneration = 0;
+  private startZoneTerrainPlateau: import('./start_zone_terrain_plateau').StartZoneTerrainPlateauController | null =
+    null;
+  private startZoneTerrainPlateauGeneration = 0;
   private publishedZoneLab: PublishedZoneLabHandle | null = null;
   private publishedZoneLabGeneration = 0;
 
@@ -1376,6 +1389,40 @@ export class Renderer {
     }
     if (
       import.meta.env.DEV &&
+      import.meta.env.VITE_START_ZONE_TERRAIN_EDIT_LAB === '1' &&
+      !canvas.classList.contains('editor-3d-canvas')
+    ) {
+      const generation = ++this.startZoneTerrainPlateauGeneration;
+      void import('./start_zone_terrain_plateau')
+        .then(({ createStartZoneTerrainPlateau }) => {
+          if (generation !== this.startZoneTerrainPlateauGeneration) return;
+          const plateau = createStartZoneTerrainPlateau({
+            canvas: this.webgl.domElement,
+            entities: [...this.sim.entities.values()].map((entity) => ({
+              kind: entity.kind,
+              templateId: entity.templateId,
+              name: entity.name,
+              pos: { x: entity.pos.x, y: entity.pos.y, z: entity.pos.z },
+            })),
+            onTerrainChanged: () => this.refreshStartZoneTerrainPlateau(),
+            projectTerrain: (clientX, clientY) => {
+              const rect = this.webgl.domElement.getBoundingClientRect();
+              return this.terrainSurfacePoint(clientX - rect.left, clientY - rect.top);
+            },
+            sampleHeight: (x, z) => terrainHeight(x, z, this.sim.cfg.seed),
+            sampleOriginalHeight: (x, z) => originalTerrainHeight(x, z, this.sim.cfg.seed),
+            scene: this.scene,
+          });
+          if (generation !== this.startZoneTerrainPlateauGeneration) {
+            plateau?.dispose();
+            return;
+          }
+          this.startZoneTerrainPlateau = plateau;
+        })
+        .catch((error: unknown) => console.error('Starter zone terrain plateau lab failed to load', error));
+    }
+    if (
+      import.meta.env.DEV &&
       import.meta.env.VITE_PUBLISHED_ZONE_LAB === '1' &&
       !canvas.classList.contains('editor-3d-canvas')
     ) {
@@ -1471,6 +1518,7 @@ export class Renderer {
     this.scene.add(gatherNodes.group);
     // Baked into world space at build with no per-frame update(), same as props.
     freezeStaticMatrices(gatherNodes.group);
+    this.gatherNodesGroup = gatherNodes.group;
     this.gatherNodeMeshes = gatherNodes.group.children;
 
     // selection ring — a classic target reticle: a base ring plus four
@@ -1646,6 +1694,9 @@ export class Renderer {
   }
 
   dispose(): void {
+    this.startZoneTerrainPlateauGeneration++;
+    this.startZoneTerrainPlateau?.dispose();
+    this.startZoneTerrainPlateau = null;
     this.startZoneTerrainSurveyGeneration++;
     this.startZoneTerrainSurvey?.dispose();
     this.startZoneTerrainSurvey = null;
@@ -3752,6 +3803,7 @@ export class Renderer {
       lastOverheadEmoteKey: null,
       lastX: e.pos.x,
       lastZ: e.pos.z,
+      terrainHeightSource: e.id === this.sim.playerId ? 'modified' : 'original',
       skin: e.skin,
       mainhandItemId: e.mainhandItemId,
       // built skinless; the per-frame diff below applies e.weaponSkinId (and its VFX)
@@ -4365,6 +4417,7 @@ export class Renderer {
     }
     const now = performance.now();
     const selfPos = this.updateSelfRenderPosition(alpha, dt, selfAlphaLead, selfMotion);
+    const terrainPlateauEnabled = activeStartZoneTerrainPlateauPatches().some((patch) => patch.enabled);
     markPhase('setup');
 
     // dynamic worlds: create nearby views lazily and drop views for leavers or
@@ -4521,10 +4574,35 @@ export class Renderer {
       const ea = isSelf
         ? Math.min(1, alpha)
         : remoteEntityAlpha(now, e.netUpdatedAt, e.netInterval, alpha);
-      const x = isSelf ? selfPos.x : e.prevPos.x + (e.pos.x - e.prevPos.x) * ea;
-      const y = isSelf ? selfPos.y : e.prevPos.y + (e.pos.y - e.prevPos.y) * ea;
-      const z = isSelf ? selfPos.z : e.prevPos.z + (e.pos.z - e.prevPos.z) * ea;
-      v.group.position.set(x, y, z);
+      const seed = this.sim.cfg.seed;
+      const floatingVisual = VISUALS[visualKeyFor(e)]?.hover !== undefined;
+      const waterSurface = waterLevelAt(e.pos.x, e.pos.z);
+      const visualSwimming =
+        !e.dead &&
+        e.pos.y <= waterSurface - 0.5 &&
+        groundHeight(e.pos.x, e.pos.z, seed) < waterSurface - 0.8;
+      const terrainPosition = updateTerrainEntityRenderPosition({
+        authoritativePosition: e.pos,
+        dead: e.dead,
+        group: v.group,
+        hasHoverVisual: floatingVisual,
+        interpolationAlpha: ea,
+        isSelf,
+        jumping: e.jumping,
+        modifiedTerrainHeight: (sampleX, sampleZ) => terrainHeight(sampleX, sampleZ, seed),
+        onGround: e.onGround,
+        originalTerrainHeight: (sampleX, sampleZ) => originalTerrainHeight(sampleX, sampleZ, seed),
+        plateauEnabled: terrainPlateauEnabled,
+        previousHeightSource: v.terrainHeightSource,
+        previousPosition: e.prevPos,
+        selfPosition: isSelf ? selfPos : null,
+        snapshotUpdatedAt: e.netUpdatedAt,
+        swimming: visualSwimming,
+      });
+      v.terrainHeightSource = terrainPosition.heightSource;
+      const x = terrainPosition.interpolatedAuthoritativeX;
+      const y = terrainPosition.interpolatedAuthoritativeY;
+      const z = terrainPosition.interpolatedAuthoritativeZ;
       let facing = e.prevFacing + shortestAngle(e.prevFacing, e.facing) * facingAlpha(ea);
       if (id === p.id && renderFacingOverride !== null) {
         // Follow the camera-driven heading, easing in the one-time engage gap
@@ -5067,7 +5145,9 @@ export class Renderer {
     this.tickValeCupFx(dt);
     worldStart = markWorldPhase('vfx', worldStart);
 
-    this.updateCamera(selfPos, dt);
+    const selfView = this.views.get(p.id);
+    this.tmpV.set(selfPos.x, selfView?.group.position.y ?? selfPos.y, selfPos.z);
+    this.updateCamera(this.tmpV, dt);
     worldStart = markWorldPhase('camera', worldStart);
     // Fully-fogged terrain chunks / tree buckets are dropped before the
     // frustum; camera-ghost props hide against the current eye-to-camera ray.
@@ -5509,6 +5589,80 @@ export class Renderer {
     this.terrainView = buildTerrain(this.sim.cfg.seed);
     setRenderCategory(this.terrainView.group, 'terrain');
     this.scene.add(this.terrainView.group);
+  }
+
+  private replaceTerrainAnchoredGroup(old: THREE.Group, replacement: THREE.Group): void {
+    const liveGeometries = new Set<THREE.BufferGeometry>();
+    const liveMaterials = new Set<THREE.Material>();
+    const collectResources = (
+      root: THREE.Object3D,
+      geometries: Set<THREE.BufferGeometry>,
+      materials: Set<THREE.Material>,
+    ): void => {
+      root.traverse((object) => {
+        const renderObject = object as THREE.Object3D & {
+          geometry?: THREE.BufferGeometry;
+          material?: THREE.Material | THREE.Material[];
+        };
+        if (renderObject.geometry) geometries.add(renderObject.geometry);
+        const material = renderObject.material;
+        if (Array.isArray(material)) material.forEach((value) => materials.add(value));
+        else if (material) materials.add(material);
+      });
+    };
+    collectResources(replacement, liveGeometries, liveMaterials);
+    this.scene.remove(old);
+    const oldGeometries = new Set<THREE.BufferGeometry>();
+    const oldMaterials = new Set<THREE.Material>();
+    collectResources(old, oldGeometries, oldMaterials);
+    for (const geometry of oldGeometries) {
+      if (!liveGeometries.has(geometry)) geometry.dispose();
+    }
+    for (const material of oldMaterials) {
+      if (!liveMaterials.has(material)) material.dispose();
+    }
+    this.scene.add(replacement);
+  }
+
+  private refreshStartZoneTerrainPlateau(): void {
+    this.rebuildTerrain();
+
+    const seed = this.sim.cfg.seed;
+    const nextFoliage = buildFoliage(seed);
+    setRenderCategory(nextFoliage.group, 'foliage');
+    this.replaceTerrainAnchoredGroup(this.foliage.group, nextFoliage.group);
+    this.foliage = nextFoliage;
+    if (this.appliedBudgetLevels) {
+      this.foliage.setGrassQuality(this.appliedBudgetLevels.grass);
+      this.foliage.setModelQuality(this.appliedBudgetLevels.foliage);
+    }
+
+    const nextProps = buildProps(seed, (delveId) =>
+      tEntity({ kind: 'delve', id: delveId, field: 'name' }),
+    );
+    setRenderCategory(nextProps.group, 'props');
+    freezeStaticMatrices(nextProps.group);
+    for (const flame of nextProps.flames) flame.matrixAutoUpdate = true;
+    this.replaceTerrainAnchoredGroup(this.propsView.group, nextProps.group);
+    this.propsView = nextProps;
+    this.flames = [...nextProps.flames, ...this.valeCupStadium.flames];
+    this.fireLights = [...nextProps.fireLights, this.impactSite.light, ...this.valeCupStadium.lights];
+    this.lightRankDirty = true;
+
+    const nextGatherNodes = buildGatherNodes(seed);
+    setRenderCategory(nextGatherNodes.group, 'props');
+    freezeStaticMatrices(nextGatherNodes.group);
+    if (this.gatherNodesGroup) {
+      this.replaceTerrainAnchoredGroup(this.gatherNodesGroup, nextGatherNodes.group);
+    } else {
+      this.scene.add(nextGatherNodes.group);
+    }
+    this.gatherNodesGroup = nextGatherNodes.group;
+    this.gatherNodeMeshes = nextGatherNodes.group.children;
+
+    // Editor placements already retain their authored transform and base pivot;
+    // reSeat samples only the presentation terrain and never writes the map document.
+    this.placedAssetsView?.reSeat();
   }
 
   /**
